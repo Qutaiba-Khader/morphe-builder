@@ -57,15 +57,26 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
   "Override certificate pinning",
 ] }
 
+# Pre-release twin of [YouTube]: same recommended patches, but built from the patch
+# source's newest DEV bundle. `Clone app` appends ".morphe" to the package so it
+# installs alongside the stable build instead of replacing it, and the branding
+# options give it its own name and icon.
 [YouTube-Experimental]
-enabled = false
+enabled = true
 brand = "morphe-dev"
+package = "app.morphe.android.youtube.morphe"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 version = "exp"
-patcher-args = "-e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe'"
+patcher-args = "-e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
 
 [YouTube-Experimental.patches]
-"github:MorpheApp/morphe-patches" = { version = "dev" }
+"github:MorpheApp/morphe-patches" = { version = "dev", include = [
+  "Clone app",
+], exclude = [
+  "Change installer source",
+  "Disable Play Store updates",
+  "Override certificate pinning",
+] }
 
 [YT-Music-Experimental]
 enabled = false
@@ -78,15 +89,23 @@ patcher-args = "-e 'Change header' -Ocustom=icons/Music/header -e 'Custom brandi
 [YT-Music-Experimental.patches]
 "github:MorpheApp/morphe-patches" = { version = "dev" }
 
+# Pre-release twin of [Reddit] — see the note on [YouTube-Experimental].
 [Reddit-Experimental]
-enabled = false
+enabled = true
 brand = "morphe-dev"
+package = "com.reddit.frontpage.morphe"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 version = "exp"
-patcher-args = "-e 'Custom branding name for Reddit' -OappName='Reddit Morphe'"
+patcher-args = "-e 'Custom branding name for Reddit' -OappName='Reddit Morphe Dev'"
 
 [Reddit-Experimental.patches]
-"github:MorpheApp/morphe-patches" = { version = "dev" }
+"github:MorpheApp/morphe-patches" = { version = "dev", include = [
+  "Clone app",
+], exclude = [
+  "Change installer source",
+  "Disable Play Store updates",
+  "Override certificate pinning",
+] }
 
 [X-Twitter]
 enabled = false
