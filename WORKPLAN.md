@@ -58,6 +58,33 @@ not optional and not a one-off — it is repeated at the top of every phase, inc
 - [x] Flow-tracing code test from the real entry points (`main.py`, each workflow trigger)
       through to the published artefact, checking every feature is reachable and not just present.
 
+## Verified 2026-09-20
+
+Traced every entry point to its artefact, then confirmed each one by running it.
+
+| Entry point | Reaches | Result |
+|---|---|---|
+| `ci.yml` (10:00 UTC / dispatch) | `build.yml` → `main.py` → release | `26.09.20-morphe`, `youtube-morphe-v21.13.164-all.apk`, 128.4 MB |
+| `site.yml` (`workflow_run` after CI) | `gen_site.py` → `_site` → Pages | fired by itself after CI #1 and deployed |
+| `site.yml` (dispatch, 6-hourly, `workflow_call`) | same | all four paths exercised |
+| `catalog.yml` (weekly / dispatch) | `gen_catalog.py` → commit → calls `site.yml` | 8 sources, 359 packages, 0 failures |
+| `index.html` → `app.js` | `api/*.json` on the same origin | 21/21 checks, no script errors |
+
+Signing was verified against the artefact, not the config: the published APK reports
+`CN=Morphe`, SHA-256 `7687718c8b2e…7603`, which is this repo's key and not the one bundled
+upstream. The sha256 in `api/latest.json` matches the downloaded file.
+
+Three defects the trace found, all fixed:
+
+1. `gen_site.py` titled the app id, so the site read “Youtube”. It now takes the name from
+   `config.toml`.
+2. `catalog.yml` tested `git diff` on a path that is untracked on a fresh fork, so the very
+   first catalog would never have been committed. It stages first, then diffs `--cached`.
+3. A workflow called by `catalog.yml` checks out the commit that started the run, so the
+   catalog it had just pushed was deployed one run late. `site.yml` now checks out `main`.
+
+`tools/flow-test.mjs` re-runs the browser half of this against the live site at any time.
+
 ## Known characteristics
 
 - The stock APK comes from APKMirror, which is behind Cloudflare. The build starts a bypass
