@@ -1,5 +1,6 @@
 // Flow test: drive the published page exactly as a visitor would, against the LIVE site.
 // jsdom runs the real app.js; fetch hits the real Pages origin.
+import { readFileSync } from "node:fs";
 import { JSDOM, VirtualConsole } from "jsdom";
 
 const BASE = "https://qutaiba-khader.github.io/morphe-builder/";
@@ -128,6 +129,21 @@ for (const entry of obt.apps) {
   const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
   check(`obtainium/${entry.app}: deep link decodes to the same config`,
     decoded.url === cfg.url && decoded.id === cfg.id);
+}
+
+// The README carries the same one-tap links; they must not drift from the generated ones.
+let readme = null;
+try {
+  readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
+} catch {
+  console.log("SKIP  obtainium: README drift check (run from inside the repo to enable it)");
+}
+if (readme !== null) {
+  check("obtainium: README add-all link matches the generated one", readme.includes(obt.add_all_url));
+  for (const entry of obt.apps) {
+    check(`obtainium/${entry.app}: README add link matches the generated one`,
+      readme.includes(entry.add_url));
+  }
 }
 
 // --- api tab ----------------------------------------------------------------
