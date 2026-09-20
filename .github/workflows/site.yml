@@ -7,6 +7,13 @@ on:
   workflow_run:
     workflows: [CI]
     types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'tools/gen_site.py'
+      - 'data/catalog.json'
+      - 'config.toml'
   workflow_dispatch:
   workflow_call:
   schedule:
