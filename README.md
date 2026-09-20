@@ -1,3 +1,26 @@
+# morphe-builder
+
+Patched APKs built automatically on GitHub Actions with [Morphe](https://morphe.software)
+patches. Currently building **YouTube**; every other app is one line away.
+
+| | |
+|---|---|
+| 📥 **Downloads** | [Releases](https://github.com/Qutaiba-Khader/morphe-builder/releases) |
+| 🌐 **Site** | <https://qutaiba-khader.github.io/morphe-builder/> |
+| 🔌 **JSON API** | [`api/latest.json`](https://qutaiba-khader.github.io/morphe-builder/api/latest.json) · [`api/index.json`](https://qutaiba-khader.github.io/morphe-builder/api/index.json) · [`api/catalog.json`](https://qutaiba-khader.github.io/morphe-builder/api/catalog.json) |
+| ➕ **Add an app** | [ADD.md](ADD.md) — four lines in [`config.toml`](config.toml) |
+| 🗂 **What can be patched** | [`data/catalog.json`](data/catalog.json), refreshed by the **Catalog** workflow |
+| 🧭 **Plan and decisions** | [WORKPLAN.md](WORKPLAN.md) |
+
+Builds run daily at 10:00 UTC and only when the app or its patches actually moved. The APKs are
+signed with this repository's own key, held in Actions secrets — so an update installs cleanly
+over a previous build from here, but not over one from another builder.
+
+---
+
+<details>
+<summary><b>Upstream README (nvbangg/builder-for-morphe)</b></summary>
+
 ## [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe)
 
 <div align="center">
@@ -91,4 +114,6 @@ This project is open-source and distributed under the **[GNU GPLv3](LICENSE)** l
 - [This project](https://github.com/nvbangg/builder-for-morphe) is not affiliated with [Morphe](https://morphe.software/) or any authors mentioned here.
 - This project is intended for educational and research purposes only, and is not responsible for any issues arising from its use.
 - This repository does not provide pre-patched APKs; it is only a tool to conveniently use publicly available patch bundles via GitHub Actions to ensure security and transparency.
+</details>
+
 </details>

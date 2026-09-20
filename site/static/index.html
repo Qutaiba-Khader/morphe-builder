@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Morphe Builder</title>
+<meta name="description" content="Patched APKs built automatically with Morphe patches." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Morphe Builder</h1>
+    <p class="sub">Patched APKs, rebuilt automatically whenever the app or its patches move.</p>
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="builds" role="tab">Builds</button>
+      <button class="tab" data-tab="catalog" role="tab">Catalog</button>
+      <button class="tab" data-tab="api" role="tab">API</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="builds" class="panel is-active">
+    <div id="apps" class="grid" aria-live="polite">
+      <p class="muted">Loading builds…</p>
+    </div>
+  </section>
+
+  <section id="catalog" class="panel">
+    <p class="muted lead">
+      Every patch source referenced by <code>config.toml</code>, and the apps it can patch.
+      Use it to decide what to add — see <a href="https://github.com/Qutaiba-Khader/morphe-builder/blob/main/ADD.md">ADD.md</a>.
+    </p>
+    <input id="catalog-search" type="search" placeholder="Search an app, package or patch source…" autocomplete="off" />
+    <div id="catalog-body"><p class="muted">Loading catalog…</p></div>
+  </section>
+
+  <section id="api" class="panel">
+    <p class="lead">Static JSON on this same origin. CORS is open, there is no rate limit and no key.</p>
+    <div id="api-body"></div>
+    <h3>Example</h3>
+    <pre><code>curl -s <span class="api-base">…</span>api/latest.json | jq '.apps.youtube.files[0].url'</code></pre>
+  </section>
+
+</main>
+
+<footer class="wrap foot">
+  <span id="generated" class="muted"></span>
+  <a href="https://github.com/Qutaiba-Khader/morphe-builder">Repository</a>
+  <a href="https://github.com/Qutaiba-Khader/morphe-builder/releases">Releases</a>
+  <a href="https://morphe.software">Morphe</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,4 +1,21 @@
-# Configuration guide: https://github.com/nvbangg/builder-for-morphe/blob/main/CONTRIBUTING.md
+# ---------------------------------------------------------------------------
+#  HOW TO ADD AN APP  ->  see ADD.md
+#
+#  Turn an app on : find its block below and set  enabled = true
+#  Add a new app  : copy this block to the end of the file
+#
+#      [My-App]
+#      enabled = true
+#      apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
+#
+#      [My-App.patches]
+#      "github:<owner>/<patches-repo>" = []     # [] = every patch in the bundle
+#
+#  Which apps a patch source covers, and the exact patch names, are listed in
+#  the generated catalog:  https://qutaiba-khader.github.io/morphe-builder/
+#
+#  Full option reference: CONTRIBUTING.md
+# ---------------------------------------------------------------------------
 
 strict-sigcheck = false
 
@@ -10,7 +27,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 "github:MorpheApp/morphe-patches" = []
 
 [YT-Music]
-enabled = true
+enabled = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
 arch = "both"
 
@@ -18,7 +35,7 @@ arch = "both"
 "github:MorpheApp/morphe-patches" = []
 
 [Reddit]
-enabled = true
+enabled = false
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 [Reddit.patches]
@@ -56,7 +73,7 @@ patcher-args = "-e 'Custom branding name for Reddit' -OappName='Reddit Morphe'"
 "github:MorpheApp/morphe-patches" = { version = "dev" }
 
 [X-Twitter]
-enabled = true
+enabled = false
 brand = "piko"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter"
 
@@ -64,7 +81,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter"
 "github:crimera/piko" = ["Browse tweet object", "Dynamic color"]
 
 [Instagram]
-enabled = true
+enabled = false
 brand = "piko"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/instagram/instagram-instagram"
 arch = "arm64-v8a"
