@@ -190,10 +190,17 @@ def _escape(text: str) -> str:
 
 
 def version_regex(filename: str, version: str, arch: str) -> str:
-    """Anchored on the real asset name, so it cannot match anything else."""
+    """Matched against the whole APK URL, not the filename.
+
+    Obtainium runs this over the full decoded link
+    (`https://github.com/.../youtube-morphe-v21.13.164-all.apk`), so it must NOT
+    be anchored with `^` - `allMatches` returning nothing is what raises
+    "Could not determine release version". The app prefix still keeps it from
+    matching another app's link.
+    """
     suffix = f"-v{version}-{arch}.apk"
     prefix = filename[: -len(suffix)] if filename.endswith(suffix) else filename.split("-v")[0]
-    return f"^{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
+    return f"{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
 
 
 def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, Any],

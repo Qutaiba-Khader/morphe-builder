@@ -112,19 +112,29 @@ check("obtainium: an entry per app", obt.apps.length === cards.length, `${obt.ap
 for (const entry of obt.apps) {
   const cfg = entry.config;
   const settings = JSON.parse(cfg.additionalSettings);
-  const apkName = entry.apk.split("/").pop();
-  const m = new RegExp(settings.versionExtractionRegEx).exec(apkName);
   check(`obtainium/${entry.app}: config is complete`,
     !!cfg.url && !!cfg.name && !!cfg.author && !!cfg.id, JSON.stringify({ id: cfg.id, author: cfg.author }));
-  check(`obtainium/${entry.app}: version regex yields the app version`,
-    m?.[1] === entry.version, `${apkName} -> ${m?.[1]} (want ${entry.version})`);
 
+  // Replay exactly what Obtainium's HTML source does:
+  //   fetch the page -> keep links matching apkFilterRegEx -> take the LAST one
+  //   -> run versionExtractionRegEx over the whole DECODED URL (not the filename)
+  //      (lib/app_sources/html.dart; extractVersion in lib/services/version_service.dart
+  //       throws NoVersionError -> "Could not determine release version" on no match)
   const page = await fetch(entry.source_url);
   const body = await page.text();
-  const links = [...body.matchAll(/href="([^"]+\.apk)"/g)].map((x) => x[1]);
+  const all = [...body.matchAll(/href="([^"]+)"/g)].map((x) => x[1]);
+  const links = all.filter((u) => new RegExp(settings.apkFilterRegEx).test(u));
   check(`obtainium/${entry.app}: endpoint serves exactly one apk link`,
     page.ok && links.length === 1, `HTTP ${page.status}, ${links.length} link(s)`);
   check(`obtainium/${entry.app}: that link is the current build`, links[0] === entry.apk);
+
+  const target = decodeURI(links[links.length - 1] ?? "");
+  const matches = [...target.matchAll(new RegExp(settings.versionExtractionRegEx, "g"))];
+  const got = matches.at(-1)?.[Number(settings.matchGroupToUse)];
+  check(`obtainium/${entry.app}: version regex matches the whole APK URL`,
+    matches.length > 0, matches.length ? `${matches.length} match(es)` : `NO MATCH against ${target}`);
+  check(`obtainium/${entry.app}: extracted version is the app version`,
+    got === entry.version, `${got} (want ${entry.version})`);
 
   const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
   check(`obtainium/${entry.app}: deep link decodes to the same config`,
