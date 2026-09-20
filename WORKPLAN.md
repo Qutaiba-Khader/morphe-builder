@@ -85,6 +85,26 @@ Three defects the trace found, all fixed:
 
 `tools/flow-test.mjs` re-runs the browser half of this against the live site at any time.
 
+## Phase 6 — Reddit and Obtainium (2026-09-20)
+
+- [x] Reddit enabled; `reddit-morphe-v2026.14.0-all.apk` published alongside YouTube.
+      Enabling an app under an existing brand does not look "new" to the daily update check,
+      so the first build needs **Build all apps** — now documented in the README and ADD.md.
+- [x] Obtainium endpoints. Its GitHub source versions an app by the release **tag**, which here
+      is a date, so it would announce an update on every release. Its HTML source runs
+      `versionExtractionRegEx` over the APK link instead, which carries the real app version, so
+      each app gets `obtainium/<id>.html` holding exactly one APK link, plus
+      `api/obtainium.json` with a ready-made config, deep link and one-tap add URL. Settings key
+      names were taken from Obtainium's own source (`lib/providers/source_provider.dart`,
+      `lib/app_sources/html.dart`), not guessed, and Python's `re.escape` output is stripped of
+      `\-` because Dart's RegExp rejects it in unicode mode.
+- [x] `config.toml` gained an optional `package` per app — the Android package name the deep
+      link needs.
+- [x] Flow test extended to 35 checks, all passing against the live site, including decoding
+      each deep link and running each version regex against the real filename.
+- [x] README now documents the four schedules, every endpoint with an example response, and
+      the Obtainium setup.
+
 ## Known characteristics
 
 - The stock APK comes from APKMirror, which is behind Cloudflare. The build starts a bypass

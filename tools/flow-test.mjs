@@ -31,12 +31,19 @@ const $ = (s) => doc.querySelector(s);
 const $$ = (s) => [...doc.querySelectorAll(s)];
 
 // --- builds tab -------------------------------------------------------------
-const cards = $$("#apps .card");
-check("builds: a card rendered", cards.length > 0, `${cards.length} card(s)`);
+const index = await (await fetch(BASE + "api/index.json")).json();
+const configNames = new Set(index.apps.map((a) => a.name));
 
-const card = cards[0];
-const title = card?.querySelector("h2 span")?.textContent ?? "";
-check("builds: app name from config.toml", title === "YouTube", `got "${title}"`);
+const cards = $$("#apps .card");
+check("builds: a card per app", cards.length === index.apps.length, `${cards.length} card(s)`);
+
+const titleOf = (c) => c.querySelector("h2 span")?.textContent ?? "";
+check("builds: names come from config.toml, capitalisation intact",
+  cards.every((c) => configNames.has(titleOf(c))) && configNames.has("YouTube"),
+  cards.map(titleOf).join(", "));
+
+// use YouTube for the per-card assertions so they do not depend on sort order
+const card = cards.find((c) => titleOf(c) === "YouTube") ?? cards[0];
 check("builds: version shown", /^v\d/.test(card?.querySelector(".ver")?.textContent ?? ""), card?.querySelector(".ver")?.textContent);
 
 const dl = card?.querySelector("a.dl");
