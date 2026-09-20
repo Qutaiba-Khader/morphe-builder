@@ -44,6 +44,27 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
   universal patches (`Change installer source`, `Clone app`, `Disable Play Store updates`,
   `Override certificate pinning`) are kept off here.
 
+## Add a pre-release twin of an app
+
+Copy the app's block, then change four things:
+
+```toml
+[My-App-Experimental]
+enabled = true
+brand = "morphe-dev"                       # own brand = own release tag and own update check
+package = "com.example.app.morphe"         # Clone app appends ".morphe"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
+version = "exp"                            # allow versions only the dev patches support
+patcher-args = "-e 'Custom branding' -OcustomName='My App Dev'"
+
+[My-App-Experimental.patches]
+"github:<owner>/<patches-repo>" = { version = "dev", include = ["Clone app"] }
+```
+
+`version = "dev"` takes the source's newest pre-release. `Clone app` is what lets it sit next to
+the stable build instead of replacing it — drop it if you would rather the pre-release replace
+the stable app.
+
 ## Add a patch source
 
 A source is the key inside the app's `.patches` table — `github:owner/repo` or

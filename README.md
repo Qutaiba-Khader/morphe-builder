@@ -3,7 +3,22 @@
 Patched APKs built automatically on GitHub Actions with [Morphe](https://morphe.software)
 patches. Nothing runs on private hardware — GitHub's runners do the whole build.
 
-**Building now:** YouTube · Reddit. Every other app is one line in [`config.toml`](config.toml).
+**Building now:** YouTube and Reddit, each in **two versions** — a stable build from the patch
+source's latest release, and a pre-release build from its newest dev bundle. Every other app is
+one line in [`config.toml`](config.toml).
+
+| | Stable | Pre-release |
+|---|---|---|
+| Patches | latest release, e.g. `v1.43.0` | newest dev build, e.g. `v1.44.0-dev.11` |
+| Release tag | `YY.MM.DD-morphe` | `YY.MM.DD-morphe-dev`, marked pre-release |
+| App name | YouTube | YouTube Morphe Dev, own icon |
+| Package | `app.morphe.android.youtube` | same **+ `.morphe`** |
+| On the phone | — | installs **next to** the stable one, not over it |
+
+The two are separate apps on the device, so you can run the stable build and try the
+pre-release without losing anything. That is the `Clone app` patch; its own description warns it
+"does not work with all apps and may cause app crashes", so if a pre-release build misbehaves,
+that is the first thing to suspect.
 
 | | |
 |---|---|
