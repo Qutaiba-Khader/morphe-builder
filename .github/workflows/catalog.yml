@@ -35,13 +35,14 @@ jobs:
 
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/catalog.json; then
+          git add data/catalog.json
+          # --cached, so a catalog.json that does not exist upstream yet still counts
+          if git diff --cached --quiet -- data/catalog.json; then
             echo "catalog unchanged"
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catalog.json
           git commit -m "chore(catalog): refresh patch source catalog"
           git push
 

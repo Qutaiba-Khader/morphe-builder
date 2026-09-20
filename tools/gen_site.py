@@ -17,6 +17,7 @@ import os
 import re
 import shutil
 import sys
+import tomllib
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -67,9 +68,24 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def display_names() -> dict[str, str]:
+    """app id -> the name as written in config.toml, so 'youtube' reads 'YouTube'."""
+    config = ROOT / "config.toml"
+    if not config.exists():
+        return {}
+    data = tomllib.loads(config.read_text(encoding="utf-8"))
+    names: dict[str, str] = {}
+    for table, body in data.items():
+        if isinstance(body, dict):
+            name = str(body.get("app-name", table.replace("-", " ")))
+            names[slug(name)] = name
+    return names
+
+
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first."""
     apps: dict[str, dict[str, Any]] = {}
+    names = display_names()
     for rel in releases:
         published = rel.get("published_at") or rel.get("created_at") or ""
         for asset in rel.get("assets", []):
@@ -79,7 +95,12 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             app_id = slug(m["app"])
             app = apps.setdefault(
                 app_id,
-                {"id": app_id, "name": m["app"].replace("-", " ").title(), "brand": m["brand"], "builds": {}},
+                {
+                    "id": app_id,
+                    "name": names.get(app_id, m["app"].replace("-", " ").title()),
+                    "brand": m["brand"],
+                    "builds": {},
+                },
             )
             key = (m["version"], rel["tag_name"])
             build = app["builds"].setdefault(
