@@ -34,8 +34,12 @@ CATALOG_FILE = ROOT / "data" / "catalog.json"
 OUT_DIR = ROOT / "_site"
 
 ARCHES = ("all", "arm64-v8a", "armeabi-v7a", "x86_64", "x86", "universal")
+# <stem>-v<version>-<arch>.apk, where the stem is "<app name>-<brand>" with both
+# lowercased and spaces hyphenated (src/core/builder.py). The brand itself can
+# contain a hyphen ("morphe-dev"), so the stem is split against config.toml
+# rather than guessed.
 ASSET_RE = re.compile(
-    r"^(?P<app>.+?)-(?P<brand>[^-]+)-v(?P<version>.+)-(?P<arch>" + "|".join(ARCHES) + r")\.apk$",
+    r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>" + "|".join(ARCHES) + r")\.apk$",
     re.IGNORECASE,
 )
 
@@ -73,41 +77,65 @@ def slug(text: str) -> str:
 
 
 def app_config() -> dict[str, dict[str, str]]:
-    """app id -> {name, package} as written in config.toml.
+    """filename stem -> {id, name, brand, package}, straight from config.toml.
 
-    The name keeps its capitalisation ('YouTube', not 'Youtube'); the optional
-    `package` is the Android package name, needed for an Obtainium deep link.
+    The stem is how builder.py names the output: the app name and the brand,
+    lowercased with spaces hyphenated. Keying on it means a brand containing a
+    hyphen ("morphe-dev") still splits correctly, and the name keeps its
+    capitalisation ("YouTube", not "Youtube").
     """
     config = ROOT / "config.toml"
     if not config.exists():
         return {}
     data = tomllib.loads(config.read_text(encoding="utf-8"))
+    default_brand = str(data.get("brand", "Morphe"))
     out: dict[str, dict[str, str]] = {}
     for table, body in data.items():
-        if isinstance(body, dict):
-            name = str(body.get("app-name", table.replace("-", " ")))
-            out[slug(name)] = {"name": name, "package": str(body.get("package", ""))}
+        if not isinstance(body, dict):
+            continue
+        name = str(body.get("app-name", table.replace("-", " ")))
+        brand = str(body.get("brand", default_brand))
+        stem = f"{name.lower().replace(' ', '-')}-{brand.lower().replace(' ', '-')}"
+        out[stem] = {
+            "id": slug(name),
+            "name": name,
+            "brand": brand,
+            "package": str(body.get("package", "")),
+        }
     return out
 
 
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first."""
     apps: dict[str, dict[str, Any]] = {}
-    names = app_config()
+    config = app_config()
     for rel in releases:
         published = rel.get("published_at") or rel.get("created_at") or ""
         for asset in rel.get("assets", []):
             m = ASSET_RE.match(asset["name"])
             if not m:
                 continue
-            app_id = slug(m["app"])
+
+            entry = config.get(m["stem"].lower())
+            if entry is None:
+                # An app no longer in config.toml but still in an old release:
+                # fall back to "everything before the last hyphen is the app".
+                app_part, _, brand = m["stem"].rpartition("-")
+                entry = {
+                    "id": slug(app_part or m["stem"]),
+                    "name": (app_part or m["stem"]).replace("-", " ").title(),
+                    "brand": brand or "",
+                    "package": "",
+                }
+
+            app_id = entry["id"]
             app = apps.setdefault(
                 app_id,
                 {
                     "id": app_id,
-                    "name": names.get(app_id, {}).get("name") or m["app"].replace("-", " ").title(),
-                    "package": names.get(app_id, {}).get("package", ""),
-                    "brand": m["brand"],
+                    "name": entry["name"],
+                    "package": entry["package"],
+                    "brand": entry["brand"],
                     "builds": {},
                 },
             )
