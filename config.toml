@@ -6,6 +6,7 @@
 #
 #      [My-App]
 #      enabled = true
+#      package = "com.example.app"              # optional, adds an Obtainium button
 #      apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 #
 #      [My-App.patches]
@@ -21,6 +22,7 @@ strict-sigcheck = false
 
 [YouTube]
 enabled = true
+package = "com.google.android.youtube"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 
 [YouTube.patches]
@@ -36,6 +38,7 @@ arch = "both"
 
 [Reddit]
 enabled = true
+package = "com.reddit.frontpage"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 [Reddit.patches]

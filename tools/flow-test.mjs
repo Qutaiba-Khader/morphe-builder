@@ -88,6 +88,41 @@ check("catalog: search filters the list", visible.length > 0 && visible.length <
 search.value = "";
 search.dispatchEvent(new window.Event("input"));
 
+// --- obtainium --------------------------------------------------------------
+const obtBtn = card?.querySelector("a.dl.alt");
+check("obtainium: add button on the card", obtBtn?.textContent.includes("Add to Obtainium"), obtBtn?.textContent);
+check("obtainium: button targets the redirect service",
+  (obtBtn?.href ?? "").startsWith("https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F"));
+
+const allLink = $("#obtainium-all");
+check("obtainium: add-all link revealed",
+  !allLink?.hidden && (allLink?.href ?? "").includes("obtainium%3A%2F%2Fapps%2F"));
+
+const obt = await (await fetch(BASE + "api/obtainium.json")).json();
+check("obtainium: an entry per app", obt.apps.length === cards.length, `${obt.apps.length} entr(ies)`);
+
+for (const entry of obt.apps) {
+  const cfg = entry.config;
+  const settings = JSON.parse(cfg.additionalSettings);
+  const apkName = entry.apk.split("/").pop();
+  const m = new RegExp(settings.versionExtractionRegEx).exec(apkName);
+  check(`obtainium/${entry.app}: config is complete`,
+    !!cfg.url && !!cfg.name && !!cfg.author && !!cfg.id, JSON.stringify({ id: cfg.id, author: cfg.author }));
+  check(`obtainium/${entry.app}: version regex yields the app version`,
+    m?.[1] === entry.version, `${apkName} -> ${m?.[1]} (want ${entry.version})`);
+
+  const page = await fetch(entry.source_url);
+  const body = await page.text();
+  const links = [...body.matchAll(/href="([^"]+\.apk)"/g)].map((x) => x[1]);
+  check(`obtainium/${entry.app}: endpoint serves exactly one apk link`,
+    page.ok && links.length === 1, `HTTP ${page.status}, ${links.length} link(s)`);
+  check(`obtainium/${entry.app}: that link is the current build`, links[0] === entry.apk);
+
+  const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
+  check(`obtainium/${entry.app}: deep link decodes to the same config`,
+    decoded.url === cfg.url && decoded.id === cfg.id);
+}
+
 // --- api tab ----------------------------------------------------------------
 $$(".tab").find((t) => t.dataset.tab === "api")?.click();
 await sleep(300);

@@ -19,6 +19,7 @@ import shutil
 import sys
 import tomllib
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -68,24 +69,28 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-def display_names() -> dict[str, str]:
-    """app id -> the name as written in config.toml, so 'youtube' reads 'YouTube'."""
+def app_config() -> dict[str, dict[str, str]]:
+    """app id -> {name, package} as written in config.toml.
+
+    The name keeps its capitalisation ('YouTube', not 'Youtube'); the optional
+    `package` is the Android package name, needed for an Obtainium deep link.
+    """
     config = ROOT / "config.toml"
     if not config.exists():
         return {}
     data = tomllib.loads(config.read_text(encoding="utf-8"))
-    names: dict[str, str] = {}
+    out: dict[str, dict[str, str]] = {}
     for table, body in data.items():
         if isinstance(body, dict):
             name = str(body.get("app-name", table.replace("-", " ")))
-            names[slug(name)] = name
-    return names
+            out[slug(name)] = {"name": name, "package": str(body.get("package", ""))}
+    return out
 
 
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first."""
     apps: dict[str, dict[str, Any]] = {}
-    names = display_names()
+    names = app_config()
     for rel in releases:
         published = rel.get("published_at") or rel.get("created_at") or ""
         for asset in rel.get("assets", []):
@@ -97,7 +102,8 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                 app_id,
                 {
                     "id": app_id,
-                    "name": names.get(app_id, m["app"].replace("-", " ").title()),
+                    "name": names.get(app_id, {}).get("name") or m["app"].replace("-", " ").title(),
+                    "package": names.get(app_id, {}).get("package", ""),
                     "brand": m["brand"],
                     "builds": {},
                 },
@@ -143,10 +149,127 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         result[app_id] = {
             "id": app_id,
             "name": app["name"],
+            "package": app["package"],
             "brand": app["brand"],
             "builds": list(unique.values()),
         }
     return result
+
+
+# ----------------------------------------------------------------- obtainium
+#
+# Obtainium's GitHub source takes its version from the release TAG, which here
+# is a date (26.09.20-morphe) - so every release would look like an update even
+# when the APK is unchanged. Its HTML source instead runs
+# `versionExtractionRegEx` over the APK link, which carries the real app
+# version. So each app gets a tiny HTML page holding exactly one .apk link
+# (the HTML source takes the LAST matching link on the page) and a config that
+# extracts the version from that link's filename.
+
+OBTAINIUM_REDIRECT = "https://apps.obtainium.imranr.dev/redirect?r="
+
+PAGE = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>{name} {version}</title>
+<meta name="app-version" content="{version}">
+<meta name="robots" content="noindex"></head>
+<body>
+<h1>{name}</h1>
+<p>Latest version: <b>{version}</b> ({arch}) &mdash; built {published}</p>
+<p><a href="{url}">{filename}</a></p>
+<p>Obtainium endpoint for <a href="../">morphe-builder</a>. One APK link only,
+so Obtainium always picks this build.</p>
+</body></html>
+"""
+
+
+def _escape(text: str) -> str:
+    # Dart's RegExp is ECMAScript: `\-` is only legal outside unicode mode, and
+    # Python escapes hyphens. Leave them alone; they are not special here.
+    return re.escape(text).replace("\\-", "-")
+
+
+def version_regex(filename: str, version: str, arch: str) -> str:
+    """Anchored on the real asset name, so it cannot match anything else."""
+    suffix = f"-v{version}-{arch}.apk"
+    prefix = filename[: -len(suffix)] if filename.endswith(suffix) else filename.split("-v")[0]
+    return f"^{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
+
+
+def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, Any],
+                    site_url: str, repo: str, suffix: str = "") -> dict[str, Any]:
+    page = f"obtainium/{app['id']}{suffix}.html"
+    settings = {
+        "versionExtractionRegEx": version_regex(file["name"], build["version"], file["arch"]),
+        "matchGroupToUse": "1",
+        "apkFilterRegEx": "\\.apk$",
+    }
+    label = app["name"] if not suffix else f"{app['name']} ({file['arch']})"
+    config: dict[str, Any] = {
+        "id": app.get("package") or "",
+        "url": site_url + page,
+        "author": repo.split("/")[0],
+        "name": f"{label} ({app['brand'].title()})",
+        "additionalSettings": json.dumps(settings, separators=(",", ":")),
+    }
+    if not config["id"]:
+        config.pop("id")
+    encoded = urllib.parse.quote(json.dumps(config, separators=(",", ":")), safe="")
+    deep = f"obtainium://app/{encoded}"
+    return {
+        "app": app["id"],
+        "name": label,
+        "arch": file["arch"],
+        "version": build["version"],
+        "package": app.get("package") or None,
+        "source_url": site_url + page,
+        "apk": file["url"],
+        "config": config,
+        "deep_link": deep,
+        "add_url": OBTAINIUM_REDIRECT + urllib.parse.quote(deep, safe=""),
+        "page": page,
+    }
+
+
+def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, now: str) -> dict[str, Any]:
+    entries: list[dict[str, Any]] = []
+    for app in sorted(apps.values(), key=lambda a: a["name"]):
+        if not app["builds"]:
+            continue
+        build = app["builds"][0]
+        files = build["files"]
+        # main page = the preferred file; one extra page per architecture when
+        # the app ships more than one
+        variants = [(files[0], "")] + ([(f, f"-{f['arch']}") for f in files] if len(files) > 1 else [])
+        for file, suffix in variants:
+            entry = obtainium_entry(app, build, file, site_url, repo, suffix)
+            (OUT_DIR / entry["page"]).parent.mkdir(parents=True, exist_ok=True)
+            (OUT_DIR / entry["page"]).write_text(
+                PAGE.format(
+                    name=entry["name"], version=build["version"], arch=file["arch"],
+                    published=build["published"][:10], url=file["url"], filename=file["name"],
+                ),
+                encoding="utf-8",
+            )
+            if not suffix:
+                entries.append(entry)
+            print(f"  wrote _site/{entry['page']}")
+
+    bulk = [e["config"] for e in entries]
+    encoded_all = urllib.parse.quote(json.dumps(bulk, separators=(",", ":")), safe="")
+    payload = {
+        "generated": now,
+        "repo": repo,
+        "how": (
+            "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the "
+            "phone. The version is read from the APK filename, so Obtainium only prompts when "
+            "the app version really changes."
+        ),
+        "add_all_url": OBTAINIUM_REDIRECT + urllib.parse.quote(f"obtainium://apps/{encoded_all}", safe=""),
+        "apps": entries,
+    }
+    write_json(OUT_DIR / "api" / "obtainium.json", payload)
+    return payload
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -182,6 +305,7 @@ def main() -> int:
         app_id: {
             "id": app_id,
             "name": app["name"],
+            "package": app["package"] or None,
             "brand": app["brand"],
             **{k: v for k, v in app["builds"][0].items()},
         }
@@ -198,6 +322,9 @@ def main() -> int:
     }
     write_json(api_dir / "catalog.json", catalog)
 
+    # --- obtainium ----------------------------------------------------------
+    obtainium = write_obtainium(apps, site_url, repo, now)
+
     # --- index ---------------------------------------------------------------
     write_json(
         api_dir / "index.json",
@@ -211,11 +338,17 @@ def main() -> int:
                 "latest": "api/latest.json",
                 "app": "api/apps/{app_id}.json",
                 "catalog": "api/catalog.json",
+                "obtainium": "api/obtainium.json",
+            },
+            "obtainium": {
+                "add_all_url": obtainium["add_all_url"],
+                "source_url": "obtainium/{app_id}.html",
             },
             "apps": [
                 {
                     "id": a["id"],
                     "name": a["name"],
+                    "package": a["package"] or None,
                     "brand": a["brand"],
                     "latest_version": a["builds"][0]["version"] if a["builds"] else None,
                     "updated": a["builds"][0]["published"] if a["builds"] else None,

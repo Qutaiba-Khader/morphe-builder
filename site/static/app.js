@@ -53,7 +53,7 @@ function fileRow(f) {
     el("small", { text: fmtSize(f.size) }));
 }
 
-function appCard(app) {
+function appCard(app, obtainium) {
   const card = el("div", { class: "card" });
   card.append(
     el("h2", {},
@@ -63,6 +63,14 @@ function appCard(app) {
     el("p", { class: "ver", text: "v" + app.version }),
     el("p", { class: "meta", text: `${fmtDate(app.published)} · ${app.tag}` }),
     el("div", { class: "files" }, app.files.map(fileRow)));
+
+  const obt = obtainium?.get(app.id);
+  if (obt) {
+    card.append(el("a", {
+      class: "dl alt", href: obt.add_url, rel: "noopener",
+      title: "Adds this app to Obtainium so it checks for updates by itself",
+    }, el("span", { text: "Add to Obtainium" }), el("small", { text: "auto-updates" })));
+  }
 
   const btn = el("button", { class: "more", type: "button", text: "All versions" });
   const box = el("div", { class: "history", hidden: "" });
@@ -95,12 +103,20 @@ function appCard(app) {
 async function loadBuilds() {
   const host = $("#apps");
   try {
-    const data = await getJSON("api/latest.json");
+    const [data, obtainiumData] = await Promise.all([
+      getJSON("api/latest.json"),
+      getJSON("api/obtainium.json").catch(() => null),
+    ]);
+    const obtainium = obtainiumData ? new Map(obtainiumData.apps.map((a) => [a.app, a])) : null;
+    if (obtainiumData?.add_all_url) {
+      const all = $("#obtainium-all");
+      if (all) { all.href = obtainiumData.add_all_url; all.hidden = false; }
+    }
     const apps = Object.values(data.apps || {}).sort((a, b) => a.name.localeCompare(b.name));
     if (!apps.length) {
       host.replaceChildren(el("p", { class: "muted", text: "No builds published yet — the first CI run will fill this in." }));
     } else {
-      host.replaceChildren(...apps.map(appCard));
+      host.replaceChildren(...apps.map((a) => appCard(a, obtainium)));
     }
     $("#generated").textContent = data.generated ? "Updated " + fmtDate(data.generated) : "";
   } catch (err) {

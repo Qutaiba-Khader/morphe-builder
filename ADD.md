@@ -22,6 +22,7 @@ Paste this at the end of the file:
 ```toml
 [My-App]
 enabled = true
+package = "com.example.app"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 
 [My-App.patches]
@@ -30,6 +31,10 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 
 * The APKMirror URL is the app's page there — open apkmirror.com, search the app, copy the
   address of its main page (the one whose path is `/apk/<vendor>/<app>`).
+* `package` is optional but worth setting: it is the Android package name (shown in
+  [`data/catalog.json`](data/catalog.json) next to the patches, and in the Play Store URL), and
+  it is what lets the site offer a one-tap **Add to Obtainium** button for the app. Without it
+  the app still builds and still gets an `obtainium/<id>.html` endpoint you can add by hand.
 * `[]` means *apply every patch in that bundle*. To pick specific ones, list their names:
   `"github:MorpheApp/morphe-patches" = ["Hide ads", "SponsorBlock"]`.
 * To exclude a few instead: `= { exclude = ["Custom branding"] }`.

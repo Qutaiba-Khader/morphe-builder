@@ -84,6 +84,14 @@ h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); letter-spacing: -0.02em; }
 }
 .dl:hover { filter: brightness(1.08); }
 .dl small { font-weight: 500; opacity: .85; }
+.dl.alt {
+  margin-top: 8px; background: none; color: var(--ink);
+  border: 1px solid var(--line);
+}
+.dl.alt:hover { border-color: var(--accent); color: var(--accent); filter: none; }
+.dl.alt small { opacity: .7; }
+#obtainium-all { color: var(--accent); text-decoration: none; font-weight: 600; }
+#obtainium-all:hover { text-decoration: underline; }
 
 .more {
   margin-top: 12px; width: 100%; appearance: none; cursor: pointer;

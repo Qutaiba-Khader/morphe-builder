@@ -1,20 +1,107 @@
 # morphe-builder
 
 Patched APKs built automatically on GitHub Actions with [Morphe](https://morphe.software)
-patches. Currently building **YouTube**; every other app is one line away.
+patches. Nothing runs on private hardware — GitHub's runners do the whole build.
+
+**Building now:** YouTube · Reddit. Every other app is one line in [`config.toml`](config.toml).
 
 | | |
 |---|---|
 | 📥 **Downloads** | [Releases](https://github.com/Qutaiba-Khader/morphe-builder/releases) |
 | 🌐 **Site** | <https://qutaiba-khader.github.io/morphe-builder/> |
-| 🔌 **JSON API** | [`api/latest.json`](https://qutaiba-khader.github.io/morphe-builder/api/latest.json) · [`api/index.json`](https://qutaiba-khader.github.io/morphe-builder/api/index.json) · [`api/catalog.json`](https://qutaiba-khader.github.io/morphe-builder/api/catalog.json) |
-| ➕ **Add an app** | [ADD.md](ADD.md) — four lines in [`config.toml`](config.toml) |
-| 🗂 **What can be patched** | [`data/catalog.json`](data/catalog.json), refreshed by the **Catalog** workflow |
-| 🧭 **Plan and decisions** | [WORKPLAN.md](WORKPLAN.md) |
+| 🔌 **JSON API** | [see below](#json-api) |
+| ➕ **Add an app** | [ADD.md](ADD.md) — four lines in `config.toml` |
+| 🗂 **What can be patched** | [`data/catalog.json`](data/catalog.json) — 8 sources, 359 apps |
+| 🧭 **Plan and verification** | [WORKPLAN.md](WORKPLAN.md) |
 
-Builds run daily at 10:00 UTC and only when the app or its patches actually moved. The APKs are
-signed with this repository's own key, held in Actions secrets — so an update installs cleanly
-over a previous build from here, but not over one from another builder.
+The APKs are signed with this repository's own key, held in Actions secrets. An update installs
+cleanly over a previous build from here, but not over one from another builder.
+
+## What runs on its own
+
+| Workflow | When | Does |
+|---|---|---|
+| **CI** | daily **10:00 UTC**, or on demand | For each brand in `config.toml`, compares that patch source's newest release against our newest release. If the patches moved, it fetches the stock APK, patches, signs and publishes a release tagged `YY.MM.DD-<brand>`. If nothing moved it exits without a release. |
+| **Site** | after every CI run, every 6 h, on push | Regenerates the site and the JSON API from the releases and deploys to Pages. |
+| **Catalog** | weekly, **Mon 04:00 UTC**, or on demand | Rebuilds [`data/catalog.json`](data/catalog.json) from every patch source. |
+| **Sync upstream** | daily **08:00 UTC** | Pulls fixes from [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe); `config.toml` and everything in this fork's `IGNORE_SYNC_FILES` are preserved. |
+
+So yes — it checks for updates by itself once a day, and only cuts a release when the patches
+have actually moved. Two things worth knowing about that check:
+
+* It watches the **patch source**, not APKMirror. That is normally the same thing, because
+  Morphe patches declare which app versions they support and the patcher builds the newest
+  supported one — a new app version becomes usable only when the patches bless it.
+* The comparison is per **brand**, not per app. Enabling an app under a brand that already has
+  releases here (everything using `MorpheApp/morphe-patches` shares the brand `morphe`) does not
+  look new, so build it once by hand: Actions → **CI** → *Run workflow* → tick **Build all
+  apps**. An app added under a brand new to this repo builds on the next daily run by itself.
+
+<a id="json-api"></a>
+## JSON API
+
+Static files on the Pages origin. No key, no rate limit, and `access-control-allow-origin: *`,
+so a browser or a script can read them directly.
+
+Base: `https://qutaiba-khader.github.io/morphe-builder/`
+
+| Endpoint | Returns |
+|---|---|
+| [`api/index.json`](https://qutaiba-khader.github.io/morphe-builder/api/index.json) | Every app, its newest version, when it was built, and where its history lives |
+| [`api/latest.json`](https://qutaiba-khader.github.io/morphe-builder/api/latest.json) | The newest build of each app in full: version, tag, size, sha256, download URL |
+| [`api/apps/<id>.json`](https://qutaiba-khader.github.io/morphe-builder/api/apps/youtube.json) | One app's complete build history |
+| [`api/catalog.json`](https://qutaiba-khader.github.io/morphe-builder/api/catalog.json) | Every patch source → the apps it patches → patch names and supported versions |
+| [`api/obtainium.json`](https://qutaiba-khader.github.io/morphe-builder/api/obtainium.json) | A ready-made Obtainium config and one-tap add link per app |
+| `obtainium/<id>.html` | The per-app endpoint Obtainium polls ([youtube](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html), [reddit](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html)) |
+
+```bash
+# newest YouTube APK
+curl -s https://qutaiba-khader.github.io/morphe-builder/api/latest.json \
+  | jq -r '.apps.youtube.files[0].url'
+
+# is there a newer build than the one I have?
+curl -s https://qutaiba-khader.github.io/morphe-builder/api/index.json \
+  | jq -r '.apps[] | "\(.name) \(.latest_version) \(.updated)"'
+```
+
+```jsonc
+// api/latest.json  (trimmed)
+{
+  "generated": "2026-09-20T08:10:45Z",
+  "apps": {
+    "youtube": {
+      "id": "youtube", "name": "YouTube", "brand": "morphe",
+      "version": "21.13.164", "tag": "26.09.20-morphe",
+      "published": "2026-09-20T02:58:34Z", "prerelease": false,
+      "files": [{
+        "arch": "all", "size": 128400453,
+        "sha256": "a55b7e06…3d39",
+        "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk"
+      }]
+    }
+  }
+}
+```
+
+## Obtainium
+
+Open the [site](https://qutaiba-khader.github.io/morphe-builder/) on your phone and tap
+**Add to Obtainium** on an app, or **Add all apps to Obtainium** at the top. Obtainium then
+checks for new builds by itself and offers the update.
+
+To add one by hand: **Add App** → URL `https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html`
+→ source **HTML**. The ready-made settings for each app (including the version regex) are in
+[`api/obtainium.json`](https://qutaiba-khader.github.io/morphe-builder/api/obtainium.json).
+
+These endpoints exist because Obtainium's **GitHub** source takes the version from the release
+**tag** — here a date like `26.09.20-morphe` — so it would announce an update on every release
+even when that app's APK had not changed. The HTML endpoint holds exactly one APK link and the
+version is read from the filename (`youtube-morphe-v21.13.164-all.apk` → `21.13.164`), so the
+update prompt means the app really moved. Multi-architecture apps also get
+`obtainium/<id>-<arch>.html`.
+
+Everything here is regenerated from the releases after every build, so it always points at the
+newest APK with no manual step.
 
 ---
 

@@ -24,6 +24,10 @@
 <main class="wrap">
 
   <section id="builds" class="panel is-active">
+    <p class="lead muted">
+      Every build is signed with this repository's own key.
+      <a id="obtainium-all" href="#" hidden>Add all apps to Obtainium →</a>
+    </p>
     <div id="apps" class="grid" aria-live="polite">
       <p class="muted">Loading builds…</p>
     </div>
@@ -43,6 +47,19 @@
     <div id="api-body"></div>
     <h3>Example</h3>
     <pre><code>curl -s <span class="api-base">…</span>api/latest.json | jq '.apps.youtube.files[0].url'</code></pre>
+
+    <h3>Obtainium</h3>
+    <p>
+      Each app also has an endpoint built for
+      <a href="https://obtainium.imranr.dev" rel="noopener">Obtainium</a>, so your phone checks
+      for updates on its own. Add it as an app of type <b>HTML</b>:
+    </p>
+    <pre><code><span class="api-base">…</span>obtainium/youtube.html</code></pre>
+    <p class="muted">
+      The version is read from the APK filename, not from the release tag, so Obtainium only
+      prompts when the app version actually changes. <code>api/obtainium.json</code> carries a
+      ready-made config and a one-tap add link for every app.
+    </p>
   </section>
 
 </main>
