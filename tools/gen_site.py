@@ -321,6 +321,20 @@ def main() -> int:
     releases = fetch_releases(repo)
     apps = collect(releases)
     print(f"{len(releases)} releases -> {len(apps)} apps")
+
+    # CI turns the release back into a draft while it rebuilds, and drafts are
+    # skipped here. A scheduled run landing in that window would otherwise
+    # publish an empty site, so refuse and leave the previous deployment alone.
+    if not apps:
+        try:
+            live = _get(site_url + "api/latest.json")
+        except Exception:  # noqa: BLE001 - a missing live site just means "first run"
+            live = {}
+        if live.get("apps"):
+            print("no apps found but the live site has some - a build is probably in "
+                  "progress; refusing to publish an empty site", file=sys.stderr)
+            return 1
+
     resolve_packages(apps)
 
     if OUT_DIR.exists():
