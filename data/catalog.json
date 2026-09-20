@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-20T03:00:28Z",
+  "generated": "2026-09-20T08:21:14Z",
   "cli": "morphe-desktop-1.16.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches": {
@@ -623,7 +623,7 @@
         },
         {
           "table": "Reddit",
-          "enabled": false
+          "enabled": true
         },
         {
           "table": "YouTube-Experimental",
