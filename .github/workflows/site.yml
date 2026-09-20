@@ -14,6 +14,7 @@ on:
       - 'tools/gen_site.py'
       - 'data/catalog.json'
       - 'config.toml'
+      - '.github/workflows/site.yml'
   workflow_dispatch:
   workflow_call:
   schedule:
