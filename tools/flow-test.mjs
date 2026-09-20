@@ -107,7 +107,19 @@ check("obtainium: add-all link revealed",
   !allLink?.hidden && (allLink?.href ?? "").includes("obtainium%3A%2F%2Fapps%2F"));
 
 const obt = await (await fetch(BASE + "api/obtainium.json")).json();
-check("obtainium: an entry per app", obt.apps.length === cards.length, `${obt.apps.length} entr(ies)`);
+const clashes = obt.conflicts || [];
+check("obtainium: every app is either addable or reported as a conflict",
+  obt.apps.length + clashes.length === cards.length,
+  `${obt.apps.length} addable + ${clashes.length} conflict(s) vs ${cards.length} card(s)`);
+
+for (const c of clashes) {
+  const owner = obt.apps.find((a) => a.app === c.shares_with);
+  check(`obtainium/${c.app}: conflict points at an app that IS addable`,
+    !!owner && owner.config.id === c.package, `${c.shares_with} -> ${owner?.config.id}`);
+  const clashCard = cards.find((el) => titleOf(el) === (index.apps.find((a) => a.id === c.app)?.name));
+  check(`obtainium/${c.app}: its card explains the clash instead of offering a button`,
+    !clashCard?.querySelector("a.dl.alt") && /replaces it/.test(clashCard?.textContent ?? ""));
+}
 
 for (const entry of obt.apps) {
   const cfg = entry.config;
