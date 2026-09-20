@@ -295,10 +295,24 @@ def resolve_packages(apps: dict[str, dict[str, Any]]) -> None:
 
 def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, now: str) -> dict[str, Any]:
     entries: list[dict[str, Any]] = []
+    conflicts: list[dict[str, Any]] = []
+    seen_packages: dict[str, str] = {}
+
     for app in sorted(apps.values(), key=lambda a: a["name"]):
         if not app["builds"]:
             continue
         build = app["builds"][0]
+
+        # Two builds can share a package - GmsCore support pins YouTube's, so
+        # `Clone app` cannot rename the pre-release twin. Obtainium keys apps by
+        # package, so only the first gets an entry; the other is reported as a
+        # conflict and still gets its HTML endpoint.
+        pkg = app.get("package")
+        if pkg and pkg in seen_packages:
+            conflicts.append({"app": app["id"], "name": app["name"], "package": pkg,
+                              "shares_with": seen_packages[pkg]})
+        elif pkg:
+            seen_packages[pkg] = app["id"]
         files = build["files"]
         # main page = the preferred file; one extra page per architecture when
         # the app ships more than one
@@ -313,7 +327,7 @@ def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, n
                 ),
                 encoding="utf-8",
             )
-            if not suffix:
+            if not suffix and not any(c["app"] == app["id"] for c in conflicts):
                 entries.append(entry)
             print(f"  wrote _site/{entry['page']}")
 
@@ -329,6 +343,7 @@ def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, n
         ),
         "add_all_url": OBTAINIUM_REDIRECT + urllib.parse.quote(f"obtainium://apps/{encoded_all}", safe=""),
         "apps": entries,
+        "conflicts": conflicts,
     }
     write_json(OUT_DIR / "api" / "obtainium.json", payload)
     return payload

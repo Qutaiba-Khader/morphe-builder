@@ -64,12 +64,16 @@ function appCard(app, obtainium) {
     el("p", { class: "meta", text: `${fmtDate(app.published)} · ${app.tag}` }),
     el("div", { class: "files" }, app.files.map(fileRow)));
 
-  const obt = obtainium?.get(app.id);
+  const obt = obtainium?.entries.get(app.id);
+  const clash = obtainium?.conflicts.get(app.id);
   if (obt) {
     card.append(el("a", {
       class: "dl alt", href: obt.add_url, rel: "noopener",
       title: "Adds this app to Obtainium so it checks for updates by itself",
     }, el("span", { text: "Add to Obtainium" }), el("small", { text: "auto-updates" })));
+  } else if (clash) {
+    card.append(el("p", { class: "meta warn-note" },
+      el("span", { text: `Same package as ${clash.shares_with} (${clash.package}) — installing this one replaces it, so Obtainium tracks only one of the two.` })));
   }
 
   const btn = el("button", { class: "more", type: "button", text: "All versions" });
@@ -107,7 +111,10 @@ async function loadBuilds() {
       getJSON("api/latest.json"),
       getJSON("api/obtainium.json").catch(() => null),
     ]);
-    const obtainium = obtainiumData ? new Map(obtainiumData.apps.map((a) => [a.app, a])) : null;
+    const obtainium = obtainiumData ? {
+      entries: new Map(obtainiumData.apps.map((a) => [a.app, a])),
+      conflicts: new Map((obtainiumData.conflicts || []).map((c) => [c.app, c])),
+    } : null;
     if (obtainiumData?.add_all_url) {
       const all = $("#obtainium-all");
       if (all) { all.href = obtainiumData.add_all_url; all.hidden = false; }

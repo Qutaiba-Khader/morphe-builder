@@ -57,24 +57,26 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
   "Override certificate pinning",
 ] }
 
-# Pre-release twin of [YouTube]: same recommended patches, but built from the patch
-# source's newest DEV bundle. `Clone app` appends ".morphe" to the package so it
-# installs alongside the stable build instead of replacing it, and the branding
-# options give it its own name and icon.
+# Pre-release twin of [YouTube]: the same recommended patches, but built from the
+# patch source's newest DEV bundle, under its own brand so it releases and updates
+# separately. Its own name and icon come from the branding options.
+#
+# 🔴 It CANNOT be cloned: `GmsCore support` pins YouTube's package to
+# app.morphe.android.youtube (microG needs that exact name), and neither
+# `Clone app` nor its packageName option overrides it - both were tried and the
+# built APK kept the stable package. So this build REPLACES the stable one on the
+# device, and only one of the two can be tracked in Obtainium.
 [YouTube-Experimental]
 enabled = true
 brand = "morphe-dev"
-package = "app.morphe.android.youtube.dev"
+package = "app.morphe.android.youtube"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 version = "exp"
-# `GmsCore support` sets YouTube's package itself, so Clone app's default
-# suffix had no effect - name the cloned package explicitly.
-patcher-args = "-OpackageName=app.morphe.android.youtube.dev -e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
+patcher-args = "-e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
 
 [YouTube-Experimental.patches]
-"github:MorpheApp/morphe-patches" = { version = "dev", include = [
+"github:MorpheApp/morphe-patches" = { version = "dev", exclude = [
   "Clone app",
-], exclude = [
   "Change installer source",
   "Disable Play Store updates",
   "Override certificate pinning",
