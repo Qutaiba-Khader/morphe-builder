@@ -35,7 +35,7 @@ arch = "both"
 "github:MorpheApp/morphe-patches" = []
 
 [Reddit]
-enabled = false
+enabled = true
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 [Reddit.patches]
