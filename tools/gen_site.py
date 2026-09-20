@@ -25,6 +25,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from apk_package import package_of  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "site" / "static"
 CATALOG_FILE = ROOT / "data" / "catalog.json"
@@ -238,6 +241,30 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
     }
 
 
+def resolve_packages(apps: dict[str, dict[str, Any]]) -> None:
+    """Replace each app's package with the one its built APK actually declares.
+
+    Patches rename apps - Morphe's non-root YouTube installs as
+    `app.morphe.android.youtube`, not `com.google.android.youtube` - and
+    Obtainium refuses to install when the downloaded package does not match the
+    configured id ("Downloaded package ID does not match existing app ID"). So
+    the id is read from the artefact, with config.toml's `package` only as a
+    fallback when the read fails.
+    """
+    for app in apps.values():
+        if not app["builds"]:
+            continue
+        url = app["builds"][0]["files"][0]["url"]
+        try:
+            found = package_of(url)
+            if found != app["package"]:
+                print(f"  package {app['id']}: {app['package'] or '(unset)'} -> {found}")
+            app["package"] = found
+        except Exception as exc:  # noqa: BLE001 - never fail the site over this
+            print(f"  warn: could not read {app['id']} package ({exc}); "
+                  f"keeping {app['package'] or '(unset)'}", file=sys.stderr)
+
+
 def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, now: str) -> dict[str, Any]:
     entries: list[dict[str, Any]] = []
     for app in sorted(apps.values(), key=lambda a: a["name"]):
@@ -294,6 +321,7 @@ def main() -> int:
     releases = fetch_releases(repo)
     apps = collect(releases)
     print(f"{len(releases)} releases -> {len(apps)} apps")
+    resolve_packages(apps)
 
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)

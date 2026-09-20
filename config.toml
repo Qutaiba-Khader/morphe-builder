@@ -6,11 +6,12 @@
 #
 #      [My-App]
 #      enabled = true
-#      package = "com.example.app"              # optional, adds an Obtainium button
+#      package = "com.example.app"              # the INSTALLED package; auto-detected
 #      apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 #
 #      [My-App.patches]
-#      "github:<owner>/<patches-repo>" = []     # [] = every patch in the bundle
+#      "github:<owner>/<patches-repo>" = []     # [] = the bundle's DEFAULT (recommended)
+#                                               # patches, not every patch in it
 #
 #  Which apps a patch source covers, and the exact patch names, are listed in
 #  the generated catalog:  https://qutaiba-khader.github.io/morphe-builder/
@@ -22,11 +23,18 @@ strict-sigcheck = false
 
 [YouTube]
 enabled = true
-package = "com.google.android.youtube"
+package = "app.morphe.android.youtube"   # the PATCHED package (auto-detected from the APK)
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 
 [YouTube.patches]
-"github:MorpheApp/morphe-patches" = []
+# no include list = the bundle's own default (recommended) patches.
+# exclude = the universal patches, which we do not want applied.
+"github:MorpheApp/morphe-patches" = { exclude = [
+  "Change installer source",
+  "Clone app",
+  "Disable Play Store updates",
+  "Override certificate pinning",
+] }
 
 [YT-Music]
 enabled = false
@@ -42,7 +50,12 @@ package = "com.reddit.frontpage"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 [Reddit.patches]
-"github:MorpheApp/morphe-patches" = []
+"github:MorpheApp/morphe-patches" = { exclude = [
+  "Change installer source",
+  "Clone app",
+  "Disable Play Store updates",
+  "Override certificate pinning",
+] }
 
 [YouTube-Experimental]
 enabled = false

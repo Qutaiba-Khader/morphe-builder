@@ -35,9 +35,14 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
   [`data/catalog.json`](data/catalog.json) next to the patches, and in the Play Store URL), and
   it is what lets the site offer a one-tap **Add to Obtainium** button for the app. Without it
   the app still builds and still gets an `obtainium/<id>.html` endpoint you can add by hand.
-* `[]` means *apply every patch in that bundle*. To pick specific ones, list their names:
+* `[]` means *apply the bundle's own default patches* — the ones its author marked
+  `Enabled: true`, i.e. the recommended set. It does **not** mean every patch: for YouTube that
+  is 81 of 82, for Reddit 17 of 19. The catalog marks which ones are on by default.
+* To pick an exact set instead, list the names:
   `"github:MorpheApp/morphe-patches" = ["Hide ads", "SponsorBlock"]`.
-* To exclude a few instead: `= { exclude = ["Custom branding"] }`.
+* To keep the defaults but drop a few: `= { exclude = ["Clone app"] }` — that is how the
+  universal patches (`Change installer source`, `Clone app`, `Disable Play Store updates`,
+  `Override certificate pinning`) are kept off here.
 
 ## Add a patch source
 

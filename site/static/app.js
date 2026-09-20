@@ -139,12 +139,17 @@ function sourceBlock(key, src) {
     src.error ? el("span", { class: "err", text: src.error }) : null));
 
   const table = el("table", {},
-    el("tr", {}, el("th", { text: "Package" }), el("th", { text: "Versions" }), el("th", { text: "Patches" })));
+    el("tr", {},
+      el("th", { text: "Package" }),
+      el("th", { text: "Versions" }),
+      el("th", { text: "Patches", title: "recommended (on by default) of total" })));
   for (const [pkg, info] of packages) {
+    const all = info.patches || [];
+    const on = all.filter((p) => p.default).length;
     table.append(el("tr", {},
       el("td", {}, el("code", { text: pkg })),
       el("td", { class: "muted", text: (info.versions || []).slice(0, 3).join(", ") || "any" }),
-      el("td", { text: String((info.patches || []).length) })));
+      el("td", { text: `${on} of ${all.length}` })));
   }
   det.append(table);
   if ((src.universal_patches || []).length) {
