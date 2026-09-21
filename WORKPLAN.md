@@ -186,3 +186,21 @@ node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before 
   was cut off at 390 px. Packages, release tags and endpoints moved to a folded table.
 - Checked by rendering the pushed README on github.com at 1280 px and 390 px, light and dark;
   the flow test also checks each app sits in its channel's table and the package table.
+
+## Phase 10 — website redesign (2026-09-21)
+
+- The website follows the README: a hero in the banner's colours (with its three app tiles and
+  an **Add every app to Obtainium** button), then **Download** with a Stable and a Pre-release
+  list (green / violet, each app a row with Download and Add to Obtainium buttons and an
+  All versions drawer that also shows the package), then **Install** in three steps,
+  **Stable or pre-release?**, and **Catalog and API** as two tabs at the bottom.
+- Type: Bricolage Grotesque for headings and app names, the system font for body text (Roboto
+  on Android). Buttons are at least 48 px tall; the green is `#15803d` so white text passes
+  AA; light and dark themes; reduced motion respected.
+- The Obtainium endpoint pages and the add-every-app page share the hero look (inline CSS, no
+  external files). Each endpoint still holds exactly one APK link.
+- Checked with the flow test (`SITE_DIR=site/static` runs the local page against the live API)
+  and screenshots at 1280 px and 390 px, light and dark. The screenshots caught a literal
+  "null" on every card (DOM `append(null)`); the flow test's first check for it could not
+  see it, because the text node is glued to its neighbours ("All versionsnull"), so it now
+  walks the text nodes and was proven to fail on the buggy code.

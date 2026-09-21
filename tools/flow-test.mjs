@@ -27,8 +27,11 @@ const check = (name, ok, detail = "") => {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const html = await (await fetch(BASE)).text();
-const appjs = await (await fetch(BASE + "app.js")).text();
+// SITE_DIR=site/static tests local page files against the live API before they ship
+const SITE_DIR = process.env.SITE_DIR;
+const html = SITE_DIR ? readFileSync(`${SITE_DIR}/index.html`, "utf8") : await (await fetch(BASE)).text();
+const appjs = SITE_DIR ? readFileSync(`${SITE_DIR}/app.js`, "utf8") : await (await fetch(BASE + "app.js")).text();
+if (SITE_DIR) console.log(`page files from ${SITE_DIR}, data from ${BASE}`);
 
 const vc = new VirtualConsole();
 const consoleErrors = [];
@@ -54,6 +57,18 @@ const cards = $$("#apps .card");
 check("builds: a card per app", cards.length === index.apps.length, `${cards.length} card(s)`);
 
 const titleOf = (c) => c.querySelector("h2 span")?.textContent ?? "";
+// DOM append(null) prints "null" as its own text node, glued to its neighbours
+// ("All versionsnull"), so look at the text nodes, not at the joined text
+const strays = (root) => {
+  const out = [];
+  const walk = doc.createTreeWalker(root, window.NodeFilter.SHOW_TEXT);
+  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+    if (/^(null|undefined|NaN)$/.test(n.data.trim()) || /undefined|NaN/.test(n.data)) out.push(n.data.trim());
+  }
+  return out;
+};
+check("builds: no card shows a stray null or undefined",
+  cards.every((c) => strays(c).length === 0), cards.flatMap(strays).join(", "));
 check("builds: names come from config.toml, capitalisation intact",
   cards.every((c) => configNames.has(titleOf(c))) && configNames.has("YouTube"),
   cards.map(titleOf).join(", "));
@@ -64,7 +79,20 @@ for (const a of index.apps) {
 
 // use YouTube for the per-card assertions so they do not depend on sort order
 const card = cards.find((c) => titleOf(c) === "YouTube") ?? cards[0];
-check("builds: version shown", /^v\d/.test(card?.querySelector(".ver")?.textContent ?? ""), card?.querySelector(".ver")?.textContent);
+check("builds: version shown", /^\d/.test(card?.querySelector(".ver")?.textContent ?? ""), card?.querySelector(".ver")?.textContent);
+{
+  const latestApps = (await (await fetch(BASE + "api/latest.json")).json()).apps;
+  const misplaced = index.apps.filter((a) => {
+    const c = cards.find((x) => titleOf(x) === a.name);
+    const lane = c?.closest(".channel")?.dataset.channel;
+    return lane !== (latestApps[a.id]?.prerelease ? "pre" : "stable");
+  });
+  check("builds: each app sits in its channel (stable / pre-release)", misplaced.length === 0,
+    misplaced.map((a) => a.id).join(", "));
+  const lanes = $$(".channel").filter((c) => !c.hidden).map((c) => c.dataset.channel);
+  check("builds: a channel is shown only when it has apps",
+    lanes.every((l) => cards.some((c) => c.closest(".channel")?.dataset.channel === l)), lanes.join(", "));
+}
 
 const dl = card?.querySelector("a.dl");
 check("builds: download link points at the release asset",
@@ -85,6 +113,7 @@ const hist = card?.querySelector(".history");
 const items = hist ? [...hist.querySelectorAll("ol li")] : [];
 check("history: opens and lists versions", !hist?.hasAttribute("hidden") && items.length > 0, `${items.length} version(s)`);
 check("history: each row links to a file", items.every((li) => li.querySelector("a[href*='/releases/download/']")));
+check("history: no stray null or undefined", !!hist && strays(hist).length === 0, hist ? strays(hist).join(", ") : "");
 {
   const vers = items.map((li) => li.querySelector(".hv")?.textContent);
   check("history: each version listed once (rebuilds merged)", new Set(vers).size === vers.length, vers.join(" "));
@@ -98,8 +127,8 @@ check("history: closes again", hist?.hasAttribute("hidden") && more?.textContent
 const catalogTab = $$(".tab").find((t) => t.dataset.tab === "catalog");
 catalogTab?.click();
 await sleep(2500);
-check("tabs: catalog panel becomes visible",
-  $("#catalog")?.classList.contains("is-active") && !$("#builds")?.classList.contains("is-active"));
+check("tabs: catalog panel becomes visible, API panel hides",
+  $("#catalog")?.classList.contains("is-active") && !$("#api")?.classList.contains("is-active"));
 const sources = $$("#catalog-body details.src");
 check("catalog: sources rendered", sources.length > 0, `${sources.length} source(s)`);
 const morphe = sources.find((d) => d.querySelector("summary span")?.textContent === "MorpheApp/morphe-patches");

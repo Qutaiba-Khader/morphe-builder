@@ -277,18 +277,42 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 OBTAINIUM_REDIRECT = "https://apps.obtainium.imranr.dev/redirect?r="
 
+# Shared look for the two small Obtainium pages: the site's hero colours, no
+# external files, so an endpoint never depends on anything but itself.
+PAGE_STYLE = """
+:root{color-scheme:dark}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 16px;
+font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#eef0ff;
+background:radial-gradient(60% 70% at 85% 10%,rgba(139,92,246,.45),transparent 70%),
+linear-gradient(135deg,#0b1020,#1e1b4b 55%,#3b0764)}
+main{width:min(34rem,100%)}
+h1{margin:0 0 6px;font-size:clamp(1.7rem,6vw,2.3rem);line-height:1.1;letter-spacing:-.02em}
+p{margin:0 0 14px;color:#c9cdee}
+b{color:#fff}
+a{color:#c7d2fe}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;
+margin:22px 0;padding:12px 18px;border-radius:14px;background:#2563eb;color:#fff;
+font-weight:600;text-decoration:none;word-break:break-all}
+.btn.stable{background:#15803d}
+.btn:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+.small{font-size:.9rem;color:#a8aede}
+"""
+
 PAGE = """<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{name} {version}</title>
 <meta name="app-version" content="{version}">
-<meta name="robots" content="noindex"></head>
-<body>
+<meta name="robots" content="noindex">
+<style>{style}</style></head>
+<body><main>
 <h1>{name}</h1>
-<p>Latest version: <b>{version}</b> ({arch}) &mdash; built {published}</p>
-<p><a href="{url}">{filename}</a></p>
-<p>Obtainium endpoint for <a href="../">morphe-builder</a>. One APK link only,
-so Obtainium always picks this build.</p>
-</body></html>
+<p>Version <b>{version}</b> ({arch}), built {published}.</p>
+<p><a class="btn stable" href="{url}">{filename}</a></p>
+<p class="small">This is the page Obtainium checks for updates. It holds one APK link only,
+so Obtainium always picks this build. To install the app yourself, use the
+<a href="../">Morphe Builder website</a>.</p>
+</main></body></html>
 """
 
 
@@ -302,18 +326,16 @@ BULK_PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Add every app to Obtainium</title>
-<style>body{{font:16px/1.5 system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 16px}}
-a.btn{{display:inline-block;padding:.8rem 1.2rem;border-radius:10px;background:#2f6fed;color:#fff;text-decoration:none;font-weight:600}}</style>
-</head><body>
+<style>{style}</style>
+</head><body><main>
 <h1>Add every app to Obtainium</h1>
 <p>{count} apps: {names}.</p>
 <p><a class="btn" id="go" href="{deep}">Open in Obtainium</a></p>
-<p>Obtainium shows the list and asks you to confirm. Nothing is added until you do.
-If nothing happens, install <a href="https://github.com/ImranR98/Obtainium/releases">Obtainium</a> first,
-then come back to this page.</p>
-<p><a href="../">&larr; morphe-builder</a></p>
+<p>Obtainium shows the list and asks you to confirm. Nothing is added until you do.</p>
+<p class="small">If nothing happens, install <a href="https://github.com/ImranR98/Obtainium/releases">Obtainium</a>
+first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 <script>setTimeout(function(){{location.href=document.getElementById("go").href}},300)</script>
-</body></html>
+</main></body></html>
 """
 
 
@@ -422,6 +444,7 @@ def _page(entry: dict[str, Any], build: dict[str, Any], file: dict[str, Any]) ->
     return PAGE.format(
         name=e(entry["name"]), version=e(build["version"]), arch=e(file["arch"]),
         published=e(build["published"][:10]), url=e(file["url"], quote=True), filename=e(file["name"]),
+        style=PAGE_STYLE,
     )
 
 
@@ -479,7 +502,7 @@ def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, n
     names = ", ".join(html.escape(e["name"]) for e in entries) or "none yet"
     (OUT_DIR / "obtainium").mkdir(parents=True, exist_ok=True)
     (OUT_DIR / "obtainium" / "_all.html").write_text(
-        BULK_PAGE.format(count=len(entries), names=names, deep=html.escape(deep_all, quote=True)),
+        BULK_PAGE.format(count=len(entries), names=names, deep=html.escape(deep_all, quote=True), style=PAGE_STYLE),
         encoding="utf-8",
     )
     print("  wrote _site/obtainium/_all.html")

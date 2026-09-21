@@ -4,71 +4,152 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Morphe Builder</title>
-<meta name="description" content="Patched APKs built automatically with Morphe patches." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>" />
+<meta name="description" content="Patched Android apps built with Morphe patches. Download an APK, or add it to Obtainium and get every update." />
+<meta name="theme-color" content="#1e1b4b" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <h1>Morphe Builder</h1>
-    <p class="sub">Patched APKs, rebuilt automatically whenever the app or its patches move.</p>
-    <nav class="tabs" role="tablist">
-      <button class="tab is-active" data-tab="builds" role="tab">Builds</button>
-      <button class="tab" data-tab="catalog" role="tab">Catalog</button>
-      <button class="tab" data-tab="api" role="tab">API</button>
-    </nav>
+<a class="skip" href="#download">Skip to downloads</a>
+
+<header class="hero">
+  <nav class="bar wrap" aria-label="Sections">
+    <a class="brand" href="./"><img src="favicon.svg" alt="" width="28" height="28" />Morphe Builder</a>
+    <span class="links">
+      <a href="#download">Download</a>
+      <a href="#install">Install</a>
+      <a href="#more">Catalog and API</a>
+      <a href="https://github.com/Qutaiba-Khader/morphe-builder">GitHub</a>
+    </span>
+  </nav>
+
+  <div class="wrap hero-body">
+    <div class="hero-text">
+      <h1>Patched Android apps, rebuilt for you.</h1>
+      <p class="hero-sub">Built with <a href="https://morphe.software">Morphe</a> patches and signed on GitHub. Download an APK, or add it to Obtainium once and get every update on your phone.</p>
+      <p class="hero-actions">
+        <a id="obtainium-all" class="btn obt" href="#" hidden>Add every app to Obtainium</a>
+        <a class="btn ghost" href="#install">How to install</a>
+      </p>
+      <p id="last-build" class="hero-status"></p>
+    </div>
+    <svg class="tiles" viewBox="0 0 360 260" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="t-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f87171"/><stop offset="1" stop-color="#b91c1c"/></linearGradient>
+        <linearGradient id="t-orange" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdba74"/><stop offset="1" stop-color="#ea580c"/></linearGradient>
+        <linearGradient id="t-violet" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c4b5fd"/><stop offset="1" stop-color="#6d28d9"/></linearGradient>
+      </defs>
+      <g class="tile t3" transform="translate(214 34) rotate(10)"><rect width="118" height="118" rx="30" fill="url(#t-violet)"/><text x="59" y="71" text-anchor="middle" fill="#fff" font-size="30" font-weight="800">DEV</text></g>
+      <g class="tile t2" transform="translate(112 104) rotate(-6)"><rect width="130" height="130" rx="34" fill="url(#t-orange)"/><path d="M36 44h58a12 12 0 0 1 12 12v26a12 12 0 0 1-12 12H60l-16 14v-14h-8a12 12 0 0 1-12-12V56a12 12 0 0 1 12-12z" fill="#fff"/></g>
+      <g class="tile t1" transform="translate(8 40) rotate(-14)"><rect width="142" height="142" rx="36" fill="url(#t-red)"/><path d="M56 42l50 29-50 29z" fill="#fff"/></g>
+    </svg>
   </div>
 </header>
 
-<main class="wrap">
-
-  <section id="builds" class="panel is-active">
-    <p class="lead muted">
-      Every build is signed with this repository's own key.
-      <a id="obtainium-all" href="#" hidden>Add all apps to Obtainium →</a>
-    </p>
-    <div id="apps" class="grid" aria-live="polite">
-      <p class="muted">Loading builds…</p>
+<main>
+  <section id="download" class="wrap block" aria-labelledby="download-title">
+    <h2 id="download-title" class="block-title">Download</h2>
+    <div id="apps" aria-live="polite">
+      <section class="channel" data-channel="stable" hidden>
+        <header class="channel-head">
+          <h3>Stable</h3>
+          <p>The everyday builds. Start here.</p>
+        </header>
+        <div class="list"></div>
+      </section>
+      <section class="channel" data-channel="pre" hidden>
+        <header class="channel-head">
+          <h3>Pre-release</h3>
+          <p>Newer app versions with development patches. Each one installs next to its stable app, under its own name.</p>
+        </header>
+        <div class="list"></div>
+      </section>
+      <p class="loading muted">Loading builds…</p>
     </div>
   </section>
 
-  <section id="catalog" class="panel">
-    <p class="muted lead">
-      Every patch source referenced by <code>config.toml</code>, and the apps it can patch.
-      Use it to decide what to add — see <a href="https://github.com/Qutaiba-Khader/morphe-builder/blob/main/ADD.md">ADD.md</a>.
-    </p>
-    <input id="catalog-search" type="search" placeholder="Search an app, package or patch source…" autocomplete="off" />
-    <div id="catalog-body"><p class="muted">Loading catalog…</p></div>
+  <section id="install" class="wrap block" aria-labelledby="install-title">
+    <h2 id="install-title" class="block-title">Install</h2>
+    <ol class="steps">
+      <li>
+        <h3>Download on your phone</h3>
+        <p>Tap <b>Download</b> next to the app you want, then open the APK. If Android asks, allow your browser to install apps.</p>
+      </li>
+      <li>
+        <h3>YouTube needs MicroG-RE</h3>
+        <p>Install <a href="https://github.com/MorpheApp/MicroG-RE/releases/latest">MicroG-RE</a> once. It is what lets YouTube sign in to your Google account.</p>
+      </li>
+      <li>
+        <h3>Get updates by themselves</h3>
+        <p>Tap <b>Add to Obtainium</b> instead of Download. <a href="https://github.com/ImranR98/Obtainium">Obtainium</a> installs the app and tells you whenever a new build is out.</p>
+      </li>
+    </ol>
+    <div class="notes">
+      <p class="note important"><b>Reddit:</b> the stable build keeps Reddit's own package name, so it cannot install over Reddit from the Play Store. Uninstall that one first. YouTube and every pre-release build are renamed, so they install next to what you already have.</p>
+      <p class="note">Every APK is signed with this repository's own key. A new build installs over an older one from here, but not over a build from another patcher.</p>
+    </div>
   </section>
 
-  <section id="api" class="panel">
-    <p class="lead">Static JSON on this same origin. CORS is open, there is no rate limit and no key.</p>
-    <div id="api-body"></div>
-    <h3>Example</h3>
-    <pre><code>curl -s <span class="api-base">…</span>api/latest.json | jq '.apps.youtube.files[0].url'</code></pre>
-
-    <h3>Obtainium</h3>
-    <p>
-      Each app also has an endpoint built for
-      <a href="https://obtainium.imranr.dev" rel="noopener">Obtainium</a>, so your phone checks
-      for updates on its own. Add it as an app of type <b>HTML</b>:
-    </p>
-    <pre><code><span class="api-base">…</span>obtainium/youtube.html</code></pre>
-    <p class="muted">
-      The version is read from the APK filename, not from the release tag, so Obtainium only
-      prompts when the app version actually changes. <code>api/obtainium.json</code> carries a
-      ready-made config and a one-tap add link for every app.
-    </p>
+  <section id="channels" class="wrap block" aria-labelledby="channels-title">
+    <h2 id="channels-title" class="block-title">Stable or pre-release?</h2>
+    <p class="lede">Pick stable unless you want to try new things early. You can also have both.</p>
+    <div class="compare">
+      <dl class="side stable">
+        <dt>Stable</dt>
+        <dd><span>Best for</span>everyday use</dd>
+        <dd><span>Patches</span>the latest release</dd>
+        <dd><span>App version</span>the newest one the patches support</dd>
+        <dd><span>On your phone</span>the main app</dd>
+      </dl>
+      <dl class="side pre">
+        <dt>Pre-release</dt>
+        <dd><span>Best for</span>trying new features early</dd>
+        <dd><span>Patches</span>the newest development build</dd>
+        <dd><span>App version</span>usually much newer</dd>
+        <dd><span>On your phone</span>a second app next to it, such as <i>YouTube Morphe Dev</i></dd>
+      </dl>
+    </div>
+    <p class="note warn">Pre-release builds get their own package from the <code>Clone app</code> patch, which its authors say "does not work with all apps and may cause app crashes". If a pre-release build misbehaves, suspect that first.</p>
   </section>
 
+  <section id="more" class="wrap block" aria-labelledby="more-title">
+    <h2 id="more-title" class="block-title">Catalog and API</h2>
+    <p class="lede">For the curious and for anyone running their own copy. None of this is needed to install the apps.</p>
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="api" role="tab" type="button">JSON API</button>
+      <button class="tab" data-tab="catalog" role="tab" type="button">Patch catalog</button>
+    </div>
+
+    <section id="api" class="panel is-active">
+      <p>Static JSON on this website. No key, no rate limit, and CORS is open, so a browser or a script can read it directly.</p>
+      <div id="api-body"></div>
+      <h3>Example</h3>
+      <pre><code>curl -s <span class="api-base">…</span>api/latest.json | jq -r '.apps.youtube.files[0].url'</code></pre>
+      <h3>Adding an app to Obtainium by hand</h3>
+      <p>In Obtainium, tap <b>Add App</b>, paste the app's page below and choose the source <b>HTML</b>. Each page holds exactly one APK link, and Obtainium reads the version from its file name, so it only offers an update when the app really changed.</p>
+      <pre><code><span class="api-base">…</span>obtainium/youtube.html</code></pre>
+      <p class="muted">Obtainium follows the app version, so a rebuild with newer patches but the same app version is not offered as an update. Install it again from here to get it. <code>api/obtainium.json</code> has the ready-made settings for every app.</p>
+    </section>
+
+    <section id="catalog" class="panel">
+      <p>Every patch source in <code>config.toml</code> and the apps it can patch. To add one, see <a href="https://github.com/Qutaiba-Khader/morphe-builder/blob/main/ADD.md">ADD.md</a>.</p>
+      <input id="catalog-search" type="search" placeholder="Search an app, package or patch source" autocomplete="off" aria-label="Search the catalog" />
+      <div id="catalog-body"><p class="muted">Loading catalog…</p></div>
+    </section>
+  </section>
 </main>
 
-<footer class="wrap foot">
-  <span id="generated" class="muted"></span>
-  <a href="https://github.com/Qutaiba-Khader/morphe-builder">Repository</a>
-  <a href="https://github.com/Qutaiba-Khader/morphe-builder/releases">Releases</a>
-  <a href="https://morphe.software">Morphe</a>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span id="generated" class="muted"></span>
+    <a href="https://github.com/Qutaiba-Khader/morphe-builder">Repository</a>
+    <a href="https://github.com/Qutaiba-Khader/morphe-builder/releases">Releases</a>
+    <a href="https://morphe.software">Morphe</a>
+    <span class="muted">Not affiliated with Morphe, Google or Reddit.</span>
+  </div>
 </footer>
 
 <script src="app.js"></script>

@@ -36,7 +36,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
   the site, the API and Obtainium use.
 * `[]` means *apply the bundle's own default patches* — the ones its author marked
   `Enabled: true`, i.e. the recommended set. It does **not** mean every patch. The site's
-  **Catalog** tab shows `<recommended> of <total>` per app, and `data/catalog.json` marks
+  **Patch catalog** tab shows `<recommended> of <total>` per app, and `data/catalog.json` marks
   `"default": true/false` on every patch.
 * To pick an exact set instead, list the names:
   `"github:MorpheApp/morphe-patches" = ["Hide ads", "SponsorBlock"]`.

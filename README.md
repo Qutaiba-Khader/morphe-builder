@@ -49,7 +49,7 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
-Patch catalog: 9 sources able to patch 360 apps, in the website's **Catalog** tab or [`data/catalog.json`](data/catalog.json).
+Patch catalog: 9 sources able to patch 360 apps, in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json).
 
 </details>
 <!-- apps:end -->
@@ -109,7 +109,7 @@ The daily check compares per **brand**, not per app. Every app patched with `Mor
 
 ### Which patches are applied
 
-Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. The website's **Catalog** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
+Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. The website's **Patch catalog** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
 
 | Left out | Why |
 |---|---|

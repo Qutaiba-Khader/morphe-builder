@@ -172,7 +172,7 @@ def main() -> int:
             "",
             (
                 f"Patch catalog: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps, "
-                f"in the website's **Catalog** tab or [`data/catalog.json`](data/catalog.json)."
+                f"in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json)."
             ),
         ]
     rows += ["", "</details>"]
