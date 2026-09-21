@@ -59,24 +59,25 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 # Pre-release twin of [YouTube]: the same recommended patches, but built from the
 # patch source's newest DEV bundle, under its own brand so it releases and updates
-# separately. Its own name and icon come from the branding options.
+# separately, with its own name, icon AND package - so it installs next to the
+# stable YouTube instead of replacing it.
 #
-# 🔴 It CANNOT be cloned: `GmsCore support` pins YouTube's package to
-# app.morphe.android.youtube (microG needs that exact name), and neither
-# `Clone app` nor its packageName option overrides it - both were tried and the
-# built APK kept the stable package. So this build REPLACES the stable one on the
-# device, and only one of the two can be tracked in Obtainium.
+# How the package is set: `GmsCore support` asks `Clone app` for the name
+# (setOrGetFallbackPackageName) and only falls back to app.morphe.android.youtube
+# when Clone app's `packageName` is still "Default". So the name goes on Clone app.
+# 🔴 A `-O` option binds to the `-e` it FOLLOWS: keep `-OpackageName` directly after
+# `-e 'Clone app'`, or it lands on the next patch and is silently ignored (that is
+# exactly what happened on 2026-09-20, when it followed the excludes instead).
 [YouTube-Experimental]
 enabled = true
 brand = "morphe-dev"
-package = "app.morphe.android.youtube"
+package = "app.morphe.android.youtube.dev"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 version = "exp"
-patcher-args = "-e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
+patcher-args = "-e 'Clone app' -OpackageName=app.morphe.android.youtube.dev -e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
 
 [YouTube-Experimental.patches]
 "github:MorpheApp/morphe-patches" = { version = "dev", exclude = [
-  "Clone app",
   "Change installer source",
   "Disable Play Store updates",
   "Override certificate pinning",
