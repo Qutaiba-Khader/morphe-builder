@@ -214,11 +214,15 @@ try {
 }
 if (readme !== null) {
   for (const a of index.apps) {
-    const row = readme.split("\n").find((l) => l.startsWith(`| **${a.name}** |`)) ?? "";
+    const row = readme.split("\n").find((l) => l.startsWith(`| **${a.name}**<br>`)) ?? "";
     const lt = (await (await fetch(BASE + "api/latest.json")).json()).apps[a.id];
-    check(`readme: Apps table has a row for ${a.id}`, !!row);
+    check(`readme: Download table has a row for ${a.id}`, !!row);
     check(`readme: ${a.id} row shows the live version and download`,
       row.includes(`\`${lt.version}\``) && row.includes(lt.files[0].url), row.slice(0, 90));
+    const at = readme.indexOf(row), pre = readme.indexOf("### Pre-release");
+    check(`readme: ${a.id} sits in the ${lt.prerelease ? "Pre-release" : "Stable"} table`,
+      !!row && (lt.prerelease ? pre >= 0 && at > pre : pre < 0 || at < pre));
+    check(`readme: details table lists ${a.id}'s package`, readme.includes(`| \`${a.package}\` |`));
   }
   for (const e of obt.apps) {
     check(`readme: ${e.app} row carries its Obtainium badge`, readme.includes(`][obt-${e.app}]`));

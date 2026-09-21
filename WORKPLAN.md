@@ -173,3 +173,16 @@ node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before 
 - The flow test now reads each APK's real package and compares it with the Obtainium id,
   checks ids are unique, compares app names with `config.toml`, checks each README row's version
   and download link, and opens the bulk-add page.
+
+## Phase 9 — README redesign (2026-09-21)
+
+- The README now opens with what a phone user needs, in order: a banner
+  (`.github/readme/banner.svg`), the Download tables, three install steps (MicroG-RE for
+  YouTube), and a stable-or-pre-release comparison. Everything technical follows under
+  **How it works**, with the deepest parts folded.
+- The Download tables are still generated (`tools/gen_readme.py`): one table per channel with
+  two columns, so the Download and Add to Obtainium buttons sit side by side on a wide screen
+  and wrap under each other on a phone. With four columns they shrank and the Obtainium column
+  was cut off at 390 px. Packages, release tags and endpoints moved to a folded table.
+- Checked by rendering the pushed README on github.com at 1280 px and 390 px, light and dark;
+  the flow test also checks each app sits in its channel's table and the package table.

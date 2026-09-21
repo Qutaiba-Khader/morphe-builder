@@ -5,8 +5,9 @@ Reads  : _site/api/index.json, _site/api/latest.json, _site/api/obtainium.json
            (written by tools/gen_site.py, so run that first)
 Writes : README.md, only between the markers below
 
-    <!-- apps:start -->            ... one row per app, with download + Obtainium
-    <!-- apps:end -->
+    <!-- apps:start -->            ... a table per channel (stable, pre-release): one row
+    <!-- apps:end -->                  per app with its download and Obtainium buttons,
+                                       then a folded table of packages, tags, endpoints
     <!-- obtainium-links:start --> ... the [obt-*] reference links the badges use
     <!-- obtainium-links:end -->
 
@@ -27,7 +28,10 @@ ROOT = Path(__file__).resolve().parent.parent
 API = ROOT / "_site" / "api"
 README = ROOT / "README.md"
 
-BADGE = "https://img.shields.io/badge/{label}-{message}-{color}?style=for-the-badge&logo=android&logoColor=white"
+SHIELD = "https://img.shields.io/badge/{text}-{color}?style=for-the-badge&logo={logo}&logoColor=white"
+
+# Download buttons are coloured by channel; the Obtainium buttons are all one colour
+STABLE, PRERELEASE, OBTAINIUM = "16a34a", "7c3aed", "2563eb"
 
 
 def _q(text: str) -> str:
@@ -41,8 +45,15 @@ def md(text: str) -> str:
     return re.sub(r"([\\|*_\[\]`])", r"\\\1", str(text))
 
 
-def badge(message: str, color: str) -> str:
-    return BADGE.format(label=_q("Add to Obtainium"), message=_q(message), color=color)
+def shield(label: str, message: str | None, color: str, logo: str) -> str:
+    text = _q(label) if message is None else f"{_q(label)}-{_q(message)}"
+    return SHIELD.format(text=text, color=color, logo=urllib.parse.quote(logo, safe=""))
+
+
+def logo_for(name: str) -> str:
+    # a Simple Icons slug from the app's first word ("YouTube Experimental" ->
+    # "youtube"); shields.io draws no logo for a slug it does not know
+    return re.sub(r"[^a-z0-9]", "", name.split()[0].lower()) if name.split() else "android"
 
 
 def size(n: int) -> str:
@@ -68,9 +79,12 @@ def main() -> int:
     conflicts = {c["app"]: c for c in obt.get("conflicts", [])}
     site = index["site"]
 
-    rows = [
-        "| App | Channel | Version | Package | Download | Obtainium |",
-        "|---|---|---|---|---|---|",
+    # One short table per channel: name, version, a download button per APK and
+    # an Obtainium button. Packages, tags and endpoints go in a folded table below.
+    tables: dict[str, list[str]] = {"stable": [], "pre-release": []}
+    details = [
+        "| App | Channel | Package | Release | Obtainium endpoint |",
+        "|---|---|---|---|---|",
     ]
     links: list[str] = []
     for app in index["apps"]:
@@ -78,40 +92,90 @@ def main() -> int:
         files = build.get("files", [])
         channel = "pre-release" if build.get("prerelease") else "stable"
         name = md(app["name"])
-        download = " · ".join(
-            f"[{md(f['arch'])} · {size(f['size'])}]({f['url']})" for f in files
+        logo = logo_for(app["name"])
+        color = PRERELEASE if channel == "pre-release" else STABLE
+        download = " ".join(
+            f"[![Download {name}{'' if f['arch'] == 'all' else ' ' + md(f['arch'])}"
+            f"{', ' + size(f['size']) if f['size'] else ''}]"
+            f"({shield('Download' if f['arch'] == 'all' else f['arch'], size(f['size']) or None, color, logo)})]"
+            f"({f['url']})"
+            for f in files
         ) or "—"
+
+        endpoints = []
         if (e := entries.get(app["id"])) is not None:
-            color = "7c3aed" if channel == "pre-release" else "2f6fed"
-            badges = [f"[![Add {name} to Obtainium]({badge(app['name'], color)})][obt-{app['id']}]"]
+            label = "Add to Obtainium" if not e.get("variants") else f"Obtainium {e['arch']}"
+            badges = [f"[![Add {name} to Obtainium]({shield(label, None, OBTAINIUM, 'obtainium')})][obt-{app['id']}]"]
             links.append(f"[obt-{app['id']}]: {e['add_url']}")
+            endpoints.append(f"[{md(e['source_url'].rsplit('/', 1)[-1])}]({e['source_url']})")
             for v in e.get("variants", []):
-                label = f"obt-{app['id']}-{v['arch']}"
-                badges.append(f"[![{name} {md(v['arch'])}]({badge(app['name'] + ' ' + v['arch'], color)})][{label}]")
-                links.append(f"[{label}]: {v['add_url']}")
-            obtainium = "<br>".join(badges) + f"<br>[endpoint]({site}obtainium/{app['id']}.html)"
+                ref = f"obt-{app['id']}-{v['arch']}"
+                badges.append(
+                    f"[![Add {name} {md(v['arch'])} to Obtainium]"
+                    f"({shield('Obtainium ' + v['arch'], None, OBTAINIUM, 'obtainium')})][{ref}]"
+                )
+                links.append(f"[{ref}]: {v['add_url']}")
+                endpoints.append(f"[{md(v['source_url'].rsplit('/', 1)[-1])}]({v['source_url']})")
+            obtainium = " ".join(badges)
         elif (c := conflicts.get(app["id"])) is not None:
-            obtainium = f"same package as {md(c.get('shares_with_name') or c['shares_with'])} — installs over it"
+            obtainium = f"same package as {md(c.get('shares_with_name') or c['shares_with'])}, installs over it"
         else:
-            obtainium = "— (package not read yet)"
-        rows.append(
-            f"| **{name}** | {channel} | `{app['latest_version']}` | "
-            f"`{app.get('package') or '?'}` | {download} | {obtainium} |"
+            obtainium = "not yet (package not read)"
+
+        # Two columns only: the buttons sit side by side on a wide screen and
+        # wrap under each other on a phone instead of shrinking
+        updated = (app.get("updated") or "")[:10]
+        about = f"**{name}**<br>`{app['latest_version']}`" + (f"<br><sub>{updated}</sub>" if updated else "")
+        tables[channel].append(f"| {about} | {download} {obtainium} |")
+
+        tag = build.get("tag")
+        release = f"[`{tag}`]({build['release_url']})" if tag and build.get("release_url") else "—"
+        details.append(
+            f"| {name} | {channel} | `{app.get('package') or '?'}` | {release} | "
+            f"{' · '.join(endpoints) or '—'} |"
         )
+
+    blurbs = {
+        "stable": ("Stable", "The everyday builds. Start here."),
+        "pre-release": ("Pre-release", ("Newer app versions with development patches. Each one installs "
+                                        "**next to** its stable app, under its own name.")),
+    }
+    rows: list[str] = []
+    for channel, (title, blurb) in blurbs.items():
+        if tables[channel]:
+            rows += [
+                f"### {title}", "", blurb, "",
+                "| App | Download or auto-update |",
+                "|---|---|",
+                *tables[channel], "",
+            ]
+    if not rows:
+        rows = ["No builds yet. The first ones appear here after the next CI run.", ""]
 
     sources = catalog.get("sources") or {}
     rows += [
+        (
+            (f"[![Add every app to Obtainium]({shield('Add every app to Obtainium', None, OBTAINIUM, 'obtainium')})]"
+             "[obt:all] " if entries else "")
+            + f"[![Older versions]({shield('Older versions', None, '475569', 'github')})]({site})"
+        ),
         "",
-        f"[![Add every app to Obtainium]({badge('every app', '16a34a')})][obt:all]",
+        "<details>",
+        "<summary><b>Package names, releases and Obtainium endpoints</b></summary>",
         "",
-        f"History of every build: the **All versions** button on the [site]({site}), "
-        f"or `api/apps/<app>.json`.",
+        *details,
+        "",
+        f"Every earlier build: the **All versions** button on the [website]({site}), or `api/apps/<app>.json`.",
     ]
     if sources:
-        rows.append(
-            f"Patch catalog: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps — "
-            f"the **Catalog** tab, or [`data/catalog.json`](data/catalog.json)."
-        )
+        rows += [
+            "",
+            (
+                f"Patch catalog: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps, "
+                f"in the website's **Catalog** tab or [`data/catalog.json`](data/catalog.json)."
+            ),
+        ]
+    rows += ["", "</details>"]
     links.append(f"[obt:all]: {obt['add_all_url']}")
 
     before = README.read_text(encoding="utf-8")
