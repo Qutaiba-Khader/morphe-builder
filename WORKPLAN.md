@@ -114,3 +114,25 @@ Three defects the trace found, all fixed:
   (APKPure, and Google Play through an Aurora Store client). Those are the escape hatches if
   APKMirror alone proves unreliable here.
 - Releases and the site are public.
+
+## Phase 7 — stable and pre-release side by side (2026-09-20 → 2026-09-21)
+
+- [x] Each app has a pre-release twin (`*-Experimental`, brand `morphe-dev`) built from the patch
+      source's newest dev bundle; it releases, tracks and updates separately.
+- [x] Every twin has its own package, so both channels install at once:
+      `app.morphe.android.youtube.dev`, `com.reddit.frontpage.morphe`. Verified by reading the
+      package out of each built APK.
+- [x] The YouTube twin first kept the stable package. Cause, read from the Morphe source:
+      `GmsCore support` takes YouTube's package from `Clone app`'s `packageName` option
+      (`setOrGetFallbackPackageName`) and only falls back to `app.morphe.android.youtube` while it
+      is `Default` — and the name *had* been passed, but after the excludes, and the CLI binds a
+      `-O` option to the `-e` it follows. It landed on another patch. Passing it straight after
+      `-e 'Clone app'` fixed it. (An interim note claiming YouTube could not be cloned was wrong
+      and is gone.)
+- [x] Parity: every app and channel gets the same site card, API entries, Obtainium endpoint,
+      one-tap badge and README row. The README's Apps table is now generated
+      (`tools/gen_readme.py`, the `readme` job in `site.yml`), so a new app or channel appears
+      there after its first build with no hand edit.
+- [x] The site now also redeploys after a standalone **Build APKs** run, not only after **CI**.
+- [x] Asset names are split against `config.toml` rather than guessed, because a brand can
+      contain a hyphen (`morphe-dev`).

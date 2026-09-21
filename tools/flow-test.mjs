@@ -161,6 +161,12 @@ try {
   console.log("SKIP  obtainium: README drift check (run from inside the repo to enable it)");
 }
 if (readme !== null) {
+  for (const a of index.apps) {
+    check(`readme: Apps table has a row for ${a.id}`, readme.includes(`| **${a.name}** |`));
+  }
+  for (const e of obt.apps) {
+    check(`readme: ${e.app} row carries its Obtainium badge`, readme.includes(`][obt-${e.app}]`));
+  }
   check("obtainium: README add-all link matches the generated one", readme.includes(obt.add_all_url));
   for (const entry of obt.apps) {
     check(`obtainium/${entry.app}: README add link matches the generated one`,

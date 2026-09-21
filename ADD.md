@@ -52,18 +52,27 @@ Copy the app's block, then change four things:
 [My-App-Experimental]
 enabled = true
 brand = "morphe-dev"                       # own brand = own release tag and own update check
-package = "com.example.app.morphe"         # Clone app appends ".morphe"
+package = "com.example.app.dev"            # informational; the real one is read from the APK
 apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 version = "exp"                            # allow versions only the dev patches support
-patcher-args = "-e 'Custom branding' -OcustomName='My App Dev'"
+patcher-args = "-e 'Clone app' -OpackageName=com.example.app.dev -e 'Custom branding' -OcustomName='My App Dev'"
 
 [My-App-Experimental.patches]
-"github:<owner>/<patches-repo>" = { version = "dev", include = ["Clone app"] }
+"github:<owner>/<patches-repo>" = { version = "dev" }
 ```
 
 `version = "dev"` takes the source's newest pre-release. `Clone app` is what lets it sit next to
 the stable build instead of replacing it — drop it if you would rather the pre-release replace
 the stable app.
+
+🔴 Keep each `-O` option **directly after** the `-e` of the patch it belongs to. The CLI binds
+an option to the `-e` it follows, so `-OpackageName=…` placed anywhere else is handed to a
+different patch and silently ignored. Name the package explicitly rather than relying on the
+`.morphe` default: for apps with `GmsCore support` (YouTube, YouTube Music, Google Photos) the
+default is overridden, and only an explicit name gives the clone its own package.
+
+Nothing else is needed. The site card, the API entries, the Obtainium endpoint, its one-tap
+badge and the README row all appear by themselves after the first build.
 
 ## Add a patch source
 

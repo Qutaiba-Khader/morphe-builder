@@ -66,3 +66,37 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Keep the README's app table (one row + Obtainium badge per app, per channel)
+  # in step with what was just published. README.md is not in this workflow's
+  # push paths, so this commit cannot re-trigger it.
+  readme:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Regenerate the app table
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 tools/gen_site.py > /dev/null
+          python3 tools/gen_readme.py
+
+      - name: Commit if changed
+        run: |
+          git add README.md
+          if git diff --cached --quiet -- README.md; then
+            echo "README unchanged"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "docs(readme): refresh the app table"
+          git pull --rebase origin main
+          git push
