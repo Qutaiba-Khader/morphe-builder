@@ -1,0 +1,87 @@
+{
+  "generated": "2026-09-21T16:30:19Z",
+  "repo": "Qutaiba-Khader/morphe-builder",
+  "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
+  "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
+  "add_all_deep_link": "obtainium://apps/%5B%7B%22id%22%3A%22com.reddit.frontpage%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Freddit.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22Reddit%20%28Morphe%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Freddit-morphe-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D%2C%7B%22id%22%3A%22com.reddit.frontpage.morphe%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Freddit-experimental.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22Reddit%20Experimental%20%28Morphe-Dev%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Freddit-experimental-morphe-dev-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D%2C%7B%22id%22%3A%22app.morphe.android.youtube%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Fyoutube.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22YouTube%20%28Morphe%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Fyoutube-morphe-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D%2C%7B%22id%22%3A%22app.morphe.android.youtube.dev%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Fyoutube-experimental.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22YouTube%20Experimental%20%28Morphe-Dev%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Fyoutube-experimental-morphe-dev-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D%5D",
+  "apps": [
+    {
+      "app": "reddit",
+      "name": "Reddit",
+      "arch": "all",
+      "version": "2026.14.0",
+      "package": "com.reddit.frontpage",
+      "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/reddit-morphe-v2026.14.0-all.apk",
+      "config": {
+        "id": "com.reddit.frontpage",
+        "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html",
+        "author": "Qutaiba-Khader",
+        "name": "Reddit (Morphe)",
+        "additionalSettings": "{\"versionExtractionRegEx\":\"/reddit-morphe-v(.+)-all\\\\.apk$\",\"matchGroupToUse\":\"1\",\"apkFilterRegEx\":\"\\\\.apk$\"}"
+      },
+      "deep_link": "obtainium://app/%7B%22id%22%3A%22com.reddit.frontpage%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Freddit.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22Reddit%20%28Morphe%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Freddit-morphe-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D",
+      "add_url": "https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Freddit-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D",
+      "page": "obtainium/reddit.html"
+    },
+    {
+      "app": "reddit-experimental",
+      "name": "Reddit Experimental",
+      "arch": "all",
+      "version": "2026.38.0",
+      "package": "com.reddit.frontpage.morphe",
+      "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+      "config": {
+        "id": "com.reddit.frontpage.morphe",
+        "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
+        "author": "Qutaiba-Khader",
+        "name": "Reddit Experimental (Morphe-Dev)",
+        "additionalSettings": "{\"versionExtractionRegEx\":\"/reddit-experimental-morphe-dev-v(.+)-all\\\\.apk$\",\"matchGroupToUse\":\"1\",\"apkFilterRegEx\":\"\\\\.apk$\"}"
+      },
+      "deep_link": "obtainium://app/%7B%22id%22%3A%22com.reddit.frontpage.morphe%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Freddit-experimental.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22Reddit%20Experimental%20%28Morphe-Dev%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Freddit-experimental-morphe-dev-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D",
+      "add_url": "https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage.morphe%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Freddit-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D",
+      "page": "obtainium/reddit-experimental.html"
+    },
+    {
+      "app": "youtube",
+      "name": "YouTube",
+      "arch": "all",
+      "version": "21.16.256",
+      "package": "app.morphe.android.youtube",
+      "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/youtube-morphe-v21.16.256-all.apk",
+      "config": {
+        "id": "app.morphe.android.youtube",
+        "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html",
+        "author": "Qutaiba-Khader",
+        "name": "YouTube (Morphe)",
+        "additionalSettings": "{\"versionExtractionRegEx\":\"/youtube-morphe-v(.+)-all\\\\.apk$\",\"matchGroupToUse\":\"1\",\"apkFilterRegEx\":\"\\\\.apk$\"}"
+      },
+      "deep_link": "obtainium://app/%7B%22id%22%3A%22app.morphe.android.youtube%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Fyoutube.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22YouTube%20%28Morphe%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Fyoutube-morphe-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D",
+      "add_url": "https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Fyoutube-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D",
+      "page": "obtainium/youtube.html"
+    },
+    {
+      "app": "youtube-experimental",
+      "name": "YouTube Experimental",
+      "arch": "all",
+      "version": "21.38.123",
+      "package": "app.morphe.android.youtube.dev",
+      "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk",
+      "config": {
+        "id": "app.morphe.android.youtube.dev",
+        "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
+        "author": "Qutaiba-Khader",
+        "name": "YouTube Experimental (Morphe-Dev)",
+        "additionalSettings": "{\"versionExtractionRegEx\":\"/youtube-experimental-morphe-dev-v(.+)-all\\\\.apk$\",\"matchGroupToUse\":\"1\",\"apkFilterRegEx\":\"\\\\.apk$\"}"
+      },
+      "deep_link": "obtainium://app/%7B%22id%22%3A%22app.morphe.android.youtube.dev%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Fyoutube-experimental.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22YouTube%20Experimental%20%28Morphe-Dev%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22%2Fyoutube-experimental-morphe-dev-v%28.%2B%29-all%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%7D%22%7D",
+      "add_url": "https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube.dev%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Fyoutube-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D",
+      "page": "obtainium/youtube-experimental.html"
+    }
+  ],
+  "conflicts": [],
+  "unknown_package": []
+}

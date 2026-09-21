@@ -1,0 +1,46 @@
+{
+  "generated": "2026-09-21T16:30:19Z",
+  "repo": "Qutaiba-Khader/morphe-builder",
+  "id": "youtube",
+  "name": "YouTube",
+  "package": "app.morphe.android.youtube",
+  "brand": "Morphe",
+  "builds": [
+    {
+      "version": "21.16.256",
+      "tag": "26.09.21-morphe",
+      "published": "2026-09-21T16:23:54Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe",
+      "files": [
+        {
+          "arch": "all",
+          "size": 128710898,
+          "sha256": "7ac3fe002b369cb126aad1fab163f6ba7f58ebc6980bab13dbdcdecd09566deb",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/youtube-morphe-v21.16.256-all.apk",
+          "name": "youtube-morphe-v21.16.256-all.apk"
+        }
+      ],
+      "rebuilds": 1
+    },
+    {
+      "version": "21.13.164",
+      "tag": "26.09.20-morphe",
+      "published": "2026-09-20T09:30:41Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.20-morphe",
+      "files": [
+        {
+          "arch": "all",
+          "size": 128343109,
+          "sha256": "14ff2b94685d3c8ca36ec17d9ce22c9cabd10d2961ef34b970e0afe24de93ae9",
+          "downloads": 32,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk",
+          "name": "youtube-morphe-v21.13.164-all.apk"
+        }
+      ],
+      "rebuilds": 1
+    }
+  ]
+}

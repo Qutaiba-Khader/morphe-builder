@@ -1,0 +1,59 @@
+{
+  "generated": "2026-09-21T16:30:19Z",
+  "repo": "Qutaiba-Khader/morphe-builder",
+  "site": "https://qutaiba-khader.github.io/morphe-builder/",
+  "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
+  "endpoints": {
+    "index": "api/index.json",
+    "latest": "api/latest.json",
+    "app": "api/apps/{app_id}.json",
+    "catalog": "api/catalog.json",
+    "obtainium": "api/obtainium.json"
+  },
+  "obtainium": {
+    "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
+    "source_url": "obtainium/{app_id}.html"
+  },
+  "apps": [
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "package": "com.reddit.frontpage",
+      "brand": "Morphe",
+      "latest_version": "2026.14.0",
+      "updated": "2026-09-21T16:23:54Z",
+      "versions": 1,
+      "api": "api/apps/reddit.json"
+    },
+    {
+      "id": "reddit-experimental",
+      "name": "Reddit Experimental",
+      "package": "com.reddit.frontpage.morphe",
+      "brand": "morphe-dev",
+      "latest_version": "2026.38.0",
+      "updated": "2026-09-21T16:16:51Z",
+      "versions": 1,
+      "api": "api/apps/reddit-experimental.json"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "package": "app.morphe.android.youtube",
+      "brand": "Morphe",
+      "latest_version": "21.16.256",
+      "updated": "2026-09-21T16:23:54Z",
+      "versions": 2,
+      "api": "api/apps/youtube.json"
+    },
+    {
+      "id": "youtube-experimental",
+      "name": "YouTube Experimental",
+      "package": "app.morphe.android.youtube.dev",
+      "brand": "morphe-dev",
+      "latest_version": "21.38.123",
+      "updated": "2026-09-21T16:16:51Z",
+      "versions": 1,
+      "api": "api/apps/youtube-experimental.json"
+    }
+  ]
+}
