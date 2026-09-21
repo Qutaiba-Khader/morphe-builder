@@ -55,8 +55,6 @@ jobs:
   site:
     needs: catalog
     permissions:
-      contents: write   # the called workflow's readme job commits README.md
-      pages: write
-      id-token: write
+      contents: write   # the called workflow pushes gh-pages and commits README.md
       actions: read     # the called workflow checks whether a build is running
     uses: ./.github/workflows/site.yml

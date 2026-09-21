@@ -23,10 +23,8 @@ on:
     - cron: '30 */6 * * *'
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-  actions: read   # gen_site.py checks whether a build is running (releases are drafts then)
+  contents: write   # publishes _site to the gh-pages branch; the readme job commits README.md
+  actions: read     # gen_site.py checks whether a build is running (releases are drafts then)
 
 concurrency:
   group: pages
@@ -56,33 +54,41 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 tools/gen_site.py
 
-      - name: Configure Pages
+      # Published by pushing to the gh-pages branch, which Pages serves. Not
+      # actions/deploy-pages: its deployment id is the commit SHA, and Pages keeps
+      # serving the FIRST artifact deployed for a SHA while reporting success
+      # (actions/deploy-pages#383) - so a new release, which brings no new commit,
+      # never reached the live site. Every push here is a new commit, so it does.
+      - name: Publish to gh-pages
         if: steps.gen.outputs.skip != 'true'
-        uses: actions/configure-pages@v6
-
-      - name: Upload artifact
-        if: steps.gen.outputs.skip != 'true'
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    if: needs.build.outputs.skip != 'true'
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          out="$RUNNER_TEMP/gh-pages"
+          if git fetch --depth 1 origin gh-pages 2>/dev/null; then
+            git worktree add -B gh-pages "$out" FETCH_HEAD
+          else
+            git worktree add --detach "$out"
+            git -C "$out" checkout --orphan gh-pages
+            git -C "$out" rm -rfq .
+          fi
+          rsync -a --delete --exclude .git _site/ "$out/"
+          cd "$out"
+          git add -A
+          # "generated" timestamps change on every run; only real content counts
+          if git diff --cached --quiet -I '"generated": ' ; then
+            echo "site unchanged"
+            exit 0
+          fi
+          git commit -qm "site: ${GITHUB_WORKFLOW} #${GITHUB_RUN_NUMBER} from ${GITHUB_SHA::7}"
+          git push origin gh-pages
 
   # Keep the README's app table (one row + Obtainium badge per app, per channel)
   # in step with what was just published. README.md is not in this workflow's
   # push paths, so this commit cannot re-trigger it.
   readme:
-    needs: deploy
+    needs: build
+    if: needs.build.outputs.skip != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
