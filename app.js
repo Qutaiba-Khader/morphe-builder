@@ -36,68 +36,76 @@ const getJSON = async (path) => {
 
 for (const tab of document.querySelectorAll(".tab")) {
   tab.addEventListener("click", () => {
-    for (const t of document.querySelectorAll(".tab")) t.classList.toggle("is-active", t === tab);
+    for (const t of document.querySelectorAll(".tab")) {
+      t.classList.toggle("is-active", t === tab);
+      t.setAttribute("aria-selected", String(t === tab));
+    }
     for (const p of document.querySelectorAll(".panel")) p.classList.toggle("is-active", p.id === tab.dataset.tab);
     if (tab.dataset.tab === "catalog") loadCatalog();
   });
 }
 
-/* -------------------------------------------------------------- builds */
+/* ----------------------------------------------------------- downloads */
 
 const historyCache = new Map();
 
-function fileRow(f) {
+function downloadButton(f) {
   const label = f.arch === "all" ? "Download" : `Download ${f.arch}`;
   return el("a", { class: "dl", href: f.url, rel: "noopener", title: f.sha256 ? `sha256 ${f.sha256}` : "" },
     el("span", { text: label }),
     el("small", { text: fmtSize(f.size) }));
 }
 
+function obtainiumButton(href, note) {
+  return el("a", {
+    class: "dl alt", href, rel: "noopener",
+    title: "Adds this app to Obtainium, which then checks for updates by itself",
+  }, el("span", { text: "Add to Obtainium" }), el("small", { text: note }));
+}
+
 function appCard(app, obtainium) {
-  const card = el("div", { class: "card" });
-  card.append(
-    el("h2", {},
-      el("span", { text: app.name }),
-      el("span", { class: "chip", text: app.brand }),
-      app.prerelease ? el("span", { class: "chip pre", text: "pre-release" }) : null),
-    el("p", { class: "ver", text: "v" + app.version }),
-    el("p", { class: "meta", text: `${fmtDate(app.published)} · ${app.tag}` }),
-    el("div", { class: "files" }, app.files.map(fileRow)));
+  const card = el("article", { class: "card" });
+  const actions = el("div", { class: "actions" }, app.files.map(downloadButton));
 
   const obt = obtainium?.entries.get(app.id);
   const clash = obtainium?.conflicts.get(app.id);
-  const obtButton = (href, label, note) => el("a", {
-    class: "dl alt", href, rel: "noopener",
-    title: "Adds this app to Obtainium so it checks for updates by itself",
-  }, el("span", { text: label }), el("small", { text: note }));
+  let clashNote = null;
   if (obt && (obt.variants || []).length) {
-    // one installable per phone: offer every architecture on its own
-    card.append(obtButton(obt.add_url, "Add to Obtainium", obt.arch));
-    for (const v of obt.variants) card.append(obtButton(v.add_url, "Add to Obtainium", v.arch));
+    // one installable per phone: every architecture is offered on its own
+    actions.append(obtainiumButton(obt.add_url, obt.arch));
+    for (const v of obt.variants) actions.append(obtainiumButton(v.add_url, v.arch));
   } else if (obt) {
-    card.append(obtButton(obt.add_url, "Add to Obtainium", "auto-updates"));
+    actions.append(obtainiumButton(obt.add_url, "auto-updates"));
   } else if (clash) {
     const other = clash.shares_with_name || clash.shares_with;
-    card.append(el("p", { class: "meta warn-note" },
-      el("span", { text: `Same package as ${other} (${clash.package}) — installing this one replaces it, so Obtainium tracks only one of the two.` })));
+    clashNote = el("p", { class: "warn-note",
+      text: `Same package as ${other} (${clash.package}). Installing this one replaces it, so Obtainium tracks only one of the two.` });
   }
 
-  const btn = el("button", { class: "more", type: "button", text: "All versions" });
+  const btn = el("button", { class: "more", type: "button", "aria-expanded": "false", text: "All versions" });
   const box = el("div", { class: "history", hidden: "" });
   btn.addEventListener("click", async () => {
-    const open = box.hasAttribute("hidden");
-    if (!open) { box.setAttribute("hidden", ""); btn.textContent = "All versions"; return; }
+    if (!box.hasAttribute("hidden")) {
+      box.setAttribute("hidden", "");
+      btn.textContent = "All versions";
+      btn.setAttribute("aria-expanded", "false");
+      return;
+    }
     btn.disabled = true;
     try {
       if (!historyCache.has(app.id)) historyCache.set(app.id, await getJSON(`api/apps/${app.id}.json`));
       const data = historyCache.get(app.id);
-      box.replaceChildren(el("ol", {}, data.builds.map((b) =>
-        el("li", {},
-          el("span", { class: "hv", text: "v" + b.version }),
-          el("span", { class: "muted", text: fmtDate(b.published) }),
-          b.files.map((f) => el("a", { href: f.url, rel: "noopener", text: `${f.arch} · ${fmtSize(f.size)}` }))))));
+      box.replaceChildren(...[
+        app.package ? el("p", { class: "pkg", text: `Package ${app.package}` }) : null,
+        el("ol", {}, data.builds.map((b) =>
+          el("li", {},
+            el("span", { class: "hv", text: b.version }),
+            el("span", { class: "muted", text: fmtDate(b.published) }),
+            b.files.map((f) => el("a", { href: f.url, rel: "noopener", text: `${f.arch === "all" ? "APK" : f.arch}, ${fmtSize(f.size)}` })))))
+      ].filter(Boolean));
       box.removeAttribute("hidden");
       btn.textContent = `Hide versions (${data.builds.length})`;
+      btn.setAttribute("aria-expanded", "true");
     } catch (err) {
       box.replaceChildren(el("p", { class: "err", text: String(err.message || err) }));
       box.removeAttribute("hidden");
@@ -106,12 +114,22 @@ function appCard(app, obtainium) {
     }
   });
 
-  card.append(btn, box);
+  // DOM append() would print a null as the text "null", so drop the missing parts
+  card.append(...[
+    el("div", { class: "mark", "aria-hidden": "true", text: (app.name || "?").trim().charAt(0).toUpperCase() }),
+    el("div", { class: "info" },
+      el("h2", {}, el("span", { text: app.name })),
+      el("p", { class: "facts" },
+        el("span", { class: "ver", text: app.version }),
+        el("span", { text: `Built ${fmtDate(app.published)}`, title: app.tag || "" }))),
+    actions, btn, clashNote, box,
+  ].filter(Boolean));
   return card;
 }
 
 async function loadBuilds() {
   const host = $("#apps");
+  const loading = $(".loading", host);
   try {
     const [data, obtainiumData] = await Promise.all([
       getJSON("api/latest.json"),
@@ -121,19 +139,31 @@ async function loadBuilds() {
       entries: new Map((obtainiumData.apps || []).map((a) => [a.app, a])),
       conflicts: new Map((obtainiumData.conflicts || []).map((c) => [c.app, c])),
     } : null;
-    if (obtainiumData?.add_all_url) {
+    if (obtainiumData?.add_all_url && (obtainiumData.apps || []).length) {
       const all = $("#obtainium-all");
       if (all) { all.href = obtainiumData.add_all_url; all.hidden = false; }
     }
+
     const apps = Object.values(data.apps || {}).sort((a, b) => a.name.localeCompare(b.name));
+    for (const channel of document.querySelectorAll(".channel")) {
+      const pre = channel.dataset.channel === "pre";
+      const mine = apps.filter((a) => Boolean(a.prerelease) === pre);
+      $(".list", channel).replaceChildren(...mine.map((a) => appCard(a, obtainium)));
+      channel.hidden = mine.length === 0;
+    }
     if (!apps.length) {
-      host.replaceChildren(el("p", { class: "muted", text: "No builds published yet — the first CI run will fill this in." }));
+      loading.textContent = "No builds yet. The first ones appear here after the next CI run.";
     } else {
-      host.replaceChildren(...apps.map((a) => appCard(a, obtainium)));
+      loading.remove();
+      const newest = apps.map((a) => a.published).filter(Boolean).sort().at(-1);
+      $("#last-build").replaceChildren(
+        "Last build ", el("b", { text: fmtDate(newest) }), `. ${apps.length} app${apps.length === 1 ? "" : "s"}, checked for updates every day.`);
     }
     $("#generated").textContent = data.generated ? "Updated " + fmtDate(data.generated) : "";
   } catch (err) {
-    host.replaceChildren(el("p", { class: "err", text: "Could not load builds: " + (err.message || err) }));
+    const msg = loading || host.appendChild(el("p"));
+    msg.className = "err";
+    msg.textContent = "Could not load the builds: " + (err.message || err) + ". Reload the page to try again.";
   }
 }
 
@@ -164,9 +194,9 @@ function sourceBlock(key, src) {
       el("td", { class: "muted", text: (info.versions || []).slice(0, 3).join(", ") || "any" }),
       el("td", { text: `${on} of ${all.length}` })));
   }
-  det.append(table);
+  det.append(el("div", { class: "table-scroll" }, table));
   if ((src.universal_patches || []).length) {
-    det.append(el("p", { class: "muted", text: "Universal: " + src.universal_patches.join(", ") }));
+    det.append(el("p", { class: "muted", text: "Universal patches: " + src.universal_patches.join(", ") }));
   }
   det.dataset.search = (key + " " + packages.map(([p]) => p).join(" ")).toLowerCase();
   return det;
@@ -180,11 +210,12 @@ async function loadCatalog() {
     const cat = await getJSON("api/catalog.json");
     const sources = Object.entries(cat.sources || {});
     if (!sources.length) {
-      host.replaceChildren(el("p", { class: "muted", text: "Catalog not generated yet — run the Catalog workflow." }));
+      host.replaceChildren(el("p", { class: "muted", text: "The catalog has not been generated yet. Run the Catalog workflow." }));
       return;
     }
     host.replaceChildren(
-      el("p", { class: "muted", text: `${sources.length} sources · ${Object.keys(cat.packages || {}).length} apps · generated ${fmtDate(cat.generated)}` }),
+      el("p", { class: "muted",
+        text: `${sources.length} patch sources can patch ${Object.keys(cat.packages || {}).length} apps. Updated ${fmtDate(cat.generated)}.` }),
       ...sources.map(([k, v]) => sourceBlock(k, v)));
 
     $("#catalog-search").addEventListener("input", (ev) => {
@@ -195,14 +226,14 @@ async function loadCatalog() {
     });
   } catch (err) {
     catalogLoaded = false;
-    host.replaceChildren(el("p", { class: "err", text: "Could not load catalog: " + (err.message || err) }));
+    host.replaceChildren(el("p", { class: "err", text: "Could not load the catalog: " + (err.message || err) }));
   }
 }
 
 /* ----------------------------------------------------------------- api */
 
 async function loadApi() {
-  const base = location.href.replace(/[^/]*$/, "");
+  const base = location.href.replace(/[#?].*$/, "").replace(/[^/]*$/, "");
   for (const node of document.querySelectorAll(".api-base")) node.textContent = base;
   try {
     const idx = await getJSON("api/index.json");
@@ -214,7 +245,7 @@ async function loadApi() {
           : el("a", { href: path, text: base + path })));
     $("#api-body").replaceChildren(...rows);
   } catch {
-    $("#api-body").replaceChildren(el("p", { class: "err", text: "API index not generated yet." }));
+    $("#api-body").replaceChildren(el("p", { class: "err", text: "The API index has not been generated yet." }));
   }
 }
 
