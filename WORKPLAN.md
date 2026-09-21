@@ -162,6 +162,14 @@ node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before 
   hand-typed catalog count had drifted → generated.
 - Documented, not changed: Obtainium does not see patch-only rebuilds (it tracks the app
   version); changing that needs version detection off and a phone test.
+- **Found only by testing the fixes live — the site stopped updating on new releases.**
+  `actions/deploy-pages` uses the commit SHA as the deployment id, and Pages keeps serving the
+  first artifact deployed for a SHA while reporting success (actions/deploy-pages#383; a
+  non-SHA build version is rejected with 404). A release brings no commit, so every scheduled
+  build was "deployed" and never shown — CI #7 built YouTube 21.16.256 and the API kept
+  serving 21.13.164. All four review lanes had passed that hop on its green status. The Site
+  workflow now pushes `_site` to a `gh-pages` branch (a new commit whenever content changes;
+  timestamp-only changes are ignored) and Pages serves that branch.
 - The flow test now reads each APK's real package and compares it with the Obtainium id,
   checks ids are unique, compares app names with `config.toml`, checks each README row's version
   and download link, and opens the bulk-add page.

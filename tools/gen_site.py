@@ -51,12 +51,20 @@ API = "https://api.github.com"
 
 
 def _get(url: str) -> Any:
+    api = urllib.parse.urlparse(url).hostname == "api.github.com"
+    if api:
+        # The API answers with `Cache-Control: max-age=60, s-maxage=60`: a run
+        # started right after a build can get the release list from BEFORE it
+        # and publish nothing new (seen 2026-09-21, 12 s after a publish). A
+        # unique query string and no-cache make every read a fresh one.
+        url += ("&" if "?" in url else "?") + f"_={time.time_ns()}"
     req = urllib.request.Request(url)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("User-Agent", "morphe-builder-site")
+    req.add_header("Cache-Control", "no-cache")
     # The job token goes to the GitHub API only - never to the Pages site, which a
     # custom domain could put on a third-party host.
-    if urllib.parse.urlparse(url).hostname == "api.github.com" and (token := os.getenv("GITHUB_TOKEN")):
+    if api and (token := os.getenv("GITHUB_TOKEN")):
         req.add_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read())

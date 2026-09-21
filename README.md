@@ -58,7 +58,7 @@ cleanly over a previous build from here, but not over one from another builder.
 | Workflow | When | Does |
 |---|---|---|
 | **CI** | daily **10:00 UTC**, or on demand | For each brand in `config.toml`, compares that patch source's newest release against our newest release. If the patches moved, it fetches the stock APK, patches, signs and publishes a release tagged `YY.MM.DD-<brand>`. If nothing moved it exits without a release. |
-| **Site** | after every CI or Build APKs run, every 6 h, on push | Regenerates the site, the JSON API and the README's Apps table from the releases and deploys to Pages. While a build is running (its release is a draft then) it publishes nothing and leaves the live site alone; the build's completion runs it again. |
+| **Site** | after every CI or Build APKs run, every 6 h, on push | Regenerates the site, the JSON API and the README's Apps table from the releases and publishes them to the `gh-pages` branch, which Pages serves. While a build is running (its release is a draft then) it publishes nothing and leaves the live site alone; the build's completion runs it again. |
 | **Catalog** | weekly, **Mon 04:00 UTC**, or on demand | Rebuilds [`data/catalog.json`](data/catalog.json) from every patch source. |
 | **Sync upstream** | daily **08:00 UTC** | Pulls fixes from [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe); `config.toml` and everything in this fork's `IGNORE_SYNC_FILES` are preserved. |
 

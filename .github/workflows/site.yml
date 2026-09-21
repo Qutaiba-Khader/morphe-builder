@@ -48,6 +48,12 @@ jobs:
       # visible is a mix of old and new builds. gen_site.py then sets skip=true
       # and exits 0: nothing is published, the live site stays as it is, and the
       # build's own completion triggers this workflow again.
+      # Started by a build that just finished: let the API's 60 s cache of the
+      # release list expire as well, so the new release is certainly visible.
+      - name: Let the release settle
+        if: github.event_name == 'workflow_run'
+        run: sleep 60
+
       - name: Generate site and API
         id: gen
         env:
