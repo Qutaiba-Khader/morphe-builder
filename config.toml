@@ -6,7 +6,6 @@
 #
 #      [My-App]
 #      enabled = true
-#      package = "com.example.app"              # the INSTALLED package; auto-detected
 #      apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 #
 #      [My-App.patches]
@@ -23,7 +22,6 @@ strict-sigcheck = false
 
 [YouTube]
 enabled = true
-package = "app.morphe.android.youtube"   # the PATCHED package (auto-detected from the APK)
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 
 [YouTube.patches]
@@ -46,7 +44,6 @@ arch = "both"
 
 [Reddit]
 enabled = true
-package = "com.reddit.frontpage"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 
 [Reddit.patches]
@@ -71,7 +68,6 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 [YouTube-Experimental]
 enabled = true
 brand = "morphe-dev"
-package = "app.morphe.android.youtube.dev"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 version = "exp"
 patcher-args = "-e 'Clone app' -OpackageName=app.morphe.android.youtube.dev -e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
@@ -98,15 +94,15 @@ patcher-args = "-e 'Change header' -Ocustom=icons/Music/header -e 'Custom brandi
 [Reddit-Experimental]
 enabled = true
 brand = "morphe-dev"
-package = "com.reddit.frontpage.morphe"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 version = "exp"
-patcher-args = "-e 'Custom branding name for Reddit' -OappName='Reddit Morphe Dev'"
+# Clone app is enabled here in patcher-args, not in the patches `include` list:
+# upstream picks the stock version from the included patches' compatible
+# versions, and Clone app, being universal, has none of its own.
+patcher-args = "-e 'Clone app' -e 'Custom branding name for Reddit' -OappName='Reddit Morphe Dev'"
 
 [Reddit-Experimental.patches]
-"github:MorpheApp/morphe-patches" = { version = "dev", include = [
-  "Clone app",
-], exclude = [
+"github:MorpheApp/morphe-patches" = { version = "dev", exclude = [
   "Change installer source",
   "Disable Play Store updates",
   "Override certificate pinning",

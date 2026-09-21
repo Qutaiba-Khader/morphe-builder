@@ -66,14 +66,20 @@ function appCard(app, obtainium) {
 
   const obt = obtainium?.entries.get(app.id);
   const clash = obtainium?.conflicts.get(app.id);
-  if (obt) {
-    card.append(el("a", {
-      class: "dl alt", href: obt.add_url, rel: "noopener",
-      title: "Adds this app to Obtainium so it checks for updates by itself",
-    }, el("span", { text: "Add to Obtainium" }), el("small", { text: "auto-updates" })));
+  const obtButton = (href, label, note) => el("a", {
+    class: "dl alt", href, rel: "noopener",
+    title: "Adds this app to Obtainium so it checks for updates by itself",
+  }, el("span", { text: label }), el("small", { text: note }));
+  if (obt && (obt.variants || []).length) {
+    // one installable per phone: offer every architecture on its own
+    card.append(obtButton(obt.add_url, "Add to Obtainium", obt.arch));
+    for (const v of obt.variants) card.append(obtButton(v.add_url, "Add to Obtainium", v.arch));
+  } else if (obt) {
+    card.append(obtButton(obt.add_url, "Add to Obtainium", "auto-updates"));
   } else if (clash) {
+    const other = clash.shares_with_name || clash.shares_with;
     card.append(el("p", { class: "meta warn-note" },
-      el("span", { text: `Same package as ${clash.shares_with} (${clash.package}) — installing this one replaces it, so Obtainium tracks only one of the two.` })));
+      el("span", { text: `Same package as ${other} (${clash.package}) — installing this one replaces it, so Obtainium tracks only one of the two.` })));
   }
 
   const btn = el("button", { class: "more", type: "button", text: "All versions" });
@@ -112,7 +118,7 @@ async function loadBuilds() {
       getJSON("api/obtainium.json").catch(() => null),
     ]);
     const obtainium = obtainiumData ? {
-      entries: new Map(obtainiumData.apps.map((a) => [a.app, a])),
+      entries: new Map((obtainiumData.apps || []).map((a) => [a.app, a])),
       conflicts: new Map((obtainiumData.conflicts || []).map((c) => [c.app, c])),
     } : null;
     if (obtainiumData?.add_all_url) {

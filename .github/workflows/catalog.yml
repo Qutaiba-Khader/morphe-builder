@@ -35,15 +35,21 @@ jobs:
 
       - name: Commit if changed
         run: |
-          git add data/catalog.json
-          # --cached, so a catalog.json that does not exist upstream yet still counts
-          if git diff --cached --quiet -- data/catalog.json; then
-            echo "catalog unchanged"
-            exit 0
+          # "generated" changes on every run; only a change in the data counts
+          strip() { python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); d.pop("generated",None); print(json.dumps(d,sort_keys=True))' "$1"; }
+          if git cat-file -e HEAD:data/catalog.json 2>/dev/null; then
+            git show HEAD:data/catalog.json > /tmp/old-catalog.json
+            if [ "$(strip /tmp/old-catalog.json)" = "$(strip data/catalog.json)" ]; then
+              echo "catalog unchanged"
+              exit 0
+            fi
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/catalog.json
           git commit -m "chore(catalog): refresh patch source catalog"
+          # main may have moved during the generation (a README bot commit, a push)
+          git pull --rebase origin main
           git push
 
   site:
@@ -52,4 +58,5 @@ jobs:
       contents: write   # the called workflow's readme job commits README.md
       pages: write
       id-token: write
+      actions: read     # the called workflow checks whether a build is running
     uses: ./.github/workflows/site.yml

@@ -13,9 +13,10 @@ patches. Nothing runs on private hardware — GitHub's runners do the whole buil
 | **YouTube** | stable | `21.13.164` | `app.morphe.android.youtube` | [all · 128 MB](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk) | [![Add YouTube to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-YouTube-2f6fed?style=for-the-badge&logo=android&logoColor=white)][obt-youtube]<br>[endpoint](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
 | **YouTube Experimental** | pre-release | `21.38.123` | `app.morphe.android.youtube.dev` | [all · 140 MB](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk) | [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-YouTube%20Experimental-7c3aed?style=for-the-badge&logo=android&logoColor=white)][obt-youtube-experimental]<br>[endpoint](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
-[![Add every app to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-every%20app-16a34a?style=for-the-badge&logo=android&logoColor=white)][obt-all]
+[![Add every app to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-every%20app-16a34a?style=for-the-badge&logo=android&logoColor=white)][obt:all]
 
 History of every build: the **All versions** button on the [site](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
+Patch catalog: 9 sources able to patch 360 apps — the **Catalog** tab, or [`data/catalog.json`](data/catalog.json).
 <!-- apps:end -->
 
 Tap a badge **on your phone** to add that app to [Obtainium](#obtainium), which then keeps it
@@ -29,7 +30,7 @@ entries, Obtainium endpoint and badge.
 
 | | Stable | Pre-release |
 |---|---|---|
-| Patches | latest release, e.g. `v1.43.0` | newest dev build, e.g. `v1.44.0-dev.9` |
+| Patches | the source's latest release, e.g. `v1.43.0` | its highest-versioned release, dev **or** stable — usually a dev build, e.g. `v1.44.0-dev.9`, but `v1.44.0` wins once it is out |
 | Stock app | newest version the stable patches support | often much newer, e.g. YouTube 21.38.123 vs 21.13.164 |
 | Release tag | `YY.MM.DD-morphe` | `YY.MM.DD-morphe-dev`, marked pre-release |
 | App name | YouTube / Reddit | YouTube Morphe Dev / Reddit Morphe Dev, own icon |
@@ -46,7 +47,7 @@ misbehaves, that is the first thing to suspect.
 | 🌐 **Site** | <https://qutaiba-khader.github.io/morphe-builder/> |
 | 🔌 **JSON API** | [see below](#json-api) |
 | ➕ **Add an app** | [ADD.md](ADD.md) — four lines in `config.toml` |
-| 🗂 **What can be patched** | [`data/catalog.json`](data/catalog.json) — 8 sources, 359 apps |
+| 🗂 **What can be patched** | [`data/catalog.json`](data/catalog.json) — counts under the Apps table |
 | 🧭 **Plan and verification** | [WORKPLAN.md](WORKPLAN.md) |
 
 The APKs are signed with this repository's own key, held in Actions secrets. An update installs
@@ -57,7 +58,7 @@ cleanly over a previous build from here, but not over one from another builder.
 | Workflow | When | Does |
 |---|---|---|
 | **CI** | daily **10:00 UTC**, or on demand | For each brand in `config.toml`, compares that patch source's newest release against our newest release. If the patches moved, it fetches the stock APK, patches, signs and publishes a release tagged `YY.MM.DD-<brand>`. If nothing moved it exits without a release. |
-| **Site** | after every CI run, every 6 h, on push | Regenerates the site and the JSON API from the releases and deploys to Pages. |
+| **Site** | after every CI or Build APKs run, every 6 h, on push | Regenerates the site, the JSON API and the README's Apps table from the releases and deploys to Pages. While a build is running (its release is a draft then) it publishes nothing and leaves the live site alone; the build's completion runs it again. |
 | **Catalog** | weekly, **Mon 04:00 UTC**, or on demand | Rebuilds [`data/catalog.json`](data/catalog.json) from every patch source. |
 | **Sync upstream** | daily **08:00 UTC** | Pulls fixes from [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe); `config.toml` and everything in this fork's `IGNORE_SYNC_FILES` are preserved. |
 
@@ -115,8 +116,9 @@ Base: `https://qutaiba-khader.github.io/morphe-builder/`
 | [`api/latest.json`](https://qutaiba-khader.github.io/morphe-builder/api/latest.json) | The newest build of each app in full: version, tag, size, sha256, download URL |
 | [`api/apps/<id>.json`](https://qutaiba-khader.github.io/morphe-builder/api/apps/youtube.json) | One app's complete build history |
 | [`api/catalog.json`](https://qutaiba-khader.github.io/morphe-builder/api/catalog.json) | Every patch source → the apps it patches → patch names and supported versions |
-| [`api/obtainium.json`](https://qutaiba-khader.github.io/morphe-builder/api/obtainium.json) | A ready-made Obtainium config and one-tap add link per app |
-| `obtainium/<id>.html` | The per-app endpoint Obtainium polls — every app has one, linked from the [Apps](#apps) table |
+| [`api/obtainium.json`](https://qutaiba-khader.github.io/morphe-builder/api/obtainium.json) | A ready-made Obtainium config and one-tap add link per app — plus `variants` (one per architecture) for multi-arch apps, `conflicts`, and `add_all_url` |
+| `obtainium/<id>.html` | The per-app endpoint Obtainium polls — every app has one, linked from the [Apps](#apps) table; multi-arch apps also have `obtainium/<id>-<arch>.html` |
+| `obtainium/_all.html` | Adds every app at once: hands `obtainium://apps/…` to the phone |
 
 ```bash
 # newest YouTube APK
@@ -134,7 +136,7 @@ curl -s https://qutaiba-khader.github.io/morphe-builder/api/index.json \
   "generated": "2026-09-20T08:10:45Z",
   "apps": {
     "youtube": {
-      "id": "youtube", "name": "YouTube", "brand": "morphe",
+      "id": "youtube", "name": "YouTube", "package": "app.morphe.android.youtube", "brand": "Morphe",
       "version": "21.13.164", "tag": "26.09.20-morphe",
       "published": "2026-09-20T02:58:34Z", "prerelease": false,
       "files": [{
@@ -156,8 +158,10 @@ once and it checks for new builds on its own and offers you the update.
 **On your phone**, tap an app's badge in the [Apps](#apps) table (or **Add every app** under it).
 Each opens Obtainium with the app pre-filled — it shows you the config and waits for you to
 confirm; if Obtainium is not installed, the page explains what to do. Every app has one,
-stable and pre-release alike, and the same buttons are on the
-[site](https://qutaiba-khader.github.io/morphe-builder/).
+stable and pre-release alike (a multi-arch app has one per architecture — pick your phone's),
+and the same buttons are on the [site](https://qutaiba-khader.github.io/morphe-builder/).
+**Add every app** is served from this site rather than Obtainium's redirect service, which
+only forwards single apps.
 
 To add one by hand: **Add App** → URL `https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html`
 → source **HTML**. The ready-made settings for each app (including the version regex) are in
@@ -169,6 +173,13 @@ even when that app's APK had not changed. The HTML endpoint holds exactly one AP
 version is read from the filename (`youtube-morphe-v21.13.164-all.apk` → `21.13.164`), so the
 update prompt means the app really moved. Multi-architecture apps also get
 `obtainium/<id>-<arch>.html`.
+
+**One limit that follows from that:** Obtainium sees the *app* version, so a rebuild with newer
+patches but the same app version (a patch-only fix) is not offered as an update. You get it the
+next time the app version changes, or by reinstalling from the site or
+[Releases](https://github.com/Qutaiba-Khader/morphe-builder/releases). Making Obtainium see
+patch-only rebuilds needs a version string it cannot reconcile with the installed app, i.e.
+turning its version detection off — possible, but it has to be proven on a phone first.
 
 Everything here is regenerated from the releases after every build, so it always points at the
 newest APK with no manual step.
@@ -276,9 +287,9 @@ This project is open-source and distributed under the **[GNU GPLv3](LICENSE)** l
 </details>
 
 <!-- obtainium-links:start — generated by tools/gen_readme.py, edits here are overwritten -->
-[obt-reddit]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522reddit-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
-[obt-reddit-experimental]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage.morphe%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522reddit-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
-[obt-youtube]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522youtube-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
-[obt-youtube-experimental]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube.dev%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522youtube-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
-[obt-all]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapps%2F%255B%257B%2522id%2522%253A%2522com.reddit.frontpage%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522reddit-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D%252C%257B%2522id%2522%253A%2522com.reddit.frontpage.morphe%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522reddit-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D%252C%257B%2522id%2522%253A%2522app.morphe.android.youtube%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522youtube-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D%252C%257B%2522id%2522%253A%2522app.morphe.android.youtube.dev%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522youtube-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D%255D
+[obt-reddit]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Freddit-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
+[obt-reddit-experimental]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.reddit.frontpage.morphe%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Freddit-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Reddit%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Freddit-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
+[obt-youtube]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520%2528Morphe%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Fyoutube-morphe-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
+[obt-youtube-experimental]: https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522app.morphe.android.youtube.dev%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fyoutube-experimental.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522YouTube%2520Experimental%2520%2528Morphe-Dev%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522%252Fyoutube-experimental-morphe-dev-v%2528.%252B%2529-all%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%257D%2522%257D
+[obt:all]: https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html
 <!-- obtainium-links:end -->

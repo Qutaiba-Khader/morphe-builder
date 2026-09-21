@@ -14,7 +14,6 @@ Stdlib only.
 
 from __future__ import annotations
 
-import io
 import struct
 import sys
 import urllib.request
@@ -26,7 +25,7 @@ UTF8_FLAG = 1 << 8
 
 
 def _string_pool(data: bytes, off: int) -> list[str]:
-    _type, header_size, size = struct.unpack_from("<HHI", data, off)
+    _type, header_size, _size = struct.unpack_from("<HHI", data, off)
     count, _style_count, flags, strings_start, _styles_start = struct.unpack_from("<IIIII", data, off + 8)
     offsets = struct.unpack_from(f"<{count}I", data, off + header_size)
     base = off + strings_start
@@ -52,7 +51,6 @@ def _string_pool(data: bytes, off: int) -> list[str]:
                 n = ((n & 0x7FFF) << 16) | struct.unpack_from("<H", data, p)[0]
                 p += 2
             out.append(data[p : p + n * 2].decode("utf-16-le", "replace"))
-    del size
     return out
 
 
@@ -111,7 +109,7 @@ def package_from_url(url: str) -> str:
     p = 0
     while p + 46 <= len(cd) and cd[p : p + 4] == b"PK\x01\x02":
         method, = struct.unpack_from("<H", cd, p + 10)
-        comp_size, _unc_size = struct.unpack_from("<II", cd, p + 20)
+        comp_size, = struct.unpack_from("<I", cd, p + 20)
         name_len, extra_len, comment_len = struct.unpack_from("<HHH", cd, p + 28)
         local_off, = struct.unpack_from("<I", cd, p + 42)
         name = cd[p + 46 : p + 46 + name_len].decode("utf-8", "replace")
@@ -141,4 +139,3 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         raise SystemExit("usage: apk_package.py <apk path or url>")
     print(package_of(sys.argv[1]))
-    del io

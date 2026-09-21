@@ -7,7 +7,6 @@
   --accent: #2f6fed;
   --accent-ink: #ffffff;
   --chip: #eef1f6;
-  --ok: #17794a;
   --warn: #9a6400;
   --radius: 14px;
 }
@@ -22,14 +21,13 @@
     --accent: #5b8dff;
     --accent-ink: #0b1220;
     --chip: #222732;
-    --ok: #4ad295;
     --warn: #e8b551;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f1115; --panel: #171a21; --ink: #e8eaf0; --muted: #98a0b0;
   --line: #262b35; --accent: #5b8dff; --accent-ink: #0b1220; --chip: #222732;
-  --ok: #4ad295; --warn: #e8b551;
+  --warn: #e8b551;
 }
 
 * { box-sizing: border-box; }

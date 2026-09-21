@@ -22,6 +22,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import tomllib
 import urllib.error
 import urllib.parse
@@ -47,56 +48,97 @@ def _req(url: str, accept: str = "application/vnd.github+json") -> Any:
     req.add_header("User-Agent", "morphe-builder-catalog")
     if "api.github.com" in url and (token := os.getenv("GITHUB_TOKEN")):
         req.add_header("Authorization", f"Bearer {token}")
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        return json.loads(resp.read())
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                return json.loads(resp.read())
+        except urllib.error.HTTPError as exc:
+            if exc.code < 500 or attempt == 2:  # a 404 is an answer, a 5xx is weather
+                raise
+        except urllib.error.URLError:
+            if attempt == 2:
+                raise
+        time.sleep(3 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 def download(url: str, dest: Path) -> Path:
     if dest.exists() and dest.stat().st_size > 0:
         return dest
     dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_name(dest.name + ".part")
     req = urllib.request.Request(url)
     req.add_header("User-Agent", "morphe-builder-catalog")
     if "api.github.com" in url and (token := os.getenv("GITHUB_TOKEN")):
         req.add_header("Authorization", f"Bearer {token}")
-    with urllib.request.urlopen(req, timeout=300) as resp, dest.open("wb") as fh:
-        while chunk := resp.read(1 << 20):
-            fh.write(chunk)
+    try:
+        with urllib.request.urlopen(req, timeout=300) as resp, tmp.open("wb") as fh:
+            while chunk := resp.read(1 << 20):
+                fh.write(chunk)
+    except urllib.error.HTTPError:
+        # Some release assets answer urllib's redirect with a 500 from GitHub's
+        # asset CDN while curl gets 200 for the same URL (seen 2026-09-21 on
+        # De-Vanced v1.4.4). curl is on every runner; use it as the fallback.
+        subprocess.run(["curl", "-fsSL", "--retry", "3", "-o", str(tmp), url], check=True, timeout=300)
+    tmp.replace(dest)
     return dest
 
 
-# --------------------------------------------------------------------- resolving
+def _upstream_ver_key(ver: str) -> tuple[int, ...]:
+    """Mirror of src/core/prebuilts.py `_ver_key`: numbers of the part before the
+    first '-', so v1.44.0 and v1.44.0-dev.9 tie (and the first listed wins)."""
+    base = ver.split("-")[0]
+    return tuple(int(x) for x in re.findall(r"\d+", base)) or (0,)
 
 
-def resolve_github(repo: str) -> tuple[str, str]:
-    """-> (mpp download url, tag). Raises if the release has no bundle."""
-    rel = _req(f"https://api.github.com/repos/{repo}/releases/latest")
-    for asset in rel.get("assets", []):
-        if asset["name"].endswith((".mpp", ".rvp")):
-            return asset["browser_download_url"], rel.get("tag_name", "")
+def _bundle(assets: list[dict[str, Any]], name_key: str, url_key: str) -> str | None:
+    for a in assets:
+        if str(a.get(name_key, "")).endswith((".mpp", ".rvp")) or str(a.get(url_key, "")).endswith((".mpp", ".rvp")):
+            return str(a[url_key])
+    return None
+
+
+def resolve_github(repo: str, version: str) -> tuple[str, str]:
+    """-> (bundle url, tag), choosing the release exactly as the builder does
+    (src/core/prebuilts.py `_fetch_single_asset`): "latest" = the latest
+    release, "dev" = the highest version among ALL releases (stable or not),
+    anything else = that tag."""
+    base = f"https://api.github.com/repos/{repo}/releases"
+    if version == "latest":
+        rel = _req(f"{base}/latest")
+    elif version == "dev":
+        releases = _req(base)
+        best = max((r["tag_name"] for r in releases if r.get("tag_name")), key=_upstream_ver_key)
+        rel = next(r for r in releases if r.get("tag_name") == best)
+    else:
+        rel = _req(f"{base}/tags/{version}")
+    if url := _bundle(rel.get("assets", []), "name", "browser_download_url"):
+        return url, rel.get("tag_name", "")
     raise LookupError(f"no .mpp asset in {repo} {rel.get('tag_name')}")
 
 
-def resolve_gitlab(project: str) -> tuple[str, str]:
+def resolve_gitlab(project: str, version: str) -> tuple[str, str]:
     enc = urllib.parse.quote(project, safe="")
     releases = _req(f"https://gitlab.com/api/v4/projects/{enc}/releases", accept="application/json")
-    for rel in releases:
-        for link in rel.get("assets", {}).get("links", []):
-            if str(link.get("name", "")).endswith((".mpp", ".rvp")) or str(link.get("url", "")).endswith((".mpp", ".rvp")):
-                return link["url"], rel.get("tag_name", "")
-        for src in rel.get("assets", {}).get("sources", []):
-            del src  # sources are tarballs, not bundles
-    raise LookupError(f"no .mpp asset in gitlab {project}")
+    if version == "dev" and releases:
+        best = max((r["tag_name"] for r in releases if r.get("tag_name")), key=_upstream_ver_key)
+        releases = [r for r in releases if r.get("tag_name") == best]
+    elif version not in ("latest", "dev"):
+        releases = [r for r in releases if r.get("tag_name") == version]
+    for rel in releases:  # newest first; "latest" = the first one carrying a bundle
+        if url := _bundle(rel.get("assets", {}).get("links", []), "name", "url"):
+            return url, rel.get("tag_name", "")
+    raise LookupError(f"no .mpp asset in gitlab {project} ({version})")
 
 
-def resolve_source(key: str) -> tuple[str, str, str]:
-    """'github:owner/repo' -> (download url, tag, web url)."""
+def resolve_source(key: str, version: str = "latest") -> tuple[str, str, str]:
+    """('github:owner/repo', version spec) -> (download url, tag, web url)."""
     kind, _, path = key.partition(":")
     if kind == "github":
-        url, tag = resolve_github(path)
+        url, tag = resolve_github(path, version)
         return url, tag, f"https://github.com/{path}"
     if kind == "gitlab":
-        url, tag = resolve_gitlab(path)
+        url, tag = resolve_gitlab(path, version)
         return url, tag, f"https://gitlab.com/{path}"
     raise LookupError(f"unknown source kind: {key}")
 
@@ -149,7 +191,11 @@ def parse_patch_list(text: str) -> list[dict[str, Any]]:
         if stripped.startswith("Compatible versions:"):
             in_versions = True
             continue
-        if in_versions and pkg:
+        if stripped.startswith("Version codes:"):
+            # "<version>: ARM64_V8A=47, ..." lines follow - not versions
+            in_versions = False
+            continue
+        if in_versions and pkg and ":" not in stripped:
             current["packages"][pkg].append(stripped)
 
     if current:
@@ -157,15 +203,11 @@ def parse_patch_list(text: str) -> list[dict[str, Any]]:
     return patches
 
 
-def _version_key(version: str) -> tuple[tuple[int, int, str], ...]:
-    """Sortable key that never compares an int against a str."""
-    parts: list[tuple[int, int, str]] = []
-    for chunk in re.split(r"[.\-_]", version):
-        if chunk.isdigit():
-            parts.append((0, int(chunk), ""))
-        else:
-            parts.append((1, 0, chunk.lower()))
-    return tuple(parts)
+def _version_key(version: str) -> tuple[Any, ...]:
+    """Sortable, never compares int with str, and 8.30.51-beta.2 < 8.30.51."""
+    base, _, pre = version.partition("-")
+    nums = tuple((0, int(c), "") if c.isdigit() else (1, 0, c.lower()) for c in re.split(r"[._]", base))
+    return (nums, 0 if pre else 1, pre.lower())
 
 
 def build_source_entry(patches: list[dict[str, Any]]) -> dict[str, Any]:
@@ -197,17 +239,24 @@ def build_source_entry(patches: list[dict[str, Any]]) -> dict[str, Any]:
 # -------------------------------------------------------------------------- main
 
 
-def sources_from_config() -> dict[str, list[dict[str, Any]]]:
+def sources_from_config() -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """(source, version spec) -> tables using it. "dev" and a pinned tag are
+    different bundles from "latest", so they are catalogued separately."""
     data = tomllib.loads(CONFIG.read_text(encoding="utf-8"))
-    found: dict[str, list[dict[str, Any]]] = {}
+    found: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for table, body in data.items():
         if not isinstance(body, dict):
             continue
-        for key in (body.get("patches") or {}):
-            found.setdefault(str(key), []).append(
-                {"table": table, "enabled": bool(body.get("enabled", True))}
+        for key, spec in (body.get("patches") or {}).items():
+            version = str(spec.get("version", "latest")) if isinstance(spec, dict) else "latest"
+            found.setdefault((str(key), version), []).append(
+                {"table": table, "enabled": body.get("enabled", True) is True}
             )
     return found
+
+
+def catalog_key(source: str, version: str) -> str:
+    return source if version == "latest" else f"{source}@{version}"
 
 
 def main() -> int:
@@ -223,24 +272,25 @@ def main() -> int:
     }
 
     failures = 0
-    for key, used_by in sorted(used.items()):
+    for (source, spec), used_by in sorted(used.items()):
+        key = catalog_key(source, spec)
         print(f"\n== {key}")
         try:
-            url, tag, web = resolve_source(key)
-            mpp = download(url, WORK / f"{key.replace(':', '_').replace('/', '_')}-{tag or 'latest'}{Path(urllib.parse.urlparse(url).path).suffix}")
+            url, tag, web = resolve_source(source, spec)
+            mpp = download(url, WORK / f"{source.replace(':', '_').replace('/', '_')}-{tag or spec}{Path(urllib.parse.urlparse(url).path).suffix}")
             proc = subprocess.run(
                 ["java", "-jar", str(cli), "list-patches", "--patches", str(mpp), "-p", "-v", "-d=false", "-i=false"],
-                capture_output=True, text=True, timeout=600,
+                capture_output=True, text=True, timeout=600, check=False,  # returncode checked below
             )
             if proc.returncode != 0:
                 raise RuntimeError(proc.stderr.strip()[:300] or f"exit {proc.returncode}")
             entry = build_source_entry(parse_patch_list(proc.stdout))
-            entry.update({"url": web, "version": tag, "used_by": used_by})
+            entry.update({"url": web, "version": tag, "spec": spec, "used_by": used_by})
             catalog["sources"][key] = entry
             print(f"   {tag}: {entry['patch_count']} patches, {len(entry['packages'])} apps")
         except Exception as exc:  # noqa: BLE001 - one bad source must not sink the catalog
             failures += 1
-            catalog["sources"][key] = {"url": key, "error": str(exc)[:300], "used_by": used_by,
+            catalog["sources"][key] = {"url": source, "spec": spec, "error": str(exc)[:300], "used_by": used_by,
                                        "patch_count": 0, "packages": {}, "universal_patches": []}
             print(f"   FAILED: {exc}", file=sys.stderr)
 

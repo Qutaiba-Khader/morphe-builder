@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Generate the Pages site and its JSON API from this repo's own GitHub releases.
 
-Reads  : GitHub Releases API, site/static/*, data/catalog.json (optional)
-Writes : _site/index.html, _site/assets/*, _site/api/*.json
+Reads  : GitHub Releases + Actions runs API, the live site, site/static/*,
+         data/catalog.json (optional), config.toml
+Writes : _site/ - the static files (flat), api/*.json, api/apps/<id>.json,
+         obtainium/<id>.html (+ <id>-<arch>.html, all.html), .nojekyll
 
 Release assets are named  <app>-<brand>-v<version>-<arch>.apk  under a  YY.MM.DD-<source>
 tag, which is all the structure the site needs.
@@ -12,11 +14,13 @@ Stdlib only, so the workflow needs no dependency install.
 
 from __future__ import annotations
 
+import html
 import json
 import os
 import re
 import shutil
 import sys
+import time
 import tomllib
 import urllib.error
 import urllib.parse
@@ -33,7 +37,7 @@ STATIC_DIR = ROOT / "site" / "static"
 CATALOG_FILE = ROOT / "data" / "catalog.json"
 OUT_DIR = ROOT / "_site"
 
-ARCHES = ("all", "arm64-v8a", "armeabi-v7a", "x86_64", "x86", "universal")
+ARCHES = ("all", "arm64-v8a", "armeabi-v7a", "x86_64", "x86")  # src/core/config.py VALID_ARCHES
 # <stem>-v<version>-<arch>.apk, where the stem is "<app name>-<brand>" with both
 # lowercased and spaces hyphenated (src/core/builder.py). The brand itself can
 # contain a hyphen ("morphe-dev"), so the stem is split against config.toml
@@ -50,10 +54,45 @@ def _get(url: str) -> Any:
     req = urllib.request.Request(url)
     req.add_header("Accept", "application/vnd.github+json")
     req.add_header("User-Agent", "morphe-builder-site")
-    if token := os.getenv("GITHUB_TOKEN"):
+    # The job token goes to the GitHub API only - never to the Pages site, which a
+    # custom domain could put on a third-party host.
+    if urllib.parse.urlparse(url).hostname == "api.github.com" and (token := os.getenv("GITHUB_TOKEN")):
         req.add_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read())
+
+
+# Workflows that turn a release back into a DRAFT while they rebuild it
+# (upstream build.yml "Prepare version and draft release"). While one runs, the
+# releases this script can see are a partial, older picture.
+BUILD_WORKFLOWS = frozenset({"CI", "Build APKs"})
+ACTIVE_STATUSES = ("in_progress", "queued", "waiting", "pending", "requested")
+
+
+def build_state(repo: str) -> tuple[str, str]:
+    """-> ("busy", detail) | ("idle", "") | ("unknown", why). Needs `actions: read`."""
+    try:
+        for status in ACTIVE_STATUSES:
+            data = _get(f"{API}/repos/{repo}/actions/runs?status={status}&per_page=50")
+            for run in data.get("workflow_runs", []):
+                if run.get("name") in BUILD_WORKFLOWS:
+                    return "busy", f"{run['name']} #{run.get('run_number')} is {status}"
+        return "idle", ""
+    except Exception as exc:  # noqa: BLE001 - no permission / API down: decide from tags instead
+        return "unknown", str(exc)
+
+
+def set_output(key: str, value: str) -> None:
+    if path := os.getenv("GITHUB_OUTPUT"):
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write(f"{key}={value}\n")
+
+
+def fetch_live(site_url: str) -> dict[str, Any]:
+    try:
+        return _get(site_url + "api/latest.json")
+    except Exception:  # noqa: BLE001 - no live site yet = first run
+        return {}
 
 
 def fetch_releases(repo: str, max_pages: int = 4) -> list[dict[str, Any]]:
@@ -62,6 +101,8 @@ def fetch_releases(repo: str, max_pages: int = 4) -> list[dict[str, Any]]:
         try:
             batch = _get(f"{API}/repos/{repo}/releases?per_page=100&page={page}")
         except urllib.error.HTTPError as exc:
+            if page == 1:
+                raise  # nothing read at all: never mistake that for "no releases"
             print(f"warn: releases page {page} failed: {exc}", file=sys.stderr)
             break
         if not batch:
@@ -76,13 +117,21 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def github_asset_name(name: str) -> str:
+    """How GitHub stores an uploaded asset name: any character outside
+    [A-Za-z0-9@+-_.] becomes '.', and runs of '.' collapse (builder.py relies on
+    the same rule)."""
+    return re.sub(r"\.+", ".", re.sub(r"[^a-zA-Z0-9@+\-_.]", ".", name))
+
+
 def app_config() -> dict[str, dict[str, str]]:
-    """filename stem -> {id, name, brand, package}, straight from config.toml.
+    """filename stem -> {id, name, brand}, straight from config.toml.
 
     The stem is how builder.py names the output: the app name and the brand,
-    lowercased with spaces hyphenated. Keying on it means a brand containing a
-    hyphen ("morphe-dev") still splits correctly, and the name keeps its
-    capitalisation ("YouTube", not "Youtube").
+    lowercased with spaces hyphenated, as GitHub then stores it. Keying on it
+    means a brand containing a hyphen ("morphe-dev") still splits correctly, and
+    the name keeps its capitalisation ("YouTube", not "Youtube"). The id comes
+    from the TABLE name, which is unique - two tables may share an app-name.
     """
     config = ROOT / "config.toml"
     if not config.exists():
@@ -95,37 +144,53 @@ def app_config() -> dict[str, dict[str, str]]:
             continue
         name = str(body.get("app-name", table.replace("-", " ")))
         brand = str(body.get("brand", default_brand))
-        stem = f"{name.lower().replace(' ', '-')}-{brand.lower().replace(' ', '-')}"
-        out[stem] = {
-            "id": slug(name),
-            "name": name,
-            "brand": brand,
-            "package": str(body.get("package", "")),
-        }
+        stem = github_asset_name(f"{name.lower().replace(' ', '-')}-{brand.lower().replace(' ', '-')}").lower()
+        out[stem] = {"id": slug(table), "name": name, "brand": brand}
     return out
+
+
+def split_asset(name: str, config: dict[str, dict[str, str]]) -> tuple[str, str, str] | None:
+    """asset file name -> (stem, version, arch), or None if it is not an APK.
+
+    Known stems are tried first, longest first, so a version that itself
+    contains "-v" cannot move the split; the regex is only the fallback.
+    """
+    lower = name.lower()
+    for stem in sorted(config, key=len, reverse=True):
+        if lower.startswith(stem + "-v"):
+            rest = name[len(stem) + 2:]
+            for arch in ARCHES:
+                if rest.lower().endswith(f"-{arch}.apk"):
+                    return stem, rest[: -len(arch) - 5], arch
+    if m := ASSET_RE.match(name):
+        return m["stem"].lower(), m["version"], m["arch"]
+    return None
 
 
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first."""
     apps: dict[str, dict[str, Any]] = {}
     config = app_config()
+    brands = sorted({e["brand"].lower().replace(" ", "-") for e in config.values()}, key=len, reverse=True)
     for rel in releases:
         published = rel.get("published_at") or rel.get("created_at") or ""
         for asset in rel.get("assets", []):
-            m = ASSET_RE.match(asset["name"])
-            if not m:
+            parts = split_asset(asset["name"], config)
+            if parts is None:
                 continue
-
-            entry = config.get(m["stem"].lower())
+            stem, version, arch = parts
+            entry = config.get(stem)
             if entry is None:
-                # An app no longer in config.toml but still in an old release:
-                # fall back to "everything before the last hyphen is the app".
-                app_part, _, brand = m["stem"].rpartition("-")
+                # An app no longer in config.toml but still in an old release.
+                # Split off a brand the config still knows (longest first, so
+                # "morphe-dev" wins over "morphe"), else the last hyphen.
+                brand = next((b for b in brands if stem.endswith("-" + b)), "")
+                app_part = stem[: -len(brand) - 1] if brand else stem.rpartition("-")[0]
+                brand = brand or stem.rpartition("-")[2]
                 entry = {
-                    "id": slug(app_part or m["stem"]),
-                    "name": (app_part or m["stem"]).replace("-", " ").title(),
-                    "brand": brand or "",
-                    "package": "",
+                    "id": slug(app_part or stem),
+                    "name": (app_part or stem).replace("-", " ").title(),
+                    "brand": brand,
                 }
 
             app_id = entry["id"]
@@ -134,16 +199,16 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                 {
                     "id": app_id,
                     "name": entry["name"],
-                    "package": entry["package"],
+                    "package": "",
                     "brand": entry["brand"],
                     "builds": {},
                 },
             )
-            key = (m["version"], rel["tag_name"])
+            key = (version, rel["tag_name"])
             build = app["builds"].setdefault(
                 key,
                 {
-                    "version": m["version"],
+                    "version": version,
                     "tag": rel["tag_name"],
                     "published": published,
                     "prerelease": bool(rel.get("prerelease")),
@@ -153,7 +218,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             )
             build["files"].append(
                 {
-                    "arch": m["arch"],
+                    "arch": arch,
                     "size": asset.get("size", 0),
                     "sha256": (asset.get("digest") or "").removeprefix("sha256:"),
                     "downloads": asset.get("download_count", 0),
@@ -173,9 +238,14 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         unique: dict[str, dict[str, Any]] = {}
         for b in builds:
             if (first := unique.get(b["version"])) is None:
-                unique[b["version"]] = {**b, "rebuilds": 1}
+                unique[b["version"]] = {**b, "files": list(b["files"]), "rebuilds": 1}
             else:
                 first["rebuilds"] += 1
+                # a partial multi-arch rebuild must not hide the arch it lost
+                have = {f["arch"] for f in first["files"]}
+                first["files"] += [f for f in b["files"] if f["arch"] not in have]
+        for b in unique.values():
+            b["files"].sort(key=lambda f: ARCHES.index(f["arch"].lower()) if f["arch"].lower() in ARCHES else 99)
 
         result[app_id] = {
             "id": app_id,
@@ -214,6 +284,31 @@ so Obtainium always picks this build.</p>
 """
 
 
+# The public redirect service only forwards obtainium://app/ and obtainium://add/
+# (its redirect.astro rejects anything else as "Invalid URL"), but the app
+# itself handles obtainium://apps/ (lib/pages/home.dart interpretLink). So the
+# add-every-app link is our own page, which hands the deep link straight to the
+# phone and explains what to do when Obtainium is not installed.
+BULK_PAGE = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Add every app to Obtainium</title>
+<style>body{{font:16px/1.5 system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 16px}}
+a.btn{{display:inline-block;padding:.8rem 1.2rem;border-radius:10px;background:#2f6fed;color:#fff;text-decoration:none;font-weight:600}}</style>
+</head><body>
+<h1>Add every app to Obtainium</h1>
+<p>{count} apps: {names}.</p>
+<p><a class="btn" id="go" href="{deep}">Open in Obtainium</a></p>
+<p>Obtainium shows the list and asks you to confirm. Nothing is added until you do.
+If nothing happens, install <a href="https://github.com/ImranR98/Obtainium/releases">Obtainium</a> first,
+then come back to this page.</p>
+<p><a href="../">&larr; morphe-builder</a></p>
+<script>setTimeout(function(){{location.href=document.getElementById("go").href}},300)</script>
+</body></html>
+"""
+
+
 def _escape(text: str) -> str:
     # Dart's RegExp is ECMAScript: `\-` is only legal outside unicode mode, and
     # Python escapes hyphens. Leave them alone; they are not special here.
@@ -229,9 +324,10 @@ def version_regex(filename: str, version: str, arch: str) -> str:
     "Could not determine release version". The app prefix still keeps it from
     matching another app's link.
     """
-    suffix = f"-v{version}-{arch}.apk"
-    prefix = filename[: -len(suffix)] if filename.endswith(suffix) else filename.split("-v")[0]
-    return f"{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
+    # ASSET_RE guarantees the name ends with exactly this suffix.
+    prefix = filename[: -len(f"-v{version}-{arch}.apk")]
+    # "/" so that "music-morphe" cannot match inside "yt-music-morphe"
+    return f"/{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
 
 
 def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, Any],
@@ -269,70 +365,117 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
     }
 
 
-def resolve_packages(apps: dict[str, dict[str, Any]]) -> None:
-    """Replace each app's package with the one its built APK actually declares.
+def resolve_packages(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> None:
+    """Set each app's package to the one its built APK actually declares.
 
     Patches rename apps - Morphe's non-root YouTube installs as
     `app.morphe.android.youtube`, not `com.google.android.youtube` - and
     Obtainium refuses to install when the downloaded package does not match the
-    configured id ("Downloaded package ID does not match existing app ID"). So
-    the id is read from the artefact, with config.toml's `package` only as a
-    fallback when the read fails.
+    configured id ("Downloaded package ID does not match existing app ID").
+
+    So the id only ever comes from the artefact: read it (3 attempts), or else
+    reuse what the live site recorded for the SAME file (matched by sha256, else
+    URL). Nothing else is trusted - a hand-written value is not tied to the build
+    it would describe, and a wrong id is worse than none. An app whose package
+    stays unknown simply gets no Obtainium entry this run.
     """
+    live_apps = live.get("apps") or {}
     for app in apps.values():
+        app["package"] = ""
         if not app["builds"]:
             continue
-        url = app["builds"][0]["files"][0]["url"]
-        try:
-            found = package_of(url)
-            if found != app["package"]:
-                print(f"  package {app['id']}: {app['package'] or '(unset)'} -> {found}")
-            app["package"] = found
-        except Exception as exc:  # noqa: BLE001 - never fail the site over this
-            print(f"  warn: could not read {app['id']} package ({exc}); "
-                  f"keeping {app['package'] or '(unset)'}", file=sys.stderr)
+        file = app["builds"][0]["files"][0]
+        error: Exception | None = None
+        for attempt in range(3):
+            try:
+                app["package"] = package_of(file["url"])
+                break
+            except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
+                error = exc
+                time.sleep(2 * (attempt + 1))
+        if app["package"]:
+            continue
+
+        prev = live_apps.get(app["id"]) or {}
+        prev_file = (prev.get("files") or [{}])[0]
+        same = (file.get("sha256") and file["sha256"] == prev_file.get("sha256")) or \
+               (not file.get("sha256") and file["url"] == prev_file.get("url"))
+        if same and prev.get("package"):
+            app["package"] = prev["package"]
+            print(f"  warn: could not read {app['id']} package ({error}); "
+                  f"reusing the live value for the same file: {app['package']}", file=sys.stderr)
+        else:
+            print(f"  warn: could not read {app['id']} package ({error}); "
+                  "leaving it unknown - no Obtainium entry this run", file=sys.stderr)
+
+
+def _page(entry: dict[str, Any], build: dict[str, Any], file: dict[str, Any]) -> str:
+    e = html.escape
+    return PAGE.format(
+        name=e(entry["name"]), version=e(build["version"]), arch=e(file["arch"]),
+        published=e(build["published"][:10]), url=e(file["url"], quote=True), filename=e(file["name"]),
+    )
 
 
 def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, now: str) -> dict[str, Any]:
     entries: list[dict[str, Any]] = []
     conflicts: list[dict[str, Any]] = []
-    seen_packages: dict[str, str] = {}
+    unknown: list[str] = []
+    seen_packages: dict[str, dict[str, Any]] = {}
 
     for app in sorted(apps.values(), key=lambda a: a["name"]):
         if not app["builds"]:
             continue
         build = app["builds"][0]
-
-        # Two builds can share a package - GmsCore support pins YouTube's, so
-        # `Clone app` cannot rename the pre-release twin. Obtainium keys apps by
-        # package, so only the first gets an entry; the other is reported as a
-        # conflict and still gets its HTML endpoint.
-        pkg = app.get("package")
-        if pkg and pkg in seen_packages:
-            conflicts.append({"app": app["id"], "name": app["name"], "package": pkg,
-                              "shares_with": seen_packages[pkg]})
-        elif pkg:
-            seen_packages[pkg] = app["id"]
         files = build["files"]
-        # main page = the preferred file; one extra page per architecture when
-        # the app ships more than one
-        variants = [(files[0], "")] + ([(f, f"-{f['arch']}") for f in files] if len(files) > 1 else [])
-        for file, suffix in variants:
+
+        # Pages first: every app and every architecture gets one, whatever else
+        # happens below, so a URL someone already added keeps working.
+        pages: list[tuple[dict[str, Any], dict[str, Any]]] = []
+        suffixes = [(files[0], "")] + ([(f, f"-{f['arch']}") for f in files] if len(files) > 1 else [])
+        for file, suffix in suffixes:
             entry = obtainium_entry(app, build, file, site_url, repo, suffix)
             (OUT_DIR / entry["page"]).parent.mkdir(parents=True, exist_ok=True)
-            (OUT_DIR / entry["page"]).write_text(
-                PAGE.format(
-                    name=entry["name"], version=build["version"], arch=file["arch"],
-                    published=build["published"][:10], url=file["url"], filename=file["name"],
-                ),
-                encoding="utf-8",
-            )
-            if not suffix and not any(c["app"] == app["id"] for c in conflicts):
-                entries.append(entry)
+            (OUT_DIR / entry["page"]).write_text(_page(entry, build, file), encoding="utf-8")
+            pages.append((entry, file))
             print(f"  wrote _site/{entry['page']}")
 
+        # Obtainium keys apps by package, and refuses an install whose package
+        # differs from the id - so no id, no entry; and two apps on one package
+        # (a pre-release twin built without Clone app, say) get one entry.
+        pkg = app.get("package")
+        if not pkg:
+            unknown.append(app["id"])
+            continue
+        if pkg in seen_packages:
+            owner = seen_packages[pkg]
+            conflicts.append({"app": app["id"], "name": app["name"], "package": pkg,
+                              "shares_with": owner["id"], "shares_with_name": owner["name"]})
+            continue
+        seen_packages[pkg] = app
+
+        main = pages[0][0]
+        if len(pages) > 1:
+            # One installable per phone: the main entry is the first arch
+            # (arm64-v8a), and each arch is offered on its own.
+            main["variants"] = [
+                {"arch": f["arch"], "source_url": e["source_url"], "apk": e["apk"],
+                 "config": e["config"], "deep_link": e["deep_link"], "add_url": e["add_url"]}
+                for e, f in pages[1:]
+                if f["arch"] != main["arch"]  # the main entry already is that arch
+            ]
+        entries.append(main)
+
     bulk = [e["config"] for e in entries]
-    encoded_all = urllib.parse.quote(json.dumps(bulk, separators=(",", ":")), safe="")
+    deep_all = "obtainium://apps/" + urllib.parse.quote(json.dumps(bulk, separators=(",", ":")), safe="")
+    names = ", ".join(html.escape(e["name"]) for e in entries) or "none yet"
+    (OUT_DIR / "obtainium").mkdir(parents=True, exist_ok=True)
+    (OUT_DIR / "obtainium" / "_all.html").write_text(
+        BULK_PAGE.format(count=len(entries), names=names, deep=html.escape(deep_all, quote=True)),
+        encoding="utf-8",
+    )
+    print("  wrote _site/obtainium/_all.html")
+
     payload = {
         "generated": now,
         "repo": repo,
@@ -341,9 +484,11 @@ def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, n
             "phone. The version is read from the APK filename, so Obtainium only prompts when "
             "the app version really changes."
         ),
-        "add_all_url": OBTAINIUM_REDIRECT + urllib.parse.quote(f"obtainium://apps/{encoded_all}", safe=""),
+        "add_all_url": site_url + "obtainium/_all.html",
+        "add_all_deep_link": deep_all,
         "apps": entries,
         "conflicts": conflicts,
+        "unknown_package": unknown,
     }
     write_json(OUT_DIR / "api" / "obtainium.json", payload)
     return payload
@@ -361,24 +506,41 @@ def main() -> int:
     site_url = os.getenv("SITE_URL", f"https://{owner.lower()}.github.io/{name}/")
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    releases = fetch_releases(repo)
+    def skip(reason: str) -> int:
+        # Not a failure: the previous deployment stays up, and the build that is
+        # running triggers this workflow again when it finishes.
+        print(f"skip: {reason}")
+        set_output("skip", "true")
+        return 0
+
+    # A rebuild re-drafts ONE brand's release while the others stay published,
+    # so the releases visible now are a mix of new and old: the site would fall
+    # back to an older build (one that may even share another app's package) or
+    # drop apps entirely. Publishing is refused for the whole window.
+    state, detail = build_state(repo)
+    if state == "busy":
+        return skip(f"{detail}; its completion will publish")
+
+    try:
+        releases = fetch_releases(repo)
+    except Exception as exc:  # noqa: BLE001
+        return skip(f"could not read the releases ({exc})")
     apps = collect(releases)
-    print(f"{len(releases)} releases -> {len(apps)} apps")
+    print(f"{len(releases)} releases -> {len(apps)} apps (builds: {state} {detail})".rstrip())
 
-    # CI turns the release back into a draft while it rebuilds, and drafts are
-    # skipped here. A scheduled run landing in that window would otherwise
-    # publish an empty site, so refuse and leave the previous deployment alone.
-    if not apps:
-        try:
-            live = _get(site_url + "api/latest.json")
-        except Exception:  # noqa: BLE001 - a missing live site just means "first run"
-            live = {}
-        if live.get("apps"):
-            print("no apps found but the live site has some - a build is probably in "
-                  "progress; refusing to publish an empty site", file=sys.stderr)
-            return 1
+    live = fetch_live(site_url)
+    published = {r["tag_name"] for r in releases}
+    live_tags = {a.get("tag") for a in (live.get("apps") or {}).values()} - {None}
+    missing = sorted(live_tags - published)
+    if not apps and live.get("apps"):
+        # An empty result while the site shows apps is never published by itself.
+        return skip("no apps visible but the live site has some")
+    if state == "unknown" and missing:
+        # Cannot see the builds, but a tag the live site serves has vanished from
+        # the published releases - the signature of a release in draft.
+        return skip(f"live site serves {missing}, which are not published now")
 
-    resolve_packages(apps)
+    resolve_packages(apps, live)
 
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)

@@ -1,9 +1,9 @@
 {
-  "generated": "2026-09-21T09:47:54Z",
+  "generated": "2026-09-21T16:05:18Z",
   "cli": "morphe-desktop-1.16.0-all.jar",
   "sources": {
-    "github:MorpheApp/morphe-patches": {
-      "patch_count": 147,
+    "github:MorpheApp/morphe-patches@dev": {
+      "patch_count": 150,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -188,8 +188,8 @@
         },
         "com.google.android.youtube": {
           "versions": [
+            "21.16.256",
             "21.13.164",
-            "21.07.247",
             "20.31.42",
             "20.21.37"
           ],
@@ -232,6 +232,10 @@
             },
             {
               "name": "Change start page",
+              "default": true
+            },
+            {
+              "name": "Channel search",
               "default": true
             },
             {
@@ -316,6 +320,10 @@
             },
             {
               "name": "Exit fullscreen mode",
+              "default": true
+            },
+            {
+              "name": "Force fullscreen landscape",
               "default": true
             },
             {
@@ -606,12 +614,655 @@
             {
               "name": "Spoof signature",
               "default": true
+            },
+            {
+              "name": "Start as guest",
+              "default": true
             }
           ]
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.43.0",
+      "version": "v1.44.0",
+      "spec": "dev",
+      "used_by": [
+        {
+          "table": "YouTube-Experimental",
+          "enabled": true
+        },
+        {
+          "table": "YT-Music-Experimental",
+          "enabled": false
+        },
+        {
+          "table": "Reddit-Experimental",
+          "enabled": true
+        }
+      ]
+    },
+    "github:MorpheApp/morphe-patches": {
+      "patch_count": 150,
+      "universal_patches": [
+        "Change installer source",
+        "Clone app",
+        "Disable Play Store updates",
+        "Override certificate pinning"
+      ],
+      "packages": {
+        "com.google.android.apps.youtube.music": {
+          "versions": [
+            "9.15.51"
+          ],
+          "patches": [
+            {
+              "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Bypass certificate checks",
+              "default": true
+            },
+            {
+              "name": "Change header",
+              "default": true
+            },
+            {
+              "name": "Change miniplayer color",
+              "default": true
+            },
+            {
+              "name": "Change start page",
+              "default": true
+            },
+            {
+              "name": "Check watch history domain name resolution",
+              "default": true
+            },
+            {
+              "name": "Crossfade",
+              "default": true
+            },
+            {
+              "name": "Custom branding",
+              "default": true
+            },
+            {
+              "name": "Disable dislike redirection",
+              "default": true
+            },
+            {
+              "name": "Disable DRC audio",
+              "default": true
+            },
+            {
+              "name": "Disable QUIC protocol",
+              "default": true
+            },
+            {
+              "name": "Downloads",
+              "default": true
+            },
+            {
+              "name": "Enable debugging",
+              "default": true
+            },
+            {
+              "name": "Enable exclusive audio playback",
+              "default": true
+            },
+            {
+              "name": "Enable forced miniplayer",
+              "default": true
+            },
+            {
+              "name": "Enable swipe to dismiss miniplayer",
+              "default": true
+            },
+            {
+              "name": "Force original audio",
+              "default": true
+            },
+            {
+              "name": "GmsCore support",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide buttons",
+              "default": true
+            },
+            {
+              "name": "Hide filter bar",
+              "default": true
+            },
+            {
+              "name": "Hide flyout menu components",
+              "default": true
+            },
+            {
+              "name": "Hide layout components",
+              "default": true
+            },
+            {
+              "name": "Hide music action buttons",
+              "default": true
+            },
+            {
+              "name": "Miniplayer previous and next buttons",
+              "default": true
+            },
+            {
+              "name": "Navigation bar",
+              "default": true
+            },
+            {
+              "name": "Network proxy",
+              "default": false
+            },
+            {
+              "name": "Play albums songs",
+              "default": true
+            },
+            {
+              "name": "PoToken provider",
+              "default": true
+            },
+            {
+              "name": "Remember repeat state",
+              "default": true
+            },
+            {
+              "name": "Remember shuffle state",
+              "default": true
+            },
+            {
+              "name": "Remove background playback restrictions",
+              "default": true
+            },
+            {
+              "name": "Remove viewer discretion dialog",
+              "default": true
+            },
+            {
+              "name": "Return YouTube Dislike",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Scrobbling",
+              "default": true
+            },
+            {
+              "name": "Settings menu filter",
+              "default": true
+            },
+            {
+              "name": "SponsorBlock",
+              "default": true
+            },
+            {
+              "name": "Spoof app version",
+              "default": true
+            },
+            {
+              "name": "Spoof video streams",
+              "default": true
+            },
+            {
+              "name": "Theme",
+              "default": true
+            },
+            {
+              "name": "Third-party lyrics",
+              "default": true
+            }
+          ]
+        },
+        "com.google.android.youtube": {
+          "versions": [
+            "21.16.256",
+            "21.13.164",
+            "20.31.42",
+            "20.21.37"
+          ],
+          "patches": [
+            {
+              "name": "Add to queue",
+              "default": true
+            },
+            {
+              "name": "Alternative thumbnails",
+              "default": true
+            },
+            {
+              "name": "Ambient mode",
+              "default": true
+            },
+            {
+              "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Bypass image region restrictions",
+              "default": true
+            },
+            {
+              "name": "Bypass link redirects",
+              "default": true
+            },
+            {
+              "name": "Captions",
+              "default": true
+            },
+            {
+              "name": "Change form factor",
+              "default": true
+            },
+            {
+              "name": "Change header",
+              "default": true
+            },
+            {
+              "name": "Change start page",
+              "default": true
+            },
+            {
+              "name": "Channel search",
+              "default": true
+            },
+            {
+              "name": "Check watch history domain name resolution",
+              "default": true
+            },
+            {
+              "name": "Copy video link",
+              "default": true
+            },
+            {
+              "name": "Custom branding",
+              "default": true
+            },
+            {
+              "name": "Custom player overlay opacity",
+              "default": true
+            },
+            {
+              "name": "Disable double tap actions",
+              "default": true
+            },
+            {
+              "name": "Disable DRC audio",
+              "default": true
+            },
+            {
+              "name": "Disable fullscreen gestures",
+              "default": true
+            },
+            {
+              "name": "Disable haptic feedback",
+              "default": true
+            },
+            {
+              "name": "Disable layout updates",
+              "default": true
+            },
+            {
+              "name": "Disable player popup panels",
+              "default": true
+            },
+            {
+              "name": "Disable playlist autoplay",
+              "default": true
+            },
+            {
+              "name": "Disable QUIC protocol",
+              "default": true
+            },
+            {
+              "name": "Disable rolling number animations",
+              "default": true
+            },
+            {
+              "name": "Disable scrolling speed limit",
+              "default": true
+            },
+            {
+              "name": "Disable Shorts resuming on startup",
+              "default": true
+            },
+            {
+              "name": "Disable sign in to TV popup",
+              "default": true
+            },
+            {
+              "name": "Disable video codecs",
+              "default": true
+            },
+            {
+              "name": "Double tap to seek",
+              "default": true
+            },
+            {
+              "name": "Downloads",
+              "default": true
+            },
+            {
+              "name": "Enable debugging",
+              "default": true
+            },
+            {
+              "name": "Exit fullscreen mode",
+              "default": true
+            },
+            {
+              "name": "Force fullscreen landscape",
+              "default": true
+            },
+            {
+              "name": "Force original audio",
+              "default": true
+            },
+            {
+              "name": "Fullscreen video scale",
+              "default": true
+            },
+            {
+              "name": "GmsCore support",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide autoplay preview",
+              "default": true
+            },
+            {
+              "name": "Hide end screen cards",
+              "default": true
+            },
+            {
+              "name": "Hide end screen suggested video",
+              "default": true
+            },
+            {
+              "name": "Hide info cards",
+              "default": true
+            },
+            {
+              "name": "Hide layout components",
+              "default": true
+            },
+            {
+              "name": "Hide player flyout menu components",
+              "default": true
+            },
+            {
+              "name": "Hide player overlay buttons",
+              "default": true
+            },
+            {
+              "name": "Hide related video overlay",
+              "default": true
+            },
+            {
+              "name": "Hide related videos",
+              "default": true
+            },
+            {
+              "name": "Hide Shorts components",
+              "default": true
+            },
+            {
+              "name": "Hide timestamp",
+              "default": true
+            },
+            {
+              "name": "Hide video action buttons",
+              "default": true
+            },
+            {
+              "name": "Loop video",
+              "default": true
+            },
+            {
+              "name": "Media notification controls",
+              "default": true
+            },
+            {
+              "name": "Miniplayer",
+              "default": true
+            },
+            {
+              "name": "Mute button",
+              "default": true
+            },
+            {
+              "name": "Navigation bar",
+              "default": true
+            },
+            {
+              "name": "Network proxy",
+              "default": false
+            },
+            {
+              "name": "Open channel of live avatar",
+              "default": true
+            },
+            {
+              "name": "Open links externally",
+              "default": true
+            },
+            {
+              "name": "Open Shorts in regular player",
+              "default": true
+            },
+            {
+              "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Open videos fullscreen",
+              "default": true
+            },
+            {
+              "name": "Override YouTube Music buttons",
+              "default": true
+            },
+            {
+              "name": "Play all",
+              "default": true
+            },
+            {
+              "name": "Playback in feeds",
+              "default": true
+            },
+            {
+              "name": "Playback speed",
+              "default": true
+            },
+            {
+              "name": "PoToken provider",
+              "default": true
+            },
+            {
+              "name": "Reload video",
+              "default": true
+            },
+            {
+              "name": "Remember live stream playback position",
+              "default": true
+            },
+            {
+              "name": "Remove background playback restrictions",
+              "default": true
+            },
+            {
+              "name": "Remove viewer discretion dialog",
+              "default": true
+            },
+            {
+              "name": "Return YouTube Dislike",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Save to Watch later",
+              "default": true
+            },
+            {
+              "name": "Seekbar",
+              "default": true
+            },
+            {
+              "name": "Settings menu filter",
+              "default": true
+            },
+            {
+              "name": "Shorts autoplay",
+              "default": true
+            },
+            {
+              "name": "SponsorBlock",
+              "default": true
+            },
+            {
+              "name": "Spoof app version",
+              "default": true
+            },
+            {
+              "name": "Spoof device dimensions",
+              "default": true
+            },
+            {
+              "name": "Spoof video streams",
+              "default": true
+            },
+            {
+              "name": "Swipe controls",
+              "default": true
+            },
+            {
+              "name": "Theme",
+              "default": true
+            },
+            {
+              "name": "Video quality",
+              "default": true
+            },
+            {
+              "name": "Voice over translation",
+              "default": true
+            },
+            {
+              "name": "Wide search bar",
+              "default": true
+            }
+          ]
+        },
+        "com.reddit.frontpage": {
+          "versions": [
+            "2026.14.0",
+            "2026.04.0",
+            "2024.02.0"
+          ],
+          "patches": [
+            {
+              "name": "App icon",
+              "default": true
+            },
+            {
+              "name": "Custom branding name for Reddit",
+              "default": false
+            },
+            {
+              "name": "Custom font",
+              "default": true
+            },
+            {
+              "name": "Disable modern home",
+              "default": true
+            },
+            {
+              "name": "Disable screenshot popup",
+              "default": true
+            },
+            {
+              "name": "Force system font",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide Ask button",
+              "default": true
+            },
+            {
+              "name": "Hide communities shelf",
+              "default": true
+            },
+            {
+              "name": "Hide navigation buttons",
+              "default": true
+            },
+            {
+              "name": "Hide Reddit search",
+              "default": false
+            },
+            {
+              "name": "Hide sidebar components",
+              "default": true
+            },
+            {
+              "name": "Hide Trending shelves",
+              "default": true
+            },
+            {
+              "name": "Open links directly",
+              "default": true
+            },
+            {
+              "name": "Open links externally",
+              "default": true
+            },
+            {
+              "name": "Remove subreddit dialog",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Show view count",
+              "default": true
+            },
+            {
+              "name": "Spoof signature",
+              "default": true
+            },
+            {
+              "name": "Start as guest",
+              "default": true
+            }
+          ]
+        }
+      },
+      "url": "https://github.com/MorpheApp/morphe-patches",
+      "version": "v1.44.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "YouTube",
@@ -623,18 +1274,6 @@
         },
         {
           "table": "Reddit",
-          "enabled": true
-        },
-        {
-          "table": "YouTube-Experimental",
-          "enabled": true
-        },
-        {
-          "table": "YT-Music-Experimental",
-          "enabled": false
-        },
-        {
-          "table": "Reddit-Experimental",
           "enabled": true
         }
       ]
@@ -719,8 +1358,6 @@
         },
         "com.facebook.katana": {
           "versions": [
-            "Version codes:",
-            "490.0.0.63.82: ARMEABI_V7A=457019986, ARM64_V8A=457019914",
             "490.0.0.63.82"
           ],
           "patches": [
@@ -736,8 +1373,6 @@
         },
         "com.facebook.orca": {
           "versions": [
-            "Version codes:",
-            "573.0.0.44.88: ARMEABI_V7A=344611781, ARM64_V8A=344611864",
             "573.0.0.44.88"
           ],
           "patches": [
@@ -1040,6 +1675,7 @@
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
       "version": "v1.4.4",
+      "spec": "latest",
       "used_by": [
         {
           "table": "Facebook",
@@ -1265,8 +1901,8 @@
         },
         "com.google.android.dialer": {
           "versions": [
-            "161.0.726587057-downloadable",
-            "161.0.726587057"
+            "161.0.726587057",
+            "161.0.726587057-downloadable"
           ],
           "patches": [
             {
@@ -1630,6 +2266,7 @@
       },
       "url": "https://github.com/arandomhooman/hoomans-morphe-patches",
       "version": "v1.53.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "InShot",
@@ -1647,8 +2284,6 @@
       "packages": {
         "com.instagram.android": {
           "versions": [
-            "Version codes:",
-            "439.0.0.37.89: ARM64_V8A=384510827",
             "439.0.0.37.89"
           ],
           "patches": [
@@ -2196,6 +2831,7 @@
       },
       "url": "https://github.com/crimera/piko",
       "version": "v3.9.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "X-Twitter",
@@ -2292,8 +2928,6 @@
         },
         "com.adguard.android": {
           "versions": [
-            "Version codes:",
-            "4.14.1: ARM64_V8A=42219001, ARMEABI_V7A=42219001, X86_64=42219001, X86=42219001",
             "4.14.1"
           ],
           "patches": [
@@ -2916,6 +3550,7 @@
       },
       "url": "https://github.com/hoo-dles/morphe-patches",
       "version": "v1.44.1",
+      "spec": "latest",
       "used_by": [
         {
           "table": "Duolingo",
@@ -3069,6 +3704,7 @@
       },
       "url": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
       "version": "v0.7.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "TikTok",
@@ -3090,8 +3726,6 @@
       "packages": {
         "ai.metaverselabs.obdandroid": {
           "versions": [
-            "Version codes:",
-            "4.9: ARM64_V8A=133, ARMEABI_V7A=133, X86_64=133, X86=133",
             "4.9"
           ],
           "patches": [
@@ -3103,8 +3737,6 @@
         },
         "ai.topicfinder.podcastdiscovery": {
           "versions": [
-            "Version codes:",
-            "4.1.21: ARM64_V8A=4121, ARMEABI_V7A=4121, X86_64=4121, X86=4121",
             "4.1.21"
           ],
           "patches": [
@@ -3116,8 +3748,6 @@
         },
         "alldocumentreader.office.viewer.filereader.pdfviewer": {
           "versions": [
-            "Version codes:",
-            "3.2.4: ARM64_V8A=53, ARMEABI_V7A=53, X86_64=53, X86=53",
             "3.2.4"
           ],
           "patches": [
@@ -3129,8 +3759,6 @@
         },
         "app.ninjavpn.android": {
           "versions": [
-            "Version codes:",
-            "1.4.7: ARM64_V8A=44, ARMEABI_V7A=44, X86_64=44, X86=44",
             "1.4.7"
           ],
           "patches": [
@@ -3142,8 +3770,6 @@
         },
         "app.simple.inure": {
           "versions": [
-            "Version codes:",
-            "build107.2.2: ARM64_V8A=10722, ARMEABI_V7A=10722, X86_64=10722, X86=10722",
             "build107.2.2"
           ],
           "patches": [
@@ -3155,8 +3781,6 @@
         },
         "app.simple.inure.play": {
           "versions": [
-            "Version codes:",
-            "build107.2.1: ARM64_V8A=10721, ARMEABI_V7A=10721, X86_64=10721, X86=10721",
             "build107.2.1"
           ],
           "patches": [
@@ -3168,8 +3792,6 @@
         },
         "apps.automan.blurwallpaper": {
           "versions": [
-            "Version codes:",
-            "2.9.6: ARM64_V8A=30, ARMEABI_V7A=30, X86_64=30, X86=30",
             "2.9.6"
           ],
           "patches": [
@@ -3181,8 +3803,6 @@
         },
         "au.com.shiftyjelly.pocketcasts": {
           "versions": [
-            "Version codes:",
-            "8.16: ARM64_V8A=9441, ARMEABI_V7A=9441, X86_64=9441, X86=9441",
             "8.16"
           ],
           "patches": [
@@ -3194,8 +3814,6 @@
         },
         "cast.video.screenmirroring.casttotv": {
           "versions": [
-            "Version codes:",
-            "2.5.4: ARM64_V8A=254001, ARMEABI_V7A=254001, X86_64=254001, X86=254001",
             "2.5.4"
           ],
           "patches": [
@@ -3207,8 +3825,6 @@
         },
         "ch.protonvpn.android": {
           "versions": [
-            "Version codes:",
-            "5.19.78.0: ARM64_V8A=605197800, ARMEABI_V7A=605197800, X86_64=605197800, X86=605197800",
             "5.19.78.0"
           ],
           "patches": [
@@ -3220,8 +3836,6 @@
         },
         "club.boxbox.android": {
           "versions": [
-            "Version codes:",
-            "5.4.15: ARM64_V8A=258, ARMEABI_V7A=258, X86_64=258, X86=258",
             "5.4.15"
           ],
           "patches": [
@@ -3233,8 +3847,6 @@
         },
         "cn.danatech.xingseus": {
           "versions": [
-            "Version codes:",
-            "5.35.0: ARM64_V8A=5093, ARMEABI_V7A=5093, X86_64=5093, X86=5093",
             "5.35.0"
           ],
           "patches": [
@@ -3246,8 +3858,6 @@
         },
         "com.MojoFilterMediaLLC.RPGSoundSystem": {
           "versions": [
-            "Version codes:",
-            "3.1.17: ARM64_V8A=236, ARMEABI_V7A=236, X86_64=236, X86=236",
             "3.1.17"
           ],
           "patches": [
@@ -3259,8 +3869,6 @@
         },
         "com.Splitwise.SplitwiseMobile": {
           "versions": [
-            "Version codes:",
-            "26.7.3: ARM64_V8A=950, ARMEABI_V7A=950, X86_64=950, X86=950",
             "26.7.3"
           ],
           "patches": [
@@ -3272,8 +3880,6 @@
         },
         "com.a0soft.gphone.acc.free": {
           "versions": [
-            "Version codes:",
-            "5.22: ARM64_V8A=240005229, ARMEABI_V7A=240005229, X86_64=240005229, X86=240005229",
             "5.22"
           ],
           "patches": [
@@ -3285,8 +3891,6 @@
         },
         "com.aaenabler.app": {
           "versions": [
-            "Version codes:",
-            "v1.0.12: ARM64_V8A=12, ARMEABI_V7A=12, X86_64=12, X86=12",
             "v1.0.12"
           ],
           "patches": [
@@ -3298,8 +3902,6 @@
         },
         "com.accuweather.android": {
           "versions": [
-            "Version codes:",
-            "21.1.15-3-rc: ARM64_V8A=210115003, ARMEABI_V7A=210115003, X86_64=210115003, X86=210115003",
             "21.1.15-3-rc"
           ],
           "patches": [
@@ -3311,8 +3913,6 @@
         },
         "com.ace.ex.file.manager": {
           "versions": [
-            "Version codes:",
-            "1.6.0.4: ARM64_V8A=48, ARMEABI_V7A=48, X86_64=48, X86=48",
             "1.6.0.4"
           ],
           "patches": [
@@ -3324,8 +3924,6 @@
         },
         "com.acmeaom.android.myradar": {
           "versions": [
-            "Version codes:",
-            "8.73.1: ARM64_V8A=597, ARMEABI_V7A=597, X86_64=597, X86=597",
             "8.73.1"
           ],
           "patches": [
@@ -3337,8 +3935,6 @@
         },
         "com.adguard.android": {
           "versions": [
-            "Version codes:",
-            "4.14.68: ARM64_V8A=10330100, ARMEABI_V7A=10330100, X86_64=10330100, X86=10330100",
             "4.14.68"
           ],
           "patches": [
@@ -3372,8 +3968,6 @@
         },
         "com.alexandrucene.dayhistory": {
           "versions": [
-            "Version codes:",
-            "7.5.5: ARM64_V8A=377, ARMEABI_V7A=377, X86_64=377, X86=377",
             "7.5.5"
           ],
           "patches": [
@@ -3385,8 +3979,6 @@
         },
         "com.alphainventor.filemanager": {
           "versions": [
-            "Version codes:",
-            "3.8.2: ARM64_V8A=2103082, ARMEABI_V7A=2103082, X86_64=2103082, X86=2103082",
             "3.8.2"
           ],
           "patches": [
@@ -3398,8 +3990,6 @@
         },
         "com.amazon.mShop.android.shopping": {
           "versions": [
-            "Version codes:",
-            "32.17.0.100: ARM64_V8A=1243230206, ARMEABI_V7A=1243230206, X86_64=1243230206, X86=1243230206",
             "32.17.0.100"
           ],
           "patches": [
@@ -3439,8 +4029,6 @@
         },
         "com.androholic.amoledpix": {
           "versions": [
-            "Version codes:",
-            "7.3: ARM64_V8A=81, ARMEABI_V7A=81, X86_64=81, X86=81",
             "7.3"
           ],
           "patches": [
@@ -3452,8 +4040,6 @@
         },
         "com.anetcapture.mock": {
           "versions": [
-            "Version codes:",
-            "2.4.1-ad_mob: ARM64_V8A=158, ARMEABI_V7A=158, X86_64=158, X86=158",
             "2.4.1-ad_mob"
           ],
           "patches": [
@@ -3465,8 +4051,6 @@
         },
         "com.apkmirror.helper.prod": {
           "versions": [
-            "Version codes:",
-            "2.0.3 (41-d04e542): ARM64_V8A=41, ARMEABI_V7A=41, X86_64=41, X86=41",
             "2.0.3 (41-d04e542)"
           ],
           "patches": [
@@ -3478,8 +4062,6 @@
         },
         "com.app.social_gamebox": {
           "versions": [
-            "Version codes:",
-            "1.1.3: ARM64_V8A=524, ARMEABI_V7A=524, X86_64=524, X86=524",
             "1.1.3"
           ],
           "patches": [
@@ -3491,8 +4073,6 @@
         },
         "com.apple.trackerdetect": {
           "versions": [
-            "Version codes:",
-            "1.2: ARM64_V8A=9, ARMEABI_V7A=9, X86_64=9, X86=9",
             "1.2"
           ],
           "patches": [
@@ -3504,8 +4084,6 @@
         },
         "com.appostrophe.scrl": {
           "versions": [
-            "Version codes:",
-            "1.27: ARM64_V8A=273, ARMEABI_V7A=273, X86_64=273, X86=273",
             "1.27"
           ],
           "patches": [
@@ -3517,8 +4095,6 @@
         },
         "com.arjanvlek.oxygenupdater": {
           "versions": [
-            "Version codes:",
-            "7.1.0: ARM64_V8A=135, ARMEABI_V7A=135, X86_64=135, X86=135",
             "7.1.0"
           ],
           "patches": [
@@ -3530,8 +4106,6 @@
         },
         "com.arlosoft.macrodroid": {
           "versions": [
-            "Version codes:",
-            "5.66.9: ARM64_V8A=896600011, ARMEABI_V7A=896600011, X86_64=896600011, X86=896600011",
             "5.66.9"
           ],
           "patches": [
@@ -3543,8 +4117,6 @@
         },
         "com.block.juggle": {
           "versions": [
-            "Version codes:",
-            "10.4.5: ARM64_V8A=10450, ARMEABI_V7A=10450, X86_64=10450, X86=10450",
             "10.4.5"
           ],
           "patches": [
@@ -3556,8 +4128,6 @@
         },
         "com.blockerhero": {
           "versions": [
-            "Version codes:",
-            "1.5.0: ARM64_V8A=190, ARMEABI_V7A=190, X86_64=190, X86=190",
             "1.5.0"
           ],
           "patches": [
@@ -3569,8 +4139,6 @@
         },
         "com.blocking.sites": {
           "versions": [
-            "Version codes:",
-            "4.0.19: ARM64_V8A=331, ARMEABI_V7A=331, X86_64=331, X86=331",
             "4.0.19"
           ],
           "patches": [
@@ -3582,8 +4150,6 @@
         },
         "com.bluematter.qbitconnect": {
           "versions": [
-            "Version codes:",
-            "2.0.6: ARM64_V8A=66, ARMEABI_V7A=66, X86_64=66, X86=66",
             "2.0.6"
           ],
           "patches": [
@@ -3595,8 +4161,6 @@
         },
         "com.blurams.ipc": {
           "versions": [
-            "Version codes:",
-            "5.1049.4.921: ARM64_V8A=1921, ARMEABI_V7A=1921, X86_64=1921, X86=1921",
             "5.1049.4.921"
           ],
           "patches": [
@@ -3608,8 +4172,6 @@
         },
         "com.brightstripe.parcels": {
           "versions": [
-            "Version codes:",
-            "3.0.11: ARM64_V8A=288, ARMEABI_V7A=288, X86_64=288, X86=288",
             "3.0.11"
           ],
           "patches": [
@@ -3621,8 +4183,6 @@
         },
         "com.bubblesoft.android.bubbleupnp": {
           "versions": [
-            "Version codes:",
-            "4.6.6: ARM64_V8A=3000930, ARMEABI_V7A=3000930, X86_64=3000930, X86=3000930",
             "4.6.6"
           ],
           "patches": [
@@ -3634,8 +4194,6 @@
         },
         "com.budget.tracker_app": {
           "versions": [
-            "Version codes:",
-            "6.6.11: ARM64_V8A=510, ARMEABI_V7A=510, X86_64=510, X86=510",
             "6.6.11"
           ],
           "patches": [
@@ -3647,8 +4205,6 @@
         },
         "com.calimoto.calimoto": {
           "versions": [
-            "Version codes:",
-            "2026.08.3: ARM64_V8A=626, ARMEABI_V7A=626, X86_64=626, X86=626",
             "2026.08.3"
           ],
           "patches": [
@@ -3660,8 +4216,6 @@
         },
         "com.calm.android": {
           "versions": [
-            "Version codes:",
-            "6.102: ARM64_V8A=4120456, ARMEABI_V7A=4120456, X86_64=4120456, X86=4120456",
             "6.102"
           ],
           "patches": [
@@ -3673,8 +4227,6 @@
         },
         "com.canva.editor": {
           "versions": [
-            "Version codes:",
-            "2.377.0: ARM64_V8A=29713819, ARMEABI_V7A=29713819, X86_64=29713819, X86=29713819",
             "2.377.0"
           ],
           "patches": [
@@ -3686,8 +4238,6 @@
         },
         "com.catalinagroup.callrecorder": {
           "versions": [
-            "Version codes:",
-            "2.4.281: ARM64_V8A=281, ARMEABI_V7A=281, X86_64=281, X86=281",
             "2.4.281"
           ],
           "patches": [
@@ -3699,8 +4249,6 @@
         },
         "com.changayaf.inmigreat": {
           "versions": [
-            "Version codes:",
-            "2.3.63: ARM64_V8A=755, ARMEABI_V7A=755, X86_64=755, X86=755",
             "2.3.63"
           ],
           "patches": [
@@ -3712,8 +4260,6 @@
         },
         "com.citymapper.app.release": {
           "versions": [
-            "Version codes:",
-            "11.58: ARM64_V8A=1158050, ARMEABI_V7A=1158050, X86_64=1158050, X86=1158050",
             "11.58"
           ],
           "patches": [
@@ -3725,8 +4271,6 @@
         },
         "com.cloudflare.onedotonedotonedotone": {
           "versions": [
-            "Version codes:",
-            "6.38.9: ARM64_V8A=5641, ARMEABI_V7A=5641, X86_64=5641, X86=5641",
             "6.38.9"
           ],
           "patches": [
@@ -3746,8 +4290,6 @@
         },
         "com.clue.android": {
           "versions": [
-            "Version codes:",
-            "269.1: ARM64_V8A=3189, ARMEABI_V7A=3189, X86_64=3189, X86=3189",
             "269.1"
           ],
           "patches": [
@@ -3759,8 +4301,6 @@
         },
         "com.codium.hydrocoach": {
           "versions": [
-            "Version codes:",
-            "5.1.10: ARM64_V8A=542, ARMEABI_V7A=542, X86_64=542, X86=542",
             "5.1.10"
           ],
           "patches": [
@@ -3772,8 +4312,6 @@
         },
         "com.consumedbycode.slopes": {
           "versions": [
-            "Version codes:",
-            "2026.15: ARM64_V8A=2559, ARMEABI_V7A=2559, X86_64=2559, X86=2559",
             "2026.15"
           ],
           "patches": [
@@ -3785,8 +4323,6 @@
         },
         "com.cpuid.cpu_z": {
           "versions": [
-            "Version codes:",
-            "1.60: ARM64_V8A=60, ARMEABI_V7A=60, X86_64=60, X86=60",
             "1.60"
           ],
           "patches": [
@@ -3798,8 +4334,6 @@
         },
         "com.curiouscompany.relink": {
           "versions": [
-            "Version codes:",
-            "2.0.13: ARM64_V8A=34, ARMEABI_V7A=34, X86_64=34, X86=34",
             "2.0.13"
           ],
           "patches": [
@@ -3811,8 +4345,6 @@
         },
         "com.delphicoder.flud": {
           "versions": [
-            "Version codes:",
-            "2.0.16: ARM64_V8A=100016352, ARMEABI_V7A=100016352, X86_64=100016352, X86=100016352",
             "2.0.16"
           ],
           "patches": [
@@ -3824,8 +4356,6 @@
         },
         "com.digibites.accubattery": {
           "versions": [
-            "Version codes:",
-            "2.1.8: ARM64_V8A=201008, ARMEABI_V7A=201008, X86_64=201008, X86=201008",
             "2.1.8"
           ],
           "patches": [
@@ -3837,8 +4367,6 @@
         },
         "com.domobile.applockwatcher": {
           "versions": [
-            "Version codes:",
-            "6.3.3: ARM64_V8A=2026073001, ARMEABI_V7A=2026073001, X86_64=2026073001, X86=2026073001",
             "6.3.3"
           ],
           "patches": [
@@ -3850,8 +4378,6 @@
         },
         "com.driverlicenseapp": {
           "versions": [
-            "Version codes:",
-            "4.5.78: ARM64_V8A=102278, ARMEABI_V7A=102278, X86_64=102278, X86=102278",
             "4.5.78"
           ],
           "patches": [
@@ -3863,8 +4389,6 @@
         },
         "com.dywx.larkplayer": {
           "versions": [
-            "Version codes:",
-            "2026.12.5: ARM64_V8A=2026120509, ARMEABI_V7A=2026120509, X86_64=2026120509, X86=2026120509",
             "2026.12.5"
           ],
           "patches": [
@@ -3876,8 +4400,6 @@
         },
         "com.estrongs.android.pop": {
           "versions": [
-            "Version codes:",
-            "4.4.3.7: ARM64_V8A=10353, ARMEABI_V7A=10353, X86_64=10353, X86=10353",
             "4.4.3.7"
           ],
           "patches": [
@@ -3889,8 +4411,6 @@
         },
         "com.esuper.file.explorer": {
           "versions": [
-            "Version codes:",
-            "1.5.6.3: ARM64_V8A=77, ARMEABI_V7A=77, X86_64=77, X86=77",
             "1.5.6.3"
           ],
           "patches": [
@@ -3902,8 +4422,6 @@
         },
         "com.eterno": {
           "versions": [
-            "Version codes:",
-            "34.0.4: ARM64_V8A=10314, ARMEABI_V7A=10314, X86_64=10314, X86=10314",
             "34.0.4"
           ],
           "patches": [
@@ -3915,8 +4433,6 @@
         },
         "com.facebook.orca": {
           "versions": [
-            "Version codes:",
-            "576.0.0.47.92: ARMEABI_V7A=345212666, ARM64_V8A=345212670",
             "576.0.0.47.92"
           ],
           "patches": [
@@ -3976,8 +4492,6 @@
         },
         "com.feeperfect.airsend.android": {
           "versions": [
-            "Version codes:",
-            "6.10.0: ARM64_V8A=6010000, ARMEABI_V7A=6010000, X86_64=6010000, X86=6010000",
             "6.10.0"
           ],
           "patches": [
@@ -3989,8 +4503,6 @@
         },
         "com.finalwire.aida64": {
           "versions": [
-            "Version codes:",
-            "2.22: ARM64_V8A=222, ARMEABI_V7A=222, X86_64=222, X86=222",
             "2.22"
           ],
           "patches": [
@@ -4002,8 +4514,6 @@
         },
         "com.fitbod.fitbod": {
           "versions": [
-            "Version codes:",
-            "8.33.0-0: ARM64_V8A=10833000, ARMEABI_V7A=10833000, X86_64=10833000, X86=10833000",
             "8.33.0-0"
           ],
           "patches": [
@@ -4015,8 +4525,6 @@
         },
         "com.flightaware.android.liveFlightTracker": {
           "versions": [
-            "Version codes:",
-            "5.16.1: ARM64_V8A=501600104, ARMEABI_V7A=501600104, X86_64=501600104, X86=501600104",
             "5.16.1"
           ],
           "patches": [
@@ -4028,8 +4536,6 @@
         },
         "com.flightradar24free": {
           "versions": [
-            "Version codes:",
-            "11.10.0: ARM64_V8A=111000000, ARMEABI_V7A=111000000, X86_64=111000000, X86=111000000",
             "11.10.0"
           ],
           "patches": [
@@ -4041,8 +4547,6 @@
         },
         "com.funnmedia.calory": {
           "versions": [
-            "Version codes:",
-            "3.8: ARM64_V8A=208, ARMEABI_V7A=208, X86_64=208, X86=208",
             "3.8"
           ],
           "patches": [
@@ -4054,8 +4558,6 @@
         },
         "com.glgjing.money.manager.bookkeeping.meow": {
           "versions": [
-            "Version codes:",
-            "1.9.9: ARM64_V8A=79, ARMEABI_V7A=79, X86_64=79, X86=79",
             "1.9.9"
           ],
           "patches": [
@@ -4067,8 +4569,6 @@
         },
         "com.glority.picturemushroom": {
           "versions": [
-            "Version codes:",
-            "2.9.31: ARM64_V8A=90, ARMEABI_V7A=90, X86_64=90, X86=90",
             "2.9.31"
           ],
           "patches": [
@@ -4080,8 +4580,6 @@
         },
         "com.gombosdev.ampere": {
           "versions": [
-            "Version codes:",
-            "v4.37.0: ARM64_V8A=292, ARMEABI_V7A=292, X86_64=292, X86=292",
             "v4.37.0"
           ],
           "patches": [
@@ -4093,8 +4591,6 @@
         },
         "com.google.android.apps.photos": {
           "versions": [
-            "Version codes:",
-            "7.92.0.977185651: ARM64_V8A=52372370, ARMEABI_V7A=52372370, X86_64=52372370, X86=52372370",
             "7.92.0.977185651"
           ],
           "patches": [
@@ -4130,8 +4626,6 @@
         },
         "com.guochao.faceshow": {
           "versions": [
-            "Version codes:",
-            "3.2.87: ARM64_V8A=3287, ARMEABI_V7A=3287, X86_64=3287, X86=3287",
             "3.2.87"
           ],
           "patches": [
@@ -4143,8 +4637,6 @@
         },
         "com.ilv.vradio": {
           "versions": [
-            "Version codes:",
-            "2.9.3: ARM64_V8A=90209003, ARMEABI_V7A=90209003, X86_64=90209003, X86=90209003",
             "2.9.3"
           ],
           "patches": [
@@ -4156,8 +4648,6 @@
         },
         "com.inscode.autoclicker": {
           "versions": [
-            "Version codes:",
-            "7.1.5: ARM64_V8A=686, ARMEABI_V7A=686, X86_64=686, X86=686",
             "7.1.5"
           ],
           "patches": [
@@ -4169,8 +4659,6 @@
         },
         "com.intsig.camscanner": {
           "versions": [
-            "Version codes:",
-            "7.24.5.2608200000: ARM64_V8A=72451, ARMEABI_V7A=72451, X86_64=72451, X86=72451",
             "7.24.5.2608200000"
           ],
           "patches": [
@@ -4186,8 +4674,6 @@
         },
         "com.iudesk.android.photo.editor": {
           "versions": [
-            "Version codes:",
-            "14.0: ARM64_V8A=2026090900, ARMEABI_V7A=2026090900, X86_64=2026090900, X86=2026090900",
             "14.0"
           ],
           "patches": [
@@ -4199,8 +4685,6 @@
         },
         "com.javiersantos.mlmanager": {
           "versions": [
-            "Version codes:",
-            "5.0: ARM64_V8A=120, ARMEABI_V7A=120, X86_64=120, X86=120",
             "5.0"
           ],
           "patches": [
@@ -4212,8 +4696,6 @@
         },
         "com.jeffprod.cubesolver": {
           "versions": [
-            "Version codes:",
-            "5.0.4: ARM64_V8A=10170, ARMEABI_V7A=10170, X86_64=10170, X86=10170",
             "5.0.4"
           ],
           "patches": [
@@ -4229,8 +4711,6 @@
         },
         "com.jndapp.anime.depth.live.wallpaper": {
           "versions": [
-            "Version codes:",
-            "1.1.2: ARM64_V8A=6, ARMEABI_V7A=6, X86_64=6, X86=6",
             "1.1.2"
           ],
           "patches": [
@@ -4242,8 +4722,6 @@
         },
         "com.jndapp.depth.live.wallpaper": {
           "versions": [
-            "Version codes:",
-            "2.1.06: ARM64_V8A=35, ARMEABI_V7A=35, X86_64=35, X86=35",
             "2.1.06"
           ],
           "patches": [
@@ -4255,8 +4733,6 @@
         },
         "com.jndapp.minimal.widgets": {
           "versions": [
-            "Version codes:",
-            "2.1.04: ARM64_V8A=14, ARMEABI_V7A=14, X86_64=14, X86=14",
             "2.1.04"
           ],
           "patches": [
@@ -4268,8 +4744,6 @@
         },
         "com.joincarbon.nutrition": {
           "versions": [
-            "Version codes:",
-            "2.76.5966: ARM64_V8A=1633629252, ARMEABI_V7A=1633629252, X86_64=1633629252, X86=1633629252",
             "2.76.5966"
           ],
           "patches": [
@@ -4281,8 +4755,6 @@
         },
         "com.kajda.fuelio": {
           "versions": [
-            "Version codes:",
-            "10.3.4: ARM64_V8A=3438, ARMEABI_V7A=3438, X86_64=3438, X86=3438",
             "10.3.4"
           ],
           "patches": [
@@ -4294,8 +4766,6 @@
         },
         "com.kevinforeman.nzb360": {
           "versions": [
-            "Version codes:",
-            "24.4.1: ARM64_V8A=528, ARMEABI_V7A=528, X86_64=528, X86=528",
             "24.4.1"
           ],
           "patches": [
@@ -4307,8 +4777,6 @@
         },
         "com.kin.athena": {
           "versions": [
-            "Version codes:",
-            "1.80: ARM64_V8A=306, ARMEABI_V7A=306, X86_64=306, X86=306",
             "1.80"
           ],
           "patches": [
@@ -4339,8 +4807,6 @@
         },
         "com.klevico.monet": {
           "versions": [
-            "Version codes:",
-            "v1.0.76: ARM64_V8A=110, ARMEABI_V7A=110, X86_64=110, X86=110",
             "v1.0.76"
           ],
           "patches": [
@@ -4352,8 +4818,6 @@
         },
         "com.lawfully.lawfully_ai_tracker": {
           "versions": [
-            "Version codes:",
-            "6.8.2: ARM64_V8A=547, ARMEABI_V7A=547, X86_64=547, X86=547",
             "6.8.2"
           ],
           "patches": [
@@ -4365,8 +4829,6 @@
         },
         "com.life360.android.safetymapd": {
           "versions": [
-            "Version codes:",
-            "26.31.6: ARM64_V8A=2915100, ARMEABI_V7A=2915100, X86_64=2915100, X86=2915100",
             "26.31.6"
           ],
           "patches": [
@@ -4378,8 +4840,6 @@
         },
         "com.live.flight.tracker": {
           "versions": [
-            "Version codes:",
-            "1.7.1: ARM64_V8A=23, ARMEABI_V7A=23, X86_64=23, X86=23",
             "1.7.1"
           ],
           "patches": [
@@ -4391,8 +4851,6 @@
         },
         "com.livescore": {
           "versions": [
-            "Version codes:",
-            "10.1: ARM64_V8A=2144, ARMEABI_V7A=2144, X86_64=2144, X86=2144",
             "10.1"
           ],
           "patches": [
@@ -4404,8 +4862,6 @@
         },
         "com.llamalab.automate": {
           "versions": [
-            "Version codes:",
-            "1.53.2: ARM64_V8A=266, ARMEABI_V7A=266, X86_64=266, X86=266",
             "1.53.2"
           ],
           "patches": [
@@ -4417,8 +4873,6 @@
         },
         "com.localaiapp.scoops": {
           "versions": [
-            "Version codes:",
-            "3.36.0: ARM64_V8A=3360002, ARMEABI_V7A=3360002, X86_64=3360002, X86=3360002",
             "3.36.0"
           ],
           "patches": [
@@ -4430,8 +4884,6 @@
         },
         "com.mahersafadi.electron": {
           "versions": [
-            "Version codes:",
-            "3.0.3: ARM64_V8A=106, ARMEABI_V7A=106, X86_64=106, X86=106",
             "3.0.3"
           ],
           "patches": [
@@ -4443,8 +4895,6 @@
         },
         "com.makeevapps.tagtracker": {
           "versions": [
-            "Version codes:",
-            "1.3.2: ARM64_V8A=19, ARMEABI_V7A=19, X86_64=19, X86=19",
             "1.3.2"
           ],
           "patches": [
@@ -4456,8 +4906,6 @@
         },
         "com.marsvard.stickermakerforwhatsapp": {
           "versions": [
-            "Version codes:",
-            "1.0.10-5: ARM64_V8A=1001005, ARMEABI_V7A=1001005, X86_64=1001005, X86=1001005",
             "1.0.10-5"
           ],
           "patches": [
@@ -4469,8 +4917,6 @@
         },
         "com.metalsoft.trackchecker_mobile": {
           "versions": [
-            "Version codes:",
-            "2.29.3: ARM64_V8A=505, ARMEABI_V7A=505, X86_64=505, X86=505",
             "2.29.3"
           ],
           "patches": [
@@ -4482,8 +4928,6 @@
         },
         "com.meteoblue.droid": {
           "versions": [
-            "Version codes:",
-            "Cirrus Uncinus 3.0.4: ARM64_V8A=27024, ARMEABI_V7A=27024, X86_64=27024, X86=27024",
             "Cirrus Uncinus 3.0.4"
           ],
           "patches": [
@@ -4495,8 +4939,6 @@
         },
         "com.microsoft.office.excel": {
           "versions": [
-            "Version codes:",
-            "16.0.20228.20090: ARM64_V8A=2006247667, ARMEABI_V7A=2006247667, X86_64=2006247667, X86=2006247667",
             "16.0.20228.20090"
           ],
           "patches": [
@@ -4508,8 +4950,6 @@
         },
         "com.microsoft.office.word": {
           "versions": [
-            "Version codes:",
-            "16.0.20228.20090: ARM64_V8A=2006247667, ARMEABI_V7A=2006247667, X86_64=2006247667, X86=2006247667",
             "16.0.20228.20090"
           ],
           "patches": [
@@ -4521,8 +4961,6 @@
         },
         "com.microsoft.teams": {
           "versions": [
-            "Version codes:",
-            "1416/1.0.0.2026152302: ARM64_V8A=2026152325, ARMEABI_V7A=2026152325, X86_64=2026152325, X86=2026152325",
             "1416/1.0.0.2026152302"
           ],
           "patches": [
@@ -4538,8 +4976,6 @@
         },
         "com.mindful.code.studio.toxly.scanner": {
           "versions": [
-            "Version codes:",
-            "1.20.1: ARM64_V8A=110, ARMEABI_V7A=110, X86_64=110, X86=110",
             "1.20.1"
           ],
           "patches": [
@@ -4551,8 +4987,6 @@
         },
         "com.mk.awake": {
           "versions": [
-            "Version codes:",
-            "1.10.3: ARM64_V8A=230020072, ARMEABI_V7A=230020072, X86_64=230020072, X86=230020072",
             "1.10.3"
           ],
           "patches": [
@@ -4564,8 +4998,6 @@
         },
         "com.mobisystems.office": {
           "versions": [
-            "Version codes:",
-            "16.5.60515: ARM64_V8A=60515, ARMEABI_V7A=60515, X86_64=60515, X86=60515",
             "16.5.60515"
           ],
           "patches": [
@@ -4577,8 +5009,6 @@
         },
         "com.mobond.mindicator": {
           "versions": [
-            "Version codes:",
-            "18.0.365: ARM64_V8A=365, ARMEABI_V7A=365, X86_64=365, X86=365",
             "18.0.365"
           ],
           "patches": [
@@ -4590,8 +5020,6 @@
         },
         "com.monect.portable": {
           "versions": [
-            "Version codes:",
-            "8.3.5: ARM64_V8A=144, ARMEABI_V7A=144, X86_64=144, X86=144",
             "8.3.5"
           ],
           "patches": [
@@ -4603,8 +5031,6 @@
         },
         "com.mtv.sai": {
           "versions": [
-            "Version codes:",
-            "2.4.0: ARM64_V8A=46, ARMEABI_V7A=46, X86_64=46, X86=46",
             "2.4.0"
           ],
           "patches": [
@@ -4616,8 +5042,6 @@
         },
         "com.nationaledtech.spinbrowser": {
           "versions": [
-            "Version codes:",
-            "70.3.0: ARM64_V8A=2025061004, ARMEABI_V7A=2025061004, X86_64=2025061004, X86=2025061004",
             "70.3.0"
           ],
           "patches": [
@@ -4629,8 +5053,6 @@
         },
         "com.navitime.inbound.walk": {
           "versions": [
-            "Version codes:",
-            "12.2.2: ARM64_V8A=379, ARMEABI_V7A=379, X86_64=379, X86=379",
             "12.2.2"
           ],
           "patches": [
@@ -4642,8 +5064,6 @@
         },
         "com.newsbreak.crimeradar": {
           "versions": [
-            "Version codes:",
-            "26.36.1: ARM64_V8A=26360101, ARMEABI_V7A=26360101, X86_64=26360101, X86=26360101",
             "26.36.1"
           ],
           "patches": [
@@ -4655,8 +5075,6 @@
         },
         "com.nexstreaming.app.kinemasterfree": {
           "versions": [
-            "Version codes:",
-            "8.1.13.36552.GP: ARM64_V8A=36552, ARMEABI_V7A=36552, X86_64=36552, X86=36552",
             "8.1.13.36552.GP"
           ],
           "patches": [
@@ -4668,8 +5086,6 @@
         },
         "com.nutrition.technologies.Fitia": {
           "versions": [
-            "Version codes:",
-            "26.0.1: ARM64_V8A=1502, ARMEABI_V7A=1502, X86_64=1502, X86=1502",
             "26.0.1"
           ],
           "patches": [
@@ -4681,8 +5097,6 @@
         },
         "com.nytimes.crossword": {
           "versions": [
-            "Version codes:",
-            "6.41.0: ARM64_V8A=6427504, ARMEABI_V7A=6427504, X86_64=6427504, X86=6427504",
             "6.41.0"
           ],
           "patches": [
@@ -4694,8 +5108,6 @@
         },
         "com.oasisfeng.greenify": {
           "versions": [
-            "Version codes:",
-            "5.1.1: ARM64_V8A=51100, ARMEABI_V7A=51100, X86_64=51100, X86=51100",
             "5.1.1"
           ],
           "patches": [
@@ -4707,8 +5119,6 @@
         },
         "com.onesports.score": {
           "versions": [
-            "Version codes:",
-            "4.2.7: ARM64_V8A=292, ARMEABI_V7A=292, X86_64=292, X86=292",
             "4.2.7"
           ],
           "patches": [
@@ -4720,8 +5130,6 @@
         },
         "com.opera.app.news": {
           "versions": [
-            "Version codes:",
-            "14.2.2254.84245: ARM64_V8A=142084245, ARMEABI_V7A=142084245, X86_64=142084245, X86=142084245",
             "14.2.2254.84245"
           ],
           "patches": [
@@ -4733,8 +5141,6 @@
         },
         "com.otp.octopilauncher": {
           "versions": [
-            "Version codes:",
-            "1.88: ARM64_V8A=2161, ARMEABI_V7A=2161, X86_64=2161, X86=2161",
             "1.88"
           ],
           "patches": [
@@ -4746,8 +5152,6 @@
         },
         "com.paget96.batteryguru": {
           "versions": [
-            "Version codes:",
-            "2.5.0.8: ARM64_V8A=732, ARMEABI_V7A=732, X86_64=732, X86=732",
             "2.5.0.8"
           ],
           "patches": [
@@ -4759,8 +5163,6 @@
         },
         "com.paget96.netspeedindicator": {
           "versions": [
-            "Version codes:",
-            "2.0: ARM64_V8A=158, ARMEABI_V7A=158, X86_64=158, X86=158",
             "2.0"
           ],
           "patches": [
@@ -4772,8 +5174,6 @@
         },
         "com.parallel.space.pro": {
           "versions": [
-            "Version codes:",
-            "4.0.9162: ARM64_V8A=10934, ARMEABI_V7A=10934, X86_64=10934, X86=10934",
             "4.0.9162"
           ],
           "patches": [
@@ -4785,8 +5185,6 @@
         },
         "com.particlenews.newsbreak": {
           "versions": [
-            "Version codes:",
-            "26.37.1: ARM64_V8A=26370106, ARMEABI_V7A=26370106, X86_64=26370106, X86=26370106",
             "26.37.1"
           ],
           "patches": [
@@ -4798,8 +5196,6 @@
         },
         "com.particlenews.newsbreaklite": {
           "versions": [
-            "Version codes:",
-            "26.34.0: ARM64_V8A=26340001, ARMEABI_V7A=26340001, X86_64=26340001, X86=26340001",
             "26.34.0"
           ],
           "patches": [
@@ -4811,8 +5207,6 @@
         },
         "com.picsart.studio": {
           "versions": [
-            "Version codes:",
-            "30.7.8: ARM64_V8A=993830708, ARMEABI_V7A=993830708, X86_64=993830708, X86=993830708",
             "30.7.8"
           ],
           "patches": [
@@ -4832,8 +5226,6 @@
         },
         "com.piksoft.turboscan.free": {
           "versions": [
-            "Version codes:",
-            "1.7.3: ARM64_V8A=123, ARMEABI_V7A=123, X86_64=123, X86=123",
             "1.7.3"
           ],
           "patches": [
@@ -4845,8 +5237,6 @@
         },
         "com.pixel.al.pixelhabittracker": {
           "versions": [
-            "Version codes:",
-            "2.5.0: ARM64_V8A=100087, ARMEABI_V7A=100087, X86_64=100087, X86=100087",
             "2.5.0"
           ],
           "patches": [
@@ -4858,8 +5248,6 @@
         },
         "com.playit.videoplayer": {
           "versions": [
-            "Version codes:",
-            "2.7.50.12: ARM64_V8A=20750012, ARMEABI_V7A=20750012, X86_64=20750012, X86=20750012",
             "2.7.50.12"
           ],
           "patches": [
@@ -4871,8 +5259,6 @@
         },
         "com.proxyman.proxymanandroid": {
           "versions": [
-            "Version codes:",
-            "1.21.0: ARM64_V8A=48, ARMEABI_V7A=48, X86_64=48, X86=48",
             "1.21.0"
           ],
           "patches": [
@@ -4884,8 +5270,6 @@
         },
         "com.pryshedko.materialpods": {
           "versions": [
-            "Version codes:",
-            "6.70: ARM64_V8A=670, ARMEABI_V7A=670, X86_64=670, X86=670",
             "6.70"
           ],
           "patches": [
@@ -4897,8 +5281,6 @@
         },
         "com.psiphon3.subscription": {
           "versions": [
-            "Version codes:",
-            "486: ARM64_V8A=486, ARMEABI_V7A=486, X86_64=486, X86=486",
             "486"
           ],
           "patches": [
@@ -4910,8 +5292,6 @@
         },
         "com.rainbowmeteo.weather.rainbow.ai": {
           "versions": [
-            "Version codes:",
-            "3.24.0: ARM64_V8A=261, ARMEABI_V7A=261, X86_64=261, X86=261",
             "3.24.0"
           ],
           "patches": [
@@ -4923,8 +5303,6 @@
         },
         "com.rarlab.rar": {
           "versions": [
-            "Version codes:",
-            "7.23.build134: ARM64_V8A=134, ARMEABI_V7A=134, X86_64=134, X86=134",
             "7.23.build134"
           ],
           "patches": [
@@ -4936,8 +5314,6 @@
         },
         "com.recipebro.cookingbuddy": {
           "versions": [
-            "Version codes:",
-            "1.7.21: ARM64_V8A=1502, ARMEABI_V7A=1502, X86_64=1502, X86=1502",
             "1.7.21"
           ],
           "patches": [
@@ -4949,8 +5325,6 @@
         },
         "com.regasoftware.udisc": {
           "versions": [
-            "Version codes:",
-            "24.2.12: ARM64_V8A=20735, ARMEABI_V7A=20735, X86_64=20735, X86=20735",
             "24.2.12"
           ],
           "patches": [
@@ -4962,8 +5336,6 @@
         },
         "com.remi.widget": {
           "versions": [
-            "Version codes:",
-            "85.1.4: ARM64_V8A=116, ARMEABI_V7A=116, X86_64=116, X86=116",
             "85.1.4"
           ],
           "patches": [
@@ -4975,8 +5347,6 @@
         },
         "com.rs.explorer.filemanager": {
           "versions": [
-            "Version codes:",
-            "2.3.0.4: ARM64_V8A=239, ARMEABI_V7A=239, X86_64=239, X86=239",
             "2.3.0.4"
           ],
           "patches": [
@@ -4988,8 +5358,6 @@
         },
         "com.saldous.casetracker": {
           "versions": [
-            "Version codes:",
-            "5.5.6: ARM64_V8A=1059, ARMEABI_V7A=1059, X86_64=1059, X86=1059",
             "5.5.6"
           ],
           "patches": [
@@ -5001,8 +5369,6 @@
         },
         "com.server.auditor.ssh.client": {
           "versions": [
-            "Version codes:",
-            "7.9.0: ARM64_V8A=936, ARMEABI_V7A=936, X86_64=936, X86=936",
             "7.9.0"
           ],
           "patches": [
@@ -5014,8 +5380,6 @@
         },
         "com.shexa.permissionmanager": {
           "versions": [
-            "Version codes:",
-            "3.4.6.2: ARM64_V8A=128, ARMEABI_V7A=128, X86_64=128, X86=128",
             "3.4.6.2"
           ],
           "patches": [
@@ -5027,8 +5391,6 @@
         },
         "com.snow_forecast.snowforecast": {
           "versions": [
-            "Version codes:",
-            "8.0.8: ARM64_V8A=2145, ARMEABI_V7A=2145, X86_64=2145, X86=2145",
             "8.0.8"
           ],
           "patches": [
@@ -5040,8 +5402,6 @@
         },
         "com.snowcorp.stickerly.android": {
           "versions": [
-            "Version codes:",
-            "3.37.1: ARM64_V8A=1033701, ARMEABI_V7A=1033701, X86_64=1033701, X86=1033701",
             "3.37.1"
           ],
           "patches": [
@@ -5053,8 +5413,6 @@
         },
         "com.sociallite.android": {
           "versions": [
-            "Version codes:",
-            "2.0.0.59: ARM64_V8A=87, ARMEABI_V7A=87, X86_64=87, X86=87",
             "2.0.0.59"
           ],
           "patches": [
@@ -5066,8 +5424,6 @@
         },
         "com.socialnmobile.dictapps.notepad.color.note": {
           "versions": [
-            "Version codes:",
-            "4.8.6: ARM64_V8A=2104860, ARMEABI_V7A=2104860, X86_64=2104860, X86=2104860",
             "4.8.6"
           ],
           "patches": [
@@ -5079,8 +5435,6 @@
         },
         "com.spotangels.android": {
           "versions": [
-            "Version codes:",
-            "15.2.2: ARM64_V8A=10323, ARMEABI_V7A=10323, X86_64=10323, X86=10323",
             "15.2.2"
           ],
           "patches": [
@@ -5092,8 +5446,6 @@
         },
         "com.stealthcopter.portdroid": {
           "versions": [
-            "Version codes:",
-            "1.0.7: ARM64_V8A=113, ARMEABI_V7A=113, X86_64=113, X86=113",
             "1.0.7"
           ],
           "patches": [
@@ -5105,8 +5457,6 @@
         },
         "com.storymatrix.drama": {
           "versions": [
-            "Version codes:",
-            "5.8.1: ARM64_V8A=581, ARMEABI_V7A=581, X86_64=581, X86=581",
             "5.8.1"
           ],
           "patches": [
@@ -5118,8 +5468,6 @@
         },
         "com.strava": {
           "versions": [
-            "Version codes:",
-            "480.15: ARM64_V8A=12399564, ARMEABI_V7A=12399564, X86_64=12399564, X86=12399564",
             "480.15"
           ],
           "patches": [
@@ -5131,8 +5479,6 @@
         },
         "com.sumyapplications.bluetooth.earphone": {
           "versions": [
-            "Version codes:",
-            "7.52: ARM64_V8A=7520, ARMEABI_V7A=7520, X86_64=7520, X86=7520",
             "7.52"
           ],
           "patches": [
@@ -5144,8 +5490,6 @@
         },
         "com.tafayor.hibernator": {
           "versions": [
-            "Version codes:",
-            "2.57.0: ARM64_V8A=5230, ARMEABI_V7A=5230, X86_64=5230, X86=5230",
             "2.57.0"
           ],
           "patches": [
@@ -5157,8 +5501,6 @@
         },
         "com.tafayor.killall": {
           "versions": [
-            "Version codes:",
-            "1.58.0: ARM64_V8A=1000, ARMEABI_V7A=1000, X86_64=1000, X86=1000",
             "1.58.0"
           ],
           "patches": [
@@ -5170,8 +5512,6 @@
         },
         "com.tecso.MigraConnect": {
           "versions": [
-            "Version codes:",
-            "2.8.2: ARM64_V8A=119, ARMEABI_V7A=119, X86_64=119, X86=119",
             "2.8.2"
           ],
           "patches": [
@@ -5183,8 +5523,6 @@
         },
         "com.teslacoilsw.launcher": {
           "versions": [
-            "Version codes:",
-            "8.8.8: ARM64_V8A=88800, ARMEABI_V7A=88800, X86_64=88800, X86=88800",
             "8.8.8"
           ],
           "patches": [
@@ -5196,8 +5534,6 @@
         },
         "com.theathletic": {
           "versions": [
-            "Version codes:",
-            "13.150.0: ARM64_V8A=33626101, ARMEABI_V7A=33626101, X86_64=33626101, X86=33626101",
             "13.150.0"
           ],
           "patches": [
@@ -5209,8 +5545,6 @@
         },
         "com.thegrizzlylabs.geniusscan.free": {
           "versions": [
-            "Version codes:",
-            "7.41.0: ARM64_V8A=7555, ARMEABI_V7A=7555, X86_64=7555, X86=7555",
             "7.41.0"
           ],
           "patches": [
@@ -5222,8 +5556,6 @@
         },
         "com.thetransitapp.droid": {
           "versions": [
-            "Version codes:",
-            "6.3.2: ARM64_V8A=5127258, ARMEABI_V7A=5127258, X86_64=5127258, X86=5127258",
             "6.3.2"
           ],
           "patches": [
@@ -5235,8 +5567,6 @@
         },
         "com.tomtom.gplay.navapp": {
           "versions": [
-            "Version codes:",
-            "3.6.320: ARM64_V8A=1678697, ARMEABI_V7A=1678697, X86_64=1678697, X86=1678697",
             "3.6.320"
           ],
           "patches": [
@@ -5248,8 +5578,6 @@
         },
         "com.toomics.global.google": {
           "versions": [
-            "Version codes:",
-            "1.6.8: ARM64_V8A=107, ARMEABI_V7A=107, X86_64=107, X86=107",
             "1.6.8"
           ],
           "patches": [
@@ -5261,8 +5589,6 @@
         },
         "com.tranzmate": {
           "versions": [
-            "Version codes:",
-            "5.197.1.1801: ARM64_V8A=1801, ARMEABI_V7A=1801, X86_64=1801, X86=1801",
             "5.197.1.1801"
           ],
           "patches": [
@@ -5285,8 +5611,6 @@
         },
         "com.twtapp": {
           "versions": [
-            "Version codes:",
-            "3.5.0: ARM64_V8A=3050004, ARMEABI_V7A=3050004, X86_64=3050004, X86=3050004",
             "3.5.0"
           ],
           "patches": [
@@ -5298,8 +5622,6 @@
         },
         "com.uptodown": {
           "versions": [
-            "Version codes:",
-            "7.37: ARM64_V8A=737, ARMEABI_V7A=737, X86_64=737, X86=737",
             "7.37"
           ],
           "patches": [
@@ -5311,8 +5633,6 @@
         },
         "com.urbandroid.kinestop": {
           "versions": [
-            "Version codes:",
-            "5.5: ARM64_V8A=109, ARMEABI_V7A=109, X86_64=109, X86=109",
             "5.5"
           ],
           "patches": [
@@ -5324,8 +5644,6 @@
         },
         "com.vizmanga.android": {
           "versions": [
-            "Version codes:",
-            "4.14.5: ARM64_V8A=243, ARMEABI_V7A=243, X86_64=243, X86=243",
             "4.14.5"
           ],
           "patches": [
@@ -5337,8 +5655,6 @@
         },
         "com.vythera.vyxelapps": {
           "versions": [
-            "Version codes:",
-            "1.0.7: ARM64_V8A=7, ARMEABI_V7A=7, X86_64=7, X86=7",
             "1.0.7"
           ],
           "patches": [
@@ -5350,8 +5666,6 @@
         },
         "com.wallverse.wallpapers": {
           "versions": [
-            "Version codes:",
-            "4.2: ARM64_V8A=42, ARMEABI_V7A=42, X86_64=42, X86=42",
             "4.2"
           ],
           "patches": [
@@ -5363,8 +5677,6 @@
         },
         "com.wavve.boating.gps": {
           "versions": [
-            "Version codes:",
-            "5.7.8: ARM64_V8A=3189, ARMEABI_V7A=3189, X86_64=3189, X86=3189",
             "5.7.8"
           ],
           "patches": [
@@ -5376,8 +5688,6 @@
         },
         "com.weather.Weather": {
           "versions": [
-            "Version codes:",
-            "16.21.1: ARM64_V8A=1080014660, ARMEABI_V7A=1080014660, X86_64=1080014660, X86=1080014660",
             "16.21.1"
           ],
           "patches": [
@@ -5389,8 +5699,6 @@
         },
         "com.weawow": {
           "versions": [
-            "Version codes:",
-            "7.1.9: ARM64_V8A=719, ARMEABI_V7A=719, X86_64=719, X86=719",
             "7.1.9"
           ],
           "patches": [
@@ -5402,8 +5710,6 @@
         },
         "com.wellocution.androidapp": {
           "versions": [
-            "Version codes:",
-            "4.6.6: ARM64_V8A=415, ARMEABI_V7A=415, X86_64=415, X86=415",
             "4.6.6"
           ],
           "patches": [
@@ -5415,8 +5721,6 @@
         },
         "com.windscribe.vpn": {
           "versions": [
-            "Version codes:",
-            "4.2.2328: ARM64_V8A=2328, ARMEABI_V7A=2328, X86_64=2328, X86=2328",
             "4.2.2328"
           ],
           "patches": [
@@ -5428,8 +5732,6 @@
         },
         "com.windyty.android": {
           "versions": [
-            "Version codes:",
-            "51.0.1: ARM64_V8A=5100010, ARMEABI_V7A=5100010, X86_64=5100010, X86=5100010",
             "51.0.1"
           ],
           "patches": [
@@ -5441,8 +5743,6 @@
         },
         "com.wolfram.android.alphapro": {
           "versions": [
-            "Version codes:",
-            "1.0.8.20260601651: ARM64_V8A=117, ARMEABI_V7A=117, X86_64=117, X86=117",
             "1.0.8.20260601651"
           ],
           "patches": [
@@ -5454,8 +5754,6 @@
         },
         "com.yablio.sendfilestotv": {
           "versions": [
-            "Version codes:",
-            "1.4.22: ARM64_V8A=69, ARMEABI_V7A=69, X86_64=69, X86=69",
             "1.4.22"
           ],
           "patches": [
@@ -5467,8 +5765,6 @@
         },
         "com.yatrirailways.yatri": {
           "versions": [
-            "Version codes:",
-            "5.0.6: ARM64_V8A=1013, ARMEABI_V7A=1013, X86_64=1013, X86=1013",
             "5.0.6"
           ],
           "patches": [
@@ -5480,8 +5776,6 @@
         },
         "cz.mroczis.netmonster": {
           "versions": [
-            "Version codes:",
-            "3.4.3: ARM64_V8A=271, ARMEABI_V7A=271, X86_64=271, X86=271",
             "3.4.3"
           ],
           "patches": [
@@ -5493,8 +5787,6 @@
         },
         "cz.seznam.mapy": {
           "versions": [
-            "Version codes:",
-            "26.8.0: ARM64_V8A=26080001, ARMEABI_V7A=26080001, X86_64=26080001, X86=26080001",
             "26.8.0"
           ],
           "patches": [
@@ -5506,8 +5798,6 @@
         },
         "de.komoot.android": {
           "versions": [
-            "Version codes:",
-            "2026.37.5: ARM64_V8A=263910002, ARMEABI_V7A=263910002, X86_64=263910002, X86=263910002",
             "2026.37.5"
           ],
           "patches": [
@@ -5519,8 +5809,6 @@
         },
         "dev.dworks.apps.anexplorer": {
           "versions": [
-            "Version codes:",
-            "6.0.6: ARM64_V8A=60604, ARMEABI_V7A=60604, X86_64=60604, X86=60604",
             "6.0.6"
           ],
           "patches": [
@@ -5532,8 +5820,6 @@
         },
         "dev.km.android.chargemeter": {
           "versions": [
-            "Version codes:",
-            "3.0.1: ARM64_V8A=81, ARMEABI_V7A=81, X86_64=81, X86=81",
             "3.0.1"
           ],
           "patches": [
@@ -5545,8 +5831,6 @@
         },
         "eu.darken.bluemusic": {
           "versions": [
-            "Version codes:",
-            "3.5.0-rc0: ARM64_V8A=30500000, ARMEABI_V7A=30500000, X86_64=30500000, X86=30500000",
             "3.5.0-rc0"
           ],
           "patches": [
@@ -5558,8 +5842,6 @@
         },
         "eu.darken.capod": {
           "versions": [
-            "Version codes:",
-            "5.2.5-rc0: ARM64_V8A=50205000, ARMEABI_V7A=50205000, X86_64=50205000, X86=50205000",
             "5.2.5-rc0"
           ],
           "patches": [
@@ -5571,8 +5853,6 @@
         },
         "eu.darken.myperm": {
           "versions": [
-            "Version codes:",
-            "2.2.2-rc0: ARM64_V8A=20202000, ARMEABI_V7A=20202000, X86_64=20202000, X86=20202000",
             "2.2.2-rc0"
           ],
           "patches": [
@@ -5584,8 +5864,6 @@
         },
         "eu.darken.octi": {
           "versions": [
-            "Version codes:",
-            "1.2.2-rc0: ARM64_V8A=10202000, ARMEABI_V7A=10202000, X86_64=10202000, X86=10202000",
             "1.2.2-rc0"
           ],
           "patches": [
@@ -5597,8 +5875,6 @@
         },
         "eu.darken.sdmse": {
           "versions": [
-            "Version codes:",
-            "2.0.3-rc0: ARM64_V8A=20003000, ARMEABI_V7A=20003000, X86_64=20003000, X86=20003000",
             "2.0.3-rc0"
           ],
           "patches": [
@@ -5610,8 +5886,6 @@
         },
         "eu.duong.imagedatefixer": {
           "versions": [
-            "Version codes:",
-            "3.7.1: ARM64_V8A=30700100, ARMEABI_V7A=30700100, X86_64=30700100, X86=30700100",
             "3.7.1"
           ],
           "patches": [
@@ -5623,8 +5897,6 @@
         },
         "eu.duong.picturemanager": {
           "versions": [
-            "Version codes:",
-            "8.30.0: ARM64_V8A=8300000, ARMEABI_V7A=8300000, X86_64=8300000, X86=8300000",
             "8.30.0"
           ],
           "patches": [
@@ -5636,8 +5908,6 @@
         },
         "eu.faircode.netguard": {
           "versions": [
-            "Version codes:",
-            "2.337: ARM64_V8A=2026080101, ARMEABI_V7A=2026080101, X86_64=2026080101, X86=2026080101",
             "2.337"
           ],
           "patches": [
@@ -5649,8 +5919,6 @@
         },
         "eu.toneiv.cursor": {
           "versions": [
-            "Version codes:",
-            "1.11.1: ARM64_V8A=23164, ARMEABI_V7A=23164, X86_64=23164, X86=23164",
             "1.11.1"
           ],
           "patches": [
@@ -5662,8 +5930,6 @@
         },
         "eu.toneiv.ubktouch": {
           "versions": [
-            "Version codes:",
-            "1.17.8: ARM64_V8A=78135, ARMEABI_V7A=78135, X86_64=78135, X86=78135",
             "1.17.8"
           ],
           "patches": [
@@ -5675,8 +5941,6 @@
         },
         "fr.tramb.park4night": {
           "versions": [
-            "Version codes:",
-            "7.1.62: ARM64_V8A=378, ARMEABI_V7A=378, X86_64=378, X86=378",
             "7.1.62"
           ],
           "patches": [
@@ -5688,8 +5952,6 @@
         },
         "game.puzzle.blockpuzzle": {
           "versions": [
-            "Version codes:",
-            "6.1: ARM64_V8A=61, ARMEABI_V7A=61, X86_64=61, X86=61",
             "6.1"
           ],
           "patches": [
@@ -5701,8 +5963,6 @@
         },
         "hd.uhd.live.wallpapers.topwallpapers": {
           "versions": [
-            "Version codes:",
-            "6.1.1: ARM64_V8A=115, ARMEABI_V7A=115, X86_64=115, X86=115",
             "6.1.1"
           ],
           "patches": [
@@ -5714,8 +5974,6 @@
         },
         "homeworkout.homeworkouts.noequipment": {
           "versions": [
-            "Version codes:",
-            "1.7.9: ARM64_V8A=153, ARMEABI_V7A=153, X86_64=153, X86=153",
             "1.7.9"
           ],
           "patches": [
@@ -5727,8 +5985,6 @@
         },
         "in.amazon.mShop.android.shopping": {
           "versions": [
-            "Version codes:",
-            "32.17.0.300: ARM64_V8A=1243230206, ARMEABI_V7A=1243230206, X86_64=1243230206, X86=1243230206",
             "32.17.0.300"
           ],
           "patches": [
@@ -5768,8 +6024,6 @@
         },
         "increaseheightworkout.heightincreaseexercise.tallerexercise": {
           "versions": [
-            "Version codes:",
-            "1.1.17: ARM64_V8A=66, ARMEABI_V7A=66, X86_64=66, X86=66",
             "1.1.17"
           ],
           "patches": [
@@ -5781,8 +6035,6 @@
         },
         "intelligems.torrdroid": {
           "versions": [
-            "Version codes:",
-            "2.0.3: ARM64_V8A=10272, ARMEABI_V7A=10272, X86_64=10272, X86=10272",
             "2.0.3"
           ],
           "patches": [
@@ -5794,8 +6046,6 @@
         },
         "io.appground.blek": {
           "versions": [
-            "Version codes:",
-            "6.23.1: ARM64_V8A=257, ARMEABI_V7A=257, X86_64=257, X86=257",
             "6.23.1"
           ],
           "patches": [
@@ -5807,8 +6057,6 @@
         },
         "io.goodservice.theweekendest": {
           "versions": [
-            "Version codes:",
-            "1.2.10: ARM64_V8A=81, ARMEABI_V7A=81, X86_64=81, X86=81",
             "1.2.10"
           ],
           "patches": [
@@ -5820,8 +6068,6 @@
         },
         "it.mirko.beta": {
           "versions": [
-            "Version codes:",
-            "0.11.0: ARM64_V8A=155, ARMEABI_V7A=155, X86_64=155, X86=155",
             "0.11.0"
           ],
           "patches": [
@@ -5833,8 +6079,6 @@
         },
         "je.fit": {
           "versions": [
-            "Version codes:",
-            "17.4.4: ARM64_V8A=2093, ARMEABI_V7A=2093, X86_64=2093, X86=2093",
             "17.4.4"
           ],
           "patches": [
@@ -5846,8 +6090,6 @@
         },
         "jp.co.shueisha.mangaplus": {
           "versions": [
-            "Version codes:",
-            "2.6.4: ARM64_V8A=264, ARMEABI_V7A=264, X86_64=264, X86=264",
             "2.6.4"
           ],
           "patches": [
@@ -5859,8 +6101,6 @@
         },
         "kha.prog.mikrotik": {
           "versions": [
-            "Version codes:",
-            "279: ARM64_V8A=279, ARMEABI_V7A=279, X86_64=279, X86=279",
             "279"
           ],
           "patches": [
@@ -5872,8 +6112,6 @@
         },
         "kha.prog.usbhotspot": {
           "versions": [
-            "Version codes:",
-            "1.7: ARM64_V8A=7, ARMEABI_V7A=7, X86_64=7, X86=7",
             "1.7"
           ],
           "patches": [
@@ -5885,8 +6123,6 @@
         },
         "loseweightapp.loseweightappforwomen.womenworkoutathome": {
           "versions": [
-            "Version codes:",
-            "2.4.0: ARM64_V8A=107, ARMEABI_V7A=107, X86_64=107, X86=107",
             "2.4.0"
           ],
           "patches": [
@@ -5898,8 +6134,6 @@
         },
         "me.gira.widget.countdown": {
           "versions": [
-            "Version codes:",
-            "3.2.0: ARM64_V8A=306, ARMEABI_V7A=306, X86_64=306, X86=306",
             "3.2.0"
           ],
           "patches": [
@@ -5911,8 +6145,6 @@
         },
         "me.highest.aviate": {
           "versions": [
-            "Version codes:",
-            "1.1.0-beta.1: ARM64_V8A=202, ARMEABI_V7A=202, X86_64=202, X86=202",
             "1.1.0-beta.1"
           ],
           "patches": [
@@ -5924,8 +6156,6 @@
         },
         "mega.privacy.android.app": {
           "versions": [
-            "Version codes:",
-            "16.12(262370820)(dcdf0a7f27): ARM64_V8A=262370820, ARMEABI_V7A=262370820, X86_64=262370820, X86=262370820",
             "16.12(262370820)(dcdf0a7f27)"
           ],
           "patches": [
@@ -5937,8 +6167,6 @@
         },
         "mobi.lockdown.weather": {
           "versions": [
-            "Version codes:",
-            "2.5.0-6: ARM64_V8A=756, ARMEABI_V7A=756, X86_64=756, X86=756",
             "2.5.0-6"
           ],
           "patches": [
@@ -5950,8 +6178,6 @@
         },
         "net.myanimelist.app": {
           "versions": [
-            "Version codes:",
-            "2.3.16: ARM64_V8A=2031623, ARMEABI_V7A=2031623, X86_64=2031623, X86=2031623",
             "2.3.16"
           ],
           "patches": [
@@ -5963,8 +6189,6 @@
         },
         "net.podslink": {
           "versions": [
-            "Version codes:",
-            "1.4.0: ARM64_V8A=87, ARMEABI_V7A=87, X86_64=87, X86=87",
             "1.4.0"
           ],
           "patches": [
@@ -5976,8 +6200,6 @@
         },
         "no.mobitroll.kahoot.android": {
           "versions": [
-            "Version codes:",
-            "6.6.7: ARM64_V8A=3246, ARMEABI_V7A=3246, X86_64=3246, X86=3246",
             "6.6.7"
           ],
           "patches": [
@@ -6000,8 +6222,6 @@
         },
         "org.malwarebytes.antimalware": {
           "versions": [
-            "Version codes:",
-            "5.27.0+564: ARM64_V8A=52700564, ARMEABI_V7A=52700564, X86_64=52700564, X86=52700564",
             "5.27.0+564"
           ],
           "patches": [
@@ -6013,8 +6233,6 @@
         },
         "org.telegram.messenger": {
           "versions": [
-            "Version codes:",
-            "12.10.1: ARM64_V8A=70382, ARMEABI_V7A=70382, X86_64=70382, X86=70382",
             "12.10.1"
           ],
           "patches": [
@@ -6078,8 +6296,6 @@
         },
         "org.telegram.messenger.web": {
           "versions": [
-            "Version codes:",
-            "12.10.1: ARM64_V8A=70389, ARMEABI_V7A=70389, X86_64=70389, X86=70389",
             "12.10.1"
           ],
           "patches": [
@@ -6143,8 +6359,6 @@
         },
         "org.telegram.plus": {
           "versions": [
-            "Version codes:",
-            "12.10.1.1: ARM64_V8A=22510, ARMEABI_V7A=22510, X86_64=22510, X86=22510",
             "12.10.1.1"
           ],
           "patches": [
@@ -6212,8 +6426,6 @@
         },
         "org.zwanoo.android.speedtest": {
           "versions": [
-            "Version codes:",
-            "7.1.0: ARM64_V8A=263066, ARMEABI_V7A=263066, X86_64=263066, X86=263066",
             "7.1.0"
           ],
           "patches": [
@@ -6225,8 +6437,6 @@
         },
         "police.scanner.radio.broadcastify.citizen": {
           "versions": [
-            "Version codes:",
-            "1.29.0-260420093: ARM64_V8A=260420093, ARMEABI_V7A=260420093, X86_64=260420093, X86=260420093",
             "1.29.0-260420093"
           ],
           "patches": [
@@ -6238,8 +6448,6 @@
         },
         "pro.vitalii.andropods": {
           "versions": [
-            "Version codes:",
-            "1.5.30: ARM64_V8A=86, ARMEABI_V7A=86, X86_64=86, X86=86",
             "1.5.30"
           ],
           "patches": [
@@ -6251,8 +6459,6 @@
         },
         "proton.android.pass": {
           "versions": [
-            "Version codes:",
-            "1.40.3: ARM64_V8A=14003373, ARMEABI_V7A=14003373, X86_64=14003373, X86=14003373",
             "1.40.3"
           ],
           "patches": [
@@ -6264,8 +6470,6 @@
         },
         "sensustech.universal.tv.remote.control": {
           "versions": [
-            "Version codes:",
-            "1.8.1: ARM64_V8A=78, ARMEABI_V7A=78, X86_64=78, X86=78",
             "1.8.1"
           ],
           "patches": [
@@ -6277,8 +6481,6 @@
         },
         "shareit.premium": {
           "versions": [
-            "Version codes:",
-            "1.1.98: ARM64_V8A=40101980, ARMEABI_V7A=40101980, X86_64=40101980, X86=40101980",
             "1.1.98"
           ],
           "patches": [
@@ -6290,8 +6492,6 @@
         },
         "sksa.aa.customapps": {
           "versions": [
-            "Version codes:",
-            "2.8.5: ARM64_V8A=47, ARMEABI_V7A=47, X86_64=47, X86=47",
             "2.8.5"
           ],
           "patches": [
@@ -6307,8 +6507,6 @@
         },
         "sp0n.citizen": {
           "versions": [
-            "Version codes:",
-            "0.1307.0: ARM64_V8A=1139, ARMEABI_V7A=1139, X86_64=1139, X86=1139",
             "0.1307.0"
           ],
           "patches": [
@@ -6320,8 +6518,6 @@
         },
         "torrent.search.revolutionv2": {
           "versions": [
-            "Version codes:",
-            "2.3.3: ARM64_V8A=233, ARMEABI_V7A=233, X86_64=233, X86=233",
             "2.3.3"
           ],
           "patches": [
@@ -6333,8 +6529,6 @@
         },
         "verbosus.pialytic": {
           "versions": [
-            "Version codes:",
-            "1.3.2: ARM64_V8A=23, ARMEABI_V7A=23, X86_64=23, X86=23",
             "1.3.2"
           ],
           "patches": [
@@ -6346,8 +6540,6 @@
         },
         "women.workout.female.fitness": {
           "versions": [
-            "Version codes:",
-            "2.3.5: ARM64_V8A=142, ARMEABI_V7A=142, X86_64=142, X86=142",
             "2.3.5"
           ],
           "patches": [
@@ -6359,8 +6551,6 @@
         },
         "xorsand.relane": {
           "versions": [
-            "Version codes:",
-            "2026073010.0.0: ARM64_V8A=2026073010, ARMEABI_V7A=2026073010, X86_64=2026073010, X86=2026073010",
             "2026073010.0.0"
           ],
           "patches": [
@@ -6372,8 +6562,6 @@
         },
         "xyz.rtrvr.pillo": {
           "versions": [
-            "Version codes:",
-            "0.6.19: ARM64_V8A=442, ARMEABI_V7A=442, X86_64=442, X86=442",
             "0.6.19"
           ],
           "patches": [
@@ -6386,6 +6574,7 @@
       },
       "url": "https://github.com/rushiranpise/morphe-patches",
       "version": "v1.22.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "Google-Photos",
@@ -6834,6 +7023,7 @@
       },
       "url": "https://gitlab.com/Paresh-Maheshwari/paresh-patches",
       "version": "v1.20.0",
+      "spec": "latest",
       "used_by": [
         {
           "table": "Truecaller",
@@ -7208,13 +7398,15 @@
       "github:RookieEnough/De-Vanced"
     ],
     "com.google.android.apps.youtube.music": [
-      "github:MorpheApp/morphe-patches"
+      "github:MorpheApp/morphe-patches",
+      "github:MorpheApp/morphe-patches@dev"
     ],
     "com.google.android.dialer": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
     "com.google.android.youtube": [
-      "github:MorpheApp/morphe-patches"
+      "github:MorpheApp/morphe-patches",
+      "github:MorpheApp/morphe-patches@dev"
     ],
     "com.guochao.faceshow": [
       "github:rushiranpise/morphe-patches"
@@ -7486,7 +7678,8 @@
       "github:rushiranpise/morphe-patches"
     ],
     "com.reddit.frontpage": [
-      "github:MorpheApp/morphe-patches"
+      "github:MorpheApp/morphe-patches",
+      "github:MorpheApp/morphe-patches@dev"
     ],
     "com.regasoftware.udisc": [
       "github:rushiranpise/morphe-patches"

@@ -1,7 +1,22 @@
 // Flow test: drive the published page exactly as a visitor would, against the LIVE site.
 // jsdom runs the real app.js; fetch hits the real Pages origin.
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { JSDOM, VirtualConsole } from "jsdom";
+
+const REPO = fileURLToPath(new URL("..", import.meta.url));
+// what config.toml says each enabled app is: {id (from the table), name}
+const configApps = JSON.parse(execFileSync("python3", ["-c", `
+import json, re, tomllib
+d = tomllib.load(open("config.toml", "rb"))
+slug = lambda s: re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+print(json.dumps({slug(k): v.get("app-name", k.replace("-", " "))
+                  for k, v in d.items() if isinstance(v, dict) and v.get("enabled", True) is True}))
+`], { cwd: REPO, encoding: "utf8" }));
+// the package a built APK really declares (read over HTTP range requests)
+const apkPackage = (url) =>
+  execFileSync("python3", ["tools/apk_package.py", url], { cwd: REPO, encoding: "utf8" }).trim();
 
 const BASE = "https://qutaiba-khader.github.io/morphe-builder/";
 const results = [];
@@ -42,6 +57,10 @@ const titleOf = (c) => c.querySelector("h2 span")?.textContent ?? "";
 check("builds: names come from config.toml, capitalisation intact",
   cards.every((c) => configNames.has(titleOf(c))) && configNames.has("YouTube"),
   cards.map(titleOf).join(", "));
+for (const a of index.apps) {
+  check(`builds: ${a.id} is an enabled config.toml table with that exact name`,
+    configApps[a.id] === a.name, `api "${a.name}" vs config "${configApps[a.id]}"`);
+}
 
 // use YouTube for the per-card assertions so they do not depend on sort order
 const card = cards.find((c) => titleOf(c) === "YouTube") ?? cards[0];
@@ -66,6 +85,10 @@ const hist = card?.querySelector(".history");
 const items = hist ? [...hist.querySelectorAll("ol li")] : [];
 check("history: opens and lists versions", !hist?.hasAttribute("hidden") && items.length > 0, `${items.length} version(s)`);
 check("history: each row links to a file", items.every((li) => li.querySelector("a[href*='/releases/download/']")));
+{
+  const vers = items.map((li) => li.querySelector(".hv")?.textContent);
+  check("history: each version listed once (rebuilds merged)", new Set(vers).size === vers.length, vers.join(" "));
+}
 check("history: button becomes a hide toggle", (more?.textContent ?? "").startsWith("Hide versions"), more?.textContent);
 more?.click();
 await sleep(200);
@@ -103,10 +126,39 @@ check("obtainium: button targets the redirect service",
   (obtBtn?.href ?? "").startsWith("https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F"));
 
 const allLink = $("#obtainium-all");
-check("obtainium: add-all link revealed",
-  !allLink?.hidden && (allLink?.href ?? "").includes("obtainium%3A%2F%2Fapps%2F"));
+check("obtainium: add-all link revealed and points at our own bulk page",
+  !allLink?.hidden && (allLink?.href ?? "").endsWith("/obtainium/_all.html"), allLink?.href);
 
 const obt = await (await fetch(BASE + "api/obtainium.json")).json();
+
+// "Add every app": Obtainium's redirect service rejects obtainium://apps/, so it
+// must be our page, and that page must hand over every app's config.
+{
+  const res = await fetch(obt.add_all_url);
+  const body = await res.text();
+  const deep = body.match(/href="(obtainium:\/\/apps\/[^"]+)"/)?.[1]?.replace(/&amp;/g, "&");
+  const bulk = deep ? JSON.parse(decodeURIComponent(deep.slice("obtainium://apps/".length))) : [];
+  check("obtainium: bulk page serves an obtainium://apps/ deep link",
+    res.ok && !/Invalid URL/.test(body) && !!deep, `HTTP ${res.status}`);
+  check("obtainium: bulk deep link carries exactly every addable app",
+    bulk.map((c) => c.id).sort().join() === obt.apps.map((e) => e.config.id).sort().join(),
+    bulk.map((c) => c.id).join(", "));
+}
+
+const ids = obt.apps.map((e) => e.config.id);
+check("obtainium: package ids are unique", new Set(ids).size === ids.length, ids.join(", "));
+
+const realPkg = {};
+for (const e of obt.apps) realPkg[e.app] = apkPackage(e.apk);
+for (const e of obt.apps) {
+  check(`obtainium/${e.app}: id is the package the APK really declares`,
+    e.config.id === realPkg[e.app], `${e.config.id} vs APK ${realPkg[e.app]}`);
+}
+for (const c of obt.conflicts || []) {
+  const mine = apkPackage((await (await fetch(BASE + `api/apps/${c.app}.json`)).json()).builds[0].files[0].url);
+  check(`obtainium/${c.app}: counted as a conflict only because its APK really shares ${c.shares_with}'s package`,
+    mine === realPkg[c.shares_with], `${mine} vs ${realPkg[c.shares_with]}`);
+}
 const clashes = obt.conflicts || [];
 check("obtainium: every app is either addable or reported as a conflict",
   obt.apps.length + clashes.length === cards.length,
@@ -162,12 +214,16 @@ try {
 }
 if (readme !== null) {
   for (const a of index.apps) {
-    check(`readme: Apps table has a row for ${a.id}`, readme.includes(`| **${a.name}** |`));
+    const row = readme.split("\n").find((l) => l.startsWith(`| **${a.name}** |`)) ?? "";
+    const lt = (await (await fetch(BASE + "api/latest.json")).json()).apps[a.id];
+    check(`readme: Apps table has a row for ${a.id}`, !!row);
+    check(`readme: ${a.id} row shows the live version and download`,
+      row.includes(`\`${lt.version}\``) && row.includes(lt.files[0].url), row.slice(0, 90));
   }
   for (const e of obt.apps) {
     check(`readme: ${e.app} row carries its Obtainium badge`, readme.includes(`][obt-${e.app}]`));
   }
-  check("obtainium: README add-all link matches the generated one", readme.includes(obt.add_all_url));
+  check("obtainium: README add-all link matches the generated one", readme.includes(`[obt:all]: ${obt.add_all_url}`));
   for (const entry of obt.apps) {
     check(`obtainium/${entry.app}: README add link matches the generated one`,
       readme.includes(entry.add_url));

@@ -13,7 +13,7 @@ Nothing runs on private infrastructure — GitHub's hosted runners do the whole 
     search_mcps    "<keywords from the phase>"
     load_skill     <top match>        # or get_mcp_info <server>
 
-via the claude-radar MCP at `http://192.168.1.103:6580/mcp`. Also search for error-prevention
+via the owner's skill and MCP discovery service. Also search for error-prevention
 skills in the phase's domain. State which skills/MCPs will be used before proceeding. This is
 not optional and not a one-off — it is repeated at the top of every phase, including reruns.
 
@@ -30,7 +30,7 @@ not optional and not a one-off — it is repeated at the top of every phase, inc
 - [x] Own signing key: BKS keystore, RSA-4096, alias `Morphe`, stored as the secrets
       `KEYSTORE_BASE64` / `KEYSTORE_PASS` / `KEYSTORE_ALIAS`. Upstream reads those env vars
       directly (`src/core/builder.py:231`, `src/core/patcher.py:161`) — no code change needed.
-      Backup of the key and its password: `/root/.secrets/morphe-builder/` on the Proxmox host.
+      An offline backup of the key and its password is held by the owner, outside this repo.
       **Losing it means every installed copy must be uninstalled before it can update again.**
 - [x] One green CI run producing a signed `youtube-morphe-vXX-all.apk` in Releases.
 
@@ -136,3 +136,32 @@ Three defects the trace found, all fixed:
 - [x] The site now also redeploys after a standalone **Build APKs** run, not only after **CI**.
 - [x] Asset names are split against `config.toml` rather than guessed, because a brand can
       contain a hyphen (`morphe-dev`).
+
+## Phase 8 — full review with /test-skills (2026-09-21)
+
+Four independent review lanes (oracle harnesses, consumer/contract sweep, flow and taint
+tracing, differential and falsification) plus a static toolchain pass (ruff, actionlint,
+node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before fixing:
+
+- **HIGH — the "Add every app" link never worked.** Obtainium's redirect service only forwards
+  `obtainium://app/` and `obtainium://add/`; the bulk `obtainium://apps/` link landed on
+  "Invalid URL". The app itself handles `apps` (its `home.dart`), so the link is now our own
+  page, `obtainium/_all.html`.
+- **HIGH — a rebuild window published a stale or partial site.** CI re-drafts one brand's
+  release while the others stay published; the old guard fired only when *zero* apps were left,
+  so a Site run in that window published the previous build (once, one whose package was
+  shared with stable YouTube) or dropped a whole brand. `gen_site.py` now asks the Actions API
+  whether CI or Build APKs is running and, if so, publishes nothing (`skip=true`, exit 0 — no
+  red run); without that permission it compares the live site's tags with the published ones.
+- MEDIUM: multi-arch apps got an arm64-only Obtainium entry → per-arch `variants`, buttons and
+  badges. The catalog ignored `version = "dev"` → sources are catalogued per version spec,
+  resolved exactly as the builder does. 228 of 383 catalog packages listed "Version codes:"
+  lines as versions → parser fixed. App ids came from `app-name`, so two tables sharing one
+  merged → ids come from the table name. The package id could fall back to a hand-written
+  value → it now only ever comes from the APK (or the live record of the same file). A
+  hand-typed catalog count had drifted → generated.
+- Documented, not changed: Obtainium does not see patch-only rebuilds (it tracks the app
+  version); changing that needs version detection off and a phone test.
+- The flow test now reads each APK's real package and compares it with the Obtainium id,
+  checks ids are unique, compares app names with `config.toml`, checks each README row's version
+  and download link, and opens the bulk-add page.
