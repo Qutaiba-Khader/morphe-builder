@@ -64,7 +64,10 @@ Patch catalog: 9 sources able to patch 360 apps, in the website's **Patch catalo
 > Stable **Reddit** keeps Reddit's own package name, so it cannot install over Reddit from the Play Store. Uninstall that one first. YouTube and every pre-release build are renamed, so they install next to what you already have.
 
 > [!NOTE]
-> The APKs are signed with this repository's own key. A new build installs over an older one from here, but not over a build from another patcher.
+> **Obtainium asks:** *"The app source is 'qutaiba-khader.github.io' but the release package comes from 'github.com'. Continue?"* That is expected: the app's page is on this website and the APK is in this repository's GitHub releases. Tap **Continue**, and tick **Don't show again** to stop the question.
+
+> [!WARNING]
+> **"Conflict" (Obtainium) or "App not installed" (Android)** means the same app is already on your phone from somewhere else, such as Morphe Manager or another builder, signed with a different key. Android cannot update across keys. Uninstall that copy once (back up its Morphe settings first if you want to keep them), then install from here. Every later update installs normally, because every APK here is signed with this repository's own key.
 
 ## Stable or pre-release?
 

@@ -204,3 +204,22 @@ node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before 
   "null" on every card (DOM `append(null)`); the flow test's first check for it could not
   see it, because the text node is glued to its neighbours ("All versionsnull"), so it now
   walks the text nodes and was proven to fail on the buggy code.
+
+## Phase 11 — install problems reported from the phone (2026-09-22)
+
+- *"The app source is 'qutaiba-khader.github.io' but the release package comes from
+  'github.com'"* is Obtainium's APK-origin check (`apps_provider_install.dart`: it compares the
+  root host of the app page with the APK's and asks once per install unless *Don't show again*
+  is ticked). Expected here: the page is on Pages, the APK in GitHub releases. Documented in the
+  README, on the website and on the add-every-app page. Cancel aborts the install.
+- *"Conflict"* is Android's `STATUS_FAILURE_CONFLICT` (a downgrade reports *Invalid* instead):
+  a different signing key on the same package, or a clashing provider or permission. All eight
+  published APKs verify with this repository's key (`apksigner`) and the stable and pre-release
+  builds share no package, provider authority or permission, so the copy already on the phone
+  came from elsewhere (Morphe Manager or another builder). Documented; the fix is one uninstall.
+- The same check found one broken artifact: the 26.09.20-morphe-dev YouTube Experimental was
+  built before the Clone-app fix and declared `app.morphe.android.youtube`, so it replaced stable
+  YouTube. Removed from that release (notes say why). The flow test now checks every APK link
+  on the site, API, Obtainium configs, README and every Releases asset: it downloads, has the
+  listed size, carries its version and the package of the app it is listed under. It failed on
+  that asset before the removal and passes after.

@@ -263,6 +263,73 @@ if (readme !== null) {
   }
 }
 
+// --- every APK source -------------------------------------------------------
+// Each APK link handed out anywhere - latest, history, Obtainium pages and
+// configs, the README and every asset on the Releases page - must resolve,
+// be the size the API says, and carry the package of the app it is listed
+// under. A wrong package installs over (or conflicts with) another app.
+{
+  const ARCH = "(all|arm64-v8a|armeabi-v7a|x86_64|x86)";
+  const fileRe = new RegExp(`^(.*)-v(.+)-${ARCH}\\.apk$`);
+  const latestAll = (await (await fetch(BASE + "api/latest.json")).json()).apps;
+  const pkgOf = Object.fromEntries(index.apps.map((a) => [a.id, a.package]));
+  const byPrefix = {};   // "youtube-morphe" -> app id, from the current file names
+  for (const [id, b] of Object.entries(latestAll)) {
+    for (const f of b.files) byPrefix[f.name.match(fileRe)?.[1]] = id;
+  }
+
+  // url -> what it must be: {app, version, size, where[]}
+  const want = new Map();
+  const add = (url, app, version, size, where) => {
+    const w = want.get(url) ?? { app, version, size, where: [] };
+    w.where.push(where);
+    want.set(url, w);
+  };
+  for (const [id, b] of Object.entries(latestAll)) {
+    for (const f of b.files) add(f.url, id, b.version, f.size, "api/latest");
+  }
+  for (const a of index.apps) {
+    const h = await (await fetch(BASE + `api/apps/${a.id}.json`)).json();
+    for (const b of h.builds) for (const f of b.files) add(f.url, a.id, b.version, f.size, `history ${a.id}`);
+  }
+  for (const e of obt.apps) {
+    add(e.apk, e.app, e.version, null, "api/obtainium");
+    for (const v of e.variants || []) add(v.apk, e.app, e.version, null, "api/obtainium variant");
+  }
+  for (const m of (readme ?? "").matchAll(/https:\/\/github\.com\/[^\s)"]+\/releases\/download\/[^\s)"]+\.apk/g)) {
+    const w = want.get(m[0]);
+    check(`sources: README link is a listed build — ${m[0].split("/").pop()}`, !!w);
+    w?.where.push("README");
+  }
+
+  // every asset on the Releases page, mapped to its app by file-name prefix
+  const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
+  const releases = await (await fetch(`https://api.github.com/repos/${index.repo}/releases?per_page=100`, { headers })).json();
+  let assets = 0;
+  for (const r of Array.isArray(releases) ? releases : []) {
+    for (const asset of r.assets.filter((x) => x.name.endsWith(".apk"))) {
+      const m = asset.name.match(fileRe);
+      const app = m && byPrefix[m[1]];
+      if (!app) continue;   // an app that is no longer enabled
+      assets++;
+      add(asset.browser_download_url, app, m[2], asset.size, `release ${r.tag_name}`);
+    }
+  }
+  check("sources: release assets found", assets > 0, `${assets} asset(s)`);
+
+  for (const [url, w] of want) {
+    const name = url.split("/").pop();
+    const head = await fetch(url, { method: "HEAD", redirect: "follow" });
+    const len = Number(head.headers.get("content-length"));
+    check(`sources: ${name} (${w.where.join(", ")}) downloads`, head.ok, `HTTP ${head.status}`);
+    if (w.size) check(`sources: ${name} is the size the API lists`, len === w.size, `${len} vs ${w.size}`);
+    check(`sources: ${name} file name carries version ${w.version}`, name.match(fileRe)?.[2] === w.version);
+    let pkg = "";
+    try { pkg = apkPackage(url); } catch (err) { pkg = `unreadable (${err.message.split("\n")[0]})`; }
+    check(`sources: ${name} is ${pkgOf[w.app]}, the package of ${w.app}`, pkg === pkgOf[w.app], pkg);
+  }
+}
+
 // --- api tab ----------------------------------------------------------------
 $$(".tab").find((t) => t.dataset.tab === "api")?.click();
 await sleep(300);

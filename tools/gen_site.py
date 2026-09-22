@@ -332,6 +332,8 @@ BULK_PAGE = """<!DOCTYPE html>
 <p>{count} apps: {names}.</p>
 <p><a class="btn" id="go" href="{deep}">Open in Obtainium</a></p>
 <p>Obtainium shows the list and asks you to confirm. Nothing is added until you do.</p>
+<p class="small">When you install, Obtainium may ask whether an APK from github.com is fine for a
+source on github.io. It is: the APKs are this repository's GitHub releases. Tap <b>Continue</b>.</p>
 <p class="small">If nothing happens, install <a href="https://github.com/ImranR98/Obtainium/releases">Obtainium</a>
 first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 <script>setTimeout(function(){{location.href=document.getElementById("go").href}},300)</script>
