@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T11:59:36Z",
+  "generated": "2026-09-22T14:38:57Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -31,7 +31,7 @@
       "package": "com.reddit.frontpage.morphe",
       "brand": "morphe-dev",
       "latest_version": "2026.38.0",
-      "updated": "2026-09-21T16:37:38Z",
+      "updated": "2026-09-22T14:37:42Z",
       "versions": 1,
       "api": "api/apps/reddit-experimental.json"
     },
@@ -51,7 +51,7 @@
       "package": "app.morphe.android.youtube.dev",
       "brand": "morphe-dev",
       "latest_version": "21.38.123",
-      "updated": "2026-09-21T16:37:38Z",
+      "updated": "2026-09-22T14:37:42Z",
       "versions": 1,
       "api": "api/apps/youtube-experimental.json"
     }
