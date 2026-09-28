@@ -1,14 +1,15 @@
 {
-  "generated": "2026-09-21T16:05:18Z",
-  "cli": "morphe-desktop-1.16.0-all.jar",
+  "generated": "2026-09-28T10:44:36Z",
+  "cli": "morphe-desktop-1.17.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 150,
+      "patch_count": 155,
       "universal_patches": [
         "Change installer source",
         "Clone app",
         "Disable Play Store updates",
-        "Override certificate pinning"
+        "Override certificate pinning",
+        "Spoof signature"
       ],
       "packages": {
         "com.google.android.apps.youtube.music": {
@@ -85,6 +86,10 @@
               "default": true
             },
             {
+              "name": "Force portrait orientation",
+              "default": true
+            },
+            {
               "name": "GmsCore support",
               "default": true
             },
@@ -110,6 +115,10 @@
             },
             {
               "name": "Hide music action buttons",
+              "default": true
+            },
+            {
+              "name": "Media notification controls",
               "default": true
             },
             {
@@ -383,6 +392,10 @@
               "default": true
             },
             {
+              "name": "Hide status bar",
+              "default": true
+            },
+            {
               "name": "Hide timestamp",
               "default": true
             },
@@ -495,6 +508,10 @@
               "default": true
             },
             {
+              "name": "Shorts icon style",
+              "default": true
+            },
+            {
               "name": "SponsorBlock",
               "default": true
             },
@@ -534,8 +551,9 @@
         },
         "com.reddit.frontpage": {
           "versions": [
+            "2026.24.0",
             "2026.14.0",
-            "2026.04.0",
+            "2026.10.0",
             "2024.02.0"
           ],
           "patches": [
@@ -623,7 +641,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.44.0",
+      "version": "v1.45.0-dev.18",
       "spec": "dev",
       "used_by": [
         {
@@ -3571,7 +3589,7 @@
       ]
     },
     "github:icysymmetra/tiktok-patches-for-morphe": {
-      "patch_count": 30,
+      "patch_count": 42,
       "universal_patches": [],
       "packages": {
         "com.zhiliaoapp.musically": {
@@ -3581,6 +3599,10 @@
           "patches": [
             {
               "name": "Always show publish date",
+              "default": true
+            },
+            {
+              "name": "Comment sort controls",
               "default": true
             },
             {
@@ -3624,6 +3646,10 @@
               "default": true
             },
             {
+              "name": "Enable voice comments",
+              "default": true
+            },
+            {
               "name": "Feature Gate Lab",
               "default": true
             },
@@ -3640,7 +3666,35 @@
               "default": true
             },
             {
+              "name": "Foldable split comment view",
+              "default": true
+            },
+            {
+              "name": "Force show Auto scroll",
+              "default": true
+            },
+            {
+              "name": "Hide AI content",
+              "default": true
+            },
+            {
               "name": "Hide CAPTCHA popups",
+              "default": true
+            },
+            {
+              "name": "Hide feed follow button",
+              "default": true
+            },
+            {
+              "name": "Hide feed LIVE button",
+              "default": true
+            },
+            {
+              "name": "Hide feed save button",
+              "default": true
+            },
+            {
+              "name": "Hide feed search button",
               "default": true
             },
             {
@@ -3648,7 +3702,15 @@
               "default": true
             },
             {
+              "name": "Hide FYP unpersonalized slop videos",
+              "default": true
+            },
+            {
               "name": "Hide quick comment reactions",
+              "default": true
+            },
+            {
+              "name": "Hide suggested accounts",
               "default": true
             },
             {
@@ -3661,6 +3723,10 @@
             },
             {
               "name": "Playback speed",
+              "default": true
+            },
+            {
+              "name": "Region spoof",
               "default": true
             },
             {
@@ -3680,15 +3746,15 @@
               "default": true
             },
             {
+              "name": "Share sheet modification",
+              "default": true
+            },
+            {
               "name": "Show seekbar",
               "default": true
             },
             {
               "name": "Show seekbar thumbnail",
-              "default": true
-            },
-            {
-              "name": "SIM spoof",
               "default": true
             },
             {
@@ -3703,7 +3769,7 @@
         }
       },
       "url": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
-      "version": "v0.7.0",
+      "version": "v0.8.0",
       "spec": "latest",
       "used_by": [
         {
