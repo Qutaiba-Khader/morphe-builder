@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from apk_package import package_of  # noqa: E402
+from apk_package import package_of, signer_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "site" / "static"
@@ -175,6 +175,26 @@ def split_asset(name: str, config: dict[str, dict[str, str]]) -> tuple[str, str,
     return None
 
 
+# The builder writes the patch bundle(s) and the CLI it used into each release's
+# notes: "> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.20.mpp`" and "CLI: `...jar`".
+_NOTE_RE = {
+    "patches": re.compile(r"Patches:\s*`([^`]+\.mpp)`"),
+    "cli": re.compile(r"CLI:\s*`([^`]+\.jar)`"),
+}
+_FILE_VERSION_RE = re.compile(r"-(\d[\w.+-]*?)(?:-all)?\.(?:mpp|jar)$")
+
+
+def build_tools(body: str) -> dict[str, Any]:
+    """Release notes -> {"patches": [{file, version}, ...], "cli": {file, version} | None}."""
+    found: dict[str, list[dict[str, str]]] = {}
+    for key, rx in _NOTE_RE.items():
+        found[key] = []
+        for file in dict.fromkeys(rx.findall(body or "")):
+            m = _FILE_VERSION_RE.search(file)
+            found[key].append({"file": file, "version": m.group(1) if m else ""})
+    return {"patches": found["patches"], "cli": (found["cli"] or [None])[0]}
+
+
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first."""
     apps: dict[str, dict[str, Any]] = {}
@@ -221,6 +241,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                     "published": published,
                     "prerelease": bool(rel.get("prerelease")),
                     "release_url": rel.get("html_url", ""),
+                    **build_tools(rel.get("body") or ""),
                     "files": [],
                 },
             )
@@ -441,6 +462,52 @@ def resolve_packages(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> N
                   "leaving it unknown - no Obtainium entry this run", file=sys.stderr)
 
 
+def resolve_signers(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> None:
+    """Set each app's `signer`: SHA-256 of the certificate its current APK is signed with.
+
+    Read from the APK's signing block over range requests (3 attempts), else the
+    live record of the same file (sha256), else left empty.
+    """
+    live_apps = live.get("apps") or {}
+    for app in apps.values():
+        app["signer"] = ""
+        error: Exception | None = None
+        if not app["builds"]:
+            continue
+        file = app["builds"][0]["files"][0]
+        for attempt in range(3):
+            try:
+                app["signer"] = signer_of(file["url"])
+                break
+            except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
+                error = exc
+                time.sleep(2 * (attempt + 1))
+        if app["signer"]:
+            continue
+        prev = live_apps.get(app["id"]) or {}
+        prev_file = (prev.get("files") or [{}])[0]
+        if file.get("sha256") and file["sha256"] == prev_file.get("sha256") and prev.get("signer"):
+            app["signer"] = prev["signer"]
+        print(f"  warn: could not read {app['id']} signer ({error})", file=sys.stderr)
+
+
+def expected_signer(apps: dict[str, dict[str, Any]]) -> tuple[str, list[str]]:
+    """(the certificate every build must carry, apps whose current APK does not).
+
+    Android refuses to update an app across signing keys ("Conflict" / "App not
+    installed"), so one build signed with another key - the keystore secrets
+    missing, say, and the builder falling back to a default key - breaks every
+    installed copy of that app. The expected certificate is the repository
+    variable SIGNING_CERT_SHA256 when set, otherwise the one most builds share.
+    """
+    want = os.getenv("SIGNING_CERT_SHA256", "").replace(":", "").strip().lower()
+    seen = [a["signer"] for a in apps.values() if a.get("signer")]
+    if not want and seen:
+        want = max(set(seen), key=seen.count)
+    wrong = sorted(a["id"] for a in apps.values() if a.get("signer") and a["signer"] != want)
+    return want, wrong
+
+
 def _page(entry: dict[str, Any], build: dict[str, Any], file: dict[str, Any]) -> str:
     e = html.escape
     return PAGE.format(
@@ -574,6 +641,16 @@ def main() -> int:
         return skip(f"live site serves {missing}, which are not published now")
 
     resolve_packages(apps, live)
+    resolve_signers(apps, live)
+    signer, wrong = expected_signer(apps)
+    if wrong:
+        # Fail before writing anything: the live site and the Obtainium pages keep
+        # pointing at the last good build, and the red run is the alarm.
+        for app_id in wrong:
+            print(f"::error::{app_id} is signed with {apps[app_id]['signer']}, not {signer}. "
+                  "Phones with the app installed cannot update to it. Check the KEYSTORE_* secrets "
+                  "and rebuild; the site is left as it is.")
+        return 1
 
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)
@@ -594,6 +671,7 @@ def main() -> int:
             "name": app["name"],
             "package": app["package"] or None,
             "brand": app["brand"],
+            "signer": app["signer"] or None,
             **{k: v for k, v in app["builds"][0].items()},
         }
         for app_id, app in apps.items()
@@ -620,6 +698,7 @@ def main() -> int:
             "repo": repo,
             "site": site_url,
             "releases": f"https://github.com/{repo}/releases",
+            "signing_cert_sha256": signer or None,
             "endpoints": {
                 "index": "api/index.json",
                 "latest": "api/latest.json",
@@ -637,6 +716,7 @@ def main() -> int:
                     "name": a["name"],
                     "package": a["package"] or None,
                     "brand": a["brand"],
+                    "signer": a.get("signer") or None,
                     "latest_version": a["builds"][0]["version"] if a["builds"] else None,
                     "updated": a["builds"][0]["published"] if a["builds"] else None,
                     "versions": len(a["builds"]),

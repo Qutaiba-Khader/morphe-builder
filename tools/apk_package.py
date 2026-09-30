@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read the package name out of an APK's binary AndroidManifest.xml.
+"""Read the package name (and the signing certificate) out of an APK.
 
 Patches can rename the app (Morphe's non-root YouTube installs as
 `app.morphe.android.youtube`, not `com.google.android.youtube`), and Obtainium
@@ -126,6 +126,75 @@ def package_from_url(url: str) -> str:
     raise LookupError("AndroidManifest.xml not in the central directory")
 
 
+# ------------------------------------------------------------ signing block
+
+SIG_BLOCK_MAGIC = b"APK Sig Block 42"
+# APK Signature Scheme v3.1, v3 and v2 blocks, newest first; every one of them
+# starts signer -> signed data -> digests, certificates
+SCHEME_IDS = (0x1B93AD61, 0xF05368C0, 0x7109871A)
+
+
+def _lp(buf: bytes, off: int) -> tuple[bytes, int]:
+    """uint32 length-prefixed slice -> (slice, offset after it)."""
+    n, = struct.unpack_from("<I", buf, off)
+    return buf[off + 4 : off + 4 + n], off + 4 + n
+
+
+def signer_from_block(block: bytes) -> str:
+    """SHA-256 of the first signer's certificate, from an APK Signing Block."""
+    import hashlib
+
+    pairs: dict[int, bytes] = {}
+    off, end = 8, len(block) - 24  # skip the leading size; stop before size + magic
+    while off + 12 <= end:
+        n, = struct.unpack_from("<Q", block, off)
+        pid, = struct.unpack_from("<I", block, off + 8)
+        pairs[pid] = block[off + 12 : off + 8 + n]
+        off += 8 + n
+    for scheme in SCHEME_IDS:
+        if scheme in pairs:
+            signers, _ = _lp(pairs[scheme], 0)
+            signer, _ = _lp(signers, 0)
+            signed_data, _ = _lp(signer, 0)
+            _digests, p = _lp(signed_data, 0)
+            certs, _ = _lp(signed_data, p)
+            cert, _ = _lp(certs, 0)
+            return hashlib.sha256(cert).hexdigest()
+    raise LookupError("no v2/v3 signature in the APK Signing Block (v1-only APK?)")
+
+
+def _signing_block(read, total: int) -> bytes:
+    """read(start, length) -> bytes; returns the whole APK Signing Block."""
+    tail_len = min(total, 66 * 1024)
+    tail = read(total - tail_len, tail_len)
+    eocd = tail.rfind(b"PK\x05\x06")
+    if eocd < 0:
+        raise LookupError("no end-of-central-directory (zip64 APK?)")
+    cd_off, = struct.unpack_from("<I", tail, eocd + 16)
+    footer = read(cd_off - 24, 24)
+    if footer[8:] != SIG_BLOCK_MAGIC:
+        raise LookupError("APK is not signed with scheme v2 or later")
+    size, = struct.unpack_from("<Q", footer, 0)
+    return read(cd_off - size - 8, size + 8)
+
+
+def signer_of(target: str) -> str:
+    """SHA-256 of the signing certificate, lowercase hex (as apksigner prints it)."""
+    if target.startswith(("http://", "https://")):
+        with urllib.request.urlopen(urllib.request.Request(target, method="HEAD"), timeout=60) as head:
+            total = int(head.headers["Content-Length"])
+            url = head.geturl()
+        return signer_from_block(_signing_block(lambda s, n: _fetch(url, s, s + n - 1), total))
+    import os
+
+    with open(target, "rb") as fh:
+        def read(start: int, n: int) -> bytes:
+            fh.seek(start)
+            return fh.read(n)
+
+        return signer_from_block(_signing_block(read, os.path.getsize(target)))
+
+
 def package_of(target: str) -> str:
     if target.startswith(("http://", "https://")):
         return package_from_url(target)
@@ -136,6 +205,10 @@ def package_of(target: str) -> str:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: apk_package.py <apk path or url>")
-    print(package_of(sys.argv[1]))
+    args = sys.argv[1:]
+    if len(args) == 2 and args[0] == "--signer":
+        print(signer_of(args[1]))
+    elif len(args) == 1:
+        print(package_of(args[0]))
+    else:
+        raise SystemExit("usage: apk_package.py [--signer] <apk path or url>")

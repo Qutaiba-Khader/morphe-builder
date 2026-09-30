@@ -83,8 +83,8 @@ def main() -> int:
     # an Obtainium button. Packages, tags and endpoints go in a folded table below.
     tables: dict[str, list[str]] = {"stable": [], "pre-release": []}
     details = [
-        "| App | Channel | Package | Release | Obtainium endpoint |",
-        "|---|---|---|---|---|",
+        "| App | Channel | Package | Release | Patches | Obtainium endpoint |",
+        "|---|---|---|---|---|---|",
     ]
     links: list[str] = []
     for app in index["apps"]:
@@ -130,8 +130,9 @@ def main() -> int:
 
         tag = build.get("tag")
         release = f"[`{tag}`]({build['release_url']})" if tag and build.get("release_url") else "—"
+        patches = " + ".join(f"`{md(p['version'])}`" for p in build.get("patches") or [] if p.get("version")) or "—"
         details.append(
-            f"| {name} | {channel} | `{app.get('package') or '?'}` | {release} | "
+            f"| {name} | {channel} | `{app.get('package') or '?'}` | {release} | {patches} | "
             f"{' · '.join(endpoints) or '—'} |"
         )
 
@@ -174,6 +175,13 @@ def main() -> int:
                 f"Patch catalog: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps, "
                 f"in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json)."
             ),
+        ]
+    if index.get("signing_cert_sha256"):
+        rows += [
+            "",
+            f"Every APK is signed with the certificate SHA-256 `{index['signing_cert_sha256']}`. "
+            "[AppVerifier](https://github.com/soupslurpr/AppVerifier) or "
+            "`apksigner verify --print-certs` shows the same value for a genuine build.",
         ]
     rows += ["", "</details>"]
     links.append(f"[obt:all]: {obt['add_all_url']}")

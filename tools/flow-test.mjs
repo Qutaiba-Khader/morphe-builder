@@ -17,8 +17,12 @@ print(json.dumps({slug(k): v.get("app-name", k.replace("-", " "))
 // the package a built APK really declares (read over HTTP range requests)
 const apkPackage = (url) =>
   execFileSync("python3", ["tools/apk_package.py", url], { cwd: REPO, encoding: "utf8" }).trim();
+// SHA-256 of the certificate the APK is signed with (read from its signing block)
+const apkSigner = (url) =>
+  execFileSync("python3", ["tools/apk_package.py", "--signer", url], { cwd: REPO, encoding: "utf8" }).trim();
 
-const BASE = "https://qutaiba-khader.github.io/morphe-builder/";
+// SITE_BASE=http://host:port/ runs the whole test against a local copy of _site
+const BASE = process.env.SITE_BASE || "https://qutaiba-khader.github.io/morphe-builder/";
 const results = [];
 const check = (name, ok, detail = "") => {
   results.push({ name, ok, detail });
@@ -80,6 +84,15 @@ for (const a of index.apps) {
 // use YouTube for the per-card assertions so they do not depend on sort order
 const card = cards.find((c) => titleOf(c) === "YouTube") ?? cards[0];
 check("builds: version shown", /^\d/.test(card?.querySelector(".ver")?.textContent ?? ""), card?.querySelector(".ver")?.textContent);
+{
+  const ytLatest = (await (await fetch(BASE + "api/latest.json")).json()).apps.youtube;
+  const want = (ytLatest?.patches || []).map((p) => p.version).join(" + ");
+  check("builds: card names the patch bundle version the build used",
+    !!want && (card?.querySelector(".facts")?.textContent ?? "").includes(`Patches ${want}`), want);
+}
+check("install: signing certificate shown for verification",
+  !$("#signer-note")?.hidden && /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test($("#signer")?.textContent ?? ""),
+  $("#signer")?.textContent);
 {
   const latestApps = (await (await fetch(BASE + "api/latest.json")).json()).apps;
   const misplaced = index.apps.filter((a) => {
@@ -327,6 +340,10 @@ if (readme !== null) {
     let pkg = "";
     try { pkg = apkPackage(url); } catch (err) { pkg = `unreadable (${err.message.split("\n")[0]})`; }
     check(`sources: ${name} is ${pkgOf[w.app]}, the package of ${w.app}`, pkg === pkgOf[w.app], pkg);
+    let signer = "";
+    try { signer = apkSigner(url); } catch (err) { signer = `unreadable (${err.message.split("\n")[0]})`; }
+    check(`sources: ${name} is signed with the published certificate`,
+      !!index.signing_cert_sha256 && signer === index.signing_cert_sha256, signer.slice(0, 16));
   }
 }
 

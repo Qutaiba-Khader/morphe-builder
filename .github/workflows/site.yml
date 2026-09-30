@@ -58,6 +58,9 @@ jobs:
         id: gen
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # the certificate every build must be signed with; the run fails (and
+          # publishes nothing) if a build carries another one
+          SIGNING_CERT_SHA256: ${{ vars.SIGNING_CERT_SHA256 }}
         run: python3 tools/gen_site.py
 
       # Published by pushing to the gh-pages branch, which Pages serves. Not

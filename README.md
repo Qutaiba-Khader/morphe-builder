@@ -40,16 +40,18 @@ Newer app versions with development patches. Each one installs **next to** its s
 <details>
 <summary><b>Package names, releases and Obtainium endpoints</b></summary>
 
-| App | Channel | Package | Release | Obtainium endpoint |
-|---|---|---|---|---|
-| Reddit | stable | `com.reddit.frontpage` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.09.29-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.29-morphe-dev) | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
-| YouTube | stable | `app.morphe.android.youtube` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.09.29-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.29-morphe-dev) | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| App | Channel | Package | Release | Patches | Obtainium endpoint |
+|---|---|---|---|---|---|
+| Reddit | stable | `com.reddit.frontpage` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | `1.44.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.09.29-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.29-morphe-dev) | `1.45.0-dev.20` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| YouTube | stable | `app.morphe.android.youtube` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | `1.44.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.09.29-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.29-morphe-dev) | `1.45.0-dev.20` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
 Patch catalog: 9 sources able to patch 360 apps, in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json).
+
+Every APK is signed with the certificate SHA-256 `7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603`. [AppVerifier](https://github.com/soupslurpr/AppVerifier) or `apksigner verify --print-certs` shows the same value for a genuine build.
 
 </details>
 <!-- apps:end -->

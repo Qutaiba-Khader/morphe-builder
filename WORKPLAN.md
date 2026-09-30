@@ -223,3 +223,23 @@ node --check). 2 HIGH, 6 MEDIUM and a tail of LOW findings, all verified before 
   on the site, API, Obtainium configs, README and every Releases asset: it downloads, has the
   listed size, carries its version and the package of the app it is listed under. It failed on
   that asset before the removal and passes after.
+
+## Phase 12 — compared with GROWNUPS/Morphe-Patcher-Web (2026-09-30)
+
+That project is a self-hosted web patcher (you bring the APK, it patches on your server). This
+one builds and publishes on GitHub. Case by case:
+
+| Their case | Here |
+|---|---|
+| Newest CLI and patch bundle pulled automatically | same: CLI and bundle resolved to `latest` / `dev` on every build (CLI 1.17.0, patches 1.45.0-dev.20 on 2026-09-29) |
+| Recommended / compatible / experimental version grading | the builder always takes the newest version the patches support (`list-versions`, `-x` for the pre-release channel), so every build is the "optimal target" |
+| `--striplibs` per architecture | upstream passes `--striplibs arm64-v8a,armeabi-v7a` for `all` builds and the single arch otherwise |
+| Split APKs | APKMirror `.apkm` bundles: the base APK is extracted (`_extract_base_apk`) |
+| Stock APK authenticity | stronger here: the stock APK's signature is checked against `sig.txt` before patching |
+| Persistent keystore, fingerprint shown | same key every build; **added**: the certificate SHA-256 is read from every APK, published (API `signing_cert_sha256`, README, website) and enforced — the Site run fails and publishes nothing if a build carries another key (repo variable `SIGNING_CERT_SHA256`). A key change is exactly what makes phones report "Conflict". |
+| Shows which patch bundle version is active | **added**: each build records the patch bundle(s) and CLI from its release notes (`patches`, `cli` in the API), shown on the cards, in the version history and in the README |
+| `--continue-on-error` | deliberately not used: a patch that fails fails the build instead of shipping an APK silently missing it |
+| Webhook notifications (Discord/ntfy/Gotify) | upstream sends Telegram when `TELEGRAM_*` secrets are set; GitHub release watching and Obtainium cover the rest |
+| Branding on/off, custom app name | `patcher-args` per app (the pre-release twins use it) |
+| Web upload, URL import, hot folder, job queue, live log stream, custom `.mpp` upload | not applicable: builds run on GitHub Actions, logs are the Actions logs, custom bundles are a line in `config.toml` |
+| LAN-only security notice | nothing here accepts input; the site is static |
