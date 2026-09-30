@@ -302,3 +302,4 @@ code { font-family: var(--mono); font-size: .9em; }
 .foot-in { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding-top: 20px; padding-bottom: 28px; font-size: .9rem; }
 .foot a { color: var(--muted); }
 .foot a:hover { color: var(--ink); }
+#signer { word-break: break-all; }

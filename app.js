@@ -56,6 +56,14 @@ function downloadButton(f) {
     el("small", { text: fmtSize(f.size) }));
 }
 
+// "Patches 1.45.0-dev.20": the patch bundle(s) this build was made with
+const patchesText = (b) => {
+  const v = (b.patches || []).map((p) => p.version).filter(Boolean);
+  return v.length ? `Patches ${v.join(" + ")}` : "";
+};
+const toolsTitle = (b) =>
+  [...(b.patches || []).map((p) => p.file), b.cli ? `CLI ${b.cli.file}` : ""].filter(Boolean).join("\n");
+
 function obtainiumButton(href, note) {
   return el("a", {
     class: "dl alt", href, rel: "noopener",
@@ -101,6 +109,7 @@ function appCard(app, obtainium) {
           el("li", {},
             el("span", { class: "hv", text: b.version }),
             el("span", { class: "muted", text: fmtDate(b.published) }),
+            patchesText(b) ? el("span", { class: "muted", text: patchesText(b), title: toolsTitle(b) }) : null,
             b.files.map((f) => el("a", { href: f.url, rel: "noopener", text: `${f.arch === "all" ? "APK" : f.arch}, ${fmtSize(f.size)}` })))))
       ].filter(Boolean));
       box.removeAttribute("hidden");
@@ -121,7 +130,8 @@ function appCard(app, obtainium) {
       el("h2", {}, el("span", { text: app.name })),
       el("p", { class: "facts" },
         el("span", { class: "ver", text: app.version }),
-        el("span", { text: `Built ${fmtDate(app.published)}`, title: app.tag || "" }))),
+        el("span", { text: `Built ${fmtDate(app.published)}`, title: app.tag || "" }),
+        patchesText(app) ? el("span", { text: patchesText(app), title: toolsTitle(app) }) : null)),
     actions, btn, clashNote, box,
   ].filter(Boolean));
   return card;
@@ -237,6 +247,10 @@ async function loadApi() {
   for (const node of document.querySelectorAll(".api-base")) node.textContent = base;
   try {
     const idx = await getJSON("api/index.json");
+    if (idx.signing_cert_sha256) {
+      $("#signer").textContent = idx.signing_cert_sha256.match(/../g).join(":").toUpperCase();
+      $("#signer-note").hidden = false;
+    }
     const rows = Object.entries(idx.endpoints || {}).map(([name, path]) =>
       el("div", { class: "ep" },
         el("b", { text: name }),
