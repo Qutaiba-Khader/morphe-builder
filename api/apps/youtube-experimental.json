@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-02T06:04:15Z",
+  "generated": "2026-10-02T13:03:55Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube-experimental",
   "name": "YouTube Experimental",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 141924193,
           "sha256": "11eebefe0e7177aca949ad383c7c009859f05f6764e2c18a630c980dd4c0bdee",
-          "downloads": 5,
+          "downloads": 7,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.39.522-all.apk"
         }
