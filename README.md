@@ -23,8 +23,8 @@ The everyday builds. Start here.
 
 | App | Download or auto-update |
 |---|---|
-| **Reddit**<br>`2026.14.0`<br><sub>2026-09-21</sub> | [![Download Reddit, 84 MB](https://img.shields.io/badge/Download-84%20MB-16a34a?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/reddit-morphe-v2026.14.0-all.apk) [![Add Reddit to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit] |
-| **YouTube**<br>`21.16.256`<br><sub>2026-09-21</sub> | [![Download YouTube, 129 MB](https://img.shields.io/badge/Download-129%20MB-16a34a?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/youtube-morphe-v21.16.256-all.apk) [![Add YouTube to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube] |
+| **Reddit**<br>`2026.24.0`<br><sub>2026-10-02</sub> | [![Download Reddit, 94 MB](https://img.shields.io/badge/Download-94%20MB-16a34a?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/reddit-morphe-v2026.24.0-all.apk) [![Add Reddit to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit] |
+| **YouTube**<br>`21.16.256`<br><sub>2026-10-02</sub> | [![Download YouTube, 130 MB](https://img.shields.io/badge/Download-130%20MB-16a34a?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/youtube-morphe-v21.16.256-all.apk) [![Add YouTube to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube] |
 
 ### Pre-release
 
@@ -32,8 +32,8 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 | App | Download or auto-update |
 |---|---|
-| **Reddit Experimental**<br>`2026.39.0`<br><sub>2026-10-01</sub> | [![Download Reddit Experimental, 95 MB](https://img.shields.io/badge/Download-95%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
-| **YouTube Experimental**<br>`21.39.522`<br><sub>2026-10-01</sub> | [![Download YouTube Experimental, 142 MB](https://img.shields.io/badge/Download-142%20MB-7c3aed?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk) [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube-experimental] |
+| **Reddit Experimental**<br>`2026.39.0`<br><sub>2026-10-02</sub> | [![Download Reddit Experimental, 95 MB](https://img.shields.io/badge/Download-95%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
+| **YouTube Experimental**<br>`21.39.522`<br><sub>2026-10-02</sub> | [![Download YouTube Experimental, 142 MB](https://img.shields.io/badge/Download-142%20MB-7c3aed?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk) [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube-experimental] |
 
 [![Add every app to Obtainium](https://img.shields.io/badge/Add%20every%20app%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt:all] [![Older versions](https://img.shields.io/badge/Older%20versions-475569?style=for-the-badge&logo=github&logoColor=white)](https://qutaiba-khader.github.io/morphe-builder/)
 
@@ -42,10 +42,10 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 | App | Channel | Package | Release | Patches | Obtainium endpoint |
 |---|---|---|---|---|---|
-| Reddit | stable | `com.reddit.frontpage` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | `1.44.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.01-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.01-morphe-dev) | `1.45.0-dev.23` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
-| YouTube | stable | `app.morphe.android.youtube` | [`26.09.21-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.09.21-morphe) | `1.44.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.01-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.01-morphe-dev) | `1.45.0-dev.23` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| Reddit | stable | `com.reddit.frontpage` | [`26.10.02-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe) | `1.45.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.02-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe-dev) | `1.45.0` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| YouTube | stable | `app.morphe.android.youtube` | [`26.10.02-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe) | `1.45.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.02-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe-dev) | `1.45.0` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
