@@ -243,3 +243,20 @@ one builds and publishes on GitHub. Case by case:
 | Branding on/off, custom app name | `patcher-args` per app (the pre-release twins use it) |
 | Web upload, URL import, hot folder, job queue, live log stream, custom `.mpp` upload | not applicable: builds run on GitHub Actions, logs are the Actions logs, custom bundles are a line in `config.toml` |
 | LAN-only security notice | nothing here accepts input; the site is static |
+
+## Phase 13 — Obtainium sees patch-only rebuilds (2026-10-05)
+
+- Reported: new patch releases, no update in Obtainium. Cause: Obtainium tracked the APP version
+  from the file name, and most rebuilds keep it (YouTube 21.16.256 from patches 1.44.0 to 1.45.0;
+  YouTube Experimental 21.39.522 from 1.45.0-dev.17 to 1.46.0-dev.2).
+- Fix: every endpoint page carries `<meta name="build-version" content="21.16.256+p1.45.0">` (app
+  version + patch bundle). The Obtainium config reads it with `versionExtractWholePage`, and
+  `versionDetection` is off, because the phone reports only `21.16.256` for every rebuild and
+  reconciling with it would hide the update again. Obtainium treats `+…` on the remote side as a
+  distinct build (`installedMatchesRemote`); the flow test ports that function, agrees with all
+  24 of Obtainium's own test cases, and checks for every app that a patch-only rebuild counts as
+  an update while the same build does not.
+- Apps already added keep their old settings on the phone: remove and re-add them once.
+- Also seen: CI #20 (2026-10-04) Reddit Experimental failed — APKMirror had only DPI-limited
+  bundles of 2026.40.0 (120-480 dpi) at build time; the builder accepts `nodpi`/`anydpi`/`*-640dpi`.
+  A 120-640 dpi bundle was posted afterwards.

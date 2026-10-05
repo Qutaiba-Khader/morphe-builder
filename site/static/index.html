@@ -131,9 +131,9 @@
       <h3>Example</h3>
       <pre><code>curl -s <span class="api-base">…</span>api/latest.json | jq -r '.apps.youtube.files[0].url'</code></pre>
       <h3>Adding an app to Obtainium by hand</h3>
-      <p>In Obtainium, tap <b>Add App</b>, paste the app's page below and choose the source <b>HTML</b>. Each page holds exactly one APK link, and Obtainium reads the version from its file name, so it only offers an update when the app really changed.</p>
+      <p>In Obtainium, tap <b>Add App</b>, paste the app's page below and choose the source <b>HTML</b>. Each page holds exactly one APK link and names the build version, app version plus patch version (for example <code>21.16.256+p1.45.0</code>), so Obtainium offers an update when the app or its patches change.</p>
       <pre><code><span class="api-base">…</span>obtainium/youtube.html</code></pre>
-      <p class="muted">Obtainium follows the app version, so a rebuild with newer patches but the same app version is not offered as an update. Install it again from here to get it. <code>api/obtainium.json</code> has the ready-made settings for every app.</p>
+      <p class="muted">Added an app before 5 October 2026? Remove it in Obtainium and add it again: older settings follow only the app version and miss updates that change just the patches. <code>api/obtainium.json</code> has the ready-made settings for every app.</p>
     </section>
 
     <section id="catalog" class="panel">

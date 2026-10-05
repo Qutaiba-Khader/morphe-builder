@@ -31,6 +31,31 @@ const check = (name, ok, detail = "") => {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Port of Obtainium's lib/utils/version_normalization.dart installedMatchesRemote:
+// true when the installed build IS the remote one (no update shown).
+const IGNORABLE = new Set(["strip", "debug", "release", "stable", "final", "standard", "build",
+  "signed", "unsigned", "universal", "nogms"]);
+const analyzeVersion = (version) => {
+  let value = version.trim().toLowerCase().replaceAll("_", "-").replace(/^v(?=\d)/, "");
+  const plus = value.indexOf("+");
+  const versionPart = plus >= 0 ? value.slice(0, plus) : value;
+  const metadataPart = plus >= 0 ? value.slice(plus + 1) : "";
+  const tokens = (v) => v.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  const segment = (t) => t.match(/\p{L}+|\p{N}+/gu) ?? [];
+  const core = [], packaging = new Set(), metadata = [];
+  for (const t of tokens(versionPart)) IGNORABLE.has(t) ? packaging.add(t) : core.push(...segment(t));
+  for (const t of tokens(metadataPart)) if (!IGNORABLE.has(t)) metadata.push(...segment(t));
+  return { core, packaging, metadata };
+};
+const sameTokens = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
+const installedMatchesRemote = (installed, remote) => {
+  const i = analyzeVersion(installed), r = analyzeVersion(remote);
+  if (!i.core.length || !r.core.length || !sameTokens(i.core, r.core)) return false;
+  for (const p of r.packaging) if (!i.packaging.has(p)) return false;
+  if (r.metadata.length && !sameTokens(i.metadata, r.metadata)) return false;
+  return true;
+};
+
 // SITE_DIR=site/static tests local page files against the live API before they ship
 const SITE_DIR = process.env.SITE_DIR;
 const html = SITE_DIR ? readFileSync(`${SITE_DIR}/index.html`, "utf8") : await (await fetch(BASE)).text();
@@ -223,10 +248,11 @@ for (const entry of obt.apps) {
 
   // Replay exactly what Obtainium's HTML source does:
   //   fetch the page -> keep links matching apkFilterRegEx -> take the LAST one
-  //   -> run versionExtractionRegEx over the whole DECODED URL (not the filename)
-  //      (lib/app_sources/html.dart; extractVersion in lib/services/version_service.dart
-  //       throws NoVersionError -> "Could not determine release version" on no match)
-  const page = await fetch(entry.source_url);
+  //   -> versionExtractWholePage: run versionExtractionRegEx over the raw page,
+  //      newlines turned into a literal "\\n" (lib/app_sources/html.dart);
+  //      no match -> NoVersionError -> "Could not determine release version"
+  // the generated URLs always name the live site; under SITE_BASE read the local copy
+  const page = await fetch(entry.source_url.replace(/^https:\/\/[^/]+\/[^/]+\//, BASE));
   const body = await page.text();
   const all = [...body.matchAll(/href="([^"]+)"/g)].map((x) => x[1]);
   const links = all.filter((u) => new RegExp(settings.apkFilterRegEx).test(u));
@@ -234,13 +260,24 @@ for (const entry of obt.apps) {
     page.ok && links.length === 1, `HTTP ${page.status}, ${links.length} link(s)`);
   check(`obtainium/${entry.app}: that link is the current build`, links[0] === entry.apk);
 
-  const target = decodeURI(links[links.length - 1] ?? "");
+  const wholePage = body.split("\r\n").join("\n").split("\n").join("\\n");
+  const target = settings.versionExtractWholePage ? wholePage : decodeURI(links.at(-1) ?? "");
   const matches = [...target.matchAll(new RegExp(settings.versionExtractionRegEx, "g"))];
   const got = matches.at(-1)?.[Number(settings.matchGroupToUse)];
-  check(`obtainium/${entry.app}: version regex matches the whole APK URL`,
-    matches.length > 0, matches.length ? `${matches.length} match(es)` : `NO MATCH against ${target}`);
-  check(`obtainium/${entry.app}: extracted version is the app version`,
-    got === entry.version, `${got} (want ${entry.version})`);
+  check(`obtainium/${entry.app}: version regex matches the endpoint page`,
+    matches.length > 0, matches.length ? `${matches.length} match(es)` : "NO MATCH");
+  check(`obtainium/${entry.app}: extracted version is app version + patches (${entry.build_version})`,
+    got === entry.build_version && got.startsWith(entry.version + "+"), got);
+  check(`obtainium/${entry.app}: version detection off (the phone only reports ${entry.version})`,
+    settings.versionDetection === false);
+
+  // Obtainium's update decision (version_normalization.dart installedMatchesRemote):
+  // a patch-only rebuild must count as a new build, the same build must not,
+  // and the bare app version the phone reports must not swallow the update.
+  const older = (got ?? "").replace(/\+.*/, "+p0.0.1");
+  check(`obtainium/${entry.app}: a patch-only rebuild is offered as an update`,
+    !!got && !installedMatchesRemote(older, got) && installedMatchesRemote(got, got) &&
+    !installedMatchesRemote(entry.version, got), `${older} -> ${got}`);
 
   const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
   check(`obtainium/${entry.app}: deep link decodes to the same config`,
@@ -309,11 +346,6 @@ if (readme !== null) {
     add(e.apk, e.app, e.version, null, "api/obtainium");
     for (const v of e.variants || []) add(v.apk, e.app, e.version, null, "api/obtainium variant");
   }
-  for (const m of (readme ?? "").matchAll(/https:\/\/github\.com\/[^\s)"]+\/releases\/download\/[^\s)"]+\.apk/g)) {
-    const w = want.get(m[0]);
-    check(`sources: README link is a listed build — ${m[0].split("/").pop()}`, !!w);
-    w?.where.push("README");
-  }
 
   // every asset on the Releases page, mapped to its app by file-name prefix
   const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
@@ -329,6 +361,11 @@ if (readme !== null) {
     }
   }
   check("sources: release assets found", assets > 0, `${assets} asset(s)`);
+  for (const m of (readme ?? "").matchAll(/https:\/\/github\.com\/[^\s)"]+\/releases\/download\/[^\s)"]+\.apk/g)) {
+    const w = want.get(m[0]);
+    check(`sources: README link is a published APK — ${m[0].split("/").pop()}`, !!w);
+    w?.where.push("README");
+  }
 
   for (const [url, w] of want) {
     const name = url.split("/").pop();

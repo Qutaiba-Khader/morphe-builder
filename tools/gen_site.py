@@ -324,11 +324,12 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{name} {version}</title>
 <meta name="app-version" content="{version}">
+<meta name="build-version" content="{build_version}">
 <meta name="robots" content="noindex">
 <style>{style}</style></head>
 <body><main>
 <h1>{name}</h1>
-<p>Version <b>{version}</b> ({arch}), built {published}.</p>
+<p>Version <b>{version}</b> ({arch}), built {published} with patches {patches}.</p>
 <p><a class="btn stable" href="{url}">{filename}</a></p>
 <p class="small">This is the page Obtainium checks for updates. It holds one APK link only,
 so Obtainium always picks this build. To install the app yourself, use the
@@ -362,33 +363,35 @@ first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 """
 
 
-def _escape(text: str) -> str:
-    # Dart's RegExp is ECMAScript: `\-` is only legal outside unicode mode, and
-    # Python escapes hyphens. Leave them alone; they are not special here.
-    return re.escape(text).replace("\\-", "-")
+def build_version(build: dict[str, Any]) -> str:
+    """The version Obtainium tracks: app version + the patch bundle(s) it was built with.
 
-
-def version_regex(filename: str, version: str, arch: str) -> str:
-    """Matched against the whole APK URL, not the filename.
-
-    Obtainium runs this over the full decoded link
-    (`https://github.com/.../youtube-morphe-v21.13.164-all.apk`), so it must NOT
-    be anchored with `^` - `allMatches` returning nothing is what raises
-    "Could not determine release version". The app prefix still keeps it from
-    matching another app's link.
+    The app version alone (21.16.256) does not move when only the patches do, so
+    Obtainium never offered a patch-only rebuild. `+` makes the patches build
+    metadata: Obtainium treats metadata on the remote side as a distinct build
+    (version_normalization.dart installedMatchesRemote), so 21.16.256+p1.46.0 is
+    an update over 21.16.256+p1.45.0. Falls back to the release tag when the
+    release notes name no bundle.
     """
-    # ASSET_RE guarantees the name ends with exactly this suffix.
-    prefix = filename[: -len(f"-v{version}-{arch}.apk")]
-    # "/" so that "music-morphe" cannot match inside "yt-music-morphe"
-    return f"/{_escape(prefix)}-v(.+)-{_escape(arch)}\\.apk$"
+    patches = [p["version"] for p in build.get("patches") or [] if p.get("version")]
+    return f"{build['version']}+p{'-'.join(patches)}" if patches else f"{build['version']}+{build['tag']}"
+
+
+# Read from the endpoint page itself (versionExtractWholePage): Obtainium gets
+# the raw HTML with newlines turned into a literal "\n" (html.dart).
+BUILD_VERSION_REGEX = 'name="build-version" content="([^"]+)"'
 
 
 def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, Any],
                     site_url: str, repo: str, suffix: str = "") -> dict[str, Any]:
     page = f"obtainium/{app['id']}{suffix}.html"
     settings = {
-        "versionExtractionRegEx": version_regex(file["name"], build["version"], file["arch"]),
+        "versionExtractionRegEx": BUILD_VERSION_REGEX,
         "matchGroupToUse": "1",
+        "versionExtractWholePage": True,
+        # compare build versions only: the phone reports 21.16.256 for every
+        # rebuild, and reconciling with it would hide patch-only updates again
+        "versionDetection": False,
         "apkFilterRegEx": "\\.apk$",
     }
     label = app["name"] if not suffix else f"{app['name']} ({file['arch']})"
@@ -408,6 +411,7 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
         "name": label,
         "arch": file["arch"],
         "version": build["version"],
+        "build_version": build_version(build),
         "package": app.get("package") or None,
         "source_url": site_url + page,
         "apk": file["url"],
@@ -513,6 +517,8 @@ def _page(entry: dict[str, Any], build: dict[str, Any], file: dict[str, Any]) ->
     return PAGE.format(
         name=e(entry["name"]), version=e(build["version"]), arch=e(file["arch"]),
         published=e(build["published"][:10]), url=e(file["url"], quote=True), filename=e(file["name"]),
+        build_version=e(build_version(build), quote=True),
+        patches=e(" + ".join(p["version"] for p in build.get("patches") or [] if p.get("version")) or "unknown"),
         style=PAGE_STYLE,
     )
 
