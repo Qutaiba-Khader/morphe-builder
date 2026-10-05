@@ -1,9 +1,9 @@
 {
-  "generated": "2026-09-28T10:44:36Z",
-  "cli": "morphe-desktop-1.17.0-all.jar",
+  "generated": "2026-10-05T11:18:53Z",
+  "cli": "morphe-desktop-1.18.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 155,
+      "patch_count": 165,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -14,9 +14,14 @@
       "packages": {
         "com.google.android.apps.youtube.music": {
           "versions": [
+            "9.20.53",
             "9.15.51"
           ],
           "patches": [
+            {
+              "name": "Android Auto",
+              "default": true
+            },
             {
               "name": "App refresh rate",
               "default": true
@@ -118,6 +123,10 @@
               "default": true
             },
             {
+              "name": "Jam queue sharing",
+              "default": true
+            },
+            {
               "name": "Media notification controls",
               "default": true
             },
@@ -135,6 +144,10 @@
             },
             {
               "name": "Play albums songs",
+              "default": true
+            },
+            {
+              "name": "Playback speed",
               "default": true
             },
             {
@@ -174,6 +187,10 @@
               "default": true
             },
             {
+              "name": "Skip silence",
+              "default": true
+            },
+            {
               "name": "SponsorBlock",
               "default": true
             },
@@ -205,10 +222,6 @@
           "patches": [
             {
               "name": "Add to queue",
-              "default": true
-            },
-            {
-              "name": "Alternative thumbnails",
               "default": true
             },
             {
@@ -261,6 +274,14 @@
             },
             {
               "name": "Custom player overlay opacity",
+              "default": true
+            },
+            {
+              "name": "DeArrow",
+              "default": true
+            },
+            {
+              "name": "Disable auto feed refresh",
               "default": true
             },
             {
@@ -452,7 +473,15 @@
               "default": true
             },
             {
+              "name": "Picture-in-picture button",
+              "default": true
+            },
+            {
               "name": "Play all",
+              "default": true
+            },
+            {
+              "name": "Playback buffer",
               "default": true
             },
             {
@@ -461,6 +490,10 @@
             },
             {
               "name": "Playback speed",
+              "default": true
+            },
+            {
+              "name": "Player icon style",
               "default": true
             },
             {
@@ -481,6 +514,698 @@
             },
             {
               "name": "Remove viewer discretion dialog",
+              "default": true
+            },
+            {
+              "name": "Restore original titles",
+              "default": true
+            },
+            {
+              "name": "Return YouTube Dislike",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Save to Watch later",
+              "default": true
+            },
+            {
+              "name": "Seekbar",
+              "default": true
+            },
+            {
+              "name": "Settings menu filter",
+              "default": true
+            },
+            {
+              "name": "Shorts autoplay",
+              "default": true
+            },
+            {
+              "name": "Shorts icon style",
+              "default": true
+            },
+            {
+              "name": "Skip silence",
+              "default": true
+            },
+            {
+              "name": "SponsorBlock",
+              "default": true
+            },
+            {
+              "name": "Spoof app version",
+              "default": true
+            },
+            {
+              "name": "Spoof device dimensions",
+              "default": true
+            },
+            {
+              "name": "Spoof video streams",
+              "default": true
+            },
+            {
+              "name": "Swipe controls",
+              "default": true
+            },
+            {
+              "name": "Theme",
+              "default": true
+            },
+            {
+              "name": "Video quality",
+              "default": true
+            },
+            {
+              "name": "Voice over translation",
+              "default": true
+            },
+            {
+              "name": "Wide search bar",
+              "default": true
+            }
+          ]
+        },
+        "com.reddit.frontpage": {
+          "versions": [
+            "2026.24.0",
+            "2026.14.0",
+            "2026.10.0",
+            "2024.02.0"
+          ],
+          "patches": [
+            {
+              "name": "App icon",
+              "default": true
+            },
+            {
+              "name": "Custom branding name for Reddit",
+              "default": false
+            },
+            {
+              "name": "Custom font",
+              "default": true
+            },
+            {
+              "name": "Disable modern home",
+              "default": true
+            },
+            {
+              "name": "Disable screenshot popup",
+              "default": true
+            },
+            {
+              "name": "Force system font",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide Ask button",
+              "default": true
+            },
+            {
+              "name": "Hide communities shelf",
+              "default": true
+            },
+            {
+              "name": "Hide navigation buttons",
+              "default": true
+            },
+            {
+              "name": "Hide Reddit search",
+              "default": false
+            },
+            {
+              "name": "Hide sidebar components",
+              "default": true
+            },
+            {
+              "name": "Hide Trending shelves",
+              "default": true
+            },
+            {
+              "name": "Open links directly",
+              "default": true
+            },
+            {
+              "name": "Open links externally",
+              "default": true
+            },
+            {
+              "name": "Remove subreddit dialog",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Show view count",
+              "default": true
+            },
+            {
+              "name": "Spoof signature",
+              "default": true
+            },
+            {
+              "name": "Start as guest",
+              "default": true
+            }
+          ]
+        }
+      },
+      "url": "https://github.com/MorpheApp/morphe-patches",
+      "version": "v1.46.0-dev.5",
+      "spec": "dev",
+      "used_by": [
+        {
+          "table": "YouTube-Experimental",
+          "enabled": true
+        },
+        {
+          "table": "YT-Music-Experimental",
+          "enabled": false
+        },
+        {
+          "table": "Reddit-Experimental",
+          "enabled": true
+        }
+      ]
+    },
+    "github:MorpheApp/morphe-patches": {
+      "patch_count": 162,
+      "universal_patches": [
+        "Change installer source",
+        "Clone app",
+        "Disable Play Store updates",
+        "Override certificate pinning",
+        "Spoof signature"
+      ],
+      "packages": {
+        "com.google.android.apps.youtube.music": {
+          "versions": [
+            "9.15.51"
+          ],
+          "patches": [
+            {
+              "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Bypass certificate checks",
+              "default": true
+            },
+            {
+              "name": "Change header",
+              "default": true
+            },
+            {
+              "name": "Change miniplayer color",
+              "default": true
+            },
+            {
+              "name": "Change start page",
+              "default": true
+            },
+            {
+              "name": "Check watch history domain name resolution",
+              "default": true
+            },
+            {
+              "name": "Crossfade",
+              "default": true
+            },
+            {
+              "name": "Custom branding",
+              "default": true
+            },
+            {
+              "name": "Disable dislike redirection",
+              "default": true
+            },
+            {
+              "name": "Disable DRC audio",
+              "default": true
+            },
+            {
+              "name": "Disable QUIC protocol",
+              "default": true
+            },
+            {
+              "name": "Downloads",
+              "default": true
+            },
+            {
+              "name": "Enable debugging",
+              "default": true
+            },
+            {
+              "name": "Enable exclusive audio playback",
+              "default": true
+            },
+            {
+              "name": "Enable forced miniplayer",
+              "default": true
+            },
+            {
+              "name": "Enable swipe to dismiss miniplayer",
+              "default": true
+            },
+            {
+              "name": "Force original audio",
+              "default": true
+            },
+            {
+              "name": "Force portrait orientation",
+              "default": true
+            },
+            {
+              "name": "GmsCore support",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide buttons",
+              "default": true
+            },
+            {
+              "name": "Hide filter bar",
+              "default": true
+            },
+            {
+              "name": "Hide flyout menu components",
+              "default": true
+            },
+            {
+              "name": "Hide layout components",
+              "default": true
+            },
+            {
+              "name": "Hide music action buttons",
+              "default": true
+            },
+            {
+              "name": "Jam queue sharing",
+              "default": true
+            },
+            {
+              "name": "Media notification controls",
+              "default": true
+            },
+            {
+              "name": "Miniplayer previous and next buttons",
+              "default": true
+            },
+            {
+              "name": "Navigation bar",
+              "default": true
+            },
+            {
+              "name": "Network proxy",
+              "default": false
+            },
+            {
+              "name": "Play albums songs",
+              "default": true
+            },
+            {
+              "name": "Playback speed",
+              "default": true
+            },
+            {
+              "name": "PoToken provider",
+              "default": true
+            },
+            {
+              "name": "Remember repeat state",
+              "default": true
+            },
+            {
+              "name": "Remember shuffle state",
+              "default": true
+            },
+            {
+              "name": "Remove background playback restrictions",
+              "default": true
+            },
+            {
+              "name": "Remove viewer discretion dialog",
+              "default": true
+            },
+            {
+              "name": "Return YouTube Dislike",
+              "default": true
+            },
+            {
+              "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Scrobbling",
+              "default": true
+            },
+            {
+              "name": "Settings menu filter",
+              "default": true
+            },
+            {
+              "name": "SponsorBlock",
+              "default": true
+            },
+            {
+              "name": "Spoof app version",
+              "default": true
+            },
+            {
+              "name": "Spoof video streams",
+              "default": true
+            },
+            {
+              "name": "Theme",
+              "default": true
+            },
+            {
+              "name": "Third-party lyrics",
+              "default": true
+            }
+          ]
+        },
+        "com.google.android.youtube": {
+          "versions": [
+            "21.16.256",
+            "21.13.164",
+            "20.31.42",
+            "20.21.37"
+          ],
+          "patches": [
+            {
+              "name": "Add to queue",
+              "default": true
+            },
+            {
+              "name": "Alternative thumbnails",
+              "default": true
+            },
+            {
+              "name": "Ambient mode",
+              "default": true
+            },
+            {
+              "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Bypass image region restrictions",
+              "default": true
+            },
+            {
+              "name": "Bypass link redirects",
+              "default": true
+            },
+            {
+              "name": "Captions",
+              "default": true
+            },
+            {
+              "name": "Change form factor",
+              "default": true
+            },
+            {
+              "name": "Change header",
+              "default": true
+            },
+            {
+              "name": "Change start page",
+              "default": true
+            },
+            {
+              "name": "Channel search",
+              "default": true
+            },
+            {
+              "name": "Check watch history domain name resolution",
+              "default": true
+            },
+            {
+              "name": "Copy video link",
+              "default": true
+            },
+            {
+              "name": "Custom branding",
+              "default": true
+            },
+            {
+              "name": "Custom player overlay opacity",
+              "default": true
+            },
+            {
+              "name": "Disable auto feed refresh",
+              "default": true
+            },
+            {
+              "name": "Disable double tap actions",
+              "default": true
+            },
+            {
+              "name": "Disable DRC audio",
+              "default": true
+            },
+            {
+              "name": "Disable fullscreen gestures",
+              "default": true
+            },
+            {
+              "name": "Disable haptic feedback",
+              "default": true
+            },
+            {
+              "name": "Disable layout updates",
+              "default": true
+            },
+            {
+              "name": "Disable player popup panels",
+              "default": true
+            },
+            {
+              "name": "Disable playlist autoplay",
+              "default": true
+            },
+            {
+              "name": "Disable QUIC protocol",
+              "default": true
+            },
+            {
+              "name": "Disable rolling number animations",
+              "default": true
+            },
+            {
+              "name": "Disable scrolling speed limit",
+              "default": true
+            },
+            {
+              "name": "Disable Shorts resuming on startup",
+              "default": true
+            },
+            {
+              "name": "Disable sign in to TV popup",
+              "default": true
+            },
+            {
+              "name": "Disable video codecs",
+              "default": true
+            },
+            {
+              "name": "Double tap to seek",
+              "default": true
+            },
+            {
+              "name": "Downloads",
+              "default": true
+            },
+            {
+              "name": "Enable debugging",
+              "default": true
+            },
+            {
+              "name": "Exit fullscreen mode",
+              "default": true
+            },
+            {
+              "name": "Force fullscreen landscape",
+              "default": true
+            },
+            {
+              "name": "Force original audio",
+              "default": true
+            },
+            {
+              "name": "Fullscreen video scale",
+              "default": true
+            },
+            {
+              "name": "GmsCore support",
+              "default": true
+            },
+            {
+              "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide autoplay preview",
+              "default": true
+            },
+            {
+              "name": "Hide end screen cards",
+              "default": true
+            },
+            {
+              "name": "Hide end screen suggested video",
+              "default": true
+            },
+            {
+              "name": "Hide info cards",
+              "default": true
+            },
+            {
+              "name": "Hide layout components",
+              "default": true
+            },
+            {
+              "name": "Hide player flyout menu components",
+              "default": true
+            },
+            {
+              "name": "Hide player overlay buttons",
+              "default": true
+            },
+            {
+              "name": "Hide related video overlay",
+              "default": true
+            },
+            {
+              "name": "Hide related videos",
+              "default": true
+            },
+            {
+              "name": "Hide Shorts components",
+              "default": true
+            },
+            {
+              "name": "Hide status bar",
+              "default": true
+            },
+            {
+              "name": "Hide timestamp",
+              "default": true
+            },
+            {
+              "name": "Hide video action buttons",
+              "default": true
+            },
+            {
+              "name": "Loop video",
+              "default": true
+            },
+            {
+              "name": "Media notification controls",
+              "default": true
+            },
+            {
+              "name": "Miniplayer",
+              "default": true
+            },
+            {
+              "name": "Mute button",
+              "default": true
+            },
+            {
+              "name": "Navigation bar",
+              "default": true
+            },
+            {
+              "name": "Network proxy",
+              "default": false
+            },
+            {
+              "name": "Open channel of live avatar",
+              "default": true
+            },
+            {
+              "name": "Open links externally",
+              "default": true
+            },
+            {
+              "name": "Open Shorts in regular player",
+              "default": true
+            },
+            {
+              "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Open videos fullscreen",
+              "default": true
+            },
+            {
+              "name": "Override YouTube Music buttons",
+              "default": true
+            },
+            {
+              "name": "Picture-in-picture button",
+              "default": true
+            },
+            {
+              "name": "Play all",
+              "default": true
+            },
+            {
+              "name": "Playback buffer",
+              "default": true
+            },
+            {
+              "name": "Playback in feeds",
+              "default": true
+            },
+            {
+              "name": "Playback speed",
+              "default": true
+            },
+            {
+              "name": "Player icon style",
+              "default": true
+            },
+            {
+              "name": "PoToken provider",
+              "default": true
+            },
+            {
+              "name": "Reload video",
+              "default": true
+            },
+            {
+              "name": "Remember live stream playback position",
+              "default": true
+            },
+            {
+              "name": "Remove background playback restrictions",
+              "default": true
+            },
+            {
+              "name": "Remove viewer discretion dialog",
+              "default": true
+            },
+            {
+              "name": "Restore original titles",
               "default": true
             },
             {
@@ -641,645 +1366,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.45.0-dev.18",
-      "spec": "dev",
-      "used_by": [
-        {
-          "table": "YouTube-Experimental",
-          "enabled": true
-        },
-        {
-          "table": "YT-Music-Experimental",
-          "enabled": false
-        },
-        {
-          "table": "Reddit-Experimental",
-          "enabled": true
-        }
-      ]
-    },
-    "github:MorpheApp/morphe-patches": {
-      "patch_count": 150,
-      "universal_patches": [
-        "Change installer source",
-        "Clone app",
-        "Disable Play Store updates",
-        "Override certificate pinning"
-      ],
-      "packages": {
-        "com.google.android.apps.youtube.music": {
-          "versions": [
-            "9.15.51"
-          ],
-          "patches": [
-            {
-              "name": "App refresh rate",
-              "default": true
-            },
-            {
-              "name": "Bypass certificate checks",
-              "default": true
-            },
-            {
-              "name": "Change header",
-              "default": true
-            },
-            {
-              "name": "Change miniplayer color",
-              "default": true
-            },
-            {
-              "name": "Change start page",
-              "default": true
-            },
-            {
-              "name": "Check watch history domain name resolution",
-              "default": true
-            },
-            {
-              "name": "Crossfade",
-              "default": true
-            },
-            {
-              "name": "Custom branding",
-              "default": true
-            },
-            {
-              "name": "Disable dislike redirection",
-              "default": true
-            },
-            {
-              "name": "Disable DRC audio",
-              "default": true
-            },
-            {
-              "name": "Disable QUIC protocol",
-              "default": true
-            },
-            {
-              "name": "Downloads",
-              "default": true
-            },
-            {
-              "name": "Enable debugging",
-              "default": true
-            },
-            {
-              "name": "Enable exclusive audio playback",
-              "default": true
-            },
-            {
-              "name": "Enable forced miniplayer",
-              "default": true
-            },
-            {
-              "name": "Enable swipe to dismiss miniplayer",
-              "default": true
-            },
-            {
-              "name": "Force original audio",
-              "default": true
-            },
-            {
-              "name": "GmsCore support",
-              "default": true
-            },
-            {
-              "name": "Hide ads",
-              "default": true
-            },
-            {
-              "name": "Hide buttons",
-              "default": true
-            },
-            {
-              "name": "Hide filter bar",
-              "default": true
-            },
-            {
-              "name": "Hide flyout menu components",
-              "default": true
-            },
-            {
-              "name": "Hide layout components",
-              "default": true
-            },
-            {
-              "name": "Hide music action buttons",
-              "default": true
-            },
-            {
-              "name": "Miniplayer previous and next buttons",
-              "default": true
-            },
-            {
-              "name": "Navigation bar",
-              "default": true
-            },
-            {
-              "name": "Network proxy",
-              "default": false
-            },
-            {
-              "name": "Play albums songs",
-              "default": true
-            },
-            {
-              "name": "PoToken provider",
-              "default": true
-            },
-            {
-              "name": "Remember repeat state",
-              "default": true
-            },
-            {
-              "name": "Remember shuffle state",
-              "default": true
-            },
-            {
-              "name": "Remove background playback restrictions",
-              "default": true
-            },
-            {
-              "name": "Remove viewer discretion dialog",
-              "default": true
-            },
-            {
-              "name": "Return YouTube Dislike",
-              "default": true
-            },
-            {
-              "name": "Sanitize sharing links",
-              "default": true
-            },
-            {
-              "name": "Scrobbling",
-              "default": true
-            },
-            {
-              "name": "Settings menu filter",
-              "default": true
-            },
-            {
-              "name": "SponsorBlock",
-              "default": true
-            },
-            {
-              "name": "Spoof app version",
-              "default": true
-            },
-            {
-              "name": "Spoof video streams",
-              "default": true
-            },
-            {
-              "name": "Theme",
-              "default": true
-            },
-            {
-              "name": "Third-party lyrics",
-              "default": true
-            }
-          ]
-        },
-        "com.google.android.youtube": {
-          "versions": [
-            "21.16.256",
-            "21.13.164",
-            "20.31.42",
-            "20.21.37"
-          ],
-          "patches": [
-            {
-              "name": "Add to queue",
-              "default": true
-            },
-            {
-              "name": "Alternative thumbnails",
-              "default": true
-            },
-            {
-              "name": "Ambient mode",
-              "default": true
-            },
-            {
-              "name": "App refresh rate",
-              "default": true
-            },
-            {
-              "name": "Bypass image region restrictions",
-              "default": true
-            },
-            {
-              "name": "Bypass link redirects",
-              "default": true
-            },
-            {
-              "name": "Captions",
-              "default": true
-            },
-            {
-              "name": "Change form factor",
-              "default": true
-            },
-            {
-              "name": "Change header",
-              "default": true
-            },
-            {
-              "name": "Change start page",
-              "default": true
-            },
-            {
-              "name": "Channel search",
-              "default": true
-            },
-            {
-              "name": "Check watch history domain name resolution",
-              "default": true
-            },
-            {
-              "name": "Copy video link",
-              "default": true
-            },
-            {
-              "name": "Custom branding",
-              "default": true
-            },
-            {
-              "name": "Custom player overlay opacity",
-              "default": true
-            },
-            {
-              "name": "Disable double tap actions",
-              "default": true
-            },
-            {
-              "name": "Disable DRC audio",
-              "default": true
-            },
-            {
-              "name": "Disable fullscreen gestures",
-              "default": true
-            },
-            {
-              "name": "Disable haptic feedback",
-              "default": true
-            },
-            {
-              "name": "Disable layout updates",
-              "default": true
-            },
-            {
-              "name": "Disable player popup panels",
-              "default": true
-            },
-            {
-              "name": "Disable playlist autoplay",
-              "default": true
-            },
-            {
-              "name": "Disable QUIC protocol",
-              "default": true
-            },
-            {
-              "name": "Disable rolling number animations",
-              "default": true
-            },
-            {
-              "name": "Disable scrolling speed limit",
-              "default": true
-            },
-            {
-              "name": "Disable Shorts resuming on startup",
-              "default": true
-            },
-            {
-              "name": "Disable sign in to TV popup",
-              "default": true
-            },
-            {
-              "name": "Disable video codecs",
-              "default": true
-            },
-            {
-              "name": "Double tap to seek",
-              "default": true
-            },
-            {
-              "name": "Downloads",
-              "default": true
-            },
-            {
-              "name": "Enable debugging",
-              "default": true
-            },
-            {
-              "name": "Exit fullscreen mode",
-              "default": true
-            },
-            {
-              "name": "Force fullscreen landscape",
-              "default": true
-            },
-            {
-              "name": "Force original audio",
-              "default": true
-            },
-            {
-              "name": "Fullscreen video scale",
-              "default": true
-            },
-            {
-              "name": "GmsCore support",
-              "default": true
-            },
-            {
-              "name": "Hide ads",
-              "default": true
-            },
-            {
-              "name": "Hide autoplay preview",
-              "default": true
-            },
-            {
-              "name": "Hide end screen cards",
-              "default": true
-            },
-            {
-              "name": "Hide end screen suggested video",
-              "default": true
-            },
-            {
-              "name": "Hide info cards",
-              "default": true
-            },
-            {
-              "name": "Hide layout components",
-              "default": true
-            },
-            {
-              "name": "Hide player flyout menu components",
-              "default": true
-            },
-            {
-              "name": "Hide player overlay buttons",
-              "default": true
-            },
-            {
-              "name": "Hide related video overlay",
-              "default": true
-            },
-            {
-              "name": "Hide related videos",
-              "default": true
-            },
-            {
-              "name": "Hide Shorts components",
-              "default": true
-            },
-            {
-              "name": "Hide timestamp",
-              "default": true
-            },
-            {
-              "name": "Hide video action buttons",
-              "default": true
-            },
-            {
-              "name": "Loop video",
-              "default": true
-            },
-            {
-              "name": "Media notification controls",
-              "default": true
-            },
-            {
-              "name": "Miniplayer",
-              "default": true
-            },
-            {
-              "name": "Mute button",
-              "default": true
-            },
-            {
-              "name": "Navigation bar",
-              "default": true
-            },
-            {
-              "name": "Network proxy",
-              "default": false
-            },
-            {
-              "name": "Open channel of live avatar",
-              "default": true
-            },
-            {
-              "name": "Open links externally",
-              "default": true
-            },
-            {
-              "name": "Open Shorts in regular player",
-              "default": true
-            },
-            {
-              "name": "Open system share sheet",
-              "default": true
-            },
-            {
-              "name": "Open videos fullscreen",
-              "default": true
-            },
-            {
-              "name": "Override YouTube Music buttons",
-              "default": true
-            },
-            {
-              "name": "Play all",
-              "default": true
-            },
-            {
-              "name": "Playback in feeds",
-              "default": true
-            },
-            {
-              "name": "Playback speed",
-              "default": true
-            },
-            {
-              "name": "PoToken provider",
-              "default": true
-            },
-            {
-              "name": "Reload video",
-              "default": true
-            },
-            {
-              "name": "Remember live stream playback position",
-              "default": true
-            },
-            {
-              "name": "Remove background playback restrictions",
-              "default": true
-            },
-            {
-              "name": "Remove viewer discretion dialog",
-              "default": true
-            },
-            {
-              "name": "Return YouTube Dislike",
-              "default": true
-            },
-            {
-              "name": "Sanitize sharing links",
-              "default": true
-            },
-            {
-              "name": "Save to Watch later",
-              "default": true
-            },
-            {
-              "name": "Seekbar",
-              "default": true
-            },
-            {
-              "name": "Settings menu filter",
-              "default": true
-            },
-            {
-              "name": "Shorts autoplay",
-              "default": true
-            },
-            {
-              "name": "SponsorBlock",
-              "default": true
-            },
-            {
-              "name": "Spoof app version",
-              "default": true
-            },
-            {
-              "name": "Spoof device dimensions",
-              "default": true
-            },
-            {
-              "name": "Spoof video streams",
-              "default": true
-            },
-            {
-              "name": "Swipe controls",
-              "default": true
-            },
-            {
-              "name": "Theme",
-              "default": true
-            },
-            {
-              "name": "Video quality",
-              "default": true
-            },
-            {
-              "name": "Voice over translation",
-              "default": true
-            },
-            {
-              "name": "Wide search bar",
-              "default": true
-            }
-          ]
-        },
-        "com.reddit.frontpage": {
-          "versions": [
-            "2026.14.0",
-            "2026.04.0",
-            "2024.02.0"
-          ],
-          "patches": [
-            {
-              "name": "App icon",
-              "default": true
-            },
-            {
-              "name": "Custom branding name for Reddit",
-              "default": false
-            },
-            {
-              "name": "Custom font",
-              "default": true
-            },
-            {
-              "name": "Disable modern home",
-              "default": true
-            },
-            {
-              "name": "Disable screenshot popup",
-              "default": true
-            },
-            {
-              "name": "Force system font",
-              "default": true
-            },
-            {
-              "name": "Hide ads",
-              "default": true
-            },
-            {
-              "name": "Hide Ask button",
-              "default": true
-            },
-            {
-              "name": "Hide communities shelf",
-              "default": true
-            },
-            {
-              "name": "Hide navigation buttons",
-              "default": true
-            },
-            {
-              "name": "Hide Reddit search",
-              "default": false
-            },
-            {
-              "name": "Hide sidebar components",
-              "default": true
-            },
-            {
-              "name": "Hide Trending shelves",
-              "default": true
-            },
-            {
-              "name": "Open links directly",
-              "default": true
-            },
-            {
-              "name": "Open links externally",
-              "default": true
-            },
-            {
-              "name": "Remove subreddit dialog",
-              "default": true
-            },
-            {
-              "name": "Sanitize sharing links",
-              "default": true
-            },
-            {
-              "name": "Show view count",
-              "default": true
-            },
-            {
-              "name": "Spoof signature",
-              "default": true
-            },
-            {
-              "name": "Start as guest",
-              "default": true
-            }
-          ]
-        }
-      },
-      "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.44.0",
+      "version": "v1.45.0",
       "spec": "latest",
       "used_by": [
         {
@@ -1297,7 +1384,7 @@
       ]
     },
     "github:RookieEnough/De-Vanced": {
-      "patch_count": 62,
+      "patch_count": 75,
       "universal_patches": [
         "Clone app"
       ],
@@ -1376,15 +1463,67 @@
         },
         "com.facebook.katana": {
           "versions": [
-            "490.0.0.63.82"
+            "580.0.0.51.74"
           ],
           "patches": [
             {
-              "name": "Hide 'Sponsored Stories'",
+              "name": "AMOLED dark theme",
               "default": true
             },
             {
-              "name": "Hide story ads",
+              "name": "Clean Home feed",
+              "default": true
+            },
+            {
+              "name": "De-Vanced Settings",
+              "default": true
+            },
+            {
+              "name": "Disable all ads",
+              "default": true
+            },
+            {
+              "name": "Disable analytics and telemetry",
+              "default": true
+            },
+            {
+              "name": "Disable auto refresh",
+              "default": true
+            },
+            {
+              "name": "Download Media",
+              "default": true
+            },
+            {
+              "name": "Facebook signature compatibility",
+              "default": true
+            },
+            {
+              "name": "Material You theme",
+              "default": true
+            },
+            {
+              "name": "Media quality controls",
+              "default": true
+            },
+            {
+              "name": "Messenger install compatibility",
+              "default": true
+            },
+            {
+              "name": "Open Marketplace on launch",
+              "default": true
+            },
+            {
+              "name": "Optimize Facebook",
+              "default": true
+            },
+            {
+              "name": "Picture-in-picture",
+              "default": true
+            },
+            {
+              "name": "Reels 2x speed",
               "default": true
             }
           ]
@@ -1692,7 +1831,7 @@
         }
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
-      "version": "v1.4.4",
+      "version": "v1.5.1",
       "spec": "latest",
       "used_by": [
         {
@@ -2862,14 +3001,13 @@
       ]
     },
     "github:hoo-dles/morphe-patches": {
-      "patch_count": 79,
+      "patch_count": 78,
       "universal_patches": [
         "Change package name",
         "Disable Pairip license check",
         "Enable debug",
         "Hide app icon",
-        "MicroG integration",
-        "Spoof signature"
+        "MicroG integration"
       ],
       "packages": {
         "app.ttmikstories.android": {
@@ -2885,8 +3023,7 @@
         },
         "bitpit.launcher": {
           "versions": [
-            "1.16.24",
-            "1.16.7"
+            "1.16.31"
           ],
           "patches": [
             {
@@ -2897,7 +3034,7 @@
         },
         "ch.protonvpn.android": {
           "versions": [
-            "5.19.43.0"
+            "5.20.57.0"
           ],
           "patches": [
             {
@@ -2935,10 +3072,6 @@
           ],
           "patches": [
             {
-              "name": "Disable anti-tamper",
-              "default": true
-            },
-            {
               "name": "Enable Pro",
               "default": true
             }
@@ -2946,7 +3079,7 @@
         },
         "com.adguard.android": {
           "versions": [
-            "4.14.1"
+            "4.14.2"
           ],
           "patches": [
             {
@@ -2957,13 +3090,9 @@
         },
         "com.adobe.lrmobile": {
           "versions": [
-            "11.5.22"
+            "11.5.31"
           ],
           "patches": [
-            {
-              "name": "Bypass login",
-              "default": false
-            },
             {
               "name": "Unlock premium features",
               "default": true
@@ -2983,7 +3112,7 @@
         },
         "com.amazon.avod.thirdpartyclient": {
           "versions": [
-            "3.0.452.1047"
+            "3.0.470.1047"
           ],
           "patches": [
             {
@@ -3024,7 +3153,7 @@
         },
         "com.bowerydigital.bend": {
           "versions": [
-            "7.6.6"
+            "7.8.0"
           ],
           "patches": [
             {
@@ -3035,7 +3164,7 @@
         },
         "com.bunpoapp": {
           "versions": [
-            "3.21.0"
+            "3.23.1"
           ],
           "patches": [
             {
@@ -3046,7 +3175,7 @@
         },
         "com.busuu.android.enc": {
           "versions": [
-            "32.30.0(1575420)"
+            "32.44.1(1717099)"
           ],
           "patches": [
             {
@@ -3057,7 +3186,7 @@
         },
         "com.duolingo": {
           "versions": [
-            "6.95.4"
+            "6.98.4"
           ],
           "patches": [
             {
@@ -3071,12 +3200,16 @@
             {
               "name": "Enable Premium",
               "default": true
+            },
+            {
+              "name": "Unlimited RampUp time",
+              "default": false
             }
           ]
         },
         "com.getmimo": {
           "versions": [
-            "9.24"
+            "9.30"
           ],
           "patches": [
             {
@@ -3146,7 +3279,7 @@
         },
         "com.lingodeer": {
           "versions": [
-            "2.99.412"
+            "2.99.413"
           ],
           "patches": [
             {
@@ -3157,7 +3290,7 @@
         },
         "com.lyfta": {
           "versions": [
-            "1.551"
+            "1.599"
           ],
           "patches": [
             {
@@ -3199,7 +3332,7 @@
         },
         "com.mobilefootie.wc2010": {
           "versions": [
-            "236.17398.20260827"
+            "238.17666.20260928"
           ],
           "patches": [
             {
@@ -3278,7 +3411,7 @@
         },
         "com.simyasolutions.ling.universal": {
           "versions": [
-            "8.4.4"
+            "8.9.0"
           ],
           "patches": [
             {
@@ -3330,9 +3463,13 @@
         },
         "com.superchinese": {
           "versions": [
-            "6.6.3"
+            "6.8.1"
           ],
           "patches": [
+            {
+              "name": "Block launch upsell",
+              "default": true
+            },
             {
               "name": "Disable telemetry",
               "default": true
@@ -3400,7 +3537,7 @@
         },
         "com.xodo.pdf.reader": {
           "versions": [
-            "11.0.0"
+            "11.2.0"
           ],
           "patches": [
             {
@@ -3433,7 +3570,7 @@
         },
         "ginlemon.flowerfree": {
           "versions": [
-            "6.6 build 016"
+            "6.6 build 020"
           ],
           "patches": [
             {
@@ -3534,7 +3671,7 @@
         },
         "pl.solidexplorer2": {
           "versions": [
-            "3.5.20"
+            "3.6.1"
           ],
           "patches": [
             {
@@ -3567,7 +3704,7 @@
         }
       },
       "url": "https://github.com/hoo-dles/morphe-patches",
-      "version": "v1.44.1",
+      "version": "v1.47.0",
       "spec": "latest",
       "used_by": [
         {
