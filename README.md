@@ -32,7 +32,7 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 | App | Download or auto-update |
 |---|---|
-| **Reddit Experimental**<br>`2026.40.0`<br><sub>2026-10-05</sub> | [![Download Reddit Experimental, 95 MB](https://img.shields.io/badge/Download-95%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
+| **Reddit Experimental**<br>`2026.40.0`<br><sub>2026-10-05</sub> | [![Download Reddit Experimental, 107 MB](https://img.shields.io/badge/Download-107%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
 | **YouTube Experimental**<br>`21.40.161`<br><sub>2026-10-05</sub> | [![Download YouTube Experimental, 144 MB](https://img.shields.io/badge/Download-144%20MB-7c3aed?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk) [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube-experimental] |
 
 [![Add every app to Obtainium](https://img.shields.io/badge/Add%20every%20app%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt:all] [![Older versions](https://img.shields.io/badge/Older%20versions-475569?style=for-the-badge&logo=github&logoColor=white)](https://qutaiba-khader.github.io/morphe-builder/)
@@ -43,9 +43,9 @@ Newer app versions with development patches. Each one installs **next to** its s
 | App | Channel | Package | Release | Patches | Obtainium endpoint |
 |---|---|---|---|---|---|
 | Reddit | stable | `com.reddit.frontpage` | [`26.10.02-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe) | `1.45.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.05-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.05-morphe-dev) | `1.46.0-dev.3` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.05-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.05-morphe-dev) | `1.46.0-dev.7` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
 | YouTube | stable | `app.morphe.android.youtube` | [`26.10.02-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.02-morphe) | `1.45.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.05-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.05-morphe-dev) | `1.46.0-dev.3` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.05-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.05-morphe-dev) | `1.46.0-dev.7` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
