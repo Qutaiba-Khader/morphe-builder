@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07T06:21:25Z",
+  "generated": "2026-10-07T17:26:31Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -70,10 +70,10 @@
       "name": "YouTube Experimental",
       "arch": "all",
       "version": "21.40.161",
-      "build_version": "21.40.161+p1.46.0",
+      "build_version": "21.40.161+p1.47.0-dev.1",
       "package": "app.morphe.android.youtube.dev",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.07-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk",
       "config": {
         "id": "app.morphe.android.youtube.dev",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
