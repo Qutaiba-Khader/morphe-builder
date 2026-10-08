@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-08T06:32:43Z",
+  "generated": "2026-10-08T17:24:22Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -30,10 +30,10 @@
       "name": "Reddit Experimental",
       "arch": "all",
       "version": "2026.40.0",
-      "build_version": "2026.40.0+p1.46.0",
+      "build_version": "2026.40.0+p1.47.0-dev.4",
       "package": "com.reddit.frontpage.morphe",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk",
       "config": {
         "id": "com.reddit.frontpage.morphe",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
@@ -70,10 +70,10 @@
       "name": "YouTube Experimental",
       "arch": "all",
       "version": "21.40.161",
-      "build_version": "21.40.161+p1.47.0-dev.1",
+      "build_version": "21.40.161+p1.47.0-dev.4",
       "package": "app.morphe.android.youtube.dev",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.07-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk",
       "config": {
         "id": "app.morphe.android.youtube.dev",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
