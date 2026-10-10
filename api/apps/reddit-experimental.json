@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-10T12:57:38Z",
+  "generated": "2026-10-10T15:51:36Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "reddit-experimental",
   "name": "Reddit Experimental",
@@ -9,13 +9,13 @@
     {
       "version": "2026.40.0",
       "tag": "26.10.10-morphe-dev",
-      "published": "2026-10-10T09:02:43Z",
+      "published": "2026-10-10T15:50:25Z",
       "prerelease": true,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev",
       "patches": [
         {
-          "file": "MorpheApp/patches-1.47.0-dev.16.mpp",
-          "version": "1.47.0-dev.16"
+          "file": "MorpheApp/patches-1.47.0-dev.19.mpp",
+          "version": "1.47.0-dev.19"
         }
       ],
       "cli": {
@@ -27,12 +27,40 @@
           "arch": "all",
           "size": 107513402,
           "sha256": "2afe5a51ca5b82787e31de9c663f9a93c5a208bad396ce24b587de8e7def5782",
-          "downloads": 16,
+          "downloads": 18,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk"
         }
       ],
       "rebuilds": 5
+    },
+    {
+      "version": "2026.41.0",
+      "tag": "26.10.10-morphe-dev",
+      "published": "2026-10-10T15:50:25Z",
+      "prerelease": true,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-1.47.0-dev.19.mpp",
+          "version": "1.47.0-dev.19"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.18.1-all.jar",
+        "version": "1.18.1"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 107940652,
+          "sha256": "2f2b45ae3f93ff33961cb5bbfb2848bb30b22dc2f0e0fb4895969543d1e92775",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+          "name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+        }
+      ],
+      "rebuilds": 1
     },
     {
       "version": "2026.39.0",
