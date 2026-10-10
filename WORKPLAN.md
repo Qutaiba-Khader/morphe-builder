@@ -310,3 +310,16 @@ one builds and publishes on GitHub. Case by case:
   (`21.40.161+p1.47.0-dev.14`).
 - Apps already added keep their stored settings: tap the button again and Import once (or set
   the name under the app's settings by hand).
+
+## Phase 17 — "still no update after adding _all.html" (2026-10-10)
+
+Replayed with Obtainium v1.6.17's own code (import → refresh → badge, real live pages):
+- import records the installed version Android reports (versionDetection off does not copy the
+  latest into "installed"); after the refresh an installed older build is OFFERED the update
+  (YouTube dev 21.40.161 or 21.39.522, Reddit dev 2026.40.0, YouTube 21.16.256, Reddit 2026.24.0).
+- an app that is not installed shows Install, never Update — the owner's Reddit Experimental
+  entry was "Not installed".
+- YouTube stable with a NEWER installed versionName (e.g. 21.38.123 from the mis-packaged
+  2026-09-20 dev build) gets no update: Obtainium hides downgrades.
+- `_all.html` pasted into Add App → NoReleasesError (harmless); a per-app page pasted there →
+  an "App" entry with a hash version (works, but no name/settings). README + site say so.
