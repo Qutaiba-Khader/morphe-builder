@@ -138,7 +138,7 @@ Each app gets its patch bundle's **recommended** set, the patches the authors sw
 To add an app by hand: **Add App** → URL `https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html` → source **HTML**. Every app's endpoint and ready-made settings are in the folded table under Download and in [`api/obtainium.json`](https://qutaiba-khader.github.io/morphe-builder/api/obtainium.json).
 
 > [!NOTE]
-> Obtainium tracks **app version + patch version**, for example `21.16.256+p1.45.0`, so a rebuild with newer patches is offered as an update even when the app version stays the same. 🔴 Apps added to Obtainium before 2026-10-05 keep their old settings and miss patch-only updates: remove them in Obtainium and add them again with the buttons above.
+> Obtainium tracks **app version + patch version**, for example `21.16.256+p1.45.0`, so a rebuild with newer patches is offered as an update even when the app version stays the same. 🔴 **Check your phone once:** in Obtainium, the version shown for each app should look like `21.40.161+p1.47.0-dev.14`. If it shows only `21.40.161`, the app was added with an older link (before 2026-10-05), and those settings follow the app version only, so patch-only updates never appear. Tap that app's **Add to Obtainium** button again (or **Add every app to Obtainium**) and confirm **Import**. That replaces the settings and keeps the installed app, so there is nothing to remove. Obtainium checks every 6 hours; pull down on its list to check now.
 
 <details>
 <summary><b>Why the Obtainium links point at this website, not at GitHub</b></summary>

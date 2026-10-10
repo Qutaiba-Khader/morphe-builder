@@ -280,3 +280,19 @@ one builds and publishes on GitHub. Case by case:
   keeps our version (sync.yml restores ignored files after every merge). Upstream (nvbangg
   `builder-for-morphe`) still has the old code; any later upstream change to these two files is
   not taken automatically — compare by hand when upstream touches them.
+
+## Phase 15 — "no update appeared in Obtainium" (2026-10-10)
+
+- Replayed Obtainium's OWN code (Flutter 3.47.7 test on CT 200, Obtainium af286fa: the
+  `obtainium://app/` import → `appFromStoredJson`, `extractVersion`, `reconcileTrackedVersion`,
+  `isAppUpdateable`) on the real README links and the real endpoint pages, yesterday vs today:
+  - links from 2026-10-05 on (version detection off, version read from the page): all four
+    apps show the update (`21.40.161+p1.47.0-dev.9` → `+p1.47.0-dev.14`, also when the app was
+    installed outside Obtainium), and no badge once the newest build is installed.
+  - links from before 2026-10-05 (version from the APK file name, detection on): yesterday and
+    today both read `21.40.161` → never an update for a patch-only rebuild.
+- So an app added before 2026-10-05 must be re-imported once: tapping its button again replaces
+  the stored settings (`import` → `saveApps` by package id, installed app kept). README and the
+  website now say how to tell (the version shown has `+p…` or not) and what to tap.
+- Not done: renaming release assets so even old settings would read the patch version — it
+  would break existing download links and every name parser for a one-time phone action.
