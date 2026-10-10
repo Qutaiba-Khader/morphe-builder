@@ -65,7 +65,7 @@ Every APK is signed with the certificate SHA-256 `7687718c8b2e96088ba64cfa833db6
 3. **To get updates by themselves**, tap **Add to Obtainium** instead of Download. [Obtainium](https://github.com/ImranR98/Obtainium) installs the app and tells you whenever a new build is out.
 
 > [!IMPORTANT]
-> Stable **Reddit** keeps Reddit's own package name, so it cannot install over Reddit from the Play Store. Uninstall that one first. YouTube and every pre-release build are renamed, so they install next to what you already have.
+> Stable **Reddit** and **TikTok** keep their own package names, so they cannot install over the Play Store app. Uninstall that one first (for TikTok you sign in again afterwards). YouTube and every pre-release build are renamed, so they install next to what you already have.
 
 > [!NOTE]
 > **Obtainium asks:** *"The app source is 'qutaiba-khader.github.io' but the release package comes from 'github.com'. Continue?"* That is expected: the app's page is on this website and the APK is in this repository's GitHub releases. Tap **Continue**, and tick **Don't show again** to stop the question.
@@ -116,7 +116,7 @@ The daily check compares per **brand**, not per app. Every app patched with `Mor
 
 ### Which patches are applied
 
-Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. The website's **Patch catalog** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
+Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. TikTok is stable only and comes from a community bundle, [Metra TikTok Patches](https://github.com/icysymmetra/tiktok-patches-for-morphe) by icysymmetra (video downloads, feed filters, playback speed, a Google login fix and more). The website's **Patch catalog** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
 
 | Left out | Why |
 |---|---|
@@ -212,7 +212,7 @@ curl -s https://qutaiba-khader.github.io/morphe-builder/api/index.json \
 
 ### Credits and license
 
-Built on [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe), which grew out of [krvstek/uni-apks](https://github.com/krvstek/uni-apks). Patches by [Morphe](https://morphe.software). Licensed under [GPLv3](LICENSE). Not affiliated with Morphe, Google or Reddit.
+Built on [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe), which grew out of [krvstek/uni-apks](https://github.com/krvstek/uni-apks). Patches by [Morphe](https://morphe.software); TikTok patches by [icysymmetra](https://github.com/icysymmetra/tiktok-patches-for-morphe). Licensed under [GPLv3](LICENSE). Not affiliated with Morphe, Google, Reddit or TikTok.
 
 
 <details>
