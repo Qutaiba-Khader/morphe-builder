@@ -84,11 +84,14 @@ def download(url: str, dest: Path) -> Path:
     return dest
 
 
-def _upstream_ver_key(ver: str) -> tuple[int, ...]:
-    """Mirror of src/core/prebuilts.py `_ver_key`: numbers of the part before the
-    first '-', so v1.44.0 and v1.44.0-dev.9 tie (and the first listed wins)."""
-    base = ver.split("-")[0]
-    return tuple(int(x) for x in re.findall(r"\d+", base)) or (0,)
+def _upstream_ver_key(ver: str) -> tuple:
+    """Mirror of src/core/prebuilts.py `_ver_key`: the pre-release number counts
+    (1.47.0-dev.14 > 1.47.0-dev.9) and a final release beats its pre-releases."""
+    m = re.search(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|beta|rc|pre)[-._]?(\d*))?", ver, re.IGNORECASE)
+    if not m:
+        return ((0,), 1, 0)
+    base = tuple(int(x) for x in m.group(1).split("."))
+    return (base, 0, int(m.group(3) or 0)) if m.group(2) else (base, 1, 0)
 
 
 def _bundle(assets: list[dict[str, Any]], name_key: str, url_key: str) -> str | None:
@@ -107,7 +110,7 @@ def resolve_github(repo: str, version: str) -> tuple[str, str]:
     if version == "latest":
         rel = _req(f"{base}/latest")
     elif version == "dev":
-        releases = _req(base)
+        releases = _req(f"{base}?per_page=100")
         best = max((r["tag_name"] for r in releases if r.get("tag_name")), key=_upstream_ver_key)
         rel = next(r for r in releases if r.get("tag_name") == best)
     else:

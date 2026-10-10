@@ -36,8 +36,12 @@ def _fetch_latest_release(source: str, net: NetworkManager, version: str = "late
         changelog_text = str(upstream_rel.get("description") or "")
         upstream_date = str(upstream_rel.get("released_at") or "")
     elif version == "dev":
-        releases: list[dict[str, Any]] = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases?per_page=1", headers=net.gh_headers))
-        upstream_rel = releases[0] if releases else {}
+        # morphe-builder: the newest release by date. GitHub does not list
+        # releases newest-first (v1.47.0-dev.9 came before dev.14), so the
+        # first entry left the dev channel on an old build.
+        releases: list[dict[str, Any]] = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases?per_page=100", headers=net.gh_headers))
+        published = [r for r in releases if r.get("published_at") and not r.get("draft")]
+        upstream_rel = max(published, key=lambda r: str(r["published_at"])) if published else {}
         changelog_text = str(upstream_rel.get("body") or "")
         upstream_date = str(upstream_rel.get("published_at") or "")
     else:

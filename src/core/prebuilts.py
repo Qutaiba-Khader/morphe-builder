@@ -28,9 +28,19 @@ _KNOWN_PREFIXES = ("gitlab:", "github:")
 class PrebuiltsError(Exception):
     pass
 
-def _ver_key(ver: str) -> tuple[int, ...]:
-    base = ver.split("-")[0]
-    return tuple(int(x) for x in re.findall(r"\d+", base)) or (0,)
+_VER_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|beta|rc|pre)[-._]?(\d*))?", re.IGNORECASE)
+
+def _ver_key(ver: str) -> tuple:
+    # morphe-builder: the pre-release number counts, so 1.47.0-dev.14 beats
+    # 1.47.0-dev.9 (they used to tie and GitHub's list order picked dev.9);
+    # a final release still beats its own pre-releases (1.47.0 > 1.47.0-dev.N).
+    m = _VER_RE.search(ver)
+    if not m:
+        return ((0,), 1, 0)
+    base = tuple(int(x) for x in m.group(1).split("."))
+    if m.group(2):
+        return (base, 0, int(m.group(3) or 0))
+    return (base, 1, 0)
 
 def _strip_src_prefix(src: str) -> str:
     for prefix in _KNOWN_PREFIXES:
@@ -105,7 +115,8 @@ def _fetch_single_asset(src: str, tag: str, ver: str, ext: str, cl_dir: Path, ne
 
     release = None
     if ver == "dev":
-        releases = json.loads(net.get(base_url) if gitlab else net.get(base_url, headers=net.gh_headers))
+        list_url = base_url if gitlab else f"{base_url}?per_page=100"
+        releases = json.loads(net.get(list_url) if gitlab else net.get(list_url, headers=net.gh_headers))
         ver = get_highest_ver([r["tag_name"] for r in releases if r.get("tag_name")])
     elif ver == "latest":
         latest_url = f"{base_url}/permalink/latest" if gitlab else f"{base_url}/latest"

@@ -260,3 +260,23 @@ one builds and publishes on GitHub. Case by case:
 - Also seen: CI #20 (2026-10-04) Reddit Experimental failed — APKMirror had only DPI-limited
   bundles of 2026.40.0 (120-480 dpi) at build time; the builder accepts `nodpi`/`anydpi`/`*-640dpi`.
   A 120-640 dpi bundle was posted afterwards.
+
+## Phase 14 — dev channel stuck on an old dev bundle (2026-10-10)
+
+- Found in the check: the dev builds used patches 1.47.0-dev.9 while dev.10–dev.14 were already
+  out. Two causes, both in the builder code that comes from upstream:
+  - `src/core/prebuilts.py` `_ver_key` compared only the part before the first `-`, so every
+    `1.47.0-dev.N` tied and `max()` returned whichever GitHub listed first (dev.9; GitHub does not
+    list releases newest-first).
+  - `src/scripts/matrix.py` decided "is there something new" from the FIRST release in that list
+    (`per_page=1`), i.e. dev.9's date, so after one dev.9 build it would never build again until
+    a release sorted above it.
+- Fix: `_ver_key` orders `(numbers, final-or-pre, pre-release number)` — dev.14 > dev.9 and the
+  final 1.47.0 > 1.47.0-dev.N, app versions unchanged; the dev update check takes the newest
+  release by `published_at` over 100 releases; the dev list reads 100 releases.
+  `tools/gen_catalog.py` mirrors the same key. Proof: the builder's own check run locally said
+  `[]` before and `["morphe-dev"]` after; the key picks v1.47.0-dev.14 from the real list.
+- Both files are now in the repository variable `IGNORE_SYNC_FILES`, so the daily upstream sync
+  keeps our version (sync.yml restores ignored files after every merge). Upstream (nvbangg
+  `builder-for-morphe`) still has the old code; any later upstream change to these two files is
+  not taken automatically — compare by hand when upstream touches them.
