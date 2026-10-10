@@ -1,0 +1,39 @@
+{
+  "generated": "2026-10-10T09:04:41Z",
+  "repo": "Qutaiba-Khader/morphe-builder",
+  "id": "tiktok",
+  "name": "TikTok",
+  "package": "com.zhiliaoapp.musically",
+  "brand": "Metra",
+  "builds": [
+    {
+      "version": "46.2.3",
+      "tag": "26.10.10-metra",
+      "published": "2026-10-10T09:03:29Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-metra",
+      "patches": [
+        {
+          "file": "icysymmetra/patches-0.8.0.mpp",
+          "version": "0.8.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.18.1-all.jar",
+        "version": "1.18.1"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 597347508,
+          "sha256": "8a3bcf8b818be7f8753a606708b31fd7a9978f76a8da6e76d546b7ed770edc92",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-metra/tiktok-metra-v46.2.3-all.apk",
+          "name": "tiktok-metra-v46.2.3-all.apk"
+        }
+      ],
+      "rebuilds": 1
+    }
+  ],
+  "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+}
