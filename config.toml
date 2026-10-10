@@ -280,9 +280,14 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/viber-media-s-a-r-l/viber/"
 [Viber.patches]
 "github:RookieEnough/De-Vanced" = []
 
+# Stable only (no pre-release twin). Patches: "Metra TikTok Patches"
+# (icysymmetra). Own brand = own release (YY.MM.DD-metra), so the daily check
+# follows THIS patch source's releases. The bundle has no universal patches (no
+# clone / package rename): [] = its 41 default patches, and the app keeps the
+# original package com.zhiliaoapp.musically (replaces Play Store TikTok).
 [TikTok]
-enabled = false
-brand = "tiktok"
+enabled = true
+brand = "Metra"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/"
 
 [TikTok.patches]
