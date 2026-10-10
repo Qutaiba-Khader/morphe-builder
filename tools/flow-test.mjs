@@ -266,18 +266,20 @@ for (const entry of obt.apps) {
   const got = matches.at(-1)?.[Number(settings.matchGroupToUse)];
   check(`obtainium/${entry.app}: version regex matches the endpoint page`,
     matches.length > 0, matches.length ? `${matches.length} match(es)` : "NO MATCH");
-  check(`obtainium/${entry.app}: extracted version is app version + patches (${entry.build_version})`,
-    got === entry.build_version && got.startsWith(entry.version + "+"), got);
-  check(`obtainium/${entry.app}: version detection off (the phone only reports ${entry.version})`,
-    settings.versionDetection === false);
+  check(`obtainium/${entry.app}: extracted version is app version + patch revision (${entry.build_version})`,
+    got === entry.build_version && got.startsWith(entry.version + "-"), got);
+  // ObtainX orders only a NUMERIC revision after "-" (version_comparison.dart
+  // build revision); "+metadata" it drops, so patch-only rebuilds vanished.
+  check(`obtainium/${entry.app}: patch revision is numeric, so ObtainX can order it`,
+    /^-\d+(\.\d+)*$/.test((got ?? "").slice(entry.version.length)), got);
+  check(`obtainium/${entry.app}: version detection on (an older app on the phone shows as an update)`,
+    settings.versionDetection === true);
 
   // Obtainium's update decision (version_normalization.dart installedMatchesRemote):
-  // a patch-only rebuild must count as a new build, the same build must not,
-  // and the bare app version the phone reports must not swallow the update.
-  const older = (got ?? "").replace(/\+.*/, "+p0.0.1");
+  // a patch-only rebuild must count as a new build, the same build must not.
+  const older = (got ?? "").slice(0, entry.version.length) + "-0.0.1";
   check(`obtainium/${entry.app}: a patch-only rebuild is offered as an update`,
-    !!got && !installedMatchesRemote(older, got) && installedMatchesRemote(got, got) &&
-    !installedMatchesRemote(entry.version, got), `${older} -> ${got}`);
+    !!got && !installedMatchesRemote(older, got) && installedMatchesRemote(got, got), `${older} -> ${got}`);
 
   const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
   check(`obtainium/${entry.app}: deep link decodes to the same config`,

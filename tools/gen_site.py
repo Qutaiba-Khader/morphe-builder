@@ -363,18 +363,29 @@ first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 """
 
 
-def build_version(build: dict[str, Any]) -> str:
-    """The version Obtainium tracks: app version + the patch bundle(s) it was built with.
+_REV_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(?:dev|alpha|beta|rc|pre)[-._]?(\d+))?", re.IGNORECASE)
 
-    The app version alone (21.16.256) does not move when only the patches do, so
-    Obtainium never offered a patch-only rebuild. `+` makes the patches build
-    metadata: Obtainium treats metadata on the remote side as a distinct build
-    (version_normalization.dart installedMatchesRemote), so 21.16.256+p1.46.0 is
-    an update over 21.16.256+p1.45.0. Falls back to the release tag when the
-    release notes name no bundle.
+
+def build_version(build: dict[str, Any]) -> str:
+    """The version Obtainium/ObtainX tracks: app version, "-", the patch version.
+
+    The app version alone (21.16.256) does not move when only the patches do.
+    The patches go in as a numeric BUILD REVISION (21.16.256-1.46.0; a dev
+    bundle 1.47.0-dev.16 becomes 21.40.161-1.47.0.16) because that is the one
+    form both apps order against the phone's own version: ObtainX
+    (version_comparison.dart) drops "+metadata" entirely, so the old
+    21.16.256+p1.46.0 made a patch-only rebuild look like the same build, and
+    with detection off it never compared with the phone at all - an older app
+    already on the phone stayed "Up to date". Falls back to the release tag's
+    date when the release notes name no bundle.
     """
     patches = [p["version"] for p in build.get("patches") or [] if p.get("version")]
-    return f"{build['version']}+p{'-'.join(patches)}" if patches else f"{build['version']}+{build['tag']}"
+    m = _REV_RE.search(patches[0]) if patches else None
+    if m:
+        rev = m.group(1) + (f".{m.group(2)}" if m.group(2) else "")
+    else:
+        rev = re.sub(r"[^0-9.]", "", build["tag"].split("-", 1)[0]).strip(".") or "0"
+    return f"{build['version']}-{rev}"
 
 
 # Read from the endpoint page itself (versionExtractWholePage): Obtainium gets
@@ -389,9 +400,10 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
         "versionExtractionRegEx": BUILD_VERSION_REGEX,
         "matchGroupToUse": "1",
         "versionExtractWholePage": True,
-        # compare build versions only: the phone reports 21.16.256 for every
-        # rebuild, and reconciling with it would hide patch-only updates again
-        "versionDetection": False,
+        # compare with the phone: an older app already installed (patched on
+        # the phone, or an earlier build) must show as an update. The patch
+        # revision in build_version still makes patch-only rebuilds updates.
+        "versionDetection": True,
         "apkFilterRegEx": "\\.apk$",
     }
     label = app["name"] if not suffix else f"{app['name']} ({file['arch']})"
