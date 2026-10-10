@@ -44,10 +44,10 @@ Newer app versions with development patches. Each one installs **next to** its s
 | App | Channel | Package | Release | Patches | Obtainium endpoint |
 |---|---|---|---|---|---|
 | Reddit | stable | `com.reddit.frontpage` | [`26.10.06-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.06-morphe) | `1.46.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.10-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev) | `1.47.0-dev.16` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.10.10-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev) | `1.47.0-dev.19` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
 | TikTok | stable | `com.zhiliaoapp.musically` | [`26.10.10-metra`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-metra) | `0.8.0` | [tiktok.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/tiktok.html) |
 | YouTube | stable | `app.morphe.android.youtube` | [`26.10.06-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.06-morphe) | `1.46.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.10-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev) | `1.47.0-dev.16` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.10.10-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.10-morphe-dev) | `1.47.0-dev.19` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
