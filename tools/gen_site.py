@@ -395,11 +395,18 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
         "apkFilterRegEx": "\\.apk$",
     }
     label = app["name"] if not suffix else f"{app['name']} ({file['arch']})"
+    name, author = f"{label} ({app['brand'].title()})", repo.split("/")[0]
+    # Obtainium's HTML source names every app "App" and replaces the author with
+    # the page's host on every update check (html.dart AppNames(uri.host,
+    # 'app'); source_provider.dart getApp). The per-app "override name/author"
+    # settings win over both (App.finalName / finalAuthor).
+    settings["appName"] = name
+    settings["appAuthor"] = author
     config: dict[str, Any] = {
         "id": app.get("package") or "",
         "url": site_url + page,
-        "author": repo.split("/")[0],
-        "name": f"{label} ({app['brand'].title()})",
+        "author": author,
+        "name": name,
         "additionalSettings": json.dumps(settings, separators=(",", ":")),
     }
     if not config["id"]:

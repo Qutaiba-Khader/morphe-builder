@@ -296,3 +296,17 @@ one builds and publishes on GitHub. Case by case:
   website now say how to tell (the version shown has `+p…` or not) and what to tap.
 - Not done: renaming release assets so even old settings would read the patch version — it
   would break existing download links and every name parser for a one-time phone action.
+
+## Phase 16 — Obtainium showed "App" by "qutaiba-khader.github.io" (2026-10-10)
+
+- Cause, in Obtainium's own code: its HTML source names every app "App" and gives the page's host
+  as author (`html.dart` `AppNames(uri.host, tr('app'))`); `source_provider.dart getApp` keeps a
+  name only if the app already has one and REPLACES the author on every update check. Replayed
+  in Flutter on the real links (import + a real update check against the live pages): before,
+  the author became "qutaiba-khader.github.io" after the first check on all four apps, and an
+  app added through the add screen became "App"; after, all four keep their name and author.
+- Fix: each link's settings carry Obtainium's per-app overrides `appName` and `appAuthor`
+  (App.finalName/finalAuthor win over the source). Version text unchanged
+  (`21.40.161+p1.47.0-dev.14`).
+- Apps already added keep their stored settings: tap the button again and Import once (or set
+  the name under the app's settings by hand).
