@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-10T15:51:36Z",
+  "generated": "2026-10-11T06:17:25Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "reddit-experimental",
   "name": "Reddit Experimental",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 107513402,
           "sha256": "2afe5a51ca5b82787e31de9c663f9a93c5a208bad396ce24b587de8e7def5782",
-          "downloads": 18,
+          "downloads": 23,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk"
         }
