@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T11:48:51Z",
+  "generated": "2026-10-16T14:46:11Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -33,9 +33,9 @@
       "package": "com.reddit.frontpage.morphe",
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "latest_version": "2026.41.0",
-      "updated": "2026-10-15T14:49:46Z",
-      "versions": 4,
+      "latest_version": "2026.42.0",
+      "updated": "2026-10-16T14:44:18Z",
+      "versions": 5,
       "api": "api/apps/reddit-experimental.json"
     },
     {
@@ -45,7 +45,7 @@
       "brand": "Metra",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "46.2.3",
-      "updated": "2026-10-10T09:03:29Z",
+      "updated": "2026-10-16T14:45:00Z",
       "versions": 1,
       "api": "api/apps/tiktok.json"
     },
@@ -66,9 +66,9 @@
       "package": "app.morphe.android.youtube.dev",
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "latest_version": "21.41.525",
-      "updated": "2026-10-15T14:49:46Z",
-      "versions": 4,
+      "latest_version": "21.42.241",
+      "updated": "2026-10-16T14:44:18Z",
+      "versions": 5,
       "api": "api/apps/youtube-experimental.json"
     }
   ]
