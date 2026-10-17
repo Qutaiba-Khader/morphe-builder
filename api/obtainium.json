@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-17T11:05:32Z",
+  "generated": "2026-10-17T13:36:49Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -30,10 +30,10 @@
       "name": "Reddit Experimental",
       "arch": "all",
       "version": "2026.42.0",
-      "build_version": "2026.42.0-1.48.0.9",
+      "build_version": "2026.42.0-1.48.0.10",
       "package": "com.reddit.frontpage.morphe",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
       "config": {
         "id": "com.reddit.frontpage.morphe",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html",
@@ -90,10 +90,10 @@
       "name": "YouTube Experimental",
       "arch": "all",
       "version": "21.42.241",
-      "build_version": "21.42.241-1.48.0.9",
+      "build_version": "21.42.241-1.48.0.10",
       "package": "app.morphe.android.youtube.dev",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk",
       "config": {
         "id": "app.morphe.android.youtube.dev",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
