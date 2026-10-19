@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-12T11:47:41Z",
+  "generated": "2026-10-19T09:45:06Z",
   "cli": "morphe-desktop-1.18.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 177,
+      "patch_count": 184,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -48,6 +48,10 @@
             },
             {
               "name": "Custom branding",
+              "default": true
+            },
+            {
+              "name": "Custom font",
               "default": true
             },
             {
@@ -373,6 +377,14 @@
               "default": true
             },
             {
+              "name": "Feed card layout",
+              "default": true
+            },
+            {
+              "name": "Feed video actions",
+              "default": true
+            },
+            {
               "name": "Force fullscreen landscape",
               "default": true
             },
@@ -557,6 +569,10 @@
               "default": true
             },
             {
+              "name": "Series tracking",
+              "default": true
+            },
+            {
               "name": "Settings menu filter",
               "default": true
             },
@@ -619,6 +635,10 @@
           "patches": [
             {
               "name": "App icon",
+              "default": true
+            },
+            {
+              "name": "Copy text",
               "default": true
             },
             {
@@ -706,6 +726,10 @@
               "default": true
             },
             {
+              "name": "Redgifs audio",
+              "default": true
+            },
+            {
               "name": "Remember collapsed comments",
               "default": true
             },
@@ -715,6 +739,10 @@
             },
             {
               "name": "Sanitize sharing links",
+              "default": true
+            },
+            {
+              "name": "Show flairs in home feed",
               "default": true
             },
             {
@@ -729,7 +757,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.48.0-dev.3",
+      "version": "v1.48.0-dev.12",
       "spec": "dev",
       "used_by": [
         {
@@ -4001,7 +4029,7 @@
         }
       },
       "url": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
-      "version": "v0.8.0",
+      "version": "v0.8.1",
       "spec": "latest",
       "used_by": [
         {
@@ -4011,7 +4039,7 @@
       ]
     },
     "github:rushiranpise/morphe-patches": {
-      "patch_count": 279,
+      "patch_count": 278,
       "universal_patches": [
         "Disable PairIP license check",
         "Fix Firebase after re-signing",
@@ -4035,7 +4063,7 @@
         },
         "ai.topicfinder.podcastdiscovery": {
           "versions": [
-            "4.1.21"
+            "4.3.11"
           ],
           "patches": [
             {
@@ -4068,7 +4096,7 @@
         },
         "app.simple.inure": {
           "versions": [
-            "build107.2.2"
+            "build107.2.4"
           ],
           "patches": [
             {
@@ -4090,7 +4118,7 @@
         },
         "apps.automan.blurwallpaper": {
           "versions": [
-            "2.9.6"
+            "3.0.0"
           ],
           "patches": [
             {
@@ -4134,7 +4162,7 @@
         },
         "club.boxbox.android": {
           "versions": [
-            "5.4.15"
+            "5.4.17"
           ],
           "patches": [
             {
@@ -4145,7 +4173,7 @@
         },
         "cn.danatech.xingseus": {
           "versions": [
-            "5.35.0"
+            "5.36.0"
           ],
           "patches": [
             {
@@ -4189,7 +4217,7 @@
         },
         "com.aaenabler.app": {
           "versions": [
-            "v1.0.12"
+            "v1.0.14"
           ],
           "patches": [
             {
@@ -4266,7 +4294,7 @@
         },
         "com.alexandrucene.dayhistory": {
           "versions": [
-            "7.5.5"
+            "7.6.0"
           ],
           "patches": [
             {
@@ -4288,7 +4316,7 @@
         },
         "com.amazon.mShop.android.shopping": {
           "versions": [
-            "32.17.0.100"
+            "32.18.0.100"
           ],
           "patches": [
             {
@@ -4338,7 +4366,7 @@
         },
         "com.anetcapture.mock": {
           "versions": [
-            "2.4.1-ad_mob"
+            "2.5.0-ad_mob"
           ],
           "patches": [
             {
@@ -4360,7 +4388,7 @@
         },
         "com.app.social_gamebox": {
           "versions": [
-            "1.1.3"
+            "1.4.3"
           ],
           "patches": [
             {
@@ -4382,7 +4410,7 @@
         },
         "com.appostrophe.scrl": {
           "versions": [
-            "1.27"
+            "1.31"
           ],
           "patches": [
             {
@@ -4481,7 +4509,7 @@
         },
         "com.bubblesoft.android.bubbleupnp": {
           "versions": [
-            "4.6.6"
+            "4.6.7.1"
           ],
           "patches": [
             {
@@ -4492,7 +4520,7 @@
         },
         "com.budget.tracker_app": {
           "versions": [
-            "6.6.11"
+            "6.7.2"
           ],
           "patches": [
             {
@@ -4503,7 +4531,7 @@
         },
         "com.calimoto.calimoto": {
           "versions": [
-            "2026.08.3"
+            "2026.10.2"
           ],
           "patches": [
             {
@@ -4547,7 +4575,7 @@
         },
         "com.changayaf.inmigreat": {
           "versions": [
-            "2.3.63"
+            "2.3.87"
           ],
           "patches": [
             {
@@ -4558,7 +4586,7 @@
         },
         "com.citymapper.app.release": {
           "versions": [
-            "11.58"
+            "11.60"
           ],
           "patches": [
             {
@@ -4588,7 +4616,7 @@
         },
         "com.clue.android": {
           "versions": [
-            "269.1"
+            "273.0"
           ],
           "patches": [
             {
@@ -4599,7 +4627,7 @@
         },
         "com.codium.hydrocoach": {
           "versions": [
-            "5.1.10"
+            "5.1.13"
           ],
           "patches": [
             {
@@ -4610,7 +4638,7 @@
         },
         "com.consumedbycode.slopes": {
           "versions": [
-            "2026.15"
+            "2026.16"
           ],
           "patches": [
             {
@@ -4643,7 +4671,7 @@
         },
         "com.delphicoder.flud": {
           "versions": [
-            "2.0.16"
+            "2.1.2"
           ],
           "patches": [
             {
@@ -4834,7 +4862,7 @@
         },
         "com.flightradar24free": {
           "versions": [
-            "11.10.0"
+            "11.12.0"
           ],
           "patches": [
             {
@@ -4845,7 +4873,7 @@
         },
         "com.funnmedia.calory": {
           "versions": [
-            "3.8"
+            "3.8.7"
           ],
           "patches": [
             {
@@ -4889,7 +4917,7 @@
         },
         "com.google.android.apps.photos": {
           "versions": [
-            "7.92.0.977185651"
+            "7.97.0.997578476"
           ],
           "patches": [
             {
@@ -4924,7 +4952,7 @@
         },
         "com.guochao.faceshow": {
           "versions": [
-            "3.2.87"
+            "3.2.91"
           ],
           "patches": [
             {
@@ -4935,7 +4963,7 @@
         },
         "com.ilv.vradio": {
           "versions": [
-            "2.9.3"
+            "2.9.4"
           ],
           "patches": [
             {
@@ -4946,7 +4974,7 @@
         },
         "com.inscode.autoclicker": {
           "versions": [
-            "7.1.5"
+            "7.1.6"
           ],
           "patches": [
             {
@@ -4972,7 +5000,7 @@
         },
         "com.iudesk.android.photo.editor": {
           "versions": [
-            "14.0"
+            "14.2"
           ],
           "patches": [
             {
@@ -4994,7 +5022,7 @@
         },
         "com.jeffprod.cubesolver": {
           "versions": [
-            "5.0.4"
+            "5.1.0"
           ],
           "patches": [
             {
@@ -5020,7 +5048,7 @@
         },
         "com.jndapp.depth.live.wallpaper": {
           "versions": [
-            "2.1.06"
+            "2.1.07"
           ],
           "patches": [
             {
@@ -5064,7 +5092,7 @@
         },
         "com.kevinforeman.nzb360": {
           "versions": [
-            "24.4.1"
+            "25.2"
           ],
           "patches": [
             {
@@ -5131,25 +5159,18 @@
           ],
           "patches": [
             {
-              "name": "Unlock Platinum",
+              "name": "Material You themed icon",
               "default": true
-            }
-          ]
-        },
-        "com.live.flight.tracker": {
-          "versions": [
-            "1.7.1"
-          ],
-          "patches": [
+            },
             {
-              "name": "Unlock Premium",
+              "name": "Unlock Platinum",
               "default": true
             }
           ]
         },
         "com.livescore": {
           "versions": [
-            "10.1"
+            "10.3.1"
           ],
           "patches": [
             {
@@ -5204,7 +5225,7 @@
         },
         "com.marsvard.stickermakerforwhatsapp": {
           "versions": [
-            "1.0.10-5"
+            "1.0.12-7"
           ],
           "patches": [
             {
@@ -5351,7 +5372,7 @@
         },
         "com.navitime.inbound.walk": {
           "versions": [
-            "12.2.2"
+            "12.2.5"
           ],
           "patches": [
             {
@@ -5362,7 +5383,7 @@
         },
         "com.newsbreak.crimeradar": {
           "versions": [
-            "26.36.1"
+            "26.41.0"
           ],
           "patches": [
             {
@@ -5428,7 +5449,7 @@
         },
         "com.opera.app.news": {
           "versions": [
-            "14.2.2254.84245"
+            "14.4.2254.84848"
           ],
           "patches": [
             {
@@ -5483,7 +5504,7 @@
         },
         "com.particlenews.newsbreak": {
           "versions": [
-            "26.37.1"
+            "26.41.0"
           ],
           "patches": [
             {
@@ -5568,7 +5589,7 @@
         },
         "com.pryshedko.materialpods": {
           "versions": [
-            "6.70"
+            "6.72"
           ],
           "patches": [
             {
@@ -5623,7 +5644,7 @@
         },
         "com.regasoftware.udisc": {
           "versions": [
-            "24.2.12"
+            "24.3.2"
           ],
           "patches": [
             {
@@ -5656,7 +5677,7 @@
         },
         "com.saldous.casetracker": {
           "versions": [
-            "5.5.6"
+            "5.6.0"
           ],
           "patches": [
             {
@@ -5667,7 +5688,7 @@
         },
         "com.server.auditor.ssh.client": {
           "versions": [
-            "7.9.0"
+            "7.11.2"
           ],
           "patches": [
             {
@@ -5700,7 +5721,7 @@
         },
         "com.snowcorp.stickerly.android": {
           "versions": [
-            "3.37.1"
+            "3.40.0"
           ],
           "patches": [
             {
@@ -5722,7 +5743,7 @@
         },
         "com.socialnmobile.dictapps.notepad.color.note": {
           "versions": [
-            "4.8.6"
+            "4.8.8"
           ],
           "patches": [
             {
@@ -5810,7 +5831,7 @@
         },
         "com.tecso.MigraConnect": {
           "versions": [
-            "2.8.2"
+            "2.8.4"
           ],
           "patches": [
             {
@@ -5832,7 +5853,7 @@
         },
         "com.theathletic": {
           "versions": [
-            "13.150.0"
+            "13.153.0"
           ],
           "patches": [
             {
@@ -5854,7 +5875,7 @@
         },
         "com.thetransitapp.droid": {
           "versions": [
-            "6.3.2"
+            "6.3.5"
           ],
           "patches": [
             {
@@ -5876,7 +5897,7 @@
         },
         "com.toomics.global.google": {
           "versions": [
-            "1.6.8"
+            "1.6.9"
           ],
           "patches": [
             {
@@ -5909,7 +5930,7 @@
         },
         "com.twtapp": {
           "versions": [
-            "3.5.0"
+            "3.5.3"
           ],
           "patches": [
             {
@@ -5931,7 +5952,7 @@
         },
         "com.urbandroid.kinestop": {
           "versions": [
-            "5.5"
+            "5.6"
           ],
           "patches": [
             {
@@ -5942,7 +5963,7 @@
         },
         "com.vizmanga.android": {
           "versions": [
-            "4.14.5"
+            "4.14.6"
           ],
           "patches": [
             {
@@ -5986,7 +6007,7 @@
         },
         "com.weather.Weather": {
           "versions": [
-            "16.21.1"
+            "16.25.0"
           ],
           "patches": [
             {
@@ -6019,7 +6040,7 @@
         },
         "com.windscribe.vpn": {
           "versions": [
-            "4.2.2328"
+            "4.3.2360"
           ],
           "patches": [
             {
@@ -6074,7 +6095,7 @@
         },
         "cz.mroczis.netmonster": {
           "versions": [
-            "3.4.3"
+            "4.0.5"
           ],
           "patches": [
             {
@@ -6162,7 +6183,7 @@
         },
         "eu.darken.octi": {
           "versions": [
-            "1.2.2-rc0"
+            "1.3.0-rc0"
           ],
           "patches": [
             {
@@ -6195,7 +6216,7 @@
         },
         "eu.duong.picturemanager": {
           "versions": [
-            "8.30.0"
+            "8.30.2"
           ],
           "patches": [
             {
@@ -6228,7 +6249,7 @@
         },
         "eu.toneiv.ubktouch": {
           "versions": [
-            "1.17.8"
+            "1.17.10"
           ],
           "patches": [
             {
@@ -6283,7 +6304,7 @@
         },
         "in.amazon.mShop.android.shopping": {
           "versions": [
-            "32.17.0.300"
+            "32.18.0.300"
           ],
           "patches": [
             {
@@ -6377,7 +6398,7 @@
         },
         "je.fit": {
           "versions": [
-            "17.4.4"
+            "17.4.5"
           ],
           "patches": [
             {
@@ -6388,7 +6409,7 @@
         },
         "jp.co.shueisha.mangaplus": {
           "versions": [
-            "2.6.4"
+            "2.7.0"
           ],
           "patches": [
             {
@@ -6724,7 +6745,7 @@
         },
         "org.zwanoo.android.speedtest": {
           "versions": [
-            "7.1.0"
+            "7.1.2"
           ],
           "patches": [
             {
@@ -6757,7 +6778,7 @@
         },
         "proton.android.pass": {
           "versions": [
-            "1.40.3"
+            "1.41.3"
           ],
           "patches": [
             {
@@ -6827,7 +6848,7 @@
         },
         "verbosus.pialytic": {
           "versions": [
-            "1.3.2"
+            "1.3.5"
           ],
           "patches": [
             {
@@ -6847,20 +6868,9 @@
             }
           ]
         },
-        "xorsand.relane": {
-          "versions": [
-            "2026073010.0.0"
-          ],
-          "patches": [
-            {
-              "name": "Unlock Premium",
-              "default": true
-            }
-          ]
-        },
         "xyz.rtrvr.pillo": {
           "versions": [
-            "0.6.19"
+            "0.6.24"
           ],
           "patches": [
             {
@@ -6871,7 +6881,7 @@
         }
       },
       "url": "https://github.com/rushiranpise/morphe-patches",
-      "version": "v1.22.0",
+      "version": "v1.23.0",
       "spec": "latest",
       "used_by": [
         {
@@ -7779,9 +7789,6 @@
     "com.lingodeer": [
       "github:hoo-dles/morphe-patches"
     ],
-    "com.live.flight.tracker": [
-      "github:rushiranpise/morphe-patches"
-    ],
     "com.livescore": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8433,9 +8440,6 @@
       "github:hoo-dles/morphe-patches"
     ],
     "women.workout.female.fitness": [
-      "github:rushiranpise/morphe-patches"
-    ],
-    "xorsand.relane": [
       "github:rushiranpise/morphe-patches"
     ],
     "xyz.rtrvr.pillo": [
