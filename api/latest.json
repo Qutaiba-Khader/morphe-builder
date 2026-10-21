@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T14:56:31Z",
+  "generated": "2026-10-21T09:46:21Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
     "reddit-experimental": {
@@ -28,7 +28,7 @@
           "arch": "all",
           "size": 108952680,
           "sha256": "06dd6ef7cf48c429d688ba37f68d56b27a26f4b23f4a626e1c65a71562f32aea",
-          "downloads": 0,
+          "downloads": 8,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk"
         }
@@ -61,7 +61,7 @@
           "arch": "all",
           "size": 145570401,
           "sha256": "fe307f8c38455d67b3673d484e0f57e6d6cbd64499a63c90196075a5c50c0eae",
-          "downloads": 0,
+          "downloads": 10,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.42.241-all.apk"
         }
@@ -94,7 +94,7 @@
           "arch": "all",
           "size": 597347508,
           "sha256": "05fa8c3ab273069ff30c2febd8b01133573a9f57993ccd76c2c073b5b8db6e5c",
-          "downloads": 42,
+          "downloads": 51,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
@@ -127,7 +127,7 @@
           "arch": "all",
           "size": 102489573,
           "sha256": "608f6a227827aff442683d82f7545b9f610b5f42235e56f8a5cdf89cf6edbfda",
-          "downloads": 86,
+          "downloads": 95,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/reddit-morphe-v2026.24.0-all.apk",
           "name": "reddit-morphe-v2026.24.0-all.apk"
         }
@@ -160,7 +160,7 @@
           "arch": "all",
           "size": 131166013,
           "sha256": "7cb46f7b717bcb319575f51e0d100bd557189bc35650f61f2806a4a7bfb2ff5b",
-          "downloads": 93,
+          "downloads": 102,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/youtube-morphe-v21.20.405-all.apk",
           "name": "youtube-morphe-v21.20.405-all.apk"
         }
