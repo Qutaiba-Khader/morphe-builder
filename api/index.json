@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-21T21:55:42Z",
+  "generated": "2026-10-21T23:06:24Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -40,14 +40,25 @@
     },
     {
       "id": "stremio-tv",
-      "name": "Stremio TV",
+      "name": "Stremio TV Clone",
       "package": "com.stremio.one.subs",
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.11.3",
-      "updated": "2026-10-21T21:51:39Z",
+      "updated": "2026-10-21T23:05:12Z",
       "versions": 1,
       "api": "api/apps/stremio-tv.json"
+    },
+    {
+      "id": "stremio-tv-replace",
+      "name": "Stremio TV Replacement",
+      "package": "com.stremio.one",
+      "brand": "subs",
+      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
+      "latest_version": "1.11.3",
+      "updated": "2026-10-21T23:05:12Z",
+      "versions": 1,
+      "api": "api/apps/stremio-tv-replace.json"
     },
     {
       "id": "tiktok",
