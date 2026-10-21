@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-21T23:06:24Z",
+  "generated": "2026-10-21T23:07:04Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -63,8 +63,7 @@
       },
       "deep_link": "obtainium://app/%7B%22id%22%3A%22com.stremio.one.subs%22%2C%22url%22%3A%22https%3A%2F%2Fqutaiba-khader.github.io%2Fmorphe-builder%2Fobtainium%2Fstremio-tv.html%22%2C%22author%22%3A%22Qutaiba-Khader%22%2C%22name%22%3A%22Stremio%20TV%20Clone%20%28Subs%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22versionExtractionRegEx%5C%22%3A%5C%22name%3D%5C%5C%5C%22build-version%5C%5C%5C%22%20content%3D%5C%5C%5C%22%28%5B%5E%5C%5C%5C%22%5D%2B%29%5C%5C%5C%22%5C%22%2C%5C%22matchGroupToUse%5C%22%3A%5C%221%5C%22%2C%5C%22versionExtractWholePage%5C%22%3Atrue%2C%5C%22versionDetection%5C%22%3Atrue%2C%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%5C%5C%5C.apk%24%5C%22%2C%5C%22appName%5C%22%3A%5C%22Stremio%20TV%20Clone%20%28Subs%29%5C%22%2C%5C%22appAuthor%5C%22%3A%5C%22Qutaiba-Khader%5C%22%7D%22%7D",
       "add_url": "https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522com.stremio.one.subs%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fqutaiba-khader.github.io%252Fmorphe-builder%252Fobtainium%252Fstremio-tv.html%2522%252C%2522author%2522%253A%2522Qutaiba-Khader%2522%252C%2522name%2522%253A%2522Stremio%2520TV%2520Clone%2520%2528Subs%2529%2522%252C%2522additionalSettings%2522%253A%2522%257B%255C%2522versionExtractionRegEx%255C%2522%253A%255C%2522name%253D%255C%255C%255C%2522build-version%255C%255C%255C%2522%2520content%253D%255C%255C%255C%2522%2528%255B%255E%255C%255C%255C%2522%255D%252B%2529%255C%255C%255C%2522%255C%2522%252C%255C%2522matchGroupToUse%255C%2522%253A%255C%25221%255C%2522%252C%255C%2522versionExtractWholePage%255C%2522%253Atrue%252C%255C%2522versionDetection%255C%2522%253Atrue%252C%255C%2522apkFilterRegEx%255C%2522%253A%255C%2522%255C%255C%255C%255C.apk%2524%255C%2522%252C%255C%2522appName%255C%2522%253A%255C%2522Stremio%2520TV%2520Clone%2520%2528Subs%2529%255C%2522%252C%255C%2522appAuthor%255C%2522%253A%255C%2522Qutaiba-Khader%255C%2522%257D%2522%257D",
-      "page": "obtainium/stremio-tv.html",
-      "variants": []
+      "page": "obtainium/stremio-tv.html"
     },
     {
       "app": "stremio-tv-replace",
