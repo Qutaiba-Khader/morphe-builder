@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-21T19:58:21Z",
+  "generated": "2026-10-21T21:55:42Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv",
   "name": "Stremio TV",
@@ -9,7 +9,7 @@
     {
       "version": "1.11.3",
       "tag": "26.10.21-subs",
-      "published": "2026-10-21T19:57:07Z",
+      "published": "2026-10-21T21:51:39Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.21-subs",
       "patches": [
@@ -18,8 +18,8 @@
           "version": "1.47.0"
         },
         {
-          "file": "Qutaiba-Khader/patches-0.2.1.mpp",
-          "version": "0.2.1"
+          "file": "Qutaiba-Khader/patches-0.3.0.mpp",
+          "version": "0.3.0"
         }
       ],
       "cli": {
@@ -30,7 +30,7 @@
         {
           "arch": "arm64-v8a",
           "size": 97481457,
-          "sha256": "5f79da372778631255732bd1dbab584d5ff3d40e00250b6c1c8474312c0c8e5d",
+          "sha256": "9fb1f144b401032cbeca3364b6a44dd5474bdbfc9a59e5e77de23bcf51242808",
           "downloads": 0,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-subs/stremio-tv-subs-v1.11.3-arm64-v8a.apk",
           "name": "stremio-tv-subs-v1.11.3-arm64-v8a.apk"
