@@ -296,12 +296,19 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-includin
 # Stremio for Android TV with the SubSense subtitle auto-refresh patch (Qutaiba-Khader/stremio-subs-patches).
 # The APK comes straight from Stremio (its download feed, see src/scrapers/stremio.py), always the newest version:
 # CI rebuilds it when the patches publish a release AND when Stremio publishes a new Android TV version.
-# It installs BESIDE the original Stremio (Clone app -> com.stremio.one.subs, named "Stremio Subs").
+# Two APKs per release, both from the same Stremio APK and the same patch bundle:
+#   [Stremio-TV]         "Stremio TV Clone" - installs BESIDE the original Stremio (Clone app -> com.stremio.one.subs,
+#                        named "Stremio Subs" on the launcher). The table keeps its name so its Obtainium page stays.
+#   [Stremio-TV-Replace] "Stremio TV Replacement" - REPLACES the original: same package com.stremio.one, same name
+#                        "Stremio". It is signed with this builder's key, not Stremio's, so the original must be
+#                        uninstalled once before the first install.
 # 🔴 `-OpackageName` must directly follow `-e 'Clone app'`: patcher-args go after the includes, and "Clone app" is the
 # last include because morphe-patches is the last patch source below.
+# 🔴 The two app-names must stay different and neither may be plain "Stremio TV": an asset is matched to its app by
+# "<app-name>-<brand>-v", and the first release's clone assets are named stremio-tv-subs-v….
 [Stremio-TV]
 enabled = true
-app-name = "Stremio TV"
+app-name = "Stremio TV Clone"
 brand = "subs"
 stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
 arch = "arm64-v8a"
@@ -312,3 +319,15 @@ patcher-args = "-OpackageName=com.stremio.one.subs"
 [Stremio-TV.patches]
 "github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Test app name"]
 "github:MorpheApp/morphe-patches" = ["Clone app"]
+
+[Stremio-TV-Replace]
+enabled = true
+app-name = "Stremio TV Replacement"
+brand = "subs"
+stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
+arch = "arm64-v8a"
+version = "latest"
+exclusive-patches = true
+
+[Stremio-TV-Replace.patches]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh"]

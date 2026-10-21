@@ -67,14 +67,16 @@ def _fetch_our_releases(repo: str, net: NetworkManager) -> dict[str, str]:
 
 def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: NetworkManager) -> bool:
     """morphe-builder: an app taken straight from Stremio's download feed (stremio-dlurl) is rebuilt when Stremio
-    publishes a version our newest release for the brand does not carry yet (asset names hold -v<version>-)."""
+    publishes a version that the brand's releases do not carry yet FOR EVERY such app (asset names are
+    <app-name>-<brand>-v<version>-…, as builder.py writes them), so one app built without the other is not enough."""
     from src.scrapers.stremio import StremioScraper
-    wanted: set[str] = set()
+    wanted: set[tuple[str, str]] = set()
     for app in apps:
         url = app.dl_urls.get("stremio")
         if url:
+            stem = f"{app.app_name.lower().replace(' ', '-')}-{app.brand.lower().replace(' ', '-')}"
             try:
-                wanted.update(StremioScraper(net).fetch_metadata(url).versions)
+                wanted.update((stem, v) for v in StremioScraper(net).fetch_metadata(url).versions)
             except Exception as exc:
                 epr(f"Could not read Stremio's download feed for '{app.table}': {exc}")
     if not wanted:
@@ -84,10 +86,10 @@ def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: Netwo
     except Exception as exc:
         epr(f"Failed to fetch our releases: {exc}")
         return True
-    names = [str(a.get("name") or "") for r in releases if str(r.get("tag_name") or "").split("-", 1)[-1] == brand for a in r.get("assets", [])]
-    missing = [v for v in wanted if not any(f"-v{v}-" in n for n in names)]
+    names = [str(a.get("name") or "").lower() for r in releases if str(r.get("tag_name") or "").split("-", 1)[-1] == brand for a in r.get("assets", [])]
+    missing = sorted(f"{stem} {v}" for stem, v in wanted if not any(n.startswith(f"{stem}-v{v.lower()}-") for n in names))
     if missing:
-        epr(f"Stremio published {', '.join(missing)}: building brand '{brand}'")
+        epr(f"No release carries {', '.join(missing)}: building brand '{brand}'")
     return bool(missing)
 
 def _load_entries() -> list[AppEntry]:
