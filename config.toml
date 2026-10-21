@@ -292,3 +292,23 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-includin
 
 [TikTok.patches]
 "github:icysymmetra/tiktok-patches-for-morphe" = []
+
+# Stremio for Android TV with the SubSense subtitle auto-refresh patch (Qutaiba-Khader/stremio-subs-patches).
+# The APK comes straight from Stremio (its download feed, see src/scrapers/stremio.py), always the newest version:
+# CI rebuilds it when the patches publish a release AND when Stremio publishes a new Android TV version.
+# It installs BESIDE the original Stremio (Clone app -> com.stremio.one.subs, named "Stremio Subs").
+# 🔴 `-OpackageName` must directly follow `-e 'Clone app'`: patcher-args go after the includes, and "Clone app" is the
+# last include because morphe-patches is the last patch source below.
+[Stremio-TV]
+enabled = true
+app-name = "Stremio TV"
+brand = "subs"
+stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
+arch = "arm64-v8a"
+version = "latest"
+exclusive-patches = true
+patcher-args = "-OpackageName=com.stremio.one.subs"
+
+[Stremio-TV.patches]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Test app name"]
+"github:MorpheApp/morphe-patches" = ["Clone app"]

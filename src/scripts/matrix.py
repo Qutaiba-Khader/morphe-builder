@@ -65,6 +65,31 @@ def _fetch_our_releases(repo: str, net: NetworkManager) -> dict[str, str]:
         our_releases_by_brand = {}
     return our_releases_by_brand
 
+def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: NetworkManager) -> bool:
+    """morphe-builder: an app taken straight from Stremio's download feed (stremio-dlurl) is rebuilt when Stremio
+    publishes a version our newest release for the brand does not carry yet (asset names hold -v<version>-)."""
+    from src.scrapers.stremio import StremioScraper
+    wanted: set[str] = set()
+    for app in apps:
+        url = app.dl_urls.get("stremio")
+        if url:
+            try:
+                wanted.update(StremioScraper(net).fetch_metadata(url).versions)
+            except Exception as exc:
+                epr(f"Could not read Stremio's download feed for '{app.table}': {exc}")
+    if not wanted:
+        return False
+    try:
+        releases: list[dict[str, Any]] = json.loads(net.get(f"https://api.github.com/repos/{repo}/releases?per_page=100", headers=net.gh_headers))
+    except Exception as exc:
+        epr(f"Failed to fetch our releases: {exc}")
+        return True
+    names = [str(a.get("name") or "") for r in releases if str(r.get("tag_name") or "").split("-", 1)[-1] == brand for a in r.get("assets", [])]
+    missing = [v for v in wanted if not any(f"-v{v}-" in n for n in names)]
+    if missing:
+        epr(f"Stremio published {', '.join(missing)}: building brand '{brand}'")
+    return bool(missing)
+
 def _load_entries() -> list[AppEntry]:
     data = load_toml(CONFIG_PATH)
     return parse_app_entries(data, parse_config(data))
@@ -170,6 +195,9 @@ def check_builds_needed(force_all: bool = False) -> None:
                         break
                 if has_apps:
                     brands_to_build.append(brand)
+        for brand, apps in entries_by_brand.items():
+            if brand not in brands_to_build and any("stremio" in a.dl_urls for a in apps) and _stremio_needs_build(repo, brand, apps, net):
+                brands_to_build.append(brand)
     print(json.dumps(brands_to_build))
 
 def main() -> None:

@@ -103,6 +103,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/inc/app"
 | `changelog-keywords` | List of keywords used to detect if this app was updated in the release notes | `[]` | Per-app |
 | `apkmirror-dlurl` | APKMirror page URL | `-` | Per-app |
 | `github-dlurl` | GitHub Releases page URL | `-` | Per-app |
+| `stremio-dlurl` | Stremio's download feed + `#entry` (`https://api.strem.io/downloads/config#android_tv`); always the current version, one APK per CPU (set `arch`); CI also rebuilds when Stremio publishes a new version | `-` | Per-app |
 | `exclusive-patches` | Only apply patches listed in `[AppName.patches]`, exclude everything else | `false` | Per-app |
 | `patcher-args` | Extra arguments passed directly to Morphe CLI | `-` | Per-app |
 | `skip-sigcheck` | Completely bypasses signature checks for this app (see note below) | `false` | **Per-app only** |

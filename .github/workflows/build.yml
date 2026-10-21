@@ -17,6 +17,7 @@ on:
           - paresh
           - de-vanced
           - tiktok
+          - subs
   workflow_call:
     inputs:
       patch_source:

@@ -22,7 +22,7 @@ from typing import TypedDict, cast
 TEMP_DIR: Path = Path("temp")
 BUILD_DIR: Path = Path("build")
 CONFIG_PATH: Path = Path("config.toml")
-SOURCES: tuple[str, ...] = ("apkmirror", "github")
+SOURCES: tuple[str, ...] = ("apkmirror", "github", "stremio")
 VALID_ARCHES: frozenset[str] = frozenset({"both", "all", "arm64-v8a", "armeabi-v7a", "x86_64", "x86"})
 
 
