@@ -304,6 +304,8 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-includin
 #                        uninstalled once before the first install.
 # 🔴 `-OpackageName` must directly follow `-e 'Clone app'`: patcher-args go after the includes, and "Clone app" is the
 # last include because morphe-patches is the last patch source below.
+# armeabi-v7a: the owner's Google TV Streamer is 32-bit only (abilist armeabi-v7a,armeabi); the 32-bit APK also runs on
+# 64-bit devices, so one ABI serves every device.
 # 🔴 The two app-names must stay different and neither may be plain "Stremio TV": an asset is matched to its app by
 # "<app-name>-<brand>-v", and the first release's clone assets are named stremio-tv-subs-v….
 [Stremio-TV]
@@ -311,7 +313,7 @@ enabled = true
 app-name = "Stremio TV Clone"
 brand = "subs"
 stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
-arch = "arm64-v8a"
+arch = "armeabi-v7a"
 version = "latest"
 exclusive-patches = true
 patcher-args = "-OpackageName=com.stremio.one.subs"
@@ -325,7 +327,7 @@ enabled = true
 app-name = "Stremio TV Replacement"
 brand = "subs"
 stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
-arch = "arm64-v8a"
+arch = "armeabi-v7a"
 version = "latest"
 exclusive-patches = true
 
