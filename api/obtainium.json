@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-22T05:15:11Z",
+  "generated": "2026-10-22T17:31:58Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -93,7 +93,7 @@
       "build_version": "46.2.3-0.8.1",
       "package": "com.zhiliaoapp.musically",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/tiktok.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-metra/tiktok-metra-v46.2.3-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk",
       "config": {
         "id": "com.zhiliaoapp.musically",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/tiktok.html",
