@@ -19,7 +19,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 from src.core.network import NetworkManager, ResourceNotFoundError
-from src.scrapers.base import AppMetadata, BaseScraper, DownloadResult, ScraperError, parse_html
+from src.scrapers.base import VERSION_CODE_HINTS, AppMetadata, BaseScraper, DownloadResult, ScraperError, parse_html
 
 _DEFAULT_ARCH: frozenset[str] = frozenset({"universal", "noarch", "arm64-v8a + armeabi-v7a", "arm64-v8a + armeabi"})
 
@@ -31,6 +31,7 @@ class APKMirrorScraper(BaseScraper):
         super().__init__(net)
         self._category: str = ""
         self._release_urls: dict[str, str] = {}
+        self._pkg: str = ""
 
     def fetch_metadata(self, url: str) -> AppMetadata:
         resp_html = self.net.get(url)
@@ -38,6 +39,7 @@ class APKMirrorScraper(BaseScraper):
         m = re.search(r"play\.google\.com/store/apps/details\?id=([\w.]+)", resp_html)
         if not m:
             raise APKMirrorError("Package name not found")
+        self._pkg = m.group(1)
 
         soup = parse_html(self.net.get(f"https://www.apkmirror.com/uploads/?appcategory={self._category}"))
         versions: list[str] = []
@@ -80,6 +82,7 @@ class APKMirrorScraper(BaseScraper):
 
         is_bundle = False
         soup_release = parse_html(release_html)
+        self._record_version_code(soup_release, version)
         if soup_release.select_one("div.table-row.headerFont:last-child"):
             dl_url = self._pick_variant(soup_release, dpi, arch, version_code=version_code, version=version)
             if dl_url is None:
@@ -100,6 +103,17 @@ class APKMirrorScraper(BaseScraper):
         out_path = dest.with_suffix(".apkm") if is_bundle else dest
         self.net.download(final_url, out_path)
         return DownloadResult(path=out_path, is_bundle=is_bundle)
+
+    def _record_version_code(self, soup: BeautifulSoup, version: str) -> None:
+        """morphe-builder: note the release's version code for the Google Play source, which can
+        only fetch an old version by its exact code (kept even if this download fails)."""
+        if not self._pkg:
+            return
+        for span in soup.select("div.table-row.headerFont div.table-cell span.colorLightBlack"):
+            txt = span.get_text(strip=True)
+            if txt.isdigit() and "wrapText" not in (span.get("class") or []):
+                VERSION_CODE_HINTS.setdefault((self._pkg, version.lstrip("v")), txt)
+                return
 
     def _pick_variant(self, soup: BeautifulSoup, dpi: str, arch: str, version_code: str | None = None, version: str = "") -> tuple[str, str] | None:
         apparch: set[str] = set(_DEFAULT_ARCH)

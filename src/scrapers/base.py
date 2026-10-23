@@ -23,6 +23,10 @@ from src.core.network import NetworkManager
 def parse_html(html: str) -> BeautifulSoup:
     return BeautifulSoup(html, "html.parser")
 
+# morphe-builder: (package, version) -> version code, from whichever source saw it (APKMirror's
+# variant table, Google Play). Google Play only serves an old version by its exact code.
+VERSION_CODE_HINTS: dict[tuple[str, str], str] = {}
+
 class ScraperError(Exception):
     """Raised for scraper-layer failures: DOM parsing, regex mismatches, missing assets"""
 

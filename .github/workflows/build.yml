@@ -120,6 +120,11 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
           KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          # Google Play, the second APK source (src/scrapers/gplay.py): Aurora's anonymous
+          # sign-in refuses GitHub's runners (HTTP 403), so it needs a Google account here.
+          # Both unset = Google Play is skipped. Use a throwaway account (ADD.md).
+          GOOPDL_ACCOUNT_EMAIL: ${{ secrets.GOOPDL_ACCOUNT_EMAIL }}
+          GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
         run: uv run main.py ${{ matrix.id }} ${{ matrix.arch }}
 
       - name: Upload APKs to draft release

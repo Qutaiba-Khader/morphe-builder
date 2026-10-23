@@ -104,6 +104,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/inc/app"
 | `apkmirror-dlurl` | APKMirror page URL | `-` | Per-app |
 | `github-dlurl` | GitHub Releases page URL | `-` | Per-app |
 | `stremio-dlurl` | Stremio's download feed + `#entry` (`https://api.strem.io/downloads/config#android_tv`); always the current version, one APK per CPU (set `arch`); CI also rebuilds when Stremio publishes a new version | `-` | Per-app |
+| `gplay-dlurl` | Google Play link (`https://play.google.com/store/apps/details?id=<package>`) or package name; tried after the other sources; split APKs are packed into one bundle; on GitHub needs the `GOOPDL_ACCOUNT_EMAIL` + `GOOPDL_AAS_TOKEN` secrets (see ADD.md) | `-` | Per-app |
 | `exclusive-patches` | Only apply patches listed in `[AppName.patches]`, exclude everything else | `false` | Per-app |
 | `patcher-args` | Extra arguments passed directly to Morphe CLI | `-` | Per-app |
 | `skip-sigcheck` | Completely bypasses signature checks for this app (see note below) | `false` | **Per-app only** |

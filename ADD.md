@@ -36,7 +36,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
   the site, the API and Obtainium use.
 * `[]` means *apply the bundle's own default patches* — the ones its author marked
   `Enabled: true`, i.e. the recommended set. It does **not** mean every patch. The site's
-  **Patch catalog** tab shows `<recommended> of <total>` per app, and `data/catalog.json` marks
+  **Our sources** tab shows `<recommended> of <total>` per app, and `data/catalog.json` marks
   `"default": true/false` on every patch.
 * To pick an exact set instead, list the names:
   `"github:MorpheApp/morphe-patches" = ["Hide ads", "SponsorBlock"]`.
@@ -94,6 +94,33 @@ A source is the key inside the app's `.patches` table — `github:owner/repo` or
 Pin a version with the full form: `= { version = "v1.43.0", include = ["..."] }`.
 `version = "dev"` takes the source's highest-versioned release, dev or stable.
 
+## Google Play as a second APK source
+
+APKMirror is tried first. Add `gplay-dlurl` and Google Play is tried when APKMirror fails
+(down, blocked, or no matching file):
+
+```toml
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.google.android.youtube"
+```
+
+It runs [goopdl](https://github.com/Villoh/goopdl) (MIT) and packs Play's split APKs into one
+bundle for the Morphe CLI. Google Play only hands out an **old** version by its exact version
+code; the builder takes that code from APKMirror's page (or the patches) when it has one. A
+universal APK needs Play's 64-bit **and** 32-bit files; when one of them is not offered, Play
+fails rather than publish an APK that leaves 32-bit devices out.
+
+🔴 **On GitHub it needs a Google account.** Play's anonymous sign-in (Aurora's token service)
+answers HTTP 403 to GitHub's runners, so without one the Play step is skipped. Use a
+**throwaway** account, not your own:
+
+1. Create a new Google account.
+2. On a computer with Chrome or Edge, run `uvx --from goopdl==1.2.1 goopdl aastoken --browser`,
+   sign in to that account and tap **I agree**. It prints an AAS token (`aas_et/…`).
+3. In the repository: **Settings → Secrets and variables → Actions → New repository secret**:
+   `GOOPDL_ACCOUNT_EMAIL` = the account's address, `GOOPDL_AAS_TOKEN` = the token.
+
+Changing that account's password invalidates the token; repeat step 2 then.
+
 ## Which apps and patches does a source have?
 
 Don't guess, and don't go reading the patch source's code. The catalog is generated for you:
@@ -102,9 +129,14 @@ Don't guess, and don't go reading the patch source's code. The catalog is genera
 * Raw: [`data/catalog.json`](data/catalog.json) — every configured source mapped to the apps it
   patches, the exact patch names, and the versions each supports.
 
-It refreshes weekly, and you can refresh it on demand from the **Catalog** workflow in the
+It refreshes daily, and you can refresh it on demand from the **Catalog** workflow in the
 Actions tab. Add a new source to `config.toml`, run that workflow, and the catalog will then
 include it.
+
+For sources **not** in `config.toml` yet, the site's **Patchable apps** tab lists every app the
+Morphe community can patch (from [awesome-morphe](https://github.com/nvbangg/awesome-morphe),
+refreshed daily into `data/community.json`): each app's patch sources, their patches and
+supported versions, and a **Copy for config.toml** button with the block to paste here.
 
 ## Useful extras
 

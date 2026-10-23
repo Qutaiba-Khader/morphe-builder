@@ -35,6 +35,7 @@ class BuilderError(Exception):
 def _make_scraper(source: str, net: NetworkManager) -> BaseScraper:
     from src.scrapers.apkmirror import APKMirrorScraper
     from src.scrapers.github import GitHubScraper
+    from src.scrapers.gplay import GPlayScraper
     from src.scrapers.stremio import StremioScraper
     match source:
         case "apkmirror":
@@ -43,6 +44,8 @@ def _make_scraper(source: str, net: NetworkManager) -> BaseScraper:
             return GitHubScraper(net)
         case "stremio":
             return StremioScraper(net)
+        case "gplay":
+            return GPlayScraper(net)
         case _:
             raise ValueError(f"Unknown APK source: {source!r}")
 

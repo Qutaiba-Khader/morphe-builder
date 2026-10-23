@@ -8,6 +8,8 @@
 #      enabled = true
 #      apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>"
 #
+#      gplay-dlurl = "https://play.google.com/store/apps/details?id=<package>"   # optional 2nd source
+#
 #      [My-App.patches]
 #      "github:<owner>/<patches-repo>" = []     # [] = the bundle's DEFAULT (recommended)
 #                                               # patches, not every patch in it
@@ -23,6 +25,7 @@ strict-sigcheck = false
 [YouTube]
 enabled = true
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.google.android.youtube"
 
 [YouTube.patches]
 # no include list = the bundle's own default (recommended) patches.
@@ -45,6 +48,7 @@ arch = "both"
 [Reddit]
 enabled = true
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.reddit.frontpage"
 
 [Reddit.patches]
 "github:MorpheApp/morphe-patches" = { exclude = [
@@ -69,6 +73,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 enabled = true
 brand = "morphe-dev"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.google.android.youtube"
 version = "exp"
 patcher-args = "-e 'Clone app' -OpackageName=app.morphe.android.youtube.dev -e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
 
@@ -95,6 +100,7 @@ patcher-args = "-e 'Change header' -Ocustom=icons/Music/header -e 'Custom brandi
 enabled = true
 brand = "morphe-dev"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.reddit.frontpage"
 version = "exp"
 # Clone app is enabled here in patcher-args, not in the patches `include` list:
 # upstream picks the stock version from the included patches' compatible
@@ -289,6 +295,7 @@ apkmirror-dlurl = "https://www.apkmirror.com/apk/viber-media-s-a-r-l/viber/"
 enabled = true
 brand = "Metra"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/"
+gplay-dlurl = "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically"
 
 [TikTok.patches]
 "github:icysymmetra/tiktok-patches-for-morphe" = []
