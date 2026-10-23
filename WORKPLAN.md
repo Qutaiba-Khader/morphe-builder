@@ -323,3 +323,31 @@ Replayed with Obtainium v1.6.17's own code (import → refresh → badge, real l
   2026-09-20 dev build) gets no update: Obtainium hides downgrades.
 - `_all.html` pasted into Add App → NoReleasesError (harmless); a per-app page pasted there →
   an "App" entry with a hash version (works, but no name/settings). README + site say so.
+
+## Phase 18 — ideas from AutoMorph: Google Play source, community list, new look (2026-10-23)
+
+Owner's order after comparing with [holjab/AutoMorph](https://github.com/holjab/AutoMorph): keep
+universal APKs; add Google Play as a second APK source; take AutoMorph's look; pull the Morphe
+community's patch sources from [awesome-morphe](https://github.com/nvbangg/awesome-morphe) and
+show every patchable app, built here or not.
+
+- **Google Play** (`src/scrapers/gplay.py`, `gplay-dlurl`): goopdl 1.2.1 through `uvx` (MIT, no
+  new dependency). Measured on the host: YouTube 21.16.256 by version code 1561068412 → base +
+  `config.arm64_v8a` + `config.en` + `config.xxhdpi`; packed as `.apkm`, the Morphe CLI patched it
+  into `app.morphe.android.youtube` 21.16.256. goopdl's "armv7" pool also holds 64-bit phones
+  (Play then sends the 64-bit split), so 32-bit uses a 32-bit-only profile in its own token home
+  (Samsung A13 5G → `config.armeabi_v7a`). Old versions need the exact code: APKMirror's release
+  page records it (`VERSION_CODE_HINTS`) even when its download fails. 🔴 Aurora's anonymous
+  dispenser answers **403 to GitHub runners** (probe branch, every profile) and to the Hetzner VPS,
+  so CI needs `GOOPDL_ACCOUNT_EMAIL` + `GOOPDL_AAS_TOKEN` (throwaway account, ADD.md); without them
+  the step says so and is skipped.
+- **Community list** (`tools/gen_community.py` → `data/community.json`, daily in Catalog): one read
+  a day of awesome-morphe's `web/public/bundles.json` from raw.githubusercontent (not their
+  Vercel site), metadata only, MIT credited on the site and README; nothing is built from it.
+  1,276 apps, 387 sources. The site splits it into `api/community/index.json` +
+  `api/community/apps/<package>.json`.
+- **Site**: AutoMorph's palette (morphe.software obsidian + blue→cyan), stat cards, tab bar with
+  search, filter pills, app cards with Play icons, patch-source chips; new **Patchable apps** tab
+  (BUILT HERE marks, every source with stars, patches, versions, "Add to the Morphe app" link and
+  a config.toml block to copy); dark/light toggle. Same element hooks, so the flow test still
+  drives it; new checks for the community list, icons and patch sources.

@@ -186,6 +186,50 @@ check("catalog: search filters the list", visible.length > 0 && visible.length <
 search.value = "";
 search.dispatchEvent(new window.Event("input"));
 
+// --- patchable apps (community list) ----------------------------------------
+{
+  const latestApps = (await (await fetch(BASE + "api/latest.json")).json()).apps;
+  check("cards: every app shows its patch sources",
+    cards.every((c) => c.querySelector(".repos .chip")), cards.filter((c) => !c.querySelector(".repos .chip")).map(titleOf).join(", "));
+  check("cards: every app with a Play package has an icon",
+    Object.values(latestApps).every((a) => !a.source_package || !!a.icon),
+    Object.values(latestApps).filter((a) => a.source_package && !a.icon).map((a) => a.id).join(", "));
+
+  $$(".tab").find((t) => t.dataset.tab === "community")?.click();
+  await sleep(2500);
+  check("tabs: patchable apps panel becomes visible", $("#community")?.classList.contains("is-active"));
+  const ci = await (await fetch(BASE + "api/community/index.json")).json();
+  check("community: list of patchable apps published", (ci.apps || []).length > 500 && ci.patch_sources > 100,
+    `${(ci.apps || []).length} apps, ${ci.patch_sources} sources`);
+  const rows = $$("#community-list details.row");
+  check("community: first page rendered", rows.length > 0 && rows.length <= 60, `${rows.length} row(s)`);
+  check("community: shown as the stat", /\d/.test($("#stat-community")?.textContent ?? ""), $("#stat-community")?.textContent);
+  const builtPkgs = new Set(Object.values(latestApps).map((a) => a.source_package).filter(Boolean));
+  const marked = new Set(ci.apps.filter((a) => (a.built_here || []).length).map((a) => a.package));
+  check("community: every app built here is marked BUILT HERE",
+    [...builtPkgs].every((p) => marked.has(p)), [...builtPkgs].filter((p) => !marked.has(p)).join(", "));
+  const s = $("#search");
+  s.value = "youtube";
+  s.dispatchEvent(new window.Event("input"));
+  await sleep(300);
+  const ytRow = $$("#community-list details.row").find((r) => r.querySelector(".pkg")?.textContent === "com.google.android.youtube");
+  check("community: search finds YouTube, marked BUILT HERE", !!ytRow && ytRow.textContent.includes("BUILT HERE"));
+  ytRow.open = true;
+  ytRow.dispatchEvent(new window.Event("toggle"));
+  await sleep(2000);
+  const cardsSrc = ytRow ? [...ytRow.querySelectorAll(".src-card")] : [];
+  check("community: opening an app lists its patch sources", cardsSrc.length > 1, `${cardsSrc.length} source(s)`);
+  check("community: the official Morphe source is first and marked USED HERE",
+    cardsSrc[0]?.textContent.includes("MorpheApp/morphe-patches") && cardsSrc[0]?.textContent.includes("USED HERE"));
+  check("community: each source offers the Morphe app link and its patch list",
+    cardsSrc.every((c) => c.querySelector('a[href^="https://morphe.software/add-source?"]') && c.querySelectorAll(".patch-list li").length > 0));
+  check("community: no stray null or undefined", strays($("#community-list")).length === 0, strays($("#community-list")).join(", "));
+  s.value = "";
+  s.dispatchEvent(new window.Event("input"));
+  $$(".tab").find((t) => t.dataset.tab === "apps-panel")?.click();
+  await sleep(200);
+}
+
 // --- obtainium --------------------------------------------------------------
 const obtBtn = card?.querySelector("a.dl.alt");
 check("obtainium: add button on the card", obtBtn?.textContent.includes("Add to Obtainium"), obtBtn?.textContent);

@@ -157,6 +157,75 @@ def app_config() -> dict[str, dict[str, str]]:
     return out
 
 
+def table_meta() -> dict[str, dict[str, Any]]:
+    """app id -> {stock package, patch sources, enabled} from config.toml.
+
+    The stock package is the one the APK sources name (gplay-dlurl's id, or Stremio's own),
+    which is how an app is matched with the community list and its Play Store icon.
+    """
+    config = ROOT / "config.toml"
+    if not config.exists():
+        return {}
+    data = tomllib.loads(config.read_text(encoding="utf-8"))
+    out: dict[str, dict[str, Any]] = {}
+    for table, body in data.items():
+        if not isinstance(body, dict):
+            continue
+        pkg = ""
+        if isinstance(gp := body.get("gplay-dlurl"), str):
+            m = re.search(r"[?&]id=([\w.]+)", gp) or re.fullmatch(r"\s*([\w.]+)\s*", gp)
+            pkg = m.group(1) if m else ""
+        elif body.get("stremio-dlurl"):
+            pkg = "com.stremio.one"
+        patches = body.get("patches") or {}
+        sources = [re.sub(r"^(github|gitlab):", "", k) for k in patches] if isinstance(patches, dict) else []
+        out[slug(table)] = {"stock_package": pkg, "sources": sources, "enabled": bool(body.get("enabled"))}
+    return out
+
+
+COMMUNITY_FILE = ROOT / "data" / "community.json"
+
+
+def write_community(api_dir: Path, now: str, meta: dict[str, dict[str, Any]], apps: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """api/community/index.json + api/community/apps/<package>.json from data/community.json.
+
+    Every app the Morphe community can patch (gathered by nvbangg/awesome-morphe), marked with
+    the apps this builder already builds from it. Returns {package: icon} for the build cards.
+    """
+    if not COMMUNITY_FILE.exists():
+        return {}
+    data = json.loads(COMMUNITY_FILE.read_text(encoding="utf-8"))
+    bundles = data.get("bundles") or {}
+    built: dict[str, list[str]] = {}
+    used: dict[str, set[str]] = {}
+    for app_id, m in meta.items():
+        if m["enabled"] and m["stock_package"] and app_id in apps:
+            built.setdefault(m["stock_package"], []).append(app_id)
+            used.setdefault(m["stock_package"], set()).update(m["sources"])
+    index = []
+    for pkg, app in (data.get("apps") or {}).items():
+        sources = []
+        for s in app.get("sources") or []:
+            b = bundles.get(s["repo"], {})
+            sources.append({"repo": s["repo"], **b, "used_here": s["repo"] in used.get(pkg, set()),
+                            "app_patches": len(s.get("patches") or []), "patch_list": s.get("patches") or [],
+                            "versions": s.get("versions") or [], "experimental": s.get("experimental") or []})
+        safe = re.sub(r"[^A-Za-z0-9._-]", "_", pkg)
+        (api_dir / "community" / "apps").mkdir(parents=True, exist_ok=True)
+        (api_dir / "community" / "apps" / f"{safe}.json").write_text(json.dumps(
+            {"package": pkg, "name": app.get("name"), "icon": app.get("icon"), "category": app.get("category"),
+             "built_here": built.get(pkg, []), "sources": sources}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+        index.append({"package": pkg, "file": f"api/community/apps/{safe}.json", "name": app.get("name"),
+                      "icon": app.get("icon"), "category": app.get("category"), "sources": len(sources),
+                      "top": [bundles.get(s["repo"], {}).get("author", s["repo"]) for s in sources[:3]],
+                      "built_here": built.get(pkg, [])})
+    write_json(api_dir / "community" / "index.json", {
+        "generated": now, "data_generated": data.get("generated"), "source": data.get("source"),
+        "patch_sources": len(bundles), "apps": index})
+    print(f"  wrote _site/api/community/apps/*.json ({len(index)} apps)")
+    return {pkg: app.get("icon") for pkg, app in (data.get("apps") or {}).items() if app.get("icon")}
+
+
 def split_asset(name: str, config: dict[str, dict[str, str]]) -> tuple[str, str, str] | None:
     """asset file name -> (stem, version, arch), or None if it is not an APK.
 
@@ -689,6 +758,10 @@ def main() -> int:
             {"generated": now, "repo": repo, **app},
         )
 
+    # --- community list (data/community.json, refreshed daily by Catalog) ----
+    meta = table_meta()
+    icons = write_community(api_dir, now, meta, apps)
+
     # --- latest per app ------------------------------------------------------
     latest = {
         app_id: {
@@ -697,6 +770,9 @@ def main() -> int:
             "package": app["package"] or None,
             "brand": app["brand"],
             "signer": app["signer"] or None,
+            "source_package": meta.get(app_id, {}).get("stock_package") or None,
+            "icon": icons.get(meta.get(app_id, {}).get("stock_package", "")) or None,
+            "patch_sources": meta.get(app_id, {}).get("sources") or [],
             **{k: v for k, v in app["builds"][0].items()},
         }
         for app_id, app in apps.items()
@@ -730,6 +806,7 @@ def main() -> int:
                 "app": "api/apps/{app_id}.json",
                 "catalog": "api/catalog.json",
                 "obtainium": "api/obtainium.json",
+                "community": "api/community/index.json",
             },
             "obtainium": {
                 "add_all_url": obtainium["add_all_url"],

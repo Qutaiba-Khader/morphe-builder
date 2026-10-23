@@ -55,7 +55,9 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
-Patch catalog: 9 sources able to patch 358 apps, in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json).
+Our patch sources: 9 sources able to patch 358 apps, in the website's **Our sources** tab or [`data/catalog.json`](data/catalog.json).
+
+Patchable apps: 1275 apps from 387 Morphe community patch sources, in the website's **[Patchable apps](https://qutaiba-khader.github.io/morphe-builder/#community)** tab, each with the lines to add it here.
 
 Every APK is signed with the certificate SHA-256 `7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603`. [AppVerifier](https://github.com/soupslurpr/AppVerifier) or `apksigner verify --print-certs` shows the same value for a genuine build.
 
@@ -105,8 +107,10 @@ You don't need any of this to install the apps. It is here for the curious and f
 |---|---|---|
 | **CI** | daily at **10:00 UTC**, or on demand | For each brand in [`config.toml`](config.toml), compares the patch source's newest release with ours. If the patches moved, it downloads the stock APK, patches it, signs it and publishes a release tagged `YY.MM.DD-<brand>`. If nothing moved, no release. |
 | **Site** | after every build, every 6 hours, and on push | Rebuilds the [website](https://qutaiba-khader.github.io/morphe-builder/), the JSON API and the Download tables above from the releases, and publishes them to the `gh-pages` branch. While a build is still running it leaves the live site alone and runs again when the build finishes. |
-| **Catalog** | weekly, **Monday 04:00 UTC**, or on demand | Rebuilds [`data/catalog.json`](data/catalog.json), the list of every app each patch source can patch. |
+| **Catalog** | daily at **04:00 UTC**, or on demand | Rebuilds [`data/catalog.json`](data/catalog.json), the list of every app each patch source in `config.toml` can patch, and [`data/community.json`](data/community.json), every app the whole Morphe community can patch (from [awesome-morphe](https://github.com/nvbangg/awesome-morphe), MIT; one file read a day), shown on the website's **Patchable apps** tab. |
 | **Sync upstream** | daily at **08:00 UTC** | Pulls fixes from [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe) while keeping this fork's own files (the repository variable `IGNORE_SYNC_FILES`). |
+
+Stock APKs come from APKMirror; when APKMirror fails, apps with a `gplay-dlurl` fall back to **Google Play** (through [goopdl](https://github.com/Villoh/goopdl), which needs a throwaway Google account's token as two repository secrets on GitHub, see [ADD.md](ADD.md)).
 
 A new release appears only when the **patches** move. The check watches the patch source, not APKMirror: Morphe patches declare which app versions they support, and the builder patches the newest supported one, so a new app version becomes usable only once the patches support it.
 
@@ -120,7 +124,7 @@ The daily check compares per **brand**, not per app. Every app patched with `Mor
 
 ### Which patches are applied
 
-Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. TikTok is stable only and comes from a community bundle, [Metra TikTok Patches](https://github.com/icysymmetra/tiktok-patches-for-morphe) by icysymmetra (video downloads, feed filters, playback speed, a Google login fix and more). The website's **Patch catalog** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
+Each app gets its patch bundle's **recommended** set, the patches the authors switch on by default, minus the universal ones. For YouTube that means no ads, background play, SponsorBlock, Return YouTube Dislike and more; for Reddit, no ads among others. TikTok is stable only and comes from a community bundle, [Metra TikTok Patches](https://github.com/icysymmetra/tiktok-patches-for-morphe) by icysymmetra (video downloads, feed filters, playback speed, a Google login fix and more). The website's **Our sources** tab shows how many of each app's patches are recommended, and [`data/catalog.json`](data/catalog.json) marks every patch `"default": true` or `false`.
 
 | Left out | Why |
 |---|---|
@@ -216,7 +220,7 @@ curl -s https://qutaiba-khader.github.io/morphe-builder/api/index.json \
 
 ### Credits and license
 
-Built on [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe), which grew out of [krvstek/uni-apks](https://github.com/krvstek/uni-apks). Patches by [Morphe](https://morphe.software); TikTok patches by [icysymmetra](https://github.com/icysymmetra/tiktok-patches-for-morphe). Licensed under [GPLv3](LICENSE). Not affiliated with Morphe, Google, Reddit or TikTok.
+Built on [nvbangg/builder-for-morphe](https://github.com/nvbangg/builder-for-morphe), which grew out of [krvstek/uni-apks](https://github.com/krvstek/uni-apks). Patches by [Morphe](https://morphe.software); TikTok patches by [icysymmetra](https://github.com/icysymmetra/tiktok-patches-for-morphe). Community patch list from [nvbangg/awesome-morphe](https://github.com/nvbangg/awesome-morphe) (MIT); Google Play downloads through [goopdl](https://github.com/Villoh/goopdl) (MIT); the website's look follows [AutoMorph](https://github.com/holjab/AutoMorph) (MIT). Licensed under [GPLv3](LICENSE). Not affiliated with Morphe, Google, Reddit or TikTok.
 
 
 <details>
