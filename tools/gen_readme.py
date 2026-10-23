@@ -172,9 +172,18 @@ def main() -> int:
         rows += [
             "",
             (
-                f"Patch catalog: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps, "
-                f"in the website's **Patch catalog** tab or [`data/catalog.json`](data/catalog.json)."
+                f"Our patch sources: {len(sources)} sources able to patch {len(catalog.get('packages') or {})} apps, "
+                f"in the website's **Our sources** tab or [`data/catalog.json`](data/catalog.json)."
             ),
+        ]
+    community_file = Path(__file__).resolve().parent.parent / "data" / "community.json"
+    if community_file.exists():
+        community = json.loads(community_file.read_text(encoding="utf-8"))
+        n_apps = len([p for p in community.get("apps") or {} if p != "__universal__"])
+        rows += [
+            "",
+            f"Patchable apps: {n_apps} apps from {len(community.get('bundles') or {})} Morphe community patch sources, "
+            f"in the website's **[Patchable apps]({site}#community)** tab, each with the lines to add it here.",
         ]
     if index.get("signing_cert_sha256"):
         rows += [

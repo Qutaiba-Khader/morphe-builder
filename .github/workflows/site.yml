@@ -15,6 +15,7 @@ on:
       - 'site/**'
       - 'tools/**'
       - 'data/catalog.json'
+      - 'data/community.json'
       - 'config.toml'
       - '.github/workflows/site.yml'
   workflow_dispatch:

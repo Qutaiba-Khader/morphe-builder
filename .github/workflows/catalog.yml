@@ -2,10 +2,12 @@ name: Catalog
 
 # Rebuilds data/catalog.json: every patch source in config.toml, the apps it can
 # patch, the exact patch names and the versions each supports.
+# Also refreshes data/community.json: every app the Morphe community can patch, from
+# nvbangg/awesome-morphe (MIT) - ONE file read per day, metadata only (tools/gen_community.py).
 # Run this after adding a new patch source so the site can show it.
 on:
   schedule:
-    - cron: '0 4 * * 1'
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -33,21 +35,30 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 tools/gen_catalog.py
 
+      - name: Refresh the community list
+        run: python3 tools/gen_community.py
+
       - name: Commit if changed
         run: |
           # "generated" changes on every run; only a change in the data counts
           strip() { python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); d.pop("generated",None); print(json.dumps(d,sort_keys=True))' "$1"; }
-          if git cat-file -e HEAD:data/catalog.json 2>/dev/null; then
-            git show HEAD:data/catalog.json > /tmp/old-catalog.json
-            if [ "$(strip /tmp/old-catalog.json)" = "$(strip data/catalog.json)" ]; then
-              echo "catalog unchanged"
-              exit 0
+          changed=""
+          for f in data/catalog.json data/community.json; do
+            [ -f "$f" ] || continue
+            if git cat-file -e "HEAD:$f" 2>/dev/null; then
+              git show "HEAD:$f" > /tmp/old.json
+              [ "$(strip /tmp/old.json)" = "$(strip "$f")" ] && { git checkout -- "$f"; continue; }
             fi
+            changed="$changed $f"
+          done
+          if [ -z "$changed" ]; then
+            echo "catalog and community list unchanged"
+            exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catalog.json
-          git commit -m "chore(catalog): refresh patch source catalog"
+          git add $changed
+          git commit -m "chore(catalog): refresh patch source catalog and community list"
           # main may have moved during the generation (a README bot commit, a push)
           git pull --rebase origin main
           git push
