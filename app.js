@@ -1,49 +1,107 @@
 "use strict";
 
 const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const el = (tag, attrs = {}, ...kids) => {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
     if (k === "class") node.className = v;
     else if (k === "text") node.textContent = v;
-    else if (v !== null && v !== undefined) node.setAttribute(k, v);
+    else if (v !== null && v !== undefined && v !== false) node.setAttribute(k, v);
   }
-  for (const kid of kids.flat()) if (kid) node.append(kid);
+  // DOM append() would print a null as the text "null", so drop the missing parts
+  for (const kid of kids.flat()) if (kid !== null && kid !== undefined && kid !== false && kid !== "") node.append(kid);
   return node;
+};
+const svg = (d) => {
+  const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  s.setAttribute("viewBox", "0 0 24 24");
+  s.setAttribute("aria-hidden", "true");
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", d);
+  s.append(p);
+  return s;
+};
+const ICON = {
+  folder: "M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+  check: "M5 12l4 4L19 6",
+  star: "M12 3l2.7 5.6 6.2.9-4.5 4.4 1.1 6.1L12 17.1 6.5 20l1.1-6.1L3.1 9.5l6.2-.9z",
+  plus: "M12 5v14M5 12h14",
+  copy: "M9 9h11v11H9zM5 15V4h11",
+  link: "M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1",
 };
 
 const fmtSize = (b) => (!b ? "" : b >= 1e9 ? (b / 1e9).toFixed(2) + " GB" : (b / 1e6).toFixed(1) + " MB");
-
 const fmtDate = (iso) => {
   if (!iso) return "";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   const days = Math.floor((Date.now() - d.getTime()) / 86400000);
-  const abs = d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
   if (days <= 0) return "today";
   if (days === 1) return "yesterday";
   if (days < 30) return `${days} days ago`;
-  return abs;
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 };
-
+const fmtAbs = (iso) => {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? "" : d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+};
 const getJSON = async (path) => {
   const res = await fetch(path, { cache: "no-cache" });
   if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
   return res.json();
 };
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* private window */ } },
+};
+
+/* --------------------------------------------------------------- theme */
+
+(() => {
+  const root = document.documentElement;
+  if (!store.get("mb-theme") && window.matchMedia?.("(prefers-color-scheme: light)").matches) root.dataset.theme = "light";
+  $("#theme")?.addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "light" ? "dark" : "light";
+    store.set("mb-theme", root.dataset.theme);
+  });
+})();
 
 /* ---------------------------------------------------------------- tabs */
 
-for (const tab of document.querySelectorAll(".tab")) {
+const PLACEHOLDER = { "apps-panel": "Search apps…", community: "Search 1,000+ patchable apps…", catalog: "Search apps…", install: "Search apps…", api: "Search apps…" };
+
+function showTab(id) {
+  const tab = $(`.tab[data-tab="${id}"]`);
+  if (!tab) return;
+  for (const t of $$(".tab")) {
+    t.classList.toggle("is-active", t === tab);
+    t.setAttribute("aria-selected", String(t === tab));
+  }
+  for (const p of $$(".panel")) p.classList.toggle("is-active", p.id === id);
+  $("#search").placeholder = PLACEHOLDER[id] || "Search…";
+  if (id === "catalog") loadCatalog();
+  if (id === "community") renderCommunity();
+  applySearch();
+}
+for (const tab of $$(".tab")) {
   tab.addEventListener("click", () => {
-    for (const t of document.querySelectorAll(".tab")) {
-      t.classList.toggle("is-active", t === tab);
-      t.setAttribute("aria-selected", String(t === tab));
-    }
-    for (const p of document.querySelectorAll(".panel")) p.classList.toggle("is-active", p.id === tab.dataset.tab);
-    if (tab.dataset.tab === "catalog") loadCatalog();
+    showTab(tab.dataset.tab);
+    history.replaceState(null, "", tab.dataset.tab === "apps-panel" ? location.pathname : `#${tab.dataset.tab}`);
   });
 }
+
+/* --------------------------------------------------------------- search */
+
+const query = () => ($("#search")?.value || "").trim().toLowerCase();
+function applySearch() {
+  const q = query();
+  const active = $(".panel.is-active")?.id;
+  if (active === "community") { communityShown = PAGE; renderCommunity(); return; }
+  for (const card of $$("#apps .card")) card.hidden = q !== "" && !card.dataset.search.includes(q);
+  applyFilter();
+}
+$("#search")?.addEventListener("input", applySearch);
 
 /* ----------------------------------------------------------- downloads */
 
@@ -71,10 +129,21 @@ function obtainiumButton(href, note) {
   }, el("span", { text: "Add to Obtainium" }), el("small", { text: note }));
 }
 
-function appCard(app, obtainium) {
-  const card = el("article", { class: "card" });
-  const actions = el("div", { class: "actions" }, app.files.map(downloadButton));
+function appIcon(src, name, cls = "icon") {
+  const mark = () => el("div", { class: `${cls} mark`, "aria-hidden": "true", text: (name || "?").trim().charAt(0).toUpperCase() });
+  if (!src) return mark();
+  const img = el("img", { class: cls, src, alt: "", loading: "lazy", referrerpolicy: "no-referrer", width: "52", height: "52" });
+  img.addEventListener("error", () => img.replaceWith(mark()), { once: true });
+  return img;
+}
 
+function appCard(app, obtainium) {
+  const pre = Boolean(app.prerelease);
+  const card = el("article", { class: "card" });
+  card.dataset.channel = pre ? "pre" : "stable";
+  card.dataset.search = [app.name, app.package, app.source_package, ...(app.patch_sources || [])].filter(Boolean).join(" ").toLowerCase();
+
+  const actions = el("div", { class: "actions" }, app.files.map(downloadButton));
   const obt = obtainium?.entries.get(app.id);
   const clash = obtainium?.conflicts.get(app.id);
   let clashNote = null;
@@ -103,15 +172,14 @@ function appCard(app, obtainium) {
     try {
       if (!historyCache.has(app.id)) historyCache.set(app.id, await getJSON(`api/apps/${app.id}.json`));
       const data = historyCache.get(app.id);
-      box.replaceChildren(...[
-        app.package ? el("p", { class: "pkg", text: `Package ${app.package}` }) : null,
+      box.replaceChildren(
+        el("p", { class: "muted", text: app.package ? `Installs as ${app.package}` : "" }),
         el("ol", {}, data.builds.map((b) =>
           el("li", {},
             el("span", { class: "hv", text: b.version }),
             el("span", { class: "muted", text: fmtDate(b.published) }),
             patchesText(b) ? el("span", { class: "muted", text: patchesText(b), title: toolsTitle(b) }) : null,
-            b.files.map((f) => el("a", { href: f.url, rel: "noopener", text: `${f.arch === "all" ? "APK" : f.arch}, ${fmtSize(f.size)}` })))))
-      ].filter(Boolean));
+            b.files.map((f) => el("a", { href: f.url, rel: "noopener", text: `${f.arch === "all" ? "APK" : f.arch}, ${fmtSize(f.size)}` }))))));
       box.removeAttribute("hidden");
       btn.textContent = `Hide versions (${data.builds.length})`;
       btn.setAttribute("aria-expanded", "true");
@@ -122,24 +190,58 @@ function appCard(app, obtainium) {
       btn.disabled = false;
     }
   });
+  actions.append(btn);
 
-  // DOM append() would print a null as the text "null", so drop the missing parts
+  const repos = (app.patch_sources || []).map((r) =>
+    el("a", { class: "chip", href: `https://github.com/${r}`, rel: "noopener", title: "Patch source" }, svg(ICON.folder), el("span", { text: r })));
+
   card.append(...[
-    el("div", { class: "mark", "aria-hidden": "true", text: (app.name || "?").trim().charAt(0).toUpperCase() }),
-    el("div", { class: "info" },
-      el("h2", {}, el("span", { text: app.name })),
-      el("p", { class: "facts" },
-        el("span", { class: "ver", text: app.version }),
-        el("span", { text: `Built ${fmtDate(app.published)}`, title: app.tag || "" }),
-        patchesText(app) ? el("span", { text: patchesText(app), title: toolsTitle(app) }) : null)),
-    actions, btn, clashNote, box,
-  ].filter(Boolean));
+    el("div", { class: "card-head" },
+      appIcon(app.icon, app.name),
+      el("div", { class: "info" },
+        el("h2", {}, el("span", { text: app.name })),
+        el("p", { class: "pkg", text: app.package || app.source_package || "" })),
+      el("span", { class: `chip badge-top ${pre ? "pre" : "ok"}`, text: pre ? "PRE-RELEASE" : "STABLE" })),
+    el("p", { class: "facts" },
+      el("span", { class: "chip ver", text: app.version }),
+      el("span", { class: "chip ok" }, svg(ICON.check), el("span", { text: "BUILT" })),
+      el("span", { text: `Built ${fmtDate(app.published)}`, title: app.tag || "" }),
+      patchesText(app) ? el("span", { text: patchesText(app), title: toolsTitle(app) }) : null),
+    repos.length ? el("div", { class: "repos" }, repos) : null,
+    clashNote, actions, box].filter(Boolean));
   return card;
+}
+
+let activeFilter = "all";
+function applyFilter() {
+  for (const channel of $$(".channel")) {
+    const visible = [...$$(".card", channel)].filter((c) => !c.hidden);
+    channel.hidden = visible.length === 0 || (activeFilter !== "all" && channel.dataset.channel !== activeFilter);
+  }
+}
+for (const b of $$(".filter[data-filter]")) {
+  b.addEventListener("click", () => {
+    activeFilter = b.dataset.filter;
+    for (const x of $$(".filter[data-filter]")) x.classList.toggle("is-active", x === b);
+    applyFilter();
+  });
+}
+
+function nextRun() {
+  // CI runs daily at 10:00 UTC (.github/workflows/ci.yml)
+  const now = new Date();
+  const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 10));
+  if (next <= now) next.setUTCDate(next.getUTCDate() + 1);
+  const mins = Math.round((next - now) / 60000);
+  $("#stat-next").textContent = mins >= 60 ? `in ${Math.floor(mins / 60)}h ${mins % 60}m` : `in ${mins}m`;
+  $("#stat-next-sub").textContent = `Daily at 10:00 UTC (${next.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })} here)`;
 }
 
 async function loadBuilds() {
   const host = $("#apps");
   const loading = $(".loading", host);
+  nextRun();
+  setInterval(nextRun, 60000);
   try {
     const [data, obtainiumData] = await Promise.all([
       getJSON("api/latest.json"),
@@ -155,26 +257,178 @@ async function loadBuilds() {
     }
 
     const apps = Object.values(data.apps || {}).sort((a, b) => a.name.localeCompare(b.name));
-    for (const channel of document.querySelectorAll(".channel")) {
+    for (const channel of $$(".channel")) {
       const pre = channel.dataset.channel === "pre";
       const mine = apps.filter((a) => Boolean(a.prerelease) === pre);
       $(".list", channel).replaceChildren(...mine.map((a) => appCard(a, obtainium)));
       channel.hidden = mine.length === 0;
     }
+    const nPre = apps.filter((a) => a.prerelease).length;
+    $("#n-all").textContent = apps.length;
+    $("#n-stable").textContent = apps.length - nPre;
+    $("#n-pre").textContent = nPre;
+
     if (!apps.length) {
       loading.textContent = "No builds yet. The first ones appear here after the next CI run.";
     } else {
       loading.remove();
       const newest = apps.map((a) => a.published).filter(Boolean).sort().at(-1);
+      const files = apps.flatMap((a) => a.files || []);
+      const bytes = files.reduce((s, f) => s + (f.size || 0), 0);
       $("#last-build").replaceChildren(
         "Last build ", el("b", { text: fmtDate(newest) }), `. ${apps.length} app${apps.length === 1 ? "" : "s"}, checked for updates every day.`);
+      $("#stat-last").textContent = fmtDate(newest).replace(/^./, (c) => c.toUpperCase());
+      $("#stat-last-sub").textContent = fmtAbs(newest);
+      $("#stat-apps").textContent = `${apps.length} app${apps.length === 1 ? "" : "s"}`;
+      $("#stat-apps-sub").textContent = `${files.length} APK files, ${fmtSize(bytes)}`;
     }
     $("#generated").textContent = data.generated ? "Updated " + fmtDate(data.generated) : "";
+    if (data.generated) {
+      const pill = $("#status-pill");
+      pill.textContent = `Site updated ${fmtDate(data.generated)}`;
+      pill.className = "pill ok";
+      pill.hidden = false;
+    }
+    applySearch();
   } catch (err) {
     const msg = loading || host.appendChild(el("p"));
     msg.className = "err";
     msg.textContent = "Could not load the builds: " + (err.message || err) + ". Reload the page to try again.";
   }
+}
+
+/* ------------------------------------------------------ patchable apps */
+
+const PAGE = 60;
+let community = null;
+let communityShown = PAGE;
+let cFilter = "all";
+const communityCache = new Map();
+
+async function loadCommunity() {
+  if (community) return community;
+  try {
+    community = await getJSON("api/community/index.json");
+  } catch {
+    community = { apps: [], error: true };
+  }
+  const apps = community.apps || [];
+  $("#stat-community").textContent = apps.length ? `${apps.filter((a) => a.package !== "__universal__").length.toLocaleString()} apps` : "–";
+  $("#stat-community-sub").textContent = community.patch_sources ? `from ${community.patch_sources} community patch sources` : "from the Morphe community";
+  $("#c-all").textContent = apps.length;
+  $("#c-built").textContent = apps.filter((a) => (a.built_here || []).length).length;
+  $("#c-many").textContent = apps.filter((a) => a.sources >= 3).length;
+  return community;
+}
+
+for (const b of $$(".filter[data-cfilter]")) {
+  b.addEventListener("click", () => {
+    cFilter = b.dataset.cfilter;
+    communityShown = PAGE;
+    for (const x of $$(".filter[data-cfilter]")) x.classList.toggle("is-active", x === b);
+    renderCommunity();
+  });
+}
+$("#community-more")?.addEventListener("click", () => { communityShown += PAGE * 2; renderCommunity(); });
+
+function configSnippet(app, src) {
+  const table = (app.name || app.package).replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "") || "My-App";
+  return [
+    `[${table}]`,
+    "enabled = true",
+    `# apkmirror-dlurl = "https://www.apkmirror.com/apk/<vendor>/<app>/"   (best first source when the app is there)`,
+    `gplay-dlurl = "https://play.google.com/store/apps/details?id=${app.package}"`,
+    "",
+    `[${table}.patches]`,
+    `"${src.source === "gitlab" ? "gitlab" : "github"}:${src.repo.replace(/^gitlab:/, "")}" = []`,
+  ].join("\n");
+}
+
+function sourceCard(app, src) {
+  const versions = (src.versions || []).slice(0, 4).join(", ");
+  const exp = (src.experimental || []).slice(0, 2).join(", ");
+  const copy = el("button", { class: "btn ghost", type: "button" }, svg(ICON.copy), el("span", { text: "Copy for config.toml" }));
+  const pre = el("pre", { hidden: "" }, el("code", { text: configSnippet(app, src) }));
+  copy.addEventListener("click", async () => {
+    pre.hidden = false;
+    try {
+      await navigator.clipboard.writeText(configSnippet(app, src));
+      copy.lastChild.textContent = "Copied";
+    } catch {
+      copy.lastChild.textContent = "Select and copy below";
+    }
+  });
+  const list = el("details", { class: "plist" },
+    el("summary", { text: `The ${src.app_patches} patch${src.app_patches === 1 ? "" : "es"} for this app` }),
+    el("ul", { class: "patch-list" }, (src.patch_list || []).map(([n, d]) => el("li", { title: d || "" }, el("b", { text: n }), d ? el("span", { text: d }) : null))));
+  return el("div", { class: "src-card" },
+    el("div", { class: "src-top" },
+      el("h4", {}, el("a", { href: src.url, rel: "noopener", text: src.repo })),
+      el("span", { class: "muted", text: src.author && src.author !== src.repo.split("/")[0] ? src.author : "" }),
+      el("span", { class: "chip plain", title: "GitHub stars" }, svg(ICON.star), el("span", { text: String(src.stars || 0) })),
+      src.updated ? el("span", { class: "muted", text: `updated ${fmtDate(src.updated)}` }) : null,
+      src.used_here ? el("span", { class: "chip ok small", text: "USED HERE" }) : null,
+      src.prerelease ? el("span", { class: "chip pre small", text: "PRE-RELEASE ONLY" }) : null),
+    el("p", { class: "muted", text: [
+      `${src.app_patches} patch${src.app_patches === 1 ? "" : "es"} for this app (${src.patches} in the bundle)`,
+      versions ? `supports ${versions}` : app.package === "__universal__" ? "" : "any version",
+      exp ? `experimental ${exp}` : "",
+    ].filter(Boolean).join(" · ") }),
+    el("div", { class: "src-actions" },
+      el("a", { class: "btn primary", href: src.add, rel: "noopener", title: "Opens the Morphe app and adds this patch source" }, svg(ICON.plus), el("span", { text: "Add to the Morphe app" })),
+      app.package === "__universal__" ? null : copy,
+      el("a", { class: "btn ghost", href: src.url, rel: "noopener" }, svg(ICON.link), el("span", { text: "Source" }))),
+    pre, list);
+}
+
+function communityRow(a) {
+  const built = (a.built_here || []).length;
+  const det = el("details", { class: "row" });
+  det.append(el("summary", {},
+    a.package === "__universal__" ? el("div", { class: "icon mark", "aria-hidden": "true", text: "★" }) : appIcon(a.icon, a.name),
+    el("div", { class: "row-main" },
+      el("h3", { text: a.name || a.package }),
+      el("p", { class: "pkg", text: a.package === "__universal__" ? "patches that work on any app" : a.package })),
+    el("div", { class: "row-side" },
+      built ? el("span", { class: "chip ok small", text: "BUILT HERE" }) : null,
+      el("span", { class: "count", text: `${a.sources} SOURCE${a.sources === 1 ? "" : "S"}` }))));
+  const body = el("div", { class: "row-body" }, el("p", { class: "muted", text: "Loading…" }));
+  det.append(body);
+  det.addEventListener("toggle", async () => {
+    if (!det.open || det.dataset.loaded) return;
+    det.dataset.loaded = "1";
+    try {
+      if (!communityCache.has(a.file)) communityCache.set(a.file, await getJSON(a.file));
+      const app = communityCache.get(a.file);
+      body.replaceChildren(
+        built ? el("p", { class: "note" }, "Built here as ", el("b", { text: a.built_here.join(", ") }), ". See the Apps tab.") : null,
+        ...app.sources.map((s) => sourceCard(app, s)));
+    } catch (err) {
+      delete det.dataset.loaded;
+      body.replaceChildren(el("p", { class: "err", text: "Could not load: " + (err.message || err) }));
+    }
+  });
+  return det;
+}
+
+async function renderCommunity() {
+  const host = $("#community-list");
+  const data = await loadCommunity();
+  if (data.error) {
+    host.replaceChildren(el("p", { class: "muted", text: "The community list has not been generated yet. It arrives with the next Catalog run." }));
+    return;
+  }
+  const q = query();
+  let apps = data.apps || [];
+  if (cFilter === "built") apps = apps.filter((a) => (a.built_here || []).length);
+  if (cFilter === "many") apps = apps.filter((a) => a.sources >= 3);
+  if (q) apps = apps.filter((a) => `${a.name} ${a.package} ${(a.top || []).join(" ")} ${a.category || ""}`.toLowerCase().includes(q));
+  // most-covered first; the universal patches on top when nothing is searched
+  apps = [...apps].sort((x, y) => (y.package === "__universal__") - (x.package === "__universal__") || y.sources - x.sources || x.name.localeCompare(y.name));
+  host.replaceChildren(...(apps.length ? apps.slice(0, communityShown).map(communityRow) : [el("p", { class: "muted", text: "No app matches." })]));
+  const more = $("#community-more");
+  more.hidden = apps.length <= communityShown;
+  more.textContent = `Show more (${apps.length - Math.min(apps.length, communityShown)} left)`;
 }
 
 /* ------------------------------------------------------------- catalog */
@@ -244,7 +498,7 @@ async function loadCatalog() {
 
 async function loadApi() {
   const base = location.href.replace(/[#?].*$/, "").replace(/[^/]*$/, "");
-  for (const node of document.querySelectorAll(".api-base")) node.textContent = base;
+  for (const node of $$(".api-base")) node.textContent = base;
   try {
     const idx = await getJSON("api/index.json");
     if (idx.signing_cert_sha256) {
@@ -265,3 +519,5 @@ async function loadApi() {
 
 loadBuilds();
 loadApi();
+loadCommunity();
+if (location.hash && $(`.tab[data-tab="${location.hash.slice(1)}"]`)) showTab(location.hash.slice(1));

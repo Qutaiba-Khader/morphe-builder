@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-23T14:53:35Z",
+  "generated": "2026-10-23T19:52:49Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -9,7 +9,8 @@
     "latest": "api/latest.json",
     "app": "api/apps/{app_id}.json",
     "catalog": "api/catalog.json",
-    "obtainium": "api/obtainium.json"
+    "obtainium": "api/obtainium.json",
+    "community": "api/community/index.json"
   },
   "obtainium": {
     "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
