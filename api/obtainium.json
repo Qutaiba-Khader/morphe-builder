@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-24T16:10:37Z",
+  "generated": "2026-10-24T20:24:42Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -13,7 +13,7 @@
       "build_version": "2026.24.0-1.48.0",
       "package": "com.reddit.frontpage",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/reddit-morphe-v2026.24.0-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk",
       "config": {
         "id": "com.reddit.frontpage",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html",
@@ -113,7 +113,7 @@
       "build_version": "21.20.405-1.48.0",
       "package": "app.morphe.android.youtube",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/youtube-morphe-v21.20.405-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/youtube-morphe-v21.20.405-all.apk",
       "config": {
         "id": "app.morphe.android.youtube",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html",
