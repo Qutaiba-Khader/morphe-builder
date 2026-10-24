@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-24T08:37:11Z",
+  "generated": "2026-10-24T11:28:22Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube",
   "name": "YouTube",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 134306872,
           "sha256": "1ef65acffce4bbec8eb11a976f135feeed1082105dbb15586af74f2ab7d22e11",
-          "downloads": 8,
+          "downloads": 10,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/youtube-morphe-v21.20.405-all.apk",
           "name": "youtube-morphe-v21.20.405-all.apk"
         }
