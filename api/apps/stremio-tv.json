@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-25T11:18:15Z",
+  "generated": "2026-10-25T11:55:39Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv",
   "name": "Stremio TV Clone",
@@ -31,7 +31,7 @@
           "arch": "armeabi-v7a",
           "size": 94180251,
           "sha256": "163fbe216e922fcd2a4c72326a9e6ecda6d7e3e53a0d3aed1db130fef5a2fb3e",
-          "downloads": 0,
+          "downloads": 3,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
         }
