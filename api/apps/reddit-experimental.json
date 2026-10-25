@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-25T11:55:39Z",
+  "generated": "2026-10-25T14:16:02Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "reddit-experimental",
   "name": "Reddit Experimental",
@@ -8,31 +8,31 @@
   "builds": [
     {
       "version": "2026.42.0",
-      "tag": "26.10.24-morphe-dev",
-      "published": "2026-10-24T13:56:38Z",
+      "tag": "26.10.25-morphe-dev",
+      "published": "2026-10-25T14:14:49Z",
       "prerelease": true,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.24-morphe-dev",
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.25-morphe-dev",
       "patches": [
         {
-          "file": "MorpheApp/patches-1.49.0-dev.4.mpp",
-          "version": "1.49.0-dev.4"
+          "file": "MorpheApp/patches-1.49.0-dev.5.mpp",
+          "version": "1.49.0-dev.5"
         }
       ],
       "cli": {
-        "file": "MorpheApp/morphe-desktop-1.19.0-all.jar",
-        "version": "1.19.0"
+        "file": "MorpheApp/morphe-desktop-1.19.1-all.jar",
+        "version": "1.19.1"
       },
       "files": [
         {
           "arch": "all",
           "size": 110497049,
-          "sha256": "fe1244c2d057ef0b70e1eab8c05d6d5ca0a1af083adfb273e665a0116a7999d9",
-          "downloads": 15,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+          "sha256": "7839d349a4a4a8bee27f1cccc51c960c971f2a8a584f3a57c86ac2d1a273eb8c",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk"
         }
       ],
-      "rebuilds": 8
+      "rebuilds": 9
     },
     {
       "version": "2026.41.0",
