@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-25T08:56:10Z",
+  "generated": "2026-10-25T11:18:15Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -50,10 +50,10 @@
       "name": "Stremio TV Clone",
       "arch": "armeabi-v7a",
       "version": "1.11.3",
-      "build_version": "1.11.3-0.3.1",
+      "build_version": "1.11.3-0.4.0",
       "package": "com.stremio.one.subs",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
       "config": {
         "id": "com.stremio.one.subs",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html",
@@ -70,10 +70,10 @@
       "name": "Stremio TV Replacement",
       "arch": "armeabi-v7a",
       "version": "1.11.3",
-      "build_version": "1.11.3-0.3.1",
+      "build_version": "1.11.3-0.4.0",
       "package": "com.stremio.one",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
       "config": {
         "id": "com.stremio.one",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html",
