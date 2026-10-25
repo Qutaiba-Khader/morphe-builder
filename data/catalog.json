@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-24T08:36:38Z",
+  "generated": "2026-10-25T08:55:47Z",
   "cli": "morphe-desktop-1.19.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -786,7 +786,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.49.0-dev.1",
+      "version": "v1.49.0-dev.5",
       "spec": "dev",
       "used_by": [
         {
@@ -1636,7 +1636,7 @@
       ]
     },
     "github:RookieEnough/De-Vanced": {
-      "patch_count": 75,
+      "patch_count": 76,
       "universal_patches": [
         "Clone app"
       ],
@@ -1700,6 +1700,15 @@
           "patches": [
             {
               "name": "Hide ads",
+              "default": true
+            }
+          ]
+        },
+        "com.disney.disneyplus": {
+          "versions": [],
+          "patches": [
+            {
+              "name": "Skip ads",
               "default": true
             }
           ]
@@ -2083,7 +2092,7 @@
         }
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
-      "version": "v1.5.1",
+      "version": "v1.6.0",
       "spec": "latest",
       "used_by": [
         {
@@ -7759,6 +7768,9 @@
     ],
     "com.digibites.accubattery": [
       "github:rushiranpise/morphe-patches"
+    ],
+    "com.disney.disneyplus": [
+      "github:RookieEnough/De-Vanced"
     ],
     "com.domobile.applockwatcher": [
       "github:rushiranpise/morphe-patches"
