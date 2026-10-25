@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-24T21:06:54Z",
-  "data_generated": "2026-10-24T08:36:59Z",
+  "generated": "2026-10-25T08:56:10Z",
+  "data_generated": "2026-10-25T08:56:02Z",
   "source": {
     "repo": "nvbangg/awesome-morphe",
     "url": "https://github.com/nvbangg/awesome-morphe",
@@ -8,7 +8,7 @@
     "license": "MIT",
     "site": "https://awesome-morphe.vercel.app"
   },
-  "patch_sources": 397,
+  "patch_sources": 409,
   "apps": [
     {
       "package": "__universal__",
@@ -16,7 +16,7 @@
       "name": "Any app",
       "icon": "",
       "category": "",
-      "sources": 71,
+      "sources": 72,
       "top": [
         "MorpheApp",
         "De-Vanced",
@@ -54,9 +54,10 @@
       "name": "1DM",
       "icon": "https://play-lh.googleusercontent.com/O22rWPbgLS6WhWbdzPnX5CuLSbWd4dyFS0XTfHR-sQxNQkS317Jt5kK3Bbwaccm7Zp-HsCsGWhep9zSNRS4B=s128-rw",
       "category": "Tools",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Oyasumi"
+        "Oyasumi",
+        "GinArena"
       ],
       "built_here": []
     },
@@ -408,6 +409,18 @@
       "built_here": []
     },
     {
+      "package": "com.git.agriconnect",
+      "file": "api/community/apps/com.git.agriconnect.json",
+      "name": "AgriConnect",
+      "icon": "https://play-lh.googleusercontent.com/u8LmwvAGuQ-kF7NTt4PeYoigWnKVkszBd6Kjs03akdgqWy4BTORDq-FrJ8-FkCbUAHBbPNbLdq2A7VvQT3wZOoI=s128-rw",
+      "category": "Business",
+      "sources": 1,
+      "top": [
+        "HRIS APN"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.thien.novelreader",
       "file": "api/community/apps/com.thien.novelreader.json",
       "name": "AI Audio Novel Reader",
@@ -731,7 +744,7 @@
       "name": "Amazon India",
       "icon": "https://play-lh.googleusercontent.com/E2Nyw1kSrYFvi5DFOznWOR2iXY9mwxwfYHXV37aLHmuKtEW3gs7StIvVptoV2x8_ykiHQQmliwpfDsFm0Quuwbk=s128-rw",
       "category": "Shopping",
-      "sources": 3,
+      "sources": 4,
       "top": [
         "Doom",
         "chirag127",
@@ -757,7 +770,7 @@
       "name": "Amazon Shopping",
       "icon": "https://play-lh.googleusercontent.com/UIYZ9hTFNg-zZUg_uzLS9YdyDpvoo1VHNFb6VlzHy5JqNMq9Uq-p2S1VPwzXCipHTFacfGKhJkyAuKL19VVlcWA=s128-rw",
       "category": "Shopping",
-      "sources": 3,
+      "sources": 4,
       "top": [
         "De-Vanced",
         "Doom",
@@ -1844,6 +1857,18 @@
       "built_here": []
     },
     {
+      "package": "com.bstar.intl",
+      "file": "api/community/apps/com.bstar.intl.json",
+      "name": "BiliBili -HD Anime, Videos",
+      "icon": "https://play-lh.googleusercontent.com/qFtim49LDuuxWOrL9isvvwYAaPjdxOybw-7e_3dfGYe74XC8gtS9rfbo8m2gqJ4_2ip9aqnDHu7TlEJCBpnuglQ=s128-rw",
+      "category": "Video Players & Editors",
+      "sources": 1,
+      "top": [
+        "Pancake"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.biobird.exvee",
       "file": "api/community/apps/com.biobird.exvee.json",
       "name": "Biobird Flashcards",
@@ -2275,6 +2300,18 @@
       "built_here": []
     },
     {
+      "package": "com.supportware.Buienradar",
+      "file": "api/community/apps/com.supportware.Buienradar.json",
+      "name": "Buienradar - weer",
+      "icon": "https://play-lh.googleusercontent.com/WinWiMLh0jP3qaR2pZPHB2oa_tNWzNbi50BgVIijett6F5UZu_L9AUN3reJwlMxZpYgSqSWeT_mWshwqcXStoQ=s128-rw",
+      "category": "Weather",
+      "sources": 1,
+      "top": [
+        "Wouter's Buienradar"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.bws.appv2",
       "file": "api/community/apps/com.bws.appv2.json",
       "name": "Built With Science",
@@ -2619,6 +2656,18 @@
       "top": [
         "Wagg13Patch_Morphe",
         "Santodan"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "net.easyconn.carman.wws",
+      "file": "api/community/apps/net.easyconn.carman.wws.json",
+      "name": "CarbitLink-EasyConnection",
+      "icon": "https://play-lh.googleusercontent.com/EWn6OuOy6gyQ8DG83elQnijJzAW4Whcko0aMV4STxDdShWqwMmRcd-eB3LWWAqeR8779UcVCOp2MFIPgjCiYjvs=s128-rw",
+      "category": "Travel & Local",
+      "sources": 1,
+      "top": [
+        "Pancake"
       ],
       "built_here": []
     },
@@ -3049,6 +3098,18 @@
       "built_here": []
     },
     {
+      "package": "jp.co.celsys.clipstudiopaint.googleplay",
+      "file": "api/community/apps/jp.co.celsys.clipstudiopaint.googleplay.json",
+      "name": "Clip Studio Paint",
+      "icon": "https://play-lh.googleusercontent.com/X_tdMAC-1SnBCZpb2lN7WRzOpLA4-sjT_uG82OLLhlIyXF0DcjEuN7XxnZUoUh6BpGP1voWO7SjwY4coSKFKHg=s128-rw",
+      "category": "Art & Design",
+      "sources": 1,
+      "top": [
+        "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.clue.android",
       "file": "api/community/apps/com.clue.android.json",
       "name": "Clue Period & Cycle Tracker",
@@ -3396,9 +3457,10 @@
       "name": "CRICFy TV",
       "icon": "https://play-lh.googleusercontent.com/NvkwcuRAPh9nUyvWoqmeCjdadJz7ykOPmsGneU7uP_5y5juftSddjW19yjc0KXhqlM_lRsMyOFwZCrSNfkm1NKE=s128-rw",
       "category": "",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Beyonder"
+        "Beyonder",
+        "GinArena"
       ],
       "built_here": []
     },
@@ -3874,11 +3936,11 @@
       "name": "Disney+",
       "icon": "https://play-lh.googleusercontent.com/AEX_3Bk5_SEZfR4fUcJsWiyqW_RRVcLED9AM2HMUVHAPVTZhZHfP2q3M35mRe4LtCXlb712DtkKwkZa_nJ-0=s128-rw",
       "category": "Entertainment",
-      "sources": 3,
+      "sources": 4,
       "top": [
+        "De-Vanced",
         "ajstrick81",
-        "Aimal",
-        "PyFlat"
+        "Aimal"
       ],
       "built_here": []
     },
@@ -4574,7 +4636,7 @@
       "package": "com.nononsenseapps.feeder",
       "file": "api/community/apps/com.nononsenseapps.feeder.json",
       "name": "Feeder",
-      "icon": "",
+      "icon": "https://play-lh.googleusercontent.com/HYZ9kNe4jBtnNLV8FmFVE7WeOIL0wiXarEZqCsoCstIdBZI1-9YO2h7AgOvfjLFJoSrnHAmGeNcJ4GbpCeOG8w=s128-rw",
       "category": "",
       "sources": 1,
       "top": [
@@ -5192,6 +5254,18 @@
       "built_here": []
     },
     {
+      "package": "com.samsung.android.game.gamehome",
+      "file": "api/community/apps/com.samsung.android.game.gamehome.json",
+      "name": "Gaming Hub",
+      "icon": "",
+      "category": "",
+      "sources": 1,
+      "top": [
+        "Ratbanana Gaming Hub"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.ganbaru.method",
       "file": "api/community/apps/com.ganbaru.method.json",
       "name": "Ganbaru Method",
@@ -5409,8 +5483,8 @@
       "category": "Tools",
       "sources": 4,
       "top": [
-        "Google Feed Ads",
         "Ariecos",
+        "Google Feed Ads",
         "Gemini microG"
       ],
       "built_here": []
@@ -5986,26 +6060,15 @@
       "built_here": []
     },
     {
-      "package": "com.git.agriconnect",
-      "file": "api/community/apps/com.git.agriconnect.json",
-      "name": "HRIS APN",
-      "icon": "https://play-lh.googleusercontent.com/u8LmwvAGuQ-kF7NTt4PeYoigWnKVkszBd6Kjs03akdgqWy4BTORDq-FrJ8-FkCbUAHBbPNbLdq2A7VvQT3wZOoI=s128-rw",
-      "category": "Business",
-      "sources": 1,
-      "top": [
-        "HRIS APN"
-      ],
-      "built_here": []
-    },
-    {
       "package": "com.anetcapture.mock",
       "file": "api/community/apps/com.anetcapture.mock.json",
       "name": "HTTP Sniffer",
       "icon": "https://play-lh.googleusercontent.com/24EBd10FuOQlxUVCGuvzA2SgBVZYrNMSgE-a8MzeU_r9uYB4RLShs0OSSjxKZGroeoPy3FKNI4fGoXO3DdNPJg=s128-rw",
       "category": "Tools",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Doom"
+        "Doom",
+        "App"
       ],
       "built_here": []
     },
@@ -6227,6 +6290,18 @@
       "top": [
         "Breal",
         "Imgur"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "app.alextran.immich",
+      "file": "api/community/apps/app.alextran.immich.json",
+      "name": "Immich",
+      "icon": "https://play-lh.googleusercontent.com/4nlZIr2Np2yJ458OckbFs8FQmOpluMyLRyb8W5nt7_0GI5P7m9iOiVUQXpn5aDhj8yawSNZxxsV8sxTzCgE0l1o=s128-rw",
+      "category": "Tools",
+      "sources": 1,
+      "top": [
+        "Morphe - Catppuccin"
       ],
       "built_here": []
     },
@@ -8337,9 +8412,10 @@
       "name": "Monet",
       "icon": "https://play-lh.googleusercontent.com/qilaYgIXD0DmeK_53AGSb1rcOgnQjMNXaJgOehS9Q1CtwCFiP-0dCKVvXW5WRZp4vM4KKvN5s3u7IV67vTdXNa0=s128-rw",
       "category": "Personalization",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Doom"
+        "Doom",
+        "Santodan"
       ],
       "built_here": []
     },
@@ -8994,6 +9070,30 @@
       "built_here": []
     },
     {
+      "package": "com.lernr.app",
+      "file": "api/community/apps/com.lernr.app.json",
+      "name": "NEETprep - MCQs & Mock Tests",
+      "icon": "https://play-lh.googleusercontent.com/oUJRZBiRSIOI9H1YEHPWy4z1bsrr-JRGesH1S_fn9buo0Rvnex1iblfBg54sAjohg6Eh5Ei6NJP-EYkvXE7Z6YE=s128-rw",
+      "category": "Education",
+      "sources": 1,
+      "top": [
+        "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.gooded.essential",
+      "file": "api/community/apps/com.gooded.essential.json",
+      "name": "NEETprep Essential",
+      "icon": "https://play-lh.googleusercontent.com/514pYfDYSTprjVwf6Cooi-OYB8DBEHKmtLyAQFEBB7YJu9KwJ-MYOQkGEAC_R7sZTikQiwkngk7UDbtaw3BIQw=s128-rw",
+      "category": "Education",
+      "sources": 1,
+      "top": [
+        "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.kcstream.cing",
       "file": "api/community/apps/com.kcstream.cing.json",
       "name": "Nekopoi",
@@ -9047,10 +9147,11 @@
       "name": "NetMonster",
       "icon": "https://play-lh.googleusercontent.com/CqbD-BOBTN64AVq7YWKJZ2z-Oc42aNcpR9zZnLrkthY3BwfXd17nbGn-2y3AQwS-q5Xz8-lmTBwQ7nESyHl2lQ=s128-rw",
       "category": "Tools",
-      "sources": 2,
+      "sources": 3,
       "top": [
         "Doom",
-        "Proxma"
+        "Proxma",
+        "App"
       ],
       "built_here": []
     },
@@ -9075,6 +9176,18 @@
       "sources": 1,
       "top": [
         "Doom"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.qtrun.QuickTest",
+      "file": "api/community/apps/com.qtrun.QuickTest.json",
+      "name": "Network Signal Guru",
+      "icon": "https://play-lh.googleusercontent.com/GsHf8_DtWlIifw4nMlWiCiCmx5Nk9gu7Wl5cGEBO5rJrpkyQriATWrpWT6njHKMEJzfKv7l-yL2OwNWAwuuDMA=s128-rw",
+      "category": "Tools",
+      "sources": 1,
+      "top": [
+        "jzl1"
       ],
       "built_here": []
     },
@@ -9132,7 +9245,7 @@
       "name": "Niagara Launcher",
       "icon": "https://play-lh.googleusercontent.com/ICu0sx5FFQHp03c1DS8L48ULnXDUDDyqSWwi62VktysMO4ZFwVaGSqFKjZ9Iv-1Mu1plJVSB2CvIrdygkKtRFg=s128-rw",
       "category": "Personalization",
-      "sources": 4,
+      "sources": 5,
       "top": [
         "Hoodles",
         "Morning Entree",
@@ -10411,8 +10524,8 @@
       "sources": 4,
       "top": [
         "Doom",
-        "Telegram 12.10.3 Monster",
-        "rahul9999xda"
+        "rahul9999xda",
+        "Telegram 12.10.3 Monster"
       ],
       "built_here": []
     },
@@ -11139,6 +11252,18 @@
       "sources": 1,
       "top": [
         "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.appmind.radios.id",
+      "file": "api/community/apps/com.appmind.radios.id.json",
+      "name": "Radio Streaming Indonesia",
+      "icon": "https://play-lh.googleusercontent.com/Qb9mvLCbMX17FZgcdmdZB3Mfsmki5fXMXpZsEEBYbxIX--ELB2gW4G_H0FI_Nd14bYG7EiDOpfB1v1N2Ul_Vnw=s128-rw",
+      "category": "Music & Audio",
+      "sources": 1,
+      "top": [
+        "Fakh Radio"
       ],
       "built_here": []
     },
@@ -12565,9 +12690,10 @@
       "name": "Sony | Sound Connect",
       "icon": "https://play-lh.googleusercontent.com/VGoVDls-dJDVvYXFHpBoJOh8V9aVk-fRs1G-uwXxQkEcWESATEPy48TuM5xE8Lu6hbZEMU3s9DAEcwzaaKpALg=s128-rw",
       "category": "Tools",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Rafag00"
+        "Rafag00",
+        "Sound Connect"
       ],
       "built_here": []
     },
@@ -12846,7 +12972,7 @@
     {
       "package": "com.valvesoftware.steamlinkvr",
       "file": "api/community/apps/com.valvesoftware.steamlinkvr.json",
-      "name": "Steam Link Experimental",
+      "name": "Steam Link",
       "icon": "https://play-lh.googleusercontent.com/6TU14znIBQ6oierlwk8twhgqDLMhA3y-a-daQq8jF5d_OZpk9HpEo9rlMQ_KhxSUQ-mpohuQLVmH-jy6zoVCaTU=s128-rw",
       "category": "",
       "sources": 1,
@@ -13324,6 +13450,18 @@
       "sources": 1,
       "top": [
         "Morph"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.taobao.taobao",
+      "file": "api/community/apps/com.taobao.taobao.json",
+      "name": "Taobao",
+      "icon": "https://play-lh.googleusercontent.com/IgM2rXXEPQnemQu05w_EZm6aYWLSo2twvxshclPtjUGal50xxtHS-NowYPcmA1GRl3ZIZvVoQf9AJcnPCJ6MFQ=s128-rw",
+      "category": "Shopping",
+      "sources": 1,
+      "top": [
+        "TaobaoLingo"
       ],
       "built_here": []
     },
@@ -14116,10 +14254,11 @@
       "name": "Transit",
       "icon": "https://play-lh.googleusercontent.com/IWM9FT5AqJhDWh9NQu33DEW1Bb584JfeBfKWHXdsDiyug0_qbDjAo5wj1eVScunxHf_J1LBmz3vup8XYuo6ibA=s128-rw",
       "category": "Maps & Navigation",
-      "sources": 2,
+      "sources": 3,
       "top": [
         "Doom",
-        "andronedev"
+        "andronedev",
+        "Urro application"
       ],
       "built_here": []
     },
@@ -14281,8 +14420,8 @@
       "sources": 10,
       "top": [
         "De-Vanced",
-        "Hooman",
-        "ajstrick81"
+        "ajstrick81",
+        "Hooman"
       ],
       "built_here": []
     },
@@ -14292,11 +14431,11 @@
       "name": "Twitter",
       "icon": "https://play-lh.googleusercontent.com/IsLsCD4eLC2CYvlkgTI6Z5TROj0BJIBgUF7BZ5eliTzyyTjqG_mbofeG4kw2s7oG_JZMSi5ErLz_qsDi169C8w=s128-rw",
       "category": "News & Magazines",
-      "sources": 11,
+      "sources": 12,
       "top": [
         "Piko",
-        "X Shim",
-        "kveld9 Extra"
+        "Piko",
+        "X Shim"
       ],
       "built_here": []
     },
@@ -14423,6 +14562,18 @@
       "built_here": []
     },
     {
+      "package": "com.ufoneselfcare",
+      "file": "api/community/apps/com.ufoneselfcare.json",
+      "name": "UPTCL– App Up Your Life!",
+      "icon": "https://play-lh.googleusercontent.com/1DvXp-2UKHOnkfHZdU2vW63mIeV2tcNIkXCnZjpLPdFMXthUNfDKqxCvn-wyHOpm6lbpiCXjn_AmPdxDIhjXNLg=s128-rw",
+      "category": "Communication",
+      "sources": 1,
+      "top": [
+        "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.uptodown",
       "file": "api/community/apps/com.uptodown.json",
       "name": "Uptodown App Store",
@@ -14431,6 +14582,18 @@
       "sources": 1,
       "top": [
         "Doom"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "vpn.usa_tap2free",
+      "file": "api/community/apps/vpn.usa_tap2free.json",
+      "name": "USA VPN",
+      "icon": "https://play-lh.googleusercontent.com/RXG405dXr-LfjRMlTw7REmx3RtbLkwg5ujcjJSKT_8MR_Bxqr7rf_VDG-LeYDcATm_9FChoxbDknrfmaPvE_=s128-rw",
+      "category": "Tools",
+      "sources": 1,
+      "top": [
+        "hxreborn"
       ],
       "built_here": []
     },
@@ -15592,7 +15755,7 @@
       "name": "YouTube",
       "icon": "https://play-lh.googleusercontent.com/QNmuZQc9I6Zbe3mWnSr0hycnENqGFCI5p3yE29Hkxtf22T0IWS6zTrpxULLyyjWpB7ONAXDsDQXnXcVWokl3eg=s128-rw",
       "category": "Video Players & Editors",
-      "sources": 26,
+      "sources": 27,
       "top": [
         "MorpheApp",
         "RVX",
@@ -15621,7 +15784,7 @@
       "name": "YouTube Music",
       "icon": "https://play-lh.googleusercontent.com/MyptZXmcCyF59phIWPsNCfHq6zSO_ojEdw_4rMYYWPOGdikSjqeOXcoszBZ053VYpINe5K7ZR9KV1nkFWgxdOw=s128-rw",
       "category": "Music & Audio",
-      "sources": 19,
+      "sources": 20,
       "top": [
         "MorpheApp",
         "RVX",
@@ -15823,6 +15986,18 @@
       "sources": 1,
       "top": [
         "Pigfoot"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.netease.cloudmusic",
+      "file": "api/community/apps/com.netease.cloudmusic.json",
+      "name": "网易云音乐",
+      "icon": "",
+      "category": "",
+      "sources": 1,
+      "top": [
+        "NeteaseJA"
       ],
       "built_here": []
     },
