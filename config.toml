@@ -326,7 +326,7 @@ exclusive-patches = true
 patcher-args = "-OpackageName=com.stremio.one.subs"
 
 [Stremio-TV.patches]
-"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Test app name"]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines", "Test app name"]
 "github:MorpheApp/morphe-patches" = ["Clone app"]
 
 [Stremio-TV-Replace]
@@ -339,4 +339,4 @@ version = "latest"
 exclusive-patches = true
 
 [Stremio-TV-Replace.patches]
-"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh"]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines"]
