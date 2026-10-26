@@ -7,6 +7,9 @@
 #       {"versionName": "1.11.3", "tag": "v1.11.3", "versionCode": {"arm64": "43145731", ...}}}, ...]}
 # A config entry points at it with the feed URL and the entry id after '#':
 #   stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
+# The feed lists only the current version. An older one stays on dl.strem.io; pin it with its base version code after
+# '@' (the per-CPU codes are base + 1048576 arm, 2097152 x86, 3145728 arm64, 4194304 x86_64, as in every feed entry):
+#   stremio-dlurl = "https://api.strem.io/downloads/config#android_tv@1.11.3:40000003"
 #
 # Licensed under the GNU GPLv3, like the rest of this repository.
 # ---------------------------------------------------------
@@ -30,8 +33,23 @@ _ARCHES = {
 _FLAVOURS = {"android_tv": "androidTV", "android_tv_beta": "androidTV", "android": "android", "android_beta": "android"}
 
 
+# feed key -> what Stremio adds to a version's base code for that CPU
+_CODE_OFFSETS = {"arm": 1048576, "x86": 2097152, "arm64": 3145728, "x86_64": 4194304}
+
+
 class StremioFeedError(ScraperError):
     pass
+
+
+def _pin(url: str) -> tuple[str, tuple[str, int] | None]:
+    """'...#android_tv@1.11.3:40000003' -> ('...#android_tv', ('1.11.3', 40000003)); no '@' -> (url, None)."""
+    base, sep, pin = url.partition("@")
+    if not sep:
+        return url, None
+    name, _, code = pin.partition(":")
+    if not name or not code.isdigit():
+        raise StremioFeedError(f"A pinned Stremio version is written '<entry>@<version>:<base code>', not '@{pin}'")
+    return base, (name.lstrip("v"), int(code))
 
 
 class StremioScraper(BaseScraper):
@@ -53,11 +71,21 @@ class StremioScraper(BaseScraper):
         raise StremioFeedError(f"Stremio's download feed has no entry '{entry_id}'")
 
     def fetch_metadata(self, url: str) -> AppMetadata:
+        url, pin = _pin(url)
+        if pin:
+            return AppMetadata(pkg_name=PKG_NAME, versions=[pin[0]])
         _, value = self._entry(url)
         return AppMetadata(pkg_name=PKG_NAME, versions=[str(value["versionName"])])
 
     def download(self, url: str, version: str, dest: Path, arch: str, dpi: str, version_code: str | None = None) -> DownloadResult:
-        entry_id, value = self._entry(url)
+        url, pin = _pin(url)
+        if pin:  # an older version, by its base code (the feed only knows the current one)
+            entry_id = url.partition("#")[2] or "android_tv"
+            if entry_id not in _FLAVOURS:
+                raise StremioFeedError(f"Unknown Stremio feed entry '{entry_id}' (use one of {', '.join(_FLAVOURS)})")
+            value = {"versionName": pin[0], "tag": f"v{pin[0]}", "versionCode": {k: str(pin[1] + o) for k, o in _CODE_OFFSETS.items()}}
+        else:
+            entry_id, value = self._entry(url)
         name = str(value["versionName"])
         if version.lstrip("v") != name:
             raise StremioFeedError(f"Stremio only offers its current version ({name}), not '{version}'")
