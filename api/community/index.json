@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T06:47:01Z",
+  "generated": "2026-10-26T06:50:57Z",
   "data_generated": "2026-10-25T08:56:02Z",
   "source": {
     "repo": "nvbangg/awesome-morphe",
@@ -13095,7 +13095,8 @@
       ],
       "built_here": [
         "stremio-tv",
-        "stremio-tv-replace"
+        "stremio-tv-replace",
+        "stremio-phone"
       ]
     },
     {

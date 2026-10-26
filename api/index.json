@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T06:47:01Z",
+  "generated": "2026-10-26T06:50:57Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -40,13 +40,24 @@
       "api": "api/apps/reddit-experimental.json"
     },
     {
+      "id": "stremio-phone",
+      "name": "Stremio Phone Clone",
+      "package": "com.stremio.one.subs.phone",
+      "brand": "subs",
+      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
+      "latest_version": "2.4.0",
+      "updated": "2026-10-26T06:49:45Z",
+      "versions": 1,
+      "api": "api/apps/stremio-phone.json"
+    },
+    {
       "id": "stremio-tv",
       "name": "Stremio TV Clone",
       "package": "com.stremio.one.subs",
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.11.3",
-      "updated": "2026-10-25T11:17:02Z",
+      "updated": "2026-10-26T06:49:45Z",
       "versions": 1,
       "api": "api/apps/stremio-tv.json"
     },
@@ -57,7 +68,7 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.11.3",
-      "updated": "2026-10-25T11:17:02Z",
+      "updated": "2026-10-26T06:49:45Z",
       "versions": 1,
       "api": "api/apps/stremio-tv-replace.json"
     },
