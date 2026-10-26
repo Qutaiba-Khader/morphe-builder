@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-25T08:55:47Z",
-  "cli": "morphe-desktop-1.19.0-all.jar",
+  "generated": "2026-10-26T09:38:53Z",
+  "cli": "morphe-desktop-1.19.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 191,
+      "patch_count": 192,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -370,6 +370,10 @@
               "default": true
             },
             {
+              "name": "Download post images",
+              "default": true
+            },
+            {
               "name": "Downloads",
               "default": true
             },
@@ -653,6 +657,7 @@
         },
         "com.reddit.frontpage": {
           "versions": [
+            "2026.40.0",
             "2026.24.0",
             "2026.10.0",
             "2024.02.0"
@@ -786,7 +791,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.49.0-dev.5",
+      "version": "v1.49.0-dev.7",
       "spec": "dev",
       "used_by": [
         {
@@ -1600,16 +1605,24 @@
         {
           "table": "Stremio-TV",
           "enabled": true
+        },
+        {
+          "table": "Stremio-Phone",
+          "enabled": true
         }
       ]
     },
     "github:Qutaiba-Khader/stremio-subs-patches": {
-      "patch_count": 2,
+      "patch_count": 3,
       "universal_patches": [],
       "packages": {
         "com.stremio.one": {
           "versions": [],
           "patches": [
+            {
+              "name": "Right-to-left subtitle lines",
+              "default": true
+            },
             {
               "name": "Subtitle auto-refresh",
               "default": true
@@ -1622,7 +1635,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-subs-patches",
-      "version": "v0.3.1",
+      "version": "v0.4.1",
       "spec": "latest",
       "used_by": [
         {
@@ -1631,6 +1644,10 @@
         },
         {
           "table": "Stremio-TV-Replace",
+          "enabled": true
+        },
+        {
+          "table": "Stremio-Phone",
           "enabled": true
         }
       ]
