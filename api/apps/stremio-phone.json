@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T16:44:31Z",
+  "generated": "2026-10-26T22:49:32Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-phone",
   "name": "Stremio Phone Clone",
@@ -9,7 +9,7 @@
     {
       "version": "2.4.0",
       "tag": "26.10.26-subs",
-      "published": "2026-10-26T16:42:59Z",
+      "published": "2026-10-26T22:48:20Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.26-subs",
       "patches": [
@@ -18,8 +18,8 @@
           "version": "1.48.0"
         },
         {
-          "file": "Qutaiba-Khader/patches-0.4.1.mpp",
-          "version": "0.4.1"
+          "file": "Qutaiba-Khader/patches-0.5.0.mpp",
+          "version": "0.5.0"
         }
       ],
       "cli": {
@@ -30,7 +30,7 @@
         {
           "arch": "arm64-v8a",
           "size": 97383925,
-          "sha256": "02bdfc53bd060d18be5c2f839274580c243778a3b9bf58c01bad74d449d9c1a7",
+          "sha256": "4d912893acf7369f61c8525021aa11c09f206b2addc21eba08a6c10b1c3baa8f",
           "downloads": 0,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk"

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T16:44:31Z",
+  "generated": "2026-10-26T22:49:32Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
     "stremio-phone": {
@@ -16,7 +16,7 @@
       ],
       "version": "2.4.0",
       "tag": "26.10.26-subs",
-      "published": "2026-10-26T16:42:59Z",
+      "published": "2026-10-26T22:48:20Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.26-subs",
       "patches": [
@@ -25,8 +25,8 @@
           "version": "1.48.0"
         },
         {
-          "file": "Qutaiba-Khader/patches-0.4.1.mpp",
-          "version": "0.4.1"
+          "file": "Qutaiba-Khader/patches-0.5.0.mpp",
+          "version": "0.5.0"
         }
       ],
       "cli": {
@@ -37,7 +37,7 @@
         {
           "arch": "arm64-v8a",
           "size": 97383925,
-          "sha256": "02bdfc53bd060d18be5c2f839274580c243778a3b9bf58c01bad74d449d9c1a7",
+          "sha256": "4d912893acf7369f61c8525021aa11c09f206b2addc21eba08a6c10b1c3baa8f",
           "downloads": 0,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk"
@@ -59,7 +59,7 @@
       ],
       "version": "1.11.3",
       "tag": "26.10.26-subs",
-      "published": "2026-10-26T16:42:59Z",
+      "published": "2026-10-26T22:48:20Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.26-subs",
       "patches": [
@@ -68,8 +68,8 @@
           "version": "1.48.0"
         },
         {
-          "file": "Qutaiba-Khader/patches-0.4.1.mpp",
-          "version": "0.4.1"
+          "file": "Qutaiba-Khader/patches-0.5.0.mpp",
+          "version": "0.5.0"
         }
       ],
       "cli": {
@@ -81,7 +81,7 @@
           "arch": "armeabi-v7a",
           "size": 94180251,
           "sha256": "81acc23676a8caa61034f5204397678c12db0a91c860a3cef6aaee42f69cc486",
-          "downloads": 7,
+          "downloads": 9,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
         }
@@ -101,7 +101,7 @@
       ],
       "version": "1.11.3",
       "tag": "26.10.26-subs",
-      "published": "2026-10-26T16:42:59Z",
+      "published": "2026-10-26T22:48:20Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.26-subs",
       "patches": [
@@ -110,8 +110,8 @@
           "version": "1.48.0"
         },
         {
-          "file": "Qutaiba-Khader/patches-0.4.1.mpp",
-          "version": "0.4.1"
+          "file": "Qutaiba-Khader/patches-0.5.0.mpp",
+          "version": "0.5.0"
         }
       ],
       "cli": {
@@ -123,7 +123,7 @@
           "arch": "armeabi-v7a",
           "size": 94098272,
           "sha256": "661de185eb622e76b67fe49f647ac464f97b1d4a36388c11e23ea4ad89dc9504",
-          "downloads": 7,
+          "downloads": 9,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
         }
@@ -161,7 +161,7 @@
           "arch": "all",
           "size": 150153484,
           "sha256": "54961613867c146dd2fc32b3923fc11917047f8170463ae3f459881c0ef9164c",
-          "downloads": 0,
+          "downloads": 3,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.43.523-all.apk"
         }
@@ -199,7 +199,7 @@
           "arch": "all",
           "size": 110497049,
           "sha256": "7839d349a4a4a8bee27f1cccc51c960c971f2a8a584f3a57c86ac2d1a273eb8c",
-          "downloads": 18,
+          "downloads": 20,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk"
         }
@@ -237,7 +237,7 @@
           "arch": "all",
           "size": 104431254,
           "sha256": "586baf5fa90143bef28d63448b845d18dedd05caee4c3324001b75b644ac4391",
-          "downloads": 33,
+          "downloads": 35,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk",
           "name": "reddit-morphe-v2026.24.0-all.apk"
         }
@@ -275,7 +275,7 @@
           "arch": "all",
           "size": 134306872,
           "sha256": "4b14c1ee5333e211ab2ecfb6fe1cc50b82713ca73f51c34dc4af9d79a22a57ff",
-          "downloads": 32,
+          "downloads": 34,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/youtube-morphe-v21.20.405-all.apk",
           "name": "youtube-morphe-v21.20.405-all.apk"
         }
@@ -313,7 +313,7 @@
           "arch": "all",
           "size": 597347508,
           "sha256": "03c42b6037c3350d1ecf2b4ab2f568becafabefd46a433f86e859ce18689e918",
-          "downloads": 68,
+          "downloads": 70,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
