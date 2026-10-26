@@ -340,3 +340,21 @@ exclusive-patches = true
 
 [Stremio-TV-Replace.patches]
 "github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines"]
+
+# Stremio for Android PHONES (a separate app: 2.x, feed entry "android"), same patches, installed BESIDE the original
+# phone app only: Clone app -> com.stremio.one.subs.phone (its own package, so it never collides with the TV clone),
+# named "Stremio Subs". arm64-v8a: the phone APKs are per CPU and current phones are 64-bit. The patches work in the
+# app's ExoPlayer player (its default), not with mpv or VLC.
+[Stremio-Phone]
+enabled = true
+app-name = "Stremio Phone Clone"
+brand = "subs"
+stremio-dlurl = "https://api.strem.io/downloads/config#android"
+arch = "arm64-v8a"
+version = "latest"
+exclusive-patches = true
+patcher-args = "-OpackageName=com.stremio.one.subs.phone"
+
+[Stremio-Phone.patches]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines", "Test app name"]
+"github:MorpheApp/morphe-patches" = ["Clone app"]
