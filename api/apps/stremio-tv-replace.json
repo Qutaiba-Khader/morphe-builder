@@ -1,11 +1,43 @@
 {
-  "generated": "2026-10-27T09:34:40Z",
+  "generated": "2026-10-27T10:49:20Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv-replace",
   "name": "Stremio TV Replacement",
   "package": "com.stremio.one",
   "brand": "subs",
   "builds": [
+    {
+      "version": "1.12.0",
+      "tag": "26.10.27-subs",
+      "published": "2026-10-27T10:48:07Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.27-subs",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-1.48.0.mpp",
+          "version": "1.48.0"
+        },
+        {
+          "file": "Qutaiba-Khader/patches-0.6.0.mpp",
+          "version": "0.6.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.19.1-all.jar",
+        "version": "1.19.1"
+      },
+      "files": [
+        {
+          "arch": "armeabi-v7a",
+          "size": 73408639,
+          "sha256": "76ba40142259221bd0bcdb17c8b8c54d238b064bee5a7345ef969bb835237266",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk",
+          "name": "stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk"
+        }
+      ],
+      "rebuilds": 1
+    },
     {
       "version": "1.11.3",
       "tag": "26.10.26-subs",
@@ -31,7 +63,7 @@
           "arch": "armeabi-v7a",
           "size": 94102368,
           "sha256": "bb7e4f43199927b4b1d34e50bffea72956b338ab3b134b065a5fece9d429f269",
-          "downloads": 4,
+          "downloads": 6,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
         }
