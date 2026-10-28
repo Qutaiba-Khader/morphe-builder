@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T15:52:00Z",
+  "generated": "2026-10-28T16:35:30Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version is read from the APK filename, so Obtainium only prompts when the app version really changes.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -49,11 +49,11 @@
       "app": "stremio-phone",
       "name": "Stremio Phone Clone",
       "arch": "arm64-v8a",
-      "version": "2.4.0",
-      "build_version": "2.4.0-1.48.0",
+      "version": "2.5.0",
+      "build_version": "2.5.0-1.48.0",
       "package": "com.stremio.one.subs.phone",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-phone.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk",
       "config": {
         "id": "com.stremio.one.subs.phone",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-phone.html",
@@ -73,7 +73,7 @@
       "build_version": "1.12.0-1.48.0",
       "package": "com.stremio.one.subs",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
       "config": {
         "id": "com.stremio.one.subs",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html",
@@ -93,7 +93,7 @@
       "build_version": "1.12.0-1.48.0",
       "package": "com.stremio.one",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk",
       "config": {
         "id": "com.stremio.one",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html",
@@ -150,10 +150,10 @@
       "name": "YouTube Experimental",
       "arch": "all",
       "version": "21.43.523",
-      "build_version": "21.43.523-1.49.0.8",
+      "build_version": "21.43.523-1.49.0.10",
       "package": "app.morphe.android.youtube.dev",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk",
       "config": {
         "id": "app.morphe.android.youtube.dev",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html",
