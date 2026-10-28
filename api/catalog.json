@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T09:34:10Z",
+  "generated": "2026-10-28T10:19:07Z",
   "cli": "morphe-desktop-1.19.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -222,7 +222,7 @@
             "21.20.405",
             "21.16.256",
             "20.51.39",
-            "20.21.37"
+            "20.26.46"
           ],
           "patches": [
             {
@@ -795,7 +795,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.49.0-dev.8",
+      "version": "v1.49.0-dev.10",
       "spec": "dev",
       "used_by": [
         {
@@ -1639,7 +1639,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-subs-patches",
-      "version": "v0.5.0",
+      "version": "v0.6.0",
       "spec": "latest",
       "used_by": [
         {
