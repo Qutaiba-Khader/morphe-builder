@@ -59,7 +59,7 @@ Every earlier build: the **All versions** button on the [website](https://qutaib
 
 Our patch sources: 10 sources able to patch 360 apps, in the website's **Our sources** tab or [`data/catalog.json`](data/catalog.json).
 
-Patchable apps: 1329 apps from 424 Morphe community patch sources, in the website's **[Patchable apps](https://qutaiba-khader.github.io/morphe-builder/#community)** tab, each with the lines to add it here.
+Patchable apps: 1347 apps from 429 Morphe community patch sources, in the website's **[Patchable apps](https://qutaiba-khader.github.io/morphe-builder/#community)** tab, each with the lines to add it here.
 
 Every APK is signed with the certificate SHA-256 `7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603`. [AppVerifier](https://github.com/soupslurpr/AppVerifier) or `apksigner verify --print-certs` shows the same value for a genuine build.
 
