@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-28T10:19:07Z",
+  "generated": "2026-10-29T10:41:56Z",
   "cli": "morphe-desktop-1.19.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -218,9 +218,9 @@
         },
         "com.google.android.youtube": {
           "versions": [
+            "21.30.216",
+            "21.28.208",
             "21.23.492",
-            "21.20.405",
-            "21.16.256",
             "20.51.39",
             "20.26.46"
           ],
@@ -795,7 +795,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.49.0-dev.10",
+      "version": "v1.49.0-dev.11",
       "spec": "dev",
       "used_by": [
         {
@@ -1681,7 +1681,9 @@
           ]
         },
         "com.amazon.mp3": {
-          "versions": [],
+          "versions": [
+            "26.36.1"
+          ],
           "patches": [
             {
               "name": "Prevent log upload",
@@ -2113,7 +2115,7 @@
         }
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
-      "version": "v1.6.0",
+      "version": "v1.6.2",
       "spec": "latest",
       "used_by": [
         {
@@ -4271,7 +4273,7 @@
         },
         "app.simple.inure": {
           "versions": [
-            "build107.2.4"
+            "build107.3.0"
           ],
           "patches": [
             {
@@ -4348,7 +4350,7 @@
         },
         "cn.danatech.xingseus": {
           "versions": [
-            "5.36.0"
+            "5.38.0"
           ],
           "patches": [
             {
@@ -4491,7 +4493,7 @@
         },
         "com.amazon.mShop.android.shopping": {
           "versions": [
-            "32.18.0.100"
+            "32.19.0.100"
           ],
           "patches": [
             {
@@ -4541,7 +4543,7 @@
         },
         "com.anetcapture.mock": {
           "versions": [
-            "2.5.0-ad_mob"
+            "2.5.2-ad_mob"
           ],
           "patches": [
             {
@@ -4585,7 +4587,7 @@
         },
         "com.appostrophe.scrl": {
           "versions": [
-            "1.31"
+            "1.32.1"
           ],
           "patches": [
             {
@@ -4772,7 +4774,7 @@
         },
         "com.cloudflare.onedotonedotonedotone": {
           "versions": [
-            "6.38.9"
+            "6.38.11"
           ],
           "patches": [
             {
@@ -4791,7 +4793,7 @@
         },
         "com.clue.android": {
           "versions": [
-            "273.0"
+            "275.0"
           ],
           "patches": [
             {
@@ -4802,7 +4804,7 @@
         },
         "com.codium.hydrocoach": {
           "versions": [
-            "5.1.13"
+            "6.0.3"
           ],
           "patches": [
             {
@@ -4846,7 +4848,7 @@
         },
         "com.delphicoder.flud": {
           "versions": [
-            "2.1.2"
+            "2.2.2"
           ],
           "patches": [
             {
@@ -5026,7 +5028,7 @@
         },
         "com.flightaware.android.liveFlightTracker": {
           "versions": [
-            "5.16.1"
+            "5.16.3"
           ],
           "patches": [
             {
@@ -5037,7 +5039,7 @@
         },
         "com.flightradar24free": {
           "versions": [
-            "11.12.0"
+            "11.13.0"
           ],
           "patches": [
             {
@@ -5048,7 +5050,7 @@
         },
         "com.funnmedia.calory": {
           "versions": [
-            "3.8.7"
+            "3.9"
           ],
           "patches": [
             {
@@ -5092,7 +5094,7 @@
         },
         "com.google.android.apps.photos": {
           "versions": [
-            "7.97.0.997578476"
+            "7.98.0.1001971222"
           ],
           "patches": [
             {
@@ -5127,7 +5129,7 @@
         },
         "com.guochao.faceshow": {
           "versions": [
-            "3.2.91"
+            "3.2.97"
           ],
           "patches": [
             {
@@ -5267,7 +5269,7 @@
         },
         "com.kevinforeman.nzb360": {
           "versions": [
-            "25.2"
+            "25.2.1"
           ],
           "patches": [
             {
@@ -5345,7 +5347,7 @@
         },
         "com.livescore": {
           "versions": [
-            "10.3.1"
+            "10.3.2"
           ],
           "patches": [
             {
@@ -5547,7 +5549,7 @@
         },
         "com.navitime.inbound.walk": {
           "versions": [
-            "12.2.5"
+            "12.3.0"
           ],
           "patches": [
             {
@@ -5558,7 +5560,7 @@
         },
         "com.newsbreak.crimeradar": {
           "versions": [
-            "26.41.0"
+            "26.42.1"
           ],
           "patches": [
             {
@@ -5646,7 +5648,7 @@
         },
         "com.paget96.batteryguru": {
           "versions": [
-            "2.5.0.8"
+            "2.5.0.9"
           ],
           "patches": [
             {
@@ -5679,7 +5681,7 @@
         },
         "com.particlenews.newsbreak": {
           "versions": [
-            "26.41.0"
+            "26.43.0"
           ],
           "patches": [
             {
@@ -5690,7 +5692,7 @@
         },
         "com.particlenews.newsbreaklite": {
           "versions": [
-            "26.34.0"
+            "26.39.0"
           ],
           "patches": [
             {
@@ -5819,7 +5821,7 @@
         },
         "com.regasoftware.udisc": {
           "versions": [
-            "24.3.2"
+            "24.3.4"
           ],
           "patches": [
             {
@@ -5896,7 +5898,7 @@
         },
         "com.snowcorp.stickerly.android": {
           "versions": [
-            "3.40.0"
+            "3.40.1"
           ],
           "patches": [
             {
@@ -5973,7 +5975,7 @@
         },
         "com.sumyapplications.bluetooth.earphone": {
           "versions": [
-            "7.52"
+            "8.32"
           ],
           "patches": [
             {
@@ -6105,7 +6107,7 @@
         },
         "com.twtapp": {
           "versions": [
-            "3.5.3"
+            "3.5.4"
           ],
           "patches": [
             {
@@ -6182,7 +6184,7 @@
         },
         "com.weather.Weather": {
           "versions": [
-            "16.25.0"
+            "16.26.0"
           ],
           "patches": [
             {
@@ -6270,7 +6272,7 @@
         },
         "cz.mroczis.netmonster": {
           "versions": [
-            "4.0.5"
+            "5.0.2"
           ],
           "patches": [
             {
@@ -6391,7 +6393,7 @@
         },
         "eu.duong.picturemanager": {
           "versions": [
-            "8.30.2"
+            "8.30.3"
           ],
           "patches": [
             {
@@ -6424,7 +6426,7 @@
         },
         "eu.toneiv.ubktouch": {
           "versions": [
-            "1.17.10"
+            "1.17.11"
           ],
           "patches": [
             {
@@ -6457,7 +6459,7 @@
         },
         "hd.uhd.live.wallpapers.topwallpapers": {
           "versions": [
-            "6.1.1"
+            "7.0.1"
           ],
           "patches": [
             {
@@ -6479,7 +6481,7 @@
         },
         "in.amazon.mShop.android.shopping": {
           "versions": [
-            "32.18.0.300"
+            "32.19.0.300"
           ],
           "patches": [
             {
@@ -6573,7 +6575,7 @@
         },
         "je.fit": {
           "versions": [
-            "17.4.5"
+            "17.6.0"
           ],
           "patches": [
             {
@@ -6953,7 +6955,7 @@
         },
         "proton.android.pass": {
           "versions": [
-            "1.41.3"
+            "1.41.5"
           ],
           "patches": [
             {
@@ -7056,7 +7058,7 @@
         }
       },
       "url": "https://github.com/rushiranpise/morphe-patches",
-      "version": "v1.23.0",
+      "version": "v1.23.1",
       "spec": "latest",
       "used_by": [
         {
