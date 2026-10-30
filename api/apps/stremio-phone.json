@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-30T13:24:52Z",
+  "generated": "2026-10-30T16:40:07Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-phone",
   "name": "Stremio Phone Clone",
@@ -31,7 +31,7 @@
           "arch": "arm64-v8a",
           "size": 77508629,
           "sha256": "a297a8985c45156d79fb8169086cf0887067ce8474164687a7187b6b94a249e8",
-          "downloads": 19,
+          "downloads": 21,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk"
         }

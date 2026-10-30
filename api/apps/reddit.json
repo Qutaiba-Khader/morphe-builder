@@ -1,11 +1,39 @@
 {
-  "generated": "2026-10-30T13:24:52Z",
+  "generated": "2026-10-30T16:40:07Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "reddit",
   "name": "Reddit",
   "package": "com.reddit.frontpage",
   "brand": "Morphe",
   "builds": [
+    {
+      "version": "2026.40.0",
+      "tag": "26.10.30-morphe",
+      "published": "2026-10-30T16:38:52Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.30-morphe",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-2.0.0.mpp",
+          "version": "2.0.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.20.0-all.jar",
+        "version": "1.20.0"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 110118635,
+          "sha256": "b01db0b8275483fabfeafc6dd7d1135a81c45762a48c0c4bb7e725bb1d027e94",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/reddit-morphe-v2026.40.0-all.apk",
+          "name": "reddit-morphe-v2026.40.0-all.apk"
+        }
+      ],
+      "rebuilds": 1
+    },
     {
       "version": "2026.24.0",
       "tag": "26.10.24-morphe",
@@ -27,7 +55,7 @@
           "arch": "all",
           "size": 104431254,
           "sha256": "586baf5fa90143bef28d63448b845d18dedd05caee4c3324001b75b644ac4391",
-          "downloads": 78,
+          "downloads": 80,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk",
           "name": "reddit-morphe-v2026.24.0-all.apk"
         }
