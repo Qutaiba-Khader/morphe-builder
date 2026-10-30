@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-29T10:41:56Z",
+  "generated": "2026-10-30T10:42:19Z",
   "cli": "morphe-desktop-1.19.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 193,
+      "patch_count": 194,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -14,6 +14,7 @@
       "packages": {
         "com.google.android.apps.youtube.music": {
           "versions": [
+            "9.30.53",
             "9.20.53",
             "9.15.51"
           ],
@@ -642,6 +643,10 @@
               "default": true
             },
             {
+              "name": "Translate posts",
+              "default": true
+            },
+            {
               "name": "Video delay",
               "default": true
             },
@@ -795,7 +800,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.49.0-dev.11",
+      "version": "v2.0.0-dev.3",
       "spec": "dev",
       "used_by": [
         {
