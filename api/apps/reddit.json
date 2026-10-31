@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-31T10:10:38Z",
+  "generated": "2026-10-31T12:58:20Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "reddit",
   "name": "Reddit",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 110118635,
           "sha256": "b01db0b8275483fabfeafc6dd7d1135a81c45762a48c0c4bb7e725bb1d027e94",
-          "downloads": 8,
+          "downloads": 10,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/reddit-morphe-v2026.40.0-all.apk",
           "name": "reddit-morphe-v2026.40.0-all.apk"
         }
