@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-30T10:42:19Z",
-  "cli": "morphe-desktop-1.19.1-all.jar",
+  "generated": "2026-10-31T10:10:12Z",
+  "cli": "morphe-desktop-1.20.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
       "patch_count": 194,
@@ -800,7 +800,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.0.0-dev.3",
+      "version": "v2.1.0-dev.2",
       "spec": "dev",
       "used_by": [
         {
@@ -818,7 +818,7 @@
       ]
     },
     "github:MorpheApp/morphe-patches": {
-      "patch_count": 190,
+      "patch_count": 194,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -829,6 +829,7 @@
       "packages": {
         "com.google.android.apps.youtube.music": {
           "versions": [
+            "9.30.53",
             "9.20.53",
             "9.15.51"
           ],
@@ -1033,10 +1034,11 @@
         },
         "com.google.android.youtube": {
           "versions": [
-            "21.20.405",
-            "21.16.256",
+            "21.30.216",
+            "21.28.208",
+            "21.23.492",
             "20.51.39",
-            "20.21.37"
+            "20.26.46"
           ],
           "patches": [
             {
@@ -1184,6 +1186,10 @@
               "default": true
             },
             {
+              "name": "Download post images",
+              "default": true
+            },
+            {
               "name": "Downloads",
               "default": true
             },
@@ -1308,6 +1314,10 @@
               "default": false
             },
             {
+              "name": "Niconico comments",
+              "default": true
+            },
+            {
               "name": "Open channel of live avatar",
               "default": true
             },
@@ -1392,6 +1402,10 @@
               "default": true
             },
             {
+              "name": "Search comments",
+              "default": true
+            },
+            {
               "name": "Seekbar",
               "default": true
             },
@@ -1444,6 +1458,10 @@
               "default": true
             },
             {
+              "name": "Translate posts",
+              "default": true
+            },
+            {
               "name": "Video delay",
               "default": true
             },
@@ -1463,6 +1481,7 @@
         },
         "com.reddit.frontpage": {
           "versions": [
+            "2026.40.0",
             "2026.24.0",
             "2026.10.0",
             "2024.02.0"
@@ -1596,7 +1615,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v1.48.0",
+      "version": "v2.0.0",
       "spec": "latest",
       "used_by": [
         {
