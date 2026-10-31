@@ -1,11 +1,39 @@
 {
-  "generated": "2026-10-31T12:58:20Z",
+  "generated": "2026-10-31T15:43:53Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube-experimental",
   "name": "YouTube Experimental",
   "package": "app.morphe.android.youtube.dev",
   "brand": "morphe-dev",
   "builds": [
+    {
+      "version": "21.44.528-BETA",
+      "tag": "26.10.31-morphe-dev",
+      "published": "2026-10-31T15:42:42Z",
+      "prerelease": true,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.31-morphe-dev",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-2.1.0-dev.3.mpp",
+          "version": "2.1.0-dev.3"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.20.0-all.jar",
+        "version": "1.20.0"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 158071126,
+          "sha256": "5f737253fad36aceaf0ce63550089f8dd80ab1cc31a748f096ca836440e6ae55",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.31-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk",
+          "name": "youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk"
+        }
+      ],
+      "rebuilds": 1
+    },
     {
       "version": "21.43.523",
       "tag": "26.10.30-morphe-dev",
@@ -27,7 +55,7 @@
           "arch": "all",
           "size": 153883700,
           "sha256": "45a6c049646cb054da393afc0f879e1dcc07cf841218dc76ecb36089b7ee7e7b",
-          "downloads": 11,
+          "downloads": 14,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.43.523-all.apk"
         }
