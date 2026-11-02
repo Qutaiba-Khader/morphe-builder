@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-02T21:39:21Z",
+ "checked_at": "2026-11-02T21:47:12Z",
  "offered": {
   "tiktok": {
    "version": "46.2.3",
@@ -34,9 +34,7 @@
    "tag": "26.11.02-morphe"
   }
  },
- "problems": [
-  "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
- ],
+ "problems": [],
  "waiting": [
   "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
  ]
