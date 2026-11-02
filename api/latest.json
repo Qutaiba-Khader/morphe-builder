@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T21:43:56Z",
+  "generated": "2026-11-02T21:52:56Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
     "tiktok": {
@@ -33,7 +33,7 @@
           "arch": "all",
           "size": 600857898,
           "sha256": "40263d9c6252f57e4b91b7b6d83c2a5d2a57ed925141de3446beb09ca3a36866",
-          "downloads": 0,
+          "downloads": 5,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
