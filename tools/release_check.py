@@ -218,15 +218,14 @@ def read_apk(url: str) -> dict[str, Any]:
 
 def _text(url: str) -> str:
     req = urllib.request.Request(f"{url}?_={int(datetime.now().timestamp())}", headers={"User-Agent": "morphe-builder-health"})
-    for attempt in range(3):
+    for wait in (5, 10):
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 return resp.read().decode("utf-8", "replace")
         except OSError:
-            if attempt == 2:
-                raise
-            time.sleep(5 * (attempt + 1))
-    raise AssertionError("unreachable")
+            time.sleep(wait)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read().decode("utf-8", "replace")
 
 
 def feed_versions(apps: list[dict[str, Any]]) -> dict[str, str]:
