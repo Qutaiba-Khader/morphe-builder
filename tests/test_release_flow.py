@@ -137,6 +137,15 @@ class Site(unittest.TestCase):
         self.assertEqual([b["version"] for b in gen_site.collect([rel])["stremio-phone"]["builds"]], ["2.5.1", "2.5.0"])
 
 
+class StockCheck(unittest.TestCase):
+    # P-REL-94
+    def test_P_REL_94_every_enabled_app_has_a_stock_signature_to_check(self):
+        known = {line.split()[-1] for line in (ROOT / "sig.txt").read_text(encoding="utf-8").splitlines() if line.strip()}
+        meta = gen_site.table_meta()
+        missing = [k for k, v in meta.items() if v["enabled"] and v["stock_package"] not in known]
+        self.assertEqual(missing, [], "without an entry a tampered stock APK would be patched and signed with our key")
+
+
 class Prune(unittest.TestCase):
     """Removing the older APK of a same-day rebuild."""
 

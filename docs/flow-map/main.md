@@ -97,6 +97,7 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-91 | matrix.py get_matrix, check_builds_needed | the command line runs the right check | as named | `test_P_REL_91_the_command_line_runs_the_right_check` | matrix.py |
 | P-REL-92 | tools/gen_site.py collect | an apk still uploading is not offered | as named | `test_P_REL_92_an_apk_still_uploading_is_not_offered` | gen_site.py collect |
 | P-REL-93 | tools/gen_site.py collect | architectures are ordered by version | as named | `test_P_REL_93_architectures_are_ordered_by_version` | gen_site.py collect |
+| P-REL-94 | sig.txt against config.toml | every enabled app has a stock signature to check | as named | `test_P_REL_94_every_enabled_app_has_a_stock_signature_to_check` | sig.txt |
 
 ## Mode combinations
 
