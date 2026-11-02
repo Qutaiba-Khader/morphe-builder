@@ -89,9 +89,10 @@ def _upstream_ver_key(ver: str) -> tuple:
     (1.47.0-dev.14 > 1.47.0-dev.9) and a final release beats its pre-releases."""
     m = re.search(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|beta|rc|pre)[-._]?(\d*))?", ver, re.IGNORECASE)
     if not m:
-        return ((0,), 1, 0)
+        return ((0,), 1, 0, 0)
     base = tuple(int(x) for x in m.group(1).split("."))
-    return (base, 0, int(m.group(3) or 0)) if m.group(2) else (base, 1, 0)
+    order = {"dev": 0, "pre": 1, "alpha": 2, "beta": 3, "rc": 4}
+    return (base, 0, order[m.group(2).lower()], int(m.group(3) or 0)) if m.group(2) else (base, 1, 0, 0)
 
 
 def _bundle(assets: list[dict[str, Any]], name_key: str, url_key: str) -> str | None:

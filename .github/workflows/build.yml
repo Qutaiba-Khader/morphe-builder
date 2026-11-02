@@ -18,6 +18,7 @@ on:
           - de-vanced
           - tiktok
           - subs
+          - metra
   workflow_call:
     inputs:
       patch_source:
@@ -30,6 +31,11 @@ on:
 permissions:
   contents: read
 
+# Two builds of one patch source at once would write into the same release.
+concurrency:
+  group: build-${{ inputs.patch_source }}
+  cancel-in-progress: false
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -38,6 +44,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       version: ${{ steps.version.outputs.version }}
+      started: ${{ steps.version.outputs.started }}
       prerelease: ${{ steps.set-matrix.outputs.prerelease }}
     steps:
       - name: Checkout
@@ -63,8 +70,11 @@ jobs:
         run: |
           VER="$(date +%y.%m.%d)-${{ inputs.patch_source }}"
           echo "version=${VER}" >> "$GITHUB_OUTPUT"
+          echo "started=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
           if gh release view "$VER" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release edit "$VER" --draft --repo "$GITHUB_REPOSITORY"
+            # Today's release stays published: drafting it would break every download link
+            # for the whole build, and for good if the run were cancelled or failed.
+            echo "Today's release exists; this build adds to it"
           else
             gh release create "$VER" --draft --title "$VER" --notes "" --repo "$GITHUB_REPOSITORY"
           fi
@@ -127,7 +137,18 @@ jobs:
           GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
         run: uv run main.py ${{ matrix.id }} ${{ matrix.arch }}
 
-      - name: Upload APKs to draft release
+      # Nothing unusable gets as far as a release: wrong key, wrong version inside, wrong
+      # CPU, or a patch that left nothing in the app. A rejected APK is deleted here.
+      - name: Verify APKs
+        if: always()
+        env:
+          SIGNING_CERT_SHA256: ${{ vars.SIGNING_CERT_SHA256 }}
+        run: |
+          shopt -s nullglob
+          apks=(./build/*.apk)
+          [[ ${#apks[@]} -eq 0 ]] || python3 tools/verify_apk.py "${apks[@]}"
+
+      - name: Upload APKs to release
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -192,7 +213,8 @@ jobs:
           TAG: ${{ needs.prepare.outputs.version }}
         run: |
           mkdir -p logs
-          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "build-*.md" --dir logs
+          # No log = every build of this run failed, and the APKs here are from an earlier one.
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "build-*.md" --dir logs || echo "::warning::no build logs in $TAG"
           gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[] | select(.name | startswith("build-")) | .apiUrl' | xargs -I{} gh api --method DELETE "{}"
 
       - name: Combine logs and finalize release
@@ -203,10 +225,12 @@ jobs:
           PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
         run: |
           uv run python -m src.scripts.logs combine-logs logs | sed "s/{TAG}/$TAG/g" > final.md
+          [ -s final.md ] && python3 tools/prune_release.py --mislabeled "$TAG" final.md "${{ needs.prepare.outputs.started }}"
+          notes=(); [ -s final.md ] && notes=(--notes-file final.md)  # no new logs: keep the notes that describe the APKs
           if [ "$PRERELEASE" = "true" ]; then
-            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --title "$TAG" --notes-file final.md
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease --title "$TAG" "${notes[@]}"
           else
-            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --title "$TAG" --notes-file final.md
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --title "$TAG" "${notes[@]}"
           fi
 
       - name: Send Telegram notification

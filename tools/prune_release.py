@@ -22,25 +22,21 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
 
-MIN_APK_BYTES = 1_000_000
 
+def mislabeled(release: dict[str, Any], new_notes: str, started: str) -> list[dict[str, Any]]:
+    """APKs an earlier run left in today's release that the notes of this run would misdescribe.
 
-def superseded(release: dict[str, Any], config: dict[str, dict[str, str]]) -> list[dict[str, Any]]:
-    """The assets of one release that a higher version of the same app and arch replaces."""
-    groups: dict[tuple[str, str], list[tuple[tuple[int, ...], dict[str, Any]]]] = {}
-    for asset in release.get("assets", []):
-        parts = gen_site.split_asset(asset["name"], config)
-        if parts:
-            stem, version, arch = parts
-            groups.setdefault((stem, arch), []).append((gen_site.version_key(version), asset))
-    out: list[dict[str, Any]] = []
-    for items in groups.values():
-        items.sort(key=lambda i: i[0], reverse=True)
-        best_key, best = items[0]
-        if best.get("state", "uploaded") != "uploaded" or best.get("size", 0) < MIN_APK_BYTES:
-            continue  # the replacement is not safely there
-        out.extend(asset for key, asset in items[1:] if key < best_key)
-    return out
+    Which patches an APK has is read from its release's notes. If this run used other bundles
+    and an app failed, its older APK would be labelled with bundles it does not have, and the
+    app would then count as up to date. Removing it leaves the previous release's build on offer
+    and makes the next check rebuild it.
+    """
+    bundles = lambda text: {p["file"] for p in gen_site.build_tools(text)["patches"]}  # noqa: E731
+    old, new = bundles(release.get("body") or ""), bundles(new_notes)
+    if not old or not new or old == new:
+        return []
+    return [a for a in release.get("assets", [])
+            if a["name"].endswith(".apk") and str(a.get("updated_at") or "") < started]
 
 
 def live_urls(site_url: str) -> set[str]:
@@ -57,12 +53,23 @@ def delete_asset(repo: str, asset_id: int) -> None:
         pass
 
 
-def main(wait_seconds: int = 300, poll_seconds: int = 20) -> int:
+def drop_mislabeled(repo: str, tag: str, notes_file: str, started: str) -> int:
+    release = gen_site._get(f"{gen_site.API}/repos/{repo}/releases/tags/{tag}")
+    for asset in mislabeled(release, Path(notes_file).read_text(encoding="utf-8"), started):
+        delete_asset(repo, asset["id"])
+        print(f"::warning::removed {asset['name']} from {tag}: it was not rebuilt and has older patches than this release's notes")
+    return 0
+
+
+def main(argv: list[str] | None = None, wait_seconds: int = 300, poll_seconds: int = 20) -> int:
     repo = os.getenv("GITHUB_REPOSITORY", "Qutaiba-Khader/morphe-builder")
+    args = sys.argv[1:] if argv is None else argv
+    if args[:1] == ["--mislabeled"]:
+        return drop_mislabeled(repo, args[1], args[2], args[3])
     owner, name = repo.split("/", 1)
     site_url = os.getenv("SITE_URL", f"https://{owner.lower()}.github.io/{name}/")
     config = gen_site.app_config()
-    doomed = [(r["tag_name"], a) for r in gen_site.fetch_releases(repo) for a in superseded(r, config)]
+    doomed = [(r["tag_name"], a) for r in gen_site.fetch_releases(repo) for a in gen_site.superseded(r, config)]
     if not doomed:
         print("nothing superseded")
         return 0

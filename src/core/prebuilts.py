@@ -30,17 +30,19 @@ class PrebuiltsError(Exception):
 
 _VER_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|beta|rc|pre)[-._]?(\d*))?", re.IGNORECASE)
 
+_PRE_ORDER = {"dev": 0, "pre": 1, "alpha": 2, "beta": 3, "rc": 4}
+
 def _ver_key(ver: str) -> tuple:
     # morphe-builder: the pre-release number counts, so 1.47.0-dev.14 beats
     # 1.47.0-dev.9 (they used to tie and GitHub's list order picked dev.9);
     # a final release still beats its own pre-releases (1.47.0 > 1.47.0-dev.N).
     m = _VER_RE.search(ver)
     if not m:
-        return ((0,), 1, 0)
+        return ((0,), 1, 0, 0)
     base = tuple(int(x) for x in m.group(1).split("."))
     if m.group(2):
-        return (base, 0, int(m.group(3) or 0))
-    return (base, 1, 0)
+        return (base, 0, _PRE_ORDER[m.group(2).lower()], int(m.group(3) or 0))
+    return (base, 1, 0, 0)
 
 def _strip_src_prefix(src: str) -> str:
     for prefix in _KNOWN_PREFIXES:

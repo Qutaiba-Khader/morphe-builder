@@ -1,7 +1,9 @@
 name: CI
 on:
   schedule:
-    - cron: '0 10 * * *'
+    # GitHub starts scheduled runs hours late (10:00 UTC ran as late as 20:08), so check
+    # more than once a day. A check that finds nothing new costs half a minute.
+    - cron: '0 4,10,16,22 * * *'
   workflow_dispatch:
     inputs:
       force_build:
@@ -13,6 +15,10 @@ on:
 permissions:
   contents: write
   actions: write
+
+concurrency:
+  group: ci
+  cancel-in-progress: false
 
 jobs:
   check-versions:
@@ -38,11 +44,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Not `echo "x=$(...)"`: echo's success would hide a crash, and a crashed check
+          # looks exactly like "nothing new" on a green run.
           if [ "${{ inputs.force_build }}" = "true" ]; then
-            echo "build_matrix=$(uv run python -m src.scripts.matrix get-matrix-force)" >> "$GITHUB_OUTPUT"
+            matrix="$(uv run python -m src.scripts.matrix get-matrix-force)"
           else
-            echo "build_matrix=$(uv run python -m src.scripts.matrix get-matrix)" >> "$GITHUB_OUTPUT"
+            matrix="$(uv run python -m src.scripts.matrix get-matrix)"
           fi
+          jq -e 'type == "array"' <<<"$matrix" >/dev/null
+          echo "build_matrix=$(jq -c . <<<"$matrix")" >> "$GITHUB_OUTPUT"
 
       - name: Notify skipped build
         if: steps.get-matrix.outputs.build_matrix == '[]'
@@ -52,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh run list -L400 --repo "$GITHUB_REPOSITORY" --json databaseId -q '.[].databaseId' | tail -n+91 | xargs -IID gh api "repos/$GITHUB_REPOSITORY/actions/runs/ID" -X DELETE || true
+          gh run list -L400 --repo "$GITHUB_REPOSITORY" --json databaseId -q '.[].databaseId' | tail -n+301 | xargs -IID gh api "repos/$GITHUB_REPOSITORY/actions/runs/ID" -X DELETE || true
 
   build:
     needs: check-versions

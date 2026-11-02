@@ -1,0 +1,39 @@
+{
+  "name": "morphe-builder",
+  "level": "standard",
+  "source": [
+    "tools/gen_site.py",
+    "tools/prune_release.py",
+    "tools/verify_apk.py",
+    "tools/release_check.py",
+    "tools/apk_package.py",
+    "src/scripts/matrix.py",
+    "src/core/patcher.py",
+    "src/core/builder.py"
+  ],
+  "exclude": [
+    "tests/**/*.py",
+    "tools/flow/**"
+  ],
+  "tests": [
+    "tests/**/*.py"
+  ],
+  "maps": "docs/flow-map",
+  "index": "docs/FLOW-MAP.md",
+  "lanes": [
+    {
+      "name": "python",
+      "adapter": "coverage-py",
+      "python": "python3",
+      "test_args": "-m unittest discover -s tests",
+      "command_files": "python3 -m unittest {files}",
+      "coverage_source": ".",
+      "tests": [
+        "tests/**/*.py"
+      ]
+    }
+  ],
+  "codebase_memory": {
+    "project": "morphe-builder"
+  }
+}

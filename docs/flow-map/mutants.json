@@ -1,0 +1,92 @@
+[
+ {
+  "id": "G-OFFER-highest",
+  "file": "tools/gen_site.py",
+  "find": "key=lambda b: (b[\"published\"], b[\"version\"] == app[\"pin\"], version_key(b[\"version\"])), reverse=True)",
+  "replace": "key=lambda b: (b[\"published\"], b[\"version\"] == app[\"pin\"]), reverse=True)"
+ },
+ {
+  "id": "G-OFFER-replaced-hidden",
+  "file": "tools/gen_site.py",
+  "find": "if parts is None or asset[\"name\"] in replaced or asset.get(\"state\", \"uploaded\") != \"uploaded\":",
+  "replace": "if parts is None or asset.get(\"state\", \"uploaded\") != \"uploaded\":"
+ },
+ {
+  "id": "G-OFFER-own-bundle",
+  "file": "tools/gen_site.py",
+  "find": "patches = mine + [p for p in patches if p not in mine]",
+  "replace": "pass"
+ },
+ {
+  "id": "G-OFFER-replacement-complete",
+  "file": "tools/gen_site.py",
+  "find": "if best.get(\"state\", \"uploaded\") != \"uploaded\" or best.get(\"size\", 0) < MIN_APK_BYTES:",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-PRUNE-still-offered",
+  "file": "tools/prune_release.py",
+  "find": "if not still:",
+  "replace": "if True:"
+ },
+ {
+  "id": "G-VERIFY-version",
+  "file": "tools/verify_apk.py",
+  "find": "if inside is not None and inside != m[\"version\"]:",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-VERIFY-signer",
+  "file": "tools/verify_apk.py",
+  "find": "if signer != want_signer:",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-VERIFY-marker",
+  "file": "tools/verify_apk.py",
+  "find": "if not any(marker in zf.read(n) for n in dex):",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-CHECK-all-bundles",
+  "file": "src/scripts/matrix.py",
+  "find": "if named and not all(n.endswith",
+  "replace": "if named and not any(n.endswith"
+ },
+ {
+  "id": "G-CHECK-retry-day",
+  "file": "src/scripts/matrix.py",
+  "find": "if age > RETRY_AFTER:",
+  "replace": "if True:"
+ },
+ {
+  "id": "G-FALLBACK-floor",
+  "file": "src/core/builder.py",
+  "find": "[v for v in older_versions if version_numbers(v[0]) >= floor]",
+  "replace": "older_versions"
+ },
+ {
+  "id": "G-FALLBACK-named",
+  "file": "src/core/builder.py",
+  "find": "            if force:\n                raise\n",
+  "replace": ""
+ },
+ {
+  "id": "G-PATCH-required",
+  "file": "src/core/patcher.py",
+  "find": "if missing := unapplied_patches(output, required):",
+  "replace": "if missing := []:"
+ },
+ {
+  "id": "G-HEALTH-stale",
+  "file": "tools/release_check.py",
+  "find": "if (have.get(\"version\"), have.get(\"tag\")) != (want[0][\"version\"], want[0][\"tag\"]):",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-HEALTH-grace",
+  "file": "tools/release_check.py",
+  "find": "if now - _parse_time(rec[\"first_seen\"]) >= grace_of(key))",
+  "replace": "if True)"
+ }
+]

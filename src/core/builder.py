@@ -11,6 +11,7 @@
 # ---------------------------------------------------------
 
 import base64
+import json
 import os
 import re
 import shutil
@@ -22,11 +23,12 @@ from pathlib import Path
 from src.core.config import BUILD_DIR, TEMP_DIR, AppEntry, Config
 from src.core.logger import IS_GITHUB, epr, is_interrupted, pr, wpr
 from src.core.network import NetworkError, NetworkManager
-from src.core.patcher import PatcherCLI, PatcherError, SignatureError
+from src.core.patcher import PatcherCLI, PatcherError, SignatureError, version_numbers
 from src.core.prebuilts import APKSIGNER, fetch_cli, fetch_mpp, get_highest_ver
 from src.scrapers.base import BaseScraper, DownloadResult, ScraperError
 
 _failed_signatures: set[str] = set()
+MAX_OLDER_VERSIONS = 3
 
 
 class BuilderError(Exception):
@@ -48,6 +50,21 @@ def _make_scraper(source: str, net: NetworkManager) -> BaseScraper:
             return GPlayScraper(net)
         case _:
             raise ValueError(f"Unknown APK source: {source!r}")
+
+def _last_shipped(entry: AppEntry, net: NetworkManager) -> str:
+    """morphe-builder: the version of the app's newest published build, "" when unknown."""
+    stem = f"{entry.app_name.lower().replace(' ', '-')}-{entry.brand.lower().replace(' ', '-')}-v"
+    try:
+        releases = json.loads(net.get(f"https://api.github.com/repos/{os.getenv('GITHUB_REPOSITORY')}/releases?per_page=100", headers=net.gh_headers))
+    except Exception as exc:
+        epr(f"Could not read what '{entry.table}' last shipped: {exc}")
+        return ""
+    for rel in sorted((r for r in releases if r.get("published_at")), key=lambda r: str(r["published_at"]), reverse=True):
+        names = [str(a.get("name") or "").lower() for a in rel.get("assets", [])]
+        versions = [n[len(stem):].rsplit("-", 1)[0] for n in names if n.startswith(stem) and n.endswith(".apk")]
+        if versions:
+            return max(versions, key=version_numbers)
+    return ""
 
 def _find_pkg_name(entry: AppEntry, scrapers: dict[str, BaseScraper]) -> tuple[str, str, set[str]]:
     failed: set[str] = set()
@@ -152,7 +169,7 @@ def _apply_patch(entry: AppEntry, arch: str, version: str, force: bool, patcher:
     patched_apk = TEMP_DIR / apk_name
 
     pr(f"Building '{entry.table}'")
-    patcher.patch(dl_result.path, patched_apk, final_args)
+    patcher.patch(dl_result.path, patched_apk, final_args, required=[p for spec in entry.patches.values() for p in spec["include"] if p not in auto_patches])
     apk_output = BUILD_DIR / apk_name
     shutil.move(patched_apk, apk_output)
     return apk_output
@@ -167,13 +184,34 @@ def _build_single(entry: AppEntry, arch: str, label: str, net: NetworkManager, p
         pkg_name, dl_from, failed_sources = _find_pkg_name(entry, scrapers)
         list_patches = patcher.list_patches(pkg_name, experimental=entry.version == "exp")
         version, vcode, force = _resolve_version(entry, patcher, list_patches, pkg_name, dl_from, scrapers, arch)
-        dl_result = _download_apk(entry, version, arch, pkg_name, scrapers, dl_from, failed_sources, version_code=vcode)
+        wanted = ""
+        try:
+            dl_result = _download_apk(entry, version, arch, pkg_name, scrapers, dl_from, failed_sources, version_code=vcode)
+        except BuilderError:
+            # morphe-builder: the newest supported version often is not downloadable yet. Building the next one down
+            # keeps the app on the newest patches; failing kept Reddit Experimental on old patches for days.
+            if force:
+                raise
+            dl_result = None
+            floor = version_numbers(_last_shipped(entry, net))  # never below what phones already have
+            older_versions = patcher.older_supported_versions(list_patches, pkg_name, entry.patches, version, arch, experimental=entry.version == "exp")
+            for older, older_code in [v for v in older_versions if version_numbers(v[0]) >= floor][:MAX_OLDER_VERSIONS]:
+                wpr(f"'{entry.table}' {version} is not downloadable, trying {older}")
+                try:
+                    dl_result = _download_apk(entry, older, arch, pkg_name, scrapers, dl_from, failed_sources, version_code=older_code)
+                except BuilderError:
+                    continue
+                wanted, version, vcode = version, older, older_code
+                break
+            if dl_result is None:
+                raise
         _verify_sig(dl_result, pkg_name, patcher, label, entry.skip_sigcheck, strict_sigcheck)
         apk_output = _apply_patch(entry, arch, version, force, patcher, list_patches, dl_result)
         pr(f"Built {label}: '{apk_output}'")
         github_asset_name = re.sub(r"\.+", ".", re.sub(r"[^a-zA-Z0-9@+\-_.]", ".", apk_output.name))
         ver_str = f"[`{version}`](https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/download/{{TAG}}/{github_asset_name})" if IS_GITHUB else f"`{version}`"
-        return f"- 🟢 » {label}: {ver_str}"
+        # "(wanted ...)" makes the daily check retry until the wanted version can be built (matrix.py)
+        return f"- 🟢 » {label}: {ver_str}" + (f" (wanted {wanted})" if wanted else "")
     except (BuilderError, PatcherError, ScraperError, NetworkError, SignatureError) as exc:
         if isinstance(exc, SignatureError):
             _failed_signatures.add(entry.table)

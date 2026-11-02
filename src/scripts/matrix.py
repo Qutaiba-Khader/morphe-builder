@@ -14,13 +14,17 @@
 
 import json  # noqa: I001
 import os
+import re
 import sys
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from src.core.config import CONFIG_PATH, AppEntry, load_toml, parse_app_entries, parse_config
 from src.core.logger import IS_GITHUB, abort, epr
 from src.core.network import NetworkManager, ResourceNotFoundError
+from src.core.prebuilts import get_highest_ver
+
+RETRY_AFTER = timedelta(hours=20)
 
 
 def _require_ci(script: str) -> None:
@@ -58,7 +62,8 @@ def _fetch_our_releases(repo: str, net: NetworkManager) -> dict[str, str]:
         for rel in releases:
             tag = str(rel.get("tag_name") or "")
             brand = tag.split("-", 1)[1] if "-" in tag else ""
-            if brand and brand not in our_releases_by_brand:
+            # morphe-builder: the newest of the brand; GitHub does not list releases newest-first
+            if brand and str(rel.get("published_at") or "") > our_releases_by_brand.get(brand, ""):
                 our_releases_by_brand[brand] = str(rel.get("published_at") or "")
     except Exception as exc:
         epr(f"Failed to fetch our releases: {exc}")
@@ -91,6 +96,39 @@ def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: Netwo
     if missing:
         epr(f"No release carries {', '.join(missing)}: building brand '{brand}'")
     return bool(missing)
+
+def _expected_bundle(source: str, version: str, net: NetworkManager) -> str:
+    """morphe-builder: the patch version a build would use now (as prebuilts.py picks it), without the leading v."""
+    clean_src = source.split(":", 1)[1]
+    if version == "dev":
+        releases = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases?per_page=100", headers=net.gh_headers))
+        return get_highest_ver([str(r["tag_name"]) for r in releases if r.get("tag_name")]).lstrip("v")
+    release = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases/latest", headers=net.gh_headers))
+    return str(release.get("tag_name") or "").lstrip("v")
+
+def _apps_behind(brand: str, apps: list[AppEntry], source: str, expected: str, releases: list[dict[str, Any]]) -> list[str]:
+    """morphe-builder: the apps whose newest build is not on the expected patch version.
+
+    Comparing dates alone loses an update for good: an app that failed while the others built gives the brand a
+    release newer than the patches, and the next run then sees nothing to do."""
+    org = source.split(":", 1)[-1].split("/", 1)[0].lower()
+    behind: list[str] = []
+    for app in apps:
+        if app.changelog_keywords:
+            continue  # rebuilt only when the patch notes name it, on purpose
+        stem = f"{app.app_name.lower().replace(' ', '-')}-{app.brand.lower().replace(' ', '-')}"
+        own = [r for r in releases if r.get("published_at") and any(str(a.get("name") or "").lower().startswith(f"{stem}-v") for a in r.get("assets", []))]
+        if not own:
+            behind.append(app.table)
+            continue
+        notes = str(max(own, key=lambda r: str(r["published_at"])).get("body") or "").lower()
+        named = re.findall(rf"`{re.escape(org)}/([^`]+)\.mpp`", notes)
+        # all, not any: jobs that straddle a patch release leave two bundles in the notes
+        if named and not all(n.endswith(f"-{expected.lower()}") for n in named):
+            behind.append(app.table)
+        elif re.search(rf"» {re.escape(app.app_name.lower())}\b.*\(wanted ", notes):
+            behind.append(app.table)  # it was built on a lower version because the wanted one could not be downloaded
+    return behind
 
 def _load_entries() -> list[AppEntry]:
     data = load_toml(CONFIG_PATH)
@@ -197,6 +235,21 @@ def check_builds_needed(force_all: bool = False) -> None:
                         break
                 if has_apps:
                     brands_to_build.append(brand)
+            if brand not in brands_to_build and our_date:
+                # A retry at most once a day, so one app that cannot build does not rebuild its brand every run.
+                age = datetime.now(UTC) - datetime.fromisoformat(our_date)
+                spec = next(iter(entries_by_brand[brand][0].patches.values()), {"version": "latest"})
+                if age > RETRY_AFTER:
+                    try:
+                        expected = _expected_bundle(patches_source, spec["version"], net)
+                        raw = json.loads(net.get(f"https://api.github.com/repos/{repo}/releases?per_page=100", headers=net.gh_headers))
+                        behind = _apps_behind(brand, entries_by_brand[brand], patches_source, expected, raw) if expected[:1].isdigit() else []
+                    except Exception as exc:
+                        epr(f"Could not compare '{brand}' with its patches: {exc}")
+                        behind = []
+                    if behind:
+                        epr(f"Not on patches {expected}: {', '.join(behind)}: building brand '{brand}'")
+                        brands_to_build.append(brand)
         for brand, apps in entries_by_brand.items():
             if brand not in brands_to_build and any("stremio" in a.dl_urls for a in apps) and _stremio_needs_build(repo, brand, apps, net):
                 brands_to_build.append(brand)

@@ -49,6 +49,7 @@ ASSET_RE = re.compile(
 )
 
 API = "https://api.github.com"
+MIN_APK_BYTES = 1_000_000
 
 
 def _get(url: str) -> Any:
@@ -171,7 +172,9 @@ def app_config() -> dict[str, dict[str, str]]:
         patches = body.get("patches") or {}
         first = next(iter(patches), "") if isinstance(patches, dict) else ""
         patch_org = re.sub(r"^(github|gitlab):", "", first).split("/", 1)[0]
-        out[stem] = {"id": slug(table), "name": name, "brand": brand, "patch_org": patch_org}
+        pin = re.search(r"@v?([^:]+):\d+$", str(body.get("stremio-dlurl", "")))
+        out[stem] = {"id": slug(table), "name": name, "brand": brand, "patch_org": patch_org,
+                     "pin": pin.group(1) if pin else ""}
     return out
 
 
@@ -294,20 +297,48 @@ def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:
     return {**tools, "patches": patches}
 
 
+def superseded(release: dict[str, Any], config: dict[str, dict[str, str]]) -> list[dict[str, Any]]:
+    """The assets of one release that a better version of the same app and arch replaces.
+
+    A same-day rebuild adds to that day's release and a new version has a new file name, so
+    the older APK stays beside it. The site does not list it, and prune_release.py removes it.
+    The replacement must be fully uploaded before anything counts as replaced.
+    """
+    groups: dict[tuple[str, str], list[tuple[tuple[bool, tuple[int, ...]], dict[str, Any]]]] = {}
+    for asset in release.get("assets", []):
+        parts = split_asset(asset["name"], config)
+        if parts:
+            stem, version, arch = parts
+            # a pinned version wins over a higher one: a pin is how a broken version is backed out
+            pinned = version == (config.get(stem) or {}).get("pin")
+            groups.setdefault((stem, arch), []).append(((pinned, version_key(version)), asset))
+    out: list[dict[str, Any]] = []
+    for items in groups.values():
+        items.sort(key=lambda i: i[0], reverse=True)
+        best_key, best = items[0]
+        if best.get("state", "uploaded") != "uploaded" or best.get("size", 0) < MIN_APK_BYTES:
+            continue
+        out.extend(asset for key, asset in items[1:] if key != best_key)
+    return out
+
+
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """app id -> {name, brand, builds[]}, newest build first.
 
     A same-day rebuild adds to that day's release, so one release can hold two
-    versions of an app: within a release the highest version comes first.
+    versions of an app: within a release the highest version comes first, unless
+    config.toml pins the app to one (a pin is how a broken new version is backed out).
     """
     apps: dict[str, dict[str, Any]] = {}
     config = app_config()
     brands = sorted({e["brand"].lower().replace(" ", "-") for e in config.values()}, key=len, reverse=True)
     for rel in releases:
         published = rel.get("published_at") or rel.get("created_at") or ""
+        replaced = {a["name"] for a in superseded(rel, config)}
         for asset in rel.get("assets", []):
             parts = split_asset(asset["name"], config)
-            if parts is None:
+            # an asset still uploading has no working link yet, whatever its version
+            if parts is None or asset["name"] in replaced or asset.get("state", "uploaded") != "uploaded":
                 continue
             stem, version, arch = parts
             entry = config.get(stem)
@@ -336,6 +367,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                 },
             )
             key = (version, rel["tag_name"])
+            app.setdefault("pin", entry.get("pin", ""))
             build = app["builds"].setdefault(
                 key,
                 {
@@ -361,7 +393,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
     result: dict[str, dict[str, Any]] = {}
     for app_id, app in apps.items():
-        builds = sorted(app["builds"].values(), key=lambda b: (b["published"], version_key(b["version"])), reverse=True)
+        builds = sorted(app["builds"].values(), key=lambda b: (b["published"], b["version"] == app["pin"], version_key(b["version"])), reverse=True)
         for b in builds:
             b["files"].sort(key=lambda f: ARCHES.index(f["arch"].lower()) if f["arch"].lower() in ARCHES else 99)
 
@@ -479,15 +511,18 @@ def build_version(build: dict[str, Any]) -> str:
     (version_comparison.dart) drops "+metadata" entirely, so the old
     21.16.256+p1.46.0 made a patch-only rebuild look like the same build, and
     with detection off it never compared with the phone at all - an older app
-    already on the phone stayed "Up to date". Falls back to the release tag's
-    date when the release notes name no bundle.
+    already on the phone stayed "Up to date". Falls back to 0 when the release
+    notes name no bundle.
     """
     patches = [p["version"] for p in build.get("patches") or [] if p.get("version")]
     m = _REV_RE.search(patches[0]) if patches else None
-    if m:
-        rev = m.group(1) + (f".{m.group(2)}" if m.group(2) else "")
-    else:
-        rev = re.sub(r"[^0-9.]", "", build["tag"].split("-", 1)[0]).strip(".") or "0"
+    if not m:
+        return f"{build['version']}-0"  # lowest: a date here would outrank every later patch version
+    rev = m.group(1)
+    if m.group(2):
+        rev += f".{m.group(2)}"
+    elif build.get("prerelease"):
+        rev += ".9999"  # a final bundle on the pre-release channel comes after its own dev.N
     return f"{build['version']}-{rev}"
 
 

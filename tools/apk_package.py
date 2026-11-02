@@ -54,8 +54,8 @@ def _string_pool(data: bytes, off: int) -> list[str]:
     return out
 
 
-def package_from_manifest(axml: bytes) -> str:
-    """Return the `package` attribute of the <manifest> element."""
+def manifest_attrs(axml: bytes) -> dict[str, str]:
+    """The string attributes of the <manifest> element (package, versionName, ...)."""
     strings: list[str] = []
     off = 8  # skip the file header
     while off + 8 <= len(axml):
@@ -69,14 +69,23 @@ def package_from_manifest(axml: bytes) -> str:
             _ns, name_idx = struct.unpack_from("<iI", axml, body)
             attr_start, attr_size, attr_count = struct.unpack_from("<HHH", axml, body + 8)
             if strings and strings[name_idx] == "manifest":
+                attrs: dict[str, str] = {}
                 for i in range(attr_count):
                     a = body + attr_start + i * attr_size
                     _a_ns, a_name, a_raw = struct.unpack_from("<iii", axml, a)
-                    if strings[a_name] == "package" and a_raw >= 0:
-                        return strings[a_raw]
-                raise LookupError("<manifest> has no package attribute")
+                    if a_raw >= 0:
+                        attrs[strings[a_name]] = strings[a_raw]
+                return attrs
         off += chunk_size
     raise LookupError("no <manifest> element found")
+
+
+def package_from_manifest(axml: bytes) -> str:
+    """Return the `package` attribute of the <manifest> element."""
+    attrs = manifest_attrs(axml)
+    if "package" not in attrs:
+        raise LookupError("<manifest> has no package attribute")
+    return attrs["package"]
 
 
 # --------------------------------------------------------------------- remote
@@ -93,6 +102,11 @@ def _fetch(url: str, start: int | None = None, end: int | None = None) -> bytes:
 
 def package_from_url(url: str) -> str:
     """Read the package name using HTTP range requests only."""
+    return package_from_manifest(manifest_from_url(url))
+
+
+def manifest_from_url(url: str) -> bytes:
+    """Read AndroidManifest.xml using HTTP range requests only."""
     with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=60) as head:
         total = int(head.headers["Content-Length"])
         url = head.geturl()
@@ -121,7 +135,7 @@ def package_from_url(url: str) -> str:
             blob = local[data_at : data_at + comp_size]
             if len(blob) < comp_size:
                 blob = _fetch(url, local_off + data_at, need)
-            return package_from_manifest(zlib.decompress(blob, -15) if method == 8 else blob)
+            return zlib.decompress(blob, -15) if method == 8 else blob
         p += 46 + name_len + extra_len + comment_len
     raise LookupError("AndroidManifest.xml not in the central directory")
 
@@ -204,7 +218,7 @@ def package_of(target: str) -> str:
         return package_from_manifest(zf.read("AndroidManifest.xml"))
 
 
-if __name__ == "__main__":
+def cli() -> None:
     args = sys.argv[1:]
     if len(args) == 2 and args[0] == "--signer":
         print(signer_of(args[1]))
@@ -212,3 +226,7 @@ if __name__ == "__main__":
         print(package_of(args[0]))
     else:
         raise SystemExit("usage: apk_package.py [--signer] <apk path or url>")
+
+
+if __name__ == "__main__":
+    cli()

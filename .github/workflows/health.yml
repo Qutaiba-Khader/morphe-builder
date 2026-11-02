@@ -1,0 +1,78 @@
+name: Health
+
+# Checks what a phone is offered, from outside, after every Site run and every six hours:
+# tools/release_check.py. Anything wrong turns the run red, and the report on the `health`
+# branch is what a watcher outside GitHub reads to push the alert.
+on:
+  workflow_run:
+    workflows: [Site]
+    types: [completed]
+  schedule:
+    - cron: '15 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write  # the `health` branch
+  actions: read
+
+concurrency:
+  group: health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Read the last state
+        run: |
+          if git fetch --depth 1 origin health 2>/dev/null; then
+            git worktree add -B health health-state FETCH_HEAD
+          else
+            git worktree add --detach health-state
+            git -C health-state checkout --orphan health
+            git -C health-state rm -rfq .
+          fi
+
+      # Started by a Site run: give Pages time to deploy what it pushed.
+      - name: Let Pages deploy
+        if: github.event_name == 'workflow_run'
+        run: sleep 150
+
+      - uses: actions/setup-node@v5
+        if: github.event_name != 'workflow_run'
+        with:
+          node-version: 22
+
+      # The whole-site flow test, on the six-hourly run: it reads every published APK.
+      - name: Site flow test
+        if: github.event_name != 'workflow_run'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install --no-save --silent jsdom
+          timeout 1500 node tools/flow-test.mjs > flow.log 2>&1 || true
+          tail -3 flow.log
+
+      - name: Check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SIGNING_CERT_SHA256: ${{ vars.SIGNING_CERT_SHA256 }}
+          FLOW_TEST_LOG: flow.log
+        run: python3 tools/release_check.py
+
+      - name: Keep the state
+        if: always()
+        run: |
+          cd health-state
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -qm "health: ${GITHUB_RUN_NUMBER}"
+          git push origin health

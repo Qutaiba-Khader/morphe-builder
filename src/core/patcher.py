@@ -16,6 +16,7 @@ import contextlib
 import os
 import re
 import subprocess
+from collections.abc import Iterable
 from pathlib import Path
 
 from src.core.config import PatchSpec
@@ -68,6 +69,13 @@ def _extract_version_code(output: str, version: str, arch: str) -> str | None:
         return m.group(1)
     return None
 
+def unapplied_patches(cli_output: str, required: Iterable[str]) -> list[str]:
+    applied = set(re.findall(r"Applied: (.+?)\s*$", cli_output, re.MULTILINE))
+    return [p for p in required if p not in applied]
+
+def version_numbers(version: str) -> tuple[int, ...]:
+    return tuple(int(n) for n in re.findall(r"\d+", version))
+
 def _redact_args(args: list[str | Path]) -> list[str]:
     return [_SECRET_PATTERNS.sub(r"\1***", str(a)) for a in args]
 
@@ -119,6 +127,21 @@ class PatcherCLI:
         highest = get_highest_ver(versions)
         return (highest, _extract_version_code(versions_output, highest, arch)) if highest else None
 
+    def older_supported_versions(self, list_patches_output: str, pkg_name: str, patches: dict[str, PatchSpec], below: str, arch: str = "arm64-v8a", experimental: bool = False) -> list[tuple[str, str | None]]:
+        """morphe-builder: the supported versions below `below`, highest first, for when the
+        chosen stock APK cannot be downloaded (a new version often is not on APKMirror yet)."""
+        versions: list[str] = []
+        output = list_patches_output
+        for spec in patches.values():
+            for p in spec["include"]:
+                versions.extend(_parse_patch_block(list_patches_output, p, pkg_name))
+        if not versions:
+            output = self.list_versions(pkg_name, experimental)
+            versions = _parse_versions_output(output)
+        key = version_numbers
+        lower = sorted({v for v in versions if key(v) < key(below)}, key=key, reverse=True)
+        return [(v, _extract_version_code(output, v, arch)) for v in lower]
+
     def resolve_auto_patches(self, list_patches_output: str) -> tuple[str, str]:
         microg_patch = psu_patch = ""
         for line in list_patches_output.splitlines():
@@ -155,7 +178,7 @@ class PatcherCLI:
         p_args.extend(("--striplibs", "arm64-v8a,armeabi-v7a" if arch == "all" else arch))
         return p_args
 
-    def patch(self, stock_apk: Path, output_apk: Path, patch_args: list[str]) -> None:
+    def patch(self, stock_apk: Path, output_apk: Path, patch_args: list[str], required: Iterable[str] = ()) -> None:
         base_cmd = ["-jar", self.cli_jar, "patch", stock_apk, "-o", output_apk]
         ks_args: list[str] = []
         if self.ks_path and (ks_pass := os.getenv("KEYSTORE_PASS")) and (ks_alias := os.getenv("KEYSTORE_ALIAS")):
@@ -165,7 +188,12 @@ class PatcherCLI:
 
         pr(" ".join(_redact_args(["java", *base_cmd, *ks_args, *patch_args])))
         try:
-            _run_java(*base_cmd, *ks_args, *patch_args, capture=False)
+            output = _run_java(*base_cmd, *ks_args, *patch_args)
+            print(output, flush=True)
+            # morphe-builder: a named patch that did not apply (renamed in its bundle, say) must not ship as a good build
+            if missing := unapplied_patches(output, required):
+                output_apk.unlink(missing_ok=True)
+                raise PatcherError(f"Not applied: {', '.join(missing)}")
         except subprocess.TimeoutExpired:
             output_apk.unlink(missing_ok=True)
             raise PatcherError(f"Patching '{stock_apk.name}' failed, process timed out after 10 minutes") from None

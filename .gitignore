@@ -9,3 +9,4 @@ __pycache__
 build.md
 node_modules/
 package-lock.json
+.flow/
