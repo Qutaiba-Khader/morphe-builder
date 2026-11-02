@@ -351,3 +351,18 @@ show every patchable app, built here or not.
   (BUILT HERE marks, every source with stars, patches, versions, "Add to the Morphe app" link and
   a config.toml block to copy); dark/light toggle. Same element hooks, so the flow test still
   drives it; new checks for the community list, icons and patch sources.
+
+## Phase 19: the release flow, tested end to end (2026-11-02/03)
+
+A same-day rebuild left the old APK beside the new one and the site went on offering the old one, for good. Fixed, then the whole
+flow from a new upstream version to the phone's update page was reviewed, tested and given a watch.
+
+- **Tests**: `tests/test_release_flow.py` with a coverage gate and mutants (`docs/FLOW-MAP.md`, `.github/workflows/tests.yml`). Scope is
+  the release flow, level `standard`; older gaps are in a ledger that may only shrink.
+- **Before a release**: `tools/verify_apk.py` rejects the wrong key, package, version inside or CPU, or a patch that left nothing in the
+  app. A named patch that did not apply fails the build.
+- **After a release**: `tools/release_check.py` (`.github/workflows/health.yml`, each Site run and every six hours, the flow test once a
+  day) compares the offer with the releases, the real APKs, Stremio's feed and the patch repos. Its report is on the `health` branch.
+- **Recovering**: a new upstream the stock source does not have yet builds on the next lower version, never below what phones have, and
+  is retried daily. To back out a broken version, pin it in `stremio-dlurl`; the pin wins over any newer release.
+- **Not covered**: nothing runs the patched app on a device here, so a patch that applies but misbehaves at run time is not caught.
