@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T06:40:36Z",
+  "generated": "2026-11-02T20:13:27Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -46,8 +46,8 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "2.5.0",
-      "updated": "2026-11-02T03:21:51Z",
-      "versions": 2,
+      "updated": "2026-11-02T20:11:16Z",
+      "versions": 3,
       "api": "api/apps/stremio-phone.json"
     },
     {
@@ -57,8 +57,8 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.0",
-      "updated": "2026-11-02T03:21:51Z",
-      "versions": 2,
+      "updated": "2026-11-02T20:11:16Z",
+      "versions": 3,
       "api": "api/apps/stremio-tv.json"
     },
     {
@@ -68,8 +68,8 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.0",
-      "updated": "2026-11-02T03:21:51Z",
-      "versions": 2,
+      "updated": "2026-11-02T20:11:16Z",
+      "versions": 3,
       "api": "api/apps/stremio-tv-replace.json"
     },
     {
@@ -101,7 +101,7 @@
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "21.44.528",
-      "updated": "2026-11-01T16:44:32Z",
+      "updated": "2026-11-02T20:10:54Z",
       "versions": 8,
       "api": "api/apps/youtube-experimental.json"
     }

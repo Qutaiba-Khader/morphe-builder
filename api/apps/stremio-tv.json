@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T11:59:02Z",
+  "generated": "2026-11-02T20:13:27Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv",
   "name": "Stremio TV Clone",
@@ -9,7 +9,7 @@
     {
       "version": "1.12.0",
       "tag": "26.11.02-subs",
-      "published": "2026-11-02T03:21:51Z",
+      "published": "2026-11-02T20:11:16Z",
       "prerelease": false,
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.02-subs",
       "patches": [
@@ -31,12 +31,44 @@
           "arch": "armeabi-v7a",
           "size": 73494713,
           "sha256": "9ce02a7c9e7c8c45eb9968c04e82569b2b4f7f6757973fe1bb2cbe46108629b6",
-          "downloads": 9,
+          "downloads": 11,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk"
         }
       ],
       "rebuilds": 3
+    },
+    {
+      "version": "1.12.1",
+      "tag": "26.11.02-subs",
+      "published": "2026-11-02T20:11:16Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.02-subs",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-2.0.0.mpp",
+          "version": "2.0.0"
+        },
+        {
+          "file": "Qutaiba-Khader/patches-0.6.0.mpp",
+          "version": "0.6.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.20.0-all.jar",
+        "version": "1.20.0"
+      },
+      "files": [
+        {
+          "arch": "armeabi-v7a",
+          "size": 73498809,
+          "sha256": "49b4dab9ec34d8234461fdc49b8c623a53d497227fb51c01ff8cb2afd231b5b8",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk",
+          "name": "stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk"
+        }
+      ],
+      "rebuilds": 1
     },
     {
       "version": "1.11.3",
