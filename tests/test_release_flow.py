@@ -31,7 +31,7 @@ import prune_release  # noqa: E402
 import release_check  # noqa: E402
 import verify_apk  # noqa: E402
 
-from src.core import builder, patcher, prebuilts  # noqa: E402
+from src.core import apk_version, builder, patcher, prebuilts  # noqa: E402
 from src.core.config import AppEntry  # noqa: E402
 from src.core.prebuilts import get_highest_ver  # noqa: E402
 from src.scripts import matrix  # noqa: E402
@@ -86,22 +86,23 @@ class Site(unittest.TestCase):
         self.assertEqual(apps["stremio-tv"]["builds"][0]["version"], "1.12.0")
         self.assertEqual([a["name"] for a in gen_site.superseded(rel, config)], [TV_NEW])
     # P-REL-04
-    def test_P_REL_04_update_version_uses_the_apps_own_bundle(self):
+    def test_P_REL_04_the_page_offers_the_version_inside_the_apk(self):
         build = gen_site.collect([release("26.11.02-subs", [TV_NEW])])["stremio-tv"]["builds"][0]
-        self.assertEqual(gen_site.build_version(build), "1.12.1-0.6.0")
+        self.assertEqual(gen_site.build_version(build), "1.12.1", "nothing read: the file's version")
+        build["update_version"] = "1.12.1.0.6.0"
+        self.assertEqual(gen_site.build_version(build), "1.12.1.0.6.0")
+        self.assertEqual([p["version"] for p in build["patches"]], ["0.6.0", "2.0.0"], "the app's own bundle first")
     # P-REL-05
-    def test_P_REL_05_update_versions_keep_their_order(self):
-        def version(patch, prerelease=False):
-            return gen_site.build_version({"version": "21.44.528", "tag": "t", "prerelease": prerelease,
-                                           "patches": [{"file": f"M/patches-{patch}.mpp", "version": patch}]})
-        self.assertEqual(version("2.0.0"), "21.44.528-2.0.0")
-        self.assertEqual(version("2.1.0-dev.6", True), "21.44.528-2.1.0.6")
-        self.assertEqual(version("2.1.0", True), "21.44.528-2.1.0.9999")
-        self.assertEqual(version("2.1.0-rc.1", True), "21.44.528-2.1.0.4001", "above dev.16, below the final")
-        self.assertEqual(version("2.1.0-beta", True), "21.44.528-2.1.0.3000")
+    def test_P_REL_05_a_builds_version_name_keeps_the_order(self):
+        self.assertEqual(apk_version.update_version("21.44.528", "2.0.0", False), "21.44.528.2.0.0")
+        self.assertEqual(apk_version.update_version("21.44.528", "2.1.0-dev.6", True), "21.44.528.2.1.0.6")
+        self.assertEqual(apk_version.update_version("21.44.528", "2.1.0", True), "21.44.528.2.1.0.9999")
+        self.assertEqual(apk_version.update_version("21.44.528", "2.1.0-rc.1", True), "21.44.528.2.1.0.4001", "above dev.16, below the final")
+        self.assertEqual(apk_version.update_version("21.44.528", "2.1.0-beta", True), "21.44.528.2.1.0.3000")
+        self.assertEqual(apk_version.update_version("46.2.3", "0.8.1", False), "46.2.3.0.8.1")
     # P-REL-06
-    def test_P_REL_06_no_bundle_in_the_notes_ranks_lowest(self):
-        self.assertEqual(gen_site.build_version({"version": "1.0", "tag": "26.11.02-subs", "patches": []}), "1.0-0")
+    def test_P_REL_06_no_bundle_leaves_the_app_version(self):
+        self.assertEqual(apk_version.update_version("1.0", "", False), "1.0")
     # P-REL-07
     def test_P_REL_07_an_incomplete_replacement_replaces_nothing(self):
         rel = release("t", [asset(PHONE_OLD), asset(PHONE_NEW, state="starter")])
@@ -176,7 +177,7 @@ class Review(unittest.TestCase):
         notes = ("> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.7.mpp`\n> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.6.mpp`\n")
         name = "youtube-experimental-morphe-dev-v21.44.528-all.apk"
         build = gen_site.collect([release("t-morphe-dev", [name], body=notes, prerelease=True)])["youtube-experimental"]["builds"][0]
-        self.assertEqual(gen_site.build_version(build), "21.44.528-2.1.0.6", "the real dev.7 rebuild must still show as newer")
+        self.assertEqual(build["patches"][0]["version"], "2.1.0-dev.6")
     # P-REL-108
     def test_P_REL_108_a_pin_wins_over_a_newer_release_and_a_missing_pin_is_reported(self):
         config = {k: {**v, "pin": "1.12.0"} if v["id"] == "stremio-tv" else v for k, v in gen_site.app_config().items()}
@@ -195,11 +196,10 @@ class Review(unittest.TestCase):
         rel = release("a", [PHONE_NEW])
         self.assertEqual(builder._last_shipped(app, Net({"releases": [rel]})), "2.5.1")
     # P-REL-111
-    def test_P_REL_111_a_patch_only_rebuild_the_site_missed_is_stale(self):
+    def test_P_REL_111_a_page_not_offering_what_the_apk_says_is_reported(self):
         data = world()
-        data["obtainium"]["apps"][0]["build_version"] = "1.12.1-0.5.0"
-        data["pages"]["stremio-tv"] = data["pages"]["stremio-tv"].replace("1.12.1-0.6.0", "1.12.1-0.5.0")
-        self.assertIn("offered-stale:stremio-tv", release_check.check_offers(APPS, data))
+        data["apks"][APK_URL]["version"] = "1.12.1"
+        self.assertIn("apk-version:stremio-tv", release_check.check_offers(APPS, data))
     # P-REL-112
     def test_P_REL_112_notes_without_its_own_bundle_are_reported(self):
         data = world()
@@ -219,8 +219,8 @@ class OwnBundles(unittest.TestCase):
         notes = (f"- 🟢 » YT: [`21.44.528`]({DL}/t/{yt}) <!-- patches: MorpheApp/patches-2.1.0-dev.6.mpp -->\n"
                  f"- 🟢 » RD: [`2026.42.0`]({DL}/t/{rd}) <!-- patches: MorpheApp/patches-2.1.0-dev.7.mpp -->\n")
         apps = gen_site.collect([release("t-morphe-dev", [yt, rd], body=notes, prerelease=True)])
-        self.assertEqual(gen_site.build_version(apps["youtube-experimental"]["builds"][0]), "21.44.528-2.1.0.6")
-        self.assertEqual(gen_site.build_version(apps["reddit-experimental"]["builds"][0]), "2026.42.0-2.1.0.7")
+        self.assertEqual(apps["youtube-experimental"]["builds"][0]["patches"][0]["version"], "2.1.0-dev.6")
+        self.assertEqual(apps["reddit-experimental"]["builds"][0]["patches"][0]["version"], "2.1.0-dev.7")
     # P-REL-115
     def test_P_REL_115_the_check_reads_the_apks_own_line(self):
         ok = f"- 🟢 » TV: [`1.12.1`]({DL}/t/{TV_NEW}) <!-- patches: Qutaiba-Khader/patches-0.7.0.mpp,MorpheApp/patches-2.0.0.mpp -->\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.6.0.mpp`"
@@ -248,7 +248,7 @@ class Downgrade(unittest.TestCase):
     def apk(self, code):
         path = Path(self.tmp.name) / TV_NEW
         with zipfile.ZipFile(path, "w") as zf:
-            zf.writestr("AndroidManifest.xml", coded_manifest("com.stremio.one.subs", "1.12.1", code))
+            zf.writestr("AndroidManifest.xml", coded_manifest("com.stremio.one.subs", "1.12.1.0.6.0", code))
         return path
     # P-REL-120
     def test_P_REL_120_a_lower_code_is_refused_and_a_pin_or_higher_code_is_not(self):
@@ -276,7 +276,6 @@ class Downgrade(unittest.TestCase):
             self.assertIsNone(verify_apk.shipped_code("nothing", "o/r"))
         with mock.patch.object(gen_site, "fetch_releases", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
             self.assertIsNone(verify_apk.shipped_code("s", "o/r"))
-
     # P-REL-122
     def test_P_REL_122_the_whole_check_deletes_a_lower_code_build(self):
         good = make_apk(self.tmp.name, TV_NEW)
@@ -293,24 +292,24 @@ class Direction(unittest.TestCase):
 
     def data(self, version, text, code="100", highest=100, package="p"):
         return {"obtainium": {"apps": [{"app": "stremio-tv", "apk": "u", "version": version, "build_version": text, "package": package}]},
-                "apks": {"u": {"code": code}}, "shipped_codes": {"codes": {"stremio-tv": {"code": highest, "file": "f"}}, "unread": []}}
+                "apks": {"u": {"code": code, "version": text}}, "shipped_codes": {"codes": {"stremio-tv": {"code": highest, "file": "f"}}, "unread": []}}
     # P-REL-117
     def test_P_REL_117_a_lower_update_version_a_lower_code_or_a_new_package_is_reported(self):
-        old = {"stremio-tv": {"text": "1.12.1-0.6.0", "version": "1.12.1", "package": "p"}}
+        old = {"stremio-tv": {"text": "1.12.1.0.6.0", "version": "1.12.1", "package": "p"}}
         self.assertEqual(release_check.check_direction(APPS, self.data("1.12.1", "1.12.1-0.6.1"), old), {})
         self.assertIn("offer-backwards:stremio-tv", release_check.check_direction(APPS, self.data("1.12.0", "1.12.0-0.6.0"), old))
         self.assertIn("offer-downgrade:stremio-tv", release_check.check_direction(APPS, self.data("1.12.2", "1.12.2-0.6.0", "99"), {}), "the highest ever shipped, with no earlier state")
-        self.assertIn("offer-package:stremio-tv", release_check.check_direction(APPS, self.data("1.12.1", "1.12.1-0.6.0", package="q"), old))
+        self.assertIn("offer-package:stremio-tv", release_check.check_direction(APPS, self.data("1.12.1", "1.12.1.0.6.0", package="q"), old))
         self.assertEqual(release_check.check_direction([{**APPS[0], "pin": "1.12.0"}], self.data("1.12.0", "1.12.0-0.6.0", "99"), old), {}, "a pin is deliberate")
         self.assertEqual(release_check.check_direction(APPS, self.data("1.12.0", "1.12.0-0.6.0"), {}), {}, "nothing to compare with yet")
-        beta_after_final = self.data("21.44.528-BETA", "21.44.528-BETA-2.1.0.7")
-        was = {"stremio-tv": {"text": "21.44.528-2.1.0.6", "version": "21.44.528"}}
+        beta_after_final = self.data("21.44.528-BETA", "21.44.528-BETA.2.1.0.7")
+        was = {"stremio-tv": {"text": "21.44.528.2.1.0.6", "version": "21.44.528"}}
         self.assertIn("offer-backwards:stremio-tv", release_check.check_direction(APPS, beta_after_final, was), "real ObtainX answer: not an update")
     # P-REL-118
     def test_P_REL_118_a_backwards_offer_stays_flagged_until_it_is_back_above(self):
         folder = tempfile.mkdtemp()
         self.addCleanup(lambda: __import__("shutil").rmtree(folder, ignore_errors=True))
-        Path(folder, "state.json").write_text(json.dumps({"offered": {"stremio-tv": {"text": "9.9.9-1", "version": "9.9.9"}}}), encoding="utf-8")
+        Path(folder, "state.json").write_text(json.dumps({"offers": {"stremio-tv": {"text": "9.9.9.1", "version": "9.9.9"}}}), encoding="utf-8")
         data = world()
         data["obtainium"]["apps"][0]["version"] = "1.12.1"
         for _ in range(2):
@@ -319,13 +318,12 @@ class Direction(unittest.TestCase):
                     mock.patch.object(release_check, "check_runs", return_value={}), redirect_stdout(io.StringIO()):
                 self.assertEqual(release_check.main(), 1)
         state = json.loads(Path(folder, "state.json").read_text(encoding="utf-8"))
-        self.assertEqual(state["offered"]["stremio-tv"]["text"], "9.9.9-1")
+        self.assertEqual(state["offers"]["stremio-tv"]["text"], "9.9.9.1")
     # P-REL-119
     def test_P_REL_119_a_changed_file_outside_the_sync_list_is_reported(self):
         self.assertIn("sync-unprotected:src/core/x.py", problems(world(ignore_sync="tools src/core/y.py", changed_from_upstream=["src/core/x.py", "tools/a.py", "src/core/y.py"])))
         self.assertEqual(problems(world(ignore_sync="tools", changed_from_upstream=["tools/a.py"])), {})
         self.assertEqual(problems(world(ignore_sync="", changed_from_upstream=["x"])), {}, "no list to compare with: the check is off, not wrong")
-
     # P-REL-127
     def test_P_REL_127_the_highest_code_of_each_app_is_read_from_every_file(self):
         rels = [{"assets": [{"name": TV_NEW, "browser_download_url": "a"}, {"name": PHONE_NEW, "browser_download_url": "c"}, {"name": "other.txt", "browser_download_url": "d"}]},
@@ -341,13 +339,12 @@ class Direction(unittest.TestCase):
             got = release_check.shipped_codes(rels)
         self.assertEqual(got, {"codes": {"stremio-tv": {"code": 9, "file": TV_NEW}}, "unread": [PHONE_NEW]})
         self.assertIn("check-error:apk-codes", problems(world(shipped_codes=got)))
-
     # P-REL-128
     def test_P_REL_128_an_apk_with_no_line_in_notes_that_have_them_claims_no_bundle(self):
         notes = f"- 🟢 » Phone: [`2.5.1`]({DL}/t/{PHONE_NEW}) <!-- patches: Qutaiba-Khader/patches-0.7.0.mpp -->\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.7.0.mpp`"
         apps = gen_site.collect([release("t", [TV_NEW, PHONE_NEW], body=notes)])
-        self.assertEqual(gen_site.build_version(apps["stremio-tv"]["builds"][0]), "1.12.1-0", "not 0.7.0: a real 0.7.0 build must still show as new")
-        self.assertEqual(gen_site.build_version(apps["stremio-phone"]["builds"][0]), "2.5.1-0.7.0")
+        self.assertEqual(apps["stremio-tv"]["builds"][0]["patches"], [], "not 0.7.0: it may not have it")
+        self.assertEqual(apps["stremio-phone"]["builds"][0]["patches"][0]["version"], "0.7.0")
     # P-REL-129
     def test_P_REL_129_the_builder_and_both_checks_pick_the_same_file_of_a_two_file_release(self):
         cases = [(["patches-0.9.0-dev.6.mpp", "patches-0.9.0-dev.7.mpp"], "v0.9.0-dev.7", "0.9.0-dev.7"),
@@ -391,6 +388,154 @@ class Edges(unittest.TestCase):
             f.write('brand = "Morphe"\n[Stremio-TV]\napp-name = "Stremio TV Clone"\nbrand = "subs"\nstremio-dlurl = "https://x/c#android_tv@1.11.3:40000003"\n[Other]\nstremio-dlurl = "https://x/c#android"\n')
         self.addCleanup(os.unlink, f.name)
         self.assertEqual(verify_apk.pinned_stems(Path(f.name)), {"stremio-tv-clone-subs"})
+
+
+class VersionName(unittest.TestCase):
+    """The versionName written into a built APK, and the page reading it back."""
+
+    def apk(self, folder, **kw):
+        path = Path(folder) / "a.apk"
+        with zipfile.ZipFile(path, "w") as zf:
+            zf.writestr("AndroidManifest.xml", manifest(package="com.x", versionName="1.2.3"))
+            zf.writestr("META-INF/CERT.RSA", b"old")
+            zf.writestr("META-INF/MANIFEST.MF", b"old")
+            zf.writestr("META-INF/androidx.version", b"keep")
+            info = zipfile.ZipInfo("lib/arm64-v8a/libx.so")
+            info.compress_type = zipfile.ZIP_STORED
+            zf.writestr(info, b"\x7fELF" * 100)
+            arsc = zipfile.ZipInfo("resources.arsc")
+            arsc.compress_type = zipfile.ZIP_STORED
+            zf.writestr(arsc, b"R" * 33)
+            zf.writestr("classes.dex", b"dex" * 1000, zipfile.ZIP_DEFLATED)
+        return path
+    # P-REL-130
+    def test_P_REL_130_the_name_is_written_and_the_rest_survives(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = self.apk(folder)
+            apk_version.set_version_name(path, "1.2.3.0.8.1")
+            with zipfile.ZipFile(path) as zf:
+                attrs = apk_package.manifest_attrs(zf.read("AndroidManifest.xml"))
+                self.assertEqual(attrs, {"package": "com.x", "versionName": "1.2.3.0.8.1"})
+                names = zf.namelist()
+                self.assertNotIn("META-INF/CERT.RSA", names, "the old signature no longer holds")
+                self.assertNotIn("META-INF/MANIFEST.MF", names)
+                self.assertIn("META-INF/androidx.version", names)
+                self.assertEqual(zf.read("classes.dex"), b"dex" * 1000)
+                self.assertEqual(zf.getinfo("classes.dex").compress_type, zipfile.ZIP_DEFLATED)
+                for name, align in (("lib/arm64-v8a/libx.so", apk_version.PAGE), ("resources.arsc", 4)):
+                    info = zf.getinfo(name)
+                    self.assertEqual(info.compress_type, zipfile.ZIP_STORED)
+                    with open(path, "rb") as fh:
+                        fh.seek(info.header_offset)
+                        head = fh.read(30)
+                    start = info.header_offset + 30 + struct.unpack_from("<H", head, 26)[0] + struct.unpack_from("<H", head, 28)[0]
+                    self.assertEqual(start % align, 0, name)
+    # P-REL-131
+    def test_P_REL_131_a_typed_version_name_and_a_utf16_pool_are_written_too(self):
+        data = manifest(package="com.x", versionName="1.0")
+        twice = apk_version.set_manifest_version_name(apk_version.set_manifest_version_name(data, "2"), "3.4.5.0.1")
+        self.assertEqual(apk_package.manifest_attrs(twice)["versionName"], "3.4.5.0.1")
+        self.assertEqual(struct.unpack_from("<I", twice, 4)[0], len(twice))
+        wide = utf16_manifest("com.x", "1.0")
+        self.assertEqual(apk_package.manifest_attrs(apk_version.set_manifest_version_name(wide, "1.0.2"))["versionName"], "1.0.2")
+    # P-REL-132
+    def test_P_REL_132_a_manifest_it_cannot_read_stops_the_build(self):
+        with self.assertRaises(apk_version.ApkVersionError):
+            apk_version.set_manifest_version_name(manifest(package="com.x"), "1.0")
+        with self.assertRaises(apk_version.ApkVersionError):
+            apk_version.set_manifest_version_name(b"\0" * 40, "1.0")
+        with self.assertRaises(apk_version.ApkVersionError):
+            apk_version._encode("9" * 200, True)
+        self.assertEqual(apk_version.revision("no version here", False), "")
+        styled = bytearray(manifest(package="com.x", versionName="1.0"))
+        struct.pack_into("<I", styled, 20, 1)  # a style count in the string pool
+        with self.assertRaises(apk_version.ApkVersionError):
+            apk_version.set_manifest_version_name(bytes(styled), "1.0")
+        long_utf8 = manifest(package="c" * 200, versionName="1.0")
+        self.assertEqual(apk_package.manifest_attrs(apk_version.set_manifest_version_name(long_utf8, "2"))["versionName"], "2")
+        self.assertEqual(apk_version._point_version_name(bytearray(struct.pack("<HHI", 3, 8, 0)), [], 1), False, "a broken chunk")
+        self.assertEqual(apk_version._point_version_name(bytearray(), [], 1), False, "nothing there")
+        other = bytearray(struct.pack("<HHI", 0x0180, 8, 8)) + bytearray(struct.pack("<HHI", 0x0102, 16, 40) + b"\0" * 8 + struct.pack("<iI", -1, 0) + struct.pack("<HHHHHH", 20, 20, 0, 0, 0, 0))
+        self.assertEqual(apk_version._point_version_name(other, ["application"], 1), False, "the first element is not <manifest>")
+    # P-REL-133
+    def test_P_REL_133_the_builder_names_the_version_from_the_bundle_it_used(self):
+        cli = mock.MagicMock()
+        cli.mpp_map = {("github:Qutaiba-Khader/stremio-subs-patches", "latest"): Path("t/patches-0.6.0.mpp")}
+        self.assertEqual(builder.phone_version(entry(), "1.12.1", cli), "1.12.1.0.6.0")
+        dev = {"github:M/p": {"version": "dev", "include": [], "exclude": []}}
+        cli.mpp_map = {("github:M/p", "dev"): Path("t/patches-2.1.0-dev.6.mpp")}
+        self.assertEqual(builder.phone_version(entry(patches=dev), "21.44.528", cli), "21.44.528.2.1.0.6")
+    # P-REL-134
+    def test_P_REL_134_the_apk_is_named_then_signed(self):
+        order = []
+        cli = mock.MagicMock()
+        cli.mpp_map = {("github:Qutaiba-Khader/stremio-subs-patches", "latest"): Path("t/patches-0.6.0.mpp")}
+        cli.resolve_auto_patches.return_value = ("", "")
+        cli.patch.side_effect = lambda *_a, **_k: order.append("patch")
+        cli.sign.side_effect = lambda _apk: order.append("sign")
+        with tempfile.TemporaryDirectory() as folder, mock.patch.object(builder, "TEMP_DIR", Path(folder)), mock.patch.object(builder, "BUILD_DIR", Path(folder)), \
+                mock.patch.object(builder.shutil, "move"), mock.patch.object(builder, "pr"), \
+                mock.patch.object(builder, "set_version_name", side_effect=lambda _p, name: order.append(name)):
+            builder._apply_patch(entry(), "armeabi-v7a", "1.12.1", True, cli, "", builder.DownloadResult(path=Path("s.apk"), is_bundle=False))
+        self.assertEqual(order, ["patch", "1.12.1.0.6.0", "sign"])
+    # P-REL-135
+    def test_P_REL_135_signing_uses_the_real_key_settings_or_refuses(self):
+        cli = patcher.PatcherCLI(Path("cli.jar"), {}, Path("apksigner.jar"), ks_path=Path("k.bks"))
+        with mock.patch.dict(os.environ, {"KEYSTORE_PASS": "", "KEYSTORE_ALIAS": ""}), self.assertRaises(patcher.PatcherError):
+            cli.sign(Path("a.apk"))
+        with mock.patch.dict(os.environ, {"KEYSTORE_PASS": "secret", "KEYSTORE_ALIAS": "Morphe"}), mock.patch.object(patcher, "_run_java") as run:
+            cli.sign(Path("a.apk"))
+        args = [str(a) for a in run.call_args[0]]
+        self.assertIn("com.android.apksigner.ApkSignerTool", args)
+        self.assertIn("env:KEYSTORE_PASS", args)
+        self.assertNotIn("secret", args, "the password never goes on the command line")
+    # P-REL-136
+    def test_P_REL_136_the_site_reads_each_current_build_version_from_its_apk(self):
+        apps = {"a": {"id": "a", "builds": [{"version": "1", "files": [{"url": "u", "sha256": "s"}]}]}, "e": {"id": "e", "builds": []}}
+        with mock.patch.object(gen_site, "manifest_from_url", return_value=manifest(package="p", versionName="1.0.2")):
+            gen_site.resolve_versions(apps, {})
+        self.assertEqual(apps["a"]["builds"][0]["update_version"], "1.0.2")
+        apps["a"]["builds"][0].pop("update_version")
+        live = {"apps": {"a": {"update_version": "1.0.1", "files": [{"sha256": "s"}]}}}
+        with mock.patch.object(gen_site, "manifest_from_url", side_effect=OSError("down")), mock.patch.object(gen_site.time, "sleep"), mock.patch("sys.stderr", io.StringIO()):
+            gen_site.resolve_versions(apps, live)
+        self.assertEqual(apps["a"]["builds"][0]["update_version"], "1.0.1", "the same file, as recorded")
+        apps["a"]["builds"][0].pop("update_version")
+        with mock.patch.object(gen_site, "manifest_from_url", side_effect=OSError("down")), mock.patch.object(gen_site.time, "sleep"), mock.patch("sys.stderr", io.StringIO()):
+            gen_site.resolve_versions(apps, {})
+        self.assertEqual(gen_site.build_version(apps["a"]["builds"][0]), "1", "the file's version, nothing better")
+
+
+class SiteReads(unittest.TestCase):
+    """The site reading a current build's package and signer."""
+
+    # P-REL-137
+    def test_P_REL_137_an_unreadable_signer_uses_the_same_files_record(self):
+        apps = {"a": {"id": "a", "builds": [{"files": [{"url": "u", "sha256": "s"}]}]}, "e": {"id": "e", "builds": []}}
+        live = {"apps": {"a": {"signer": "good", "files": [{"sha256": "s"}]}}}
+        with mock.patch.object(gen_site, "signer_of", side_effect=OSError("down")), mock.patch.object(gen_site.time, "sleep"), mock.patch("sys.stderr", io.StringIO()):
+            gen_site.resolve_signers(apps, live)
+        self.assertEqual(apps["a"]["signer"], "good")
+        self.assertEqual(apps["e"]["signer"], "")
+
+    # P-REL-138
+    def test_P_REL_138_a_file_inside_with_no_version_uses_the_files_version(self):
+        apps = {"a": {"id": "a", "builds": [{"version": "1", "files": [{"url": "u", "sha256": "s"}]}]}}
+        with mock.patch.object(gen_site, "manifest_from_url", return_value=manifest(package="p")), mock.patch("sys.stderr", io.StringIO()):
+            gen_site.resolve_versions(apps, {})
+        self.assertEqual(gen_site.build_version(apps["a"]["builds"][0]), "1")
+
+    # P-REL-139
+    def test_P_REL_139_an_app_sharing_a_package_gets_no_entry(self):
+        rel = release("t", [TV_NEW, PHONE_NEW])
+        apps = gen_site.collect([rel])
+        for app in apps.values():
+            app["package"], app["signer"] = "same.package", "good"
+        apps["empty"] = {"id": "empty", "name": "Empty", "builds": []}
+        with tempfile.TemporaryDirectory() as folder, mock.patch.object(gen_site, "OUT_DIR", Path(folder)), redirect_stdout(io.StringIO()):
+            payload = gen_site.write_obtainium(apps, "https://x/", "o/r", "now")
+        self.assertEqual(len(payload["apps"]), 1)
+        self.assertEqual(len(payload["conflicts"]), 1)
 
 
 class StockCheck(unittest.TestCase):
@@ -449,7 +594,7 @@ class Prune(unittest.TestCase):
         self.assertEqual(merged.count(PHONE_NEW), 1)
         rel = release("t", [TV_NEW, PHONE_NEW], body=merged)
         apps = gen_site.collect([rel])
-        self.assertEqual(gen_site.build_version(apps["stremio-tv"]["builds"][0]), "1.12.1-0.6.0", "the APK that was not rebuilt keeps its own bundle")
+        self.assertEqual(apps["stremio-tv"]["builds"][0]["patches"][0]["file"], "Q/patches-0.6.0.mpp", "the APK that was not rebuilt keeps its own bundle")
         self.assertEqual(prune_release.merged_notes("", new, [PHONE_NEW]), new, "a first build of the day")
     # P-REL-14
     def test_P_REL_14_the_build_job_entry_point_writes_the_merged_notes(self):
@@ -484,7 +629,7 @@ def manifest(**attrs):
     for text in strings:
         offsets.append(len(blob))
         raw = text.encode()
-        blob += bytes([len(text), len(raw)]) + raw + b"\0"
+        blob += (bytes([len(text)]) if len(text) < 128 else bytes([0x80 | len(text) >> 8, len(text) & 0xFF])) + (bytes([len(raw)]) if len(raw) < 128 else bytes([0x80 | len(raw) >> 8, len(raw) & 0xFF])) + raw + b"\0"
     blob += b"\0" * (-len(blob) % 4)
     header = 28
     pool_size = header + 4 * len(strings) + len(blob)
@@ -505,7 +650,7 @@ def coded_manifest(package, version, code, data_type=0x10):
     for text in strings:
         offsets.append(len(blob))
         raw = text.encode()
-        blob += bytes([len(text), len(raw)]) + raw + b"\0"
+        blob += (bytes([len(text)]) if len(text) < 128 else bytes([0x80 | len(text) >> 8, len(text) & 0xFF])) + (bytes([len(raw)]) if len(raw) < 128 else bytes([0x80 | len(raw) >> 8, len(raw) & 0xFF])) + raw + b"\0"
     blob += b"\0" * (-len(blob) % 4)
     pool_size = 28 + 4 * len(strings) + len(blob)
     pool = struct.pack("<HHIIIIII", 1, 28, pool_size, len(strings), 0, 1 << 8, 28 + 4 * len(strings), 0)
@@ -517,7 +662,23 @@ def coded_manifest(package, version, code, data_type=0x10):
     return struct.pack("<HHI", 3, 8, 8 + len(pool) + len(element)) + pool + element
 
 
-def make_apk(folder, name, version="1.12.1", package="com.stremio.one.subs", libs=("armeabi-v7a",),
+def utf16_manifest(package, version):
+    """As manifest(), with a UTF-16 string pool, as some real manifests have."""
+    strings = ["manifest", "package", package, "versionName", version]
+    blob, offsets = b"", []
+    for text in strings:
+        offsets.append(len(blob))
+        blob += struct.pack("<H", len(text)) + text.encode("utf-16-le") + b"\0\0"
+    blob += b"\0" * (-len(blob) % 4)
+    size = 28 + 4 * len(strings) + len(blob)
+    pool = struct.pack("<HHIIIIII", 1, 28, size, len(strings), 0, 0, 28 + 4 * len(strings), 0) + struct.pack(f"<{len(strings)}I", *offsets) + blob
+    attrs = struct.pack("<iiiI", -1, 1, 2, 0) + b"\0" * 4 + struct.pack("<iiiI", -1, 3, 4, 0) + b"\0" * 4
+    body = struct.pack("<iI", -1, 0) + struct.pack("<HHHHHH", 20, 20, 2, 0, 0, 0) + attrs
+    element = struct.pack("<HHI", 0x0102, 16, 16 + len(body)) + b"\0" * 8 + body
+    return struct.pack("<HHI", 3, 8, 8 + len(pool) + len(element)) + pool + element
+
+
+def make_apk(folder, name, version="1.12.1.0.6.0", package="com.stremio.one.subs", libs=("armeabi-v7a",),
              dex=b"Lapp/subsense/stremio/SubtitleRefresh;", pad=True):
     path = Path(folder) / name
     with zipfile.ZipFile(path, "w") as zf:
@@ -550,7 +711,8 @@ class Verify(unittest.TestCase):
     # P-REL-17
     def test_P_REL_17_the_version_inside_must_match_the_file_name(self):
         self.assertIn("the app says version 1.12.0", self.check(make_apk(self.tmp.name, TV_NEW, version="1.12.0"))[0])
-        self.assertEqual(self.check(make_apk(self.tmp.name, TV_NEW, version="1.12.1-EXTENDED")), [], "a store's label, real on YouTube 21.41.525")
+        self.assertIn("with its patch version", self.check(make_apk(self.tmp.name, TV_NEW, version="1.12.1"))[0], "a phone would report this and ObtainX would warn")
+        self.assertTrue(verify_apk.version_matches("21.41.525-EXTENDED", "21.41.525"), "a store's label, real on YouTube 21.41.525")
     # P-REL-18
     def test_P_REL_18_the_libraries_must_be_for_the_named_cpu(self):
         self.assertIn("libraries are for ['arm64-v8a']", self.check(make_apk(self.tmp.name, TV_NEW, libs=("arm64-v8a",)))[0])
@@ -829,6 +991,16 @@ class Fallback(unittest.TestCase):
         line, tried = self.build(force=True)
         self.assertIsNone(line)
         self.assertEqual(tried, ["2026.44.0"])
+    # P-REL-140
+    def test_P_REL_140_a_wrong_stock_signature_stops_that_app(self):
+        app = entry(table="Sig-App", name="Sig App", urls={"apkmirror": "u"})
+        with mock.patch.object(builder, "_make_scraper"), mock.patch.object(builder, "_find_pkg_name", return_value=("p", "apkmirror", set())), \
+                mock.patch.object(builder, "_resolve_version", return_value=("1", None, False)), mock.patch.object(builder, "_download_apk"), \
+                mock.patch.object(builder, "_verify_sig", side_effect=builder.SignatureError("mismatch")), mock.patch.object(builder, "epr"), mock.patch.object(builder, "pr"):
+            self.assertIsNone(builder._build_single(app, "all", "Sig App", None, mock.MagicMock(), False))
+            self.assertIsNone(builder._build_single(app, "all", "Sig App", None, mock.MagicMock(), False), "skipped the second time")
+        builder._failed_signatures.discard("Sig-App")
+
     # P-REL-46
     def test_P_REL_46_a_working_top_version_has_no_mark(self):
         line, tried = self.build(failing=())
@@ -860,9 +1032,9 @@ def world(**over):
         "releases": [rel],
         "releases_all": [rel],
         "latest": {"apps": {"stremio-tv": {"version": "1.12.1", "tag": "26.11.02-subs", "patches": build["patches"]}}},
-        "obtainium": {"apps": [{"app": "stremio-tv", "apk": APK_URL, "build_version": "1.12.1-0.6.0", "package": "com.stremio.one.subs", "source_url": "https://x/p.html"}]},
-        "pages": {"stremio-tv": f'<meta name="build-version" content="1.12.1-0.6.0"><a href="{APK_URL}">x</a>'},
-        "apks": {APK_URL: {"package": "com.stremio.one.subs", "version": "1.12.1", "signer": "good"}},
+        "obtainium": {"apps": [{"app": "stremio-tv", "apk": APK_URL, "build_version": "1.12.1.0.6.0", "package": "com.stremio.one.subs", "source_url": "https://x/p.html"}]},
+        "pages": {"stremio-tv": f'<meta name="build-version" content="1.12.1.0.6.0"><a href="{APK_URL}">x</a>'},
+        "apks": {APK_URL: {"package": "com.stremio.one.subs", "version": "1.12.1.0.6.0", "signer": "good"}},
         "feeds": {"stremio-tv": "1.12.1"},
         "bundles": {("Qutaiba-Khader/stremio-subs-patches", "latest"): "0.6.0"},
         "ci": {"id": 1, "created_at": "2026-11-03T10:00:00Z", "conclusion": "success"},
@@ -900,15 +1072,15 @@ class Health(unittest.TestCase):
         self.assertIn("page-link:stremio-tv", problems(world(pages={"stremio-tv": ""})))
         self.assertIn("page-version:stremio-tv", problems(world(pages={"stremio-tv": f'<a href="{APK_URL}">'})))
         data = world()
-        data["obtainium"]["apps"][0]["build_version"] = "9.9.9-1"
+        data["obtainium"]["apps"][0]["build_version"] = "9.9.9.1"
         self.assertIn("page-version:stremio-tv", problems(data))
     # P-REL-52
     def test_P_REL_52_an_apk_that_is_not_what_is_promised_is_caught(self):
-        good = {"package": "com.stremio.one.subs", "version": "1.12.1", "signer": "good"}
+        good = {"package": "com.stremio.one.subs", "version": "1.12.1.0.6.0", "signer": "good"}
         self.assertIn("apk-unreachable:stremio-tv", problems(world(apks={APK_URL: {"error": "404"}})))
         self.assertIn("apk-unreachable:stremio-tv", problems(world(apks={})))
         self.assertIn("apk-package:stremio-tv", problems(world(apks={APK_URL: {**good, "package": "x"}})))
-        self.assertIn("apk-version:stremio-tv", problems(world(apks={APK_URL: {**good, "version": "1.0"}})))
+        self.assertIn("apk-version:stremio-tv", problems(world(apks={APK_URL: {**good, "version": "1.12.1"}})), "the phone would report this, and ObtainX would warn")
         self.assertIn("apk-signer:stremio-tv", problems(world(apks={APK_URL: {**good, "signer": "bad"}})))
         data = world(apks={APK_URL: {**good, "abis": {"arm64-v8a"}}})
         data["obtainium"]["apps"][0]["arch"] = "armeabi-v7a"
@@ -1122,6 +1294,7 @@ class WholeFlow(unittest.TestCase):
                 mock.patch.object(gen_site, "fetch_live", return_value={}), \
                 mock.patch.object(gen_site, "package_of", return_value="com.stremio.one.subs"), \
                 mock.patch.object(gen_site, "signer_of", return_value="good"), \
+                mock.patch.object(gen_site, "manifest_from_url", return_value=manifest(package="p", versionName="1.12.1.0.6.0")), \
                 mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "good"}), redirect_stdout(io.StringIO()):
             self.assertEqual(gen_site.main(), 0)
         return out
@@ -1131,14 +1304,14 @@ class WholeFlow(unittest.TestCase):
         obtainium = json.loads((out / "api/obtainium.json").read_text(encoding="utf-8"))
         pages = {e["app"]: (out / e["page"]).read_text(encoding="utf-8") for e in obtainium["apps"]}
         return world(releases=releases, releases_all=releases, latest=latest, obtainium=obtainium, pages=pages,
-                     apks={e["apk"]: {"package": "com.stremio.one.subs", "version": e["version"], "signer": "good"} for e in obtainium["apps"]})
+                     apks={e["apk"]: {"package": "com.stremio.one.subs", "version": e["build_version"], "signer": "good"} for e in obtainium["apps"]})
     # P-REL-73
     def test_P_REL_73_same_day_rebuild_end_to_end(self):
         releases = [release("26.11.02-subs", [TV_OLD, TV_NEW])]
         out = self.generate(releases)
         data = self.world_from(out, releases)
         page = data["pages"]["stremio-tv"]
-        self.assertIn('content="1.12.1-0.6.0"', page)
+        self.assertIn('content="1.12.1.0.6.0"', page)
         self.assertIn(TV_NEW, page)
         self.assertNotIn(TV_OLD, page)
         self.assertEqual(release_check.check_offers(APPS, data), {})
@@ -1151,6 +1324,7 @@ class WholeFlow(unittest.TestCase):
                 mock.patch.object(gen_site, "fetch_live", return_value={}), \
                 mock.patch.object(gen_site, "package_of", return_value="p"), \
                 mock.patch.object(gen_site, "signer_of", return_value="other"), \
+                mock.patch.object(gen_site, "manifest_from_url", return_value=manifest(package="p", versionName="1")), \
                 mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "good"}), redirect_stdout(io.StringIO()):
             self.assertEqual(gen_site.main(), 1)
         self.assertFalse(out.exists())

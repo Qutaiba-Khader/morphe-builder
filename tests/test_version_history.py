@@ -1,8 +1,9 @@
 """Three months of real versions replayed through the code (fixture: tests/fixtures/history.json).
 
 Every version here really existed: our releases and the APKs in them, Stremio's feed as archived, and the
-Morphe, CLI, TikTok and Stremio patch releases. The ObtainX answers come from ObtainX's own compareVersionStrings.
-"older" means the first version is older than the second, so the phone is offered the update.
+Morphe, CLI, TikTok and Stremio patch releases. The ObtainX answers come from ObtainX's own compareVersionStrings,
+called the way it decides an update: what the phone REPORTS against what the page offers. "older" means an update
+is offered, "same" means current, and "unknown" is its "Version order unclear" warning, which must never appear.
 """
 from __future__ import annotations
 
@@ -27,9 +28,9 @@ import history_replay  # noqa: E402
 import release_check  # noqa: E402
 import verify_apk  # noqa: E402
 
-from test_release_flow import coded_manifest  # noqa: E402
+from test_release_flow import coded_manifest, manifest  # noqa: E402
 
-from src.core import prebuilts  # noqa: E402
+from src.core import apk_version, prebuilts  # noqa: E402
 from src.core.prebuilts import get_highest_ver  # noqa: E402
 from src.scrapers.stremio import StremioScraper  # noqa: E402
 from src.scripts import matrix  # noqa: E402
@@ -88,8 +89,7 @@ class Upstream(unittest.TestCase):
             for release in HISTORY["upstream"][key]:
                 version = release["tag"].lstrip("v")
                 # a dev channel takes every release of its source; finals count as the channel's top
-                build = {"version": "1.0", "tag": "t", "prerelease": True, "patches": [{"file": f"o/patches-{version}.mpp", "version": version}]}
-                texts.append(tuple(int(n) for n in re.findall(r"\d+", gen_site.build_version(build))))
+                texts.append(tuple(int(n) for n in re.findall(r"\d+", apk_version.update_version("1.0", version, True))))
             self.assertEqual(texts, sorted(texts), key)
             self.assertEqual(len(texts), len(set(texts)), key)
 
@@ -137,8 +137,6 @@ class Offers(unittest.TestCase):
 
     # P-HIS-07
     def test_P_HIS_07_rebuilds_with_nothing_new_are_not_offered(self):
-        self.assertEqual(HISTORY["obtainx"]["21.30.216-2.0.0|21.30.216-2.0.0"], "same")
-        self.assertEqual(prebuilts.get_highest_ver(["v2.1.0-dev.20", "v2.1.0"]), "v2.1.0")
         apps = gen_site.collect(OURS)
         for app_id in apps:
             rows = history_replay.offers(OURS)[app_id]
@@ -146,17 +144,21 @@ class Offers(unittest.TestCase):
             self.assertEqual(len(texts), len(set(texts)), f"{app_id}: a text came back after moving on")
 
     # P-HIS-08
-    def test_P_HIS_08_the_formats_that_broke_or_could_break_stay_right_in_obtainx(self):
+    def test_P_HIS_08_installed_against_offered_is_never_unclear(self):
         for installed, offered in history_replay.EXTRA_PAIRS:
             self.assertEqual(HISTORY["obtainx"][f"{installed}|{offered}"], "older", f"{installed} -> {offered}")
+        for installed, offered in history_replay.SAME_PAIRS:
+            self.assertEqual(HISTORY["obtainx"][f"{installed}|{offered}"], "same", f"{installed} -> {offered}")
+        unclear = sorted(k for k, v in HISTORY["obtainx"].items() if v == "unknown")
+        self.assertEqual(unclear, ["|".join(history_replay.THE_BUG)], "only the form that caused the warning")
 
     # P-HIS-09
     def test_P_HIS_09_where_things_stand_now(self):
-        latest = {k: (a["builds"][0]["version"], gen_site.build_version(a["builds"][0])) for k, a in gen_site.collect(OURS).items()}
+        latest = {k: (a["builds"][0]["version"], history_replay.text_of(a["builds"][0])) for k, a in gen_site.collect(OURS).items()}
         self.assertEqual(latest["stremio-phone"][0], "2.5.1")
-        self.assertEqual(latest["stremio-tv"], ("1.12.1", "1.12.1-0.6.0"))
-        self.assertEqual(latest["stremio-tv-replace"], ("1.12.1", "1.12.1-0.6.0"))
-        self.assertEqual(latest["reddit-experimental"][1], "2026.42.0-2.1.0.6")
+        self.assertEqual(latest["stremio-tv"], ("1.12.1", "1.12.1.0.6.0"))
+        self.assertEqual(latest["stremio-tv-replace"], ("1.12.1", "1.12.1.0.6.0"))
+        self.assertEqual(latest["reddit-experimental"][1], "2026.42.0.2.1.0.6")
         code = HISTORY["apks"]["26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk"]["versionCode"]
         self.assertEqual(code, "2147483647", "above every real YouTube build, so a phone holding any of them can update")
 
@@ -244,6 +246,7 @@ class ThePages(unittest.TestCase):
                     mock.patch.object(gen_site, "fetch_releases", return_value=OURS), mock.patch.object(gen_site, "fetch_live", return_value={}), \
                     mock.patch.object(gen_site, "package_of", side_effect=lambda url: fact(url, "package")), \
                     mock.patch.object(gen_site, "signer_of", side_effect=lambda url: fact(url, "signer")), \
+                    mock.patch.object(gen_site, "manifest_from_url", side_effect=lambda url: manifest(package=fact(url, "package"), versionName=fact(url, "versionName"))), \
                     mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": CERT}), redirect_stdout(_StringIO()):
                 self.assertEqual(gen_site.main(), 0)
             latest = json.loads((out / "api/latest.json").read_text(encoding="utf-8"))["apps"]
@@ -253,18 +256,19 @@ class ThePages(unittest.TestCase):
                 page = (out / entry["page"]).read_text(encoding="utf-8")
                 self.assertEqual(re.findall(r'href="([^"]+\.apk)"', page), [entry["apk"]], app_id)
                 self.assertIn(f'content="{entry["build_version"]}"', page, app_id)
-                self.assertTrue(entry["build_version"].startswith(latest[app_id]["version"] + "-"), app_id)
+                self.assertTrue(entry["build_version"].startswith(latest[app_id]["version"]), app_id)
                 self.assertEqual(entry["package"], fact(entry["apk"], "package"), app_id)
-                self.assertTrue(verify_apk.version_matches(fact(entry["apk"], "versionName"), latest[app_id]["version"]), app_id)
+                # the exact text the phone will report: this is what ObtainX compares
+                self.assertEqual(entry["build_version"], fact(entry["apk"], "versionName"), app_id)
+                self.assertEqual(HISTORY["obtainx"].get(f"{entry['build_version']}|{entry['build_version']}", "same"), "same", app_id)
                 self.assertIn(f"-v{latest[app_id]['version']}-", entry["apk"], app_id)
-            self.assertEqual(entries["stremio-phone"]["build_version"], "2.5.1-0.6.0")
-            self.assertEqual(entries["stremio-tv"]["build_version"], "1.12.1-0.6.0")
+            self.assertEqual(entries["stremio-tv"]["build_version"], "1.12.1", "built before versions carried the patch number")
+            self.assertEqual(entries["tiktok"]["build_version"], "46.2.3", "his phone reports 46.2.3: same, no warning")
 
     # P-HIS-21
     def test_P_HIS_21_what_is_not_an_update_is_known(self):
         for installed, offered in history_replay.NOT_UPDATES:
-            self.assertNotEqual(HISTORY["obtainx"][f"{installed}|{offered}"], "older", f"{installed} -> {offered}")
-        self.assertEqual(HISTORY["obtainx"]["21.44.528-2.1.0.6|21.44.528-BETA-2.1.0.7"], "newer")
+            self.assertNotIn(HISTORY["obtainx"][f"{installed}|{offered}"], ("older", "unknown"), f"{installed} -> {offered}")
 
     # P-HIS-22
     def test_P_HIS_22_the_real_notes_with_each_apks_bundles_are_read(self):
@@ -293,9 +297,9 @@ class SameDay(unittest.TestCase):
     def test_P_HIS_15_the_real_case_offers_the_new_versions_and_removes_the_old(self):
         rel = self.release()
         apps = gen_site.collect([rel])
-        self.assertEqual(gen_site.build_version(apps["stremio-phone"]["builds"][0]), "2.5.1-0.6.0")
-        self.assertEqual(gen_site.build_version(apps["stremio-tv"]["builds"][0]), "1.12.1-0.6.0")
-        self.assertEqual(gen_site.build_version(apps["stremio-tv-replace"]["builds"][0]), "1.12.1-0.6.0")
+        self.assertEqual(history_replay.text_of(apps["stremio-phone"]["builds"][0]), "2.5.1.0.6.0")
+        self.assertEqual(history_replay.text_of(apps["stremio-tv"]["builds"][0]), "1.12.1.0.6.0")
+        self.assertEqual(history_replay.text_of(apps["stremio-tv-replace"]["builds"][0]), "1.12.1.0.6.0")
         doomed = sorted(a["name"] for a in gen_site.superseded(rel, gen_site.app_config()))
         self.assertEqual(doomed, sorted(self.NAMES[0::2]))
 

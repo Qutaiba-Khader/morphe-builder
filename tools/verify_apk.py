@@ -32,7 +32,7 @@ MARKERS = {"Qutaiba-Khader/stremio-subs-patches": b"Lapp/subsense/stremio/Subtit
 def version_matches(inside: str | None, named: str) -> bool:
     """The version inside the APK against its file name. Stores can add a label inside only: YouTube 21.41.525
     from APKMirror says 21.41.525-EXTENDED (real, 26.10.14-morphe-dev)."""
-    return inside is None or inside == named or inside.startswith(f"{named}-")
+    return inside is None or inside == named or inside.startswith((f"{named}-", f"{named}."))
 
 
 def shipped_code(stem: str, repo: str) -> int | None:
@@ -138,8 +138,8 @@ def problems(apk: Path, sources_by_stem: dict[str, list[str]], want_signer: str,
     elif (want_package := (packages or {}).get(m["stem"])) and attrs["package"] != want_package:
         found.append(f"the package is {attrs['package']}, config.toml asks for {want_package}")
     inside = attrs.get("versionName")
-    if not version_matches(inside, m["version"]):
-        found.append(f"the app says version {inside}, the file name says {m['version']}")
+    if not inside or not inside.startswith(f"{m['version']}."):
+        found.append(f"the app says version {inside}, not {m['version']} with its patch version: the update page could not match the phone")
     arch = m["arch"]
     abis = {n.split("/")[1] for n in names if n.startswith("lib/") and n.count("/") >= 2}
     if arch != "all" and arch not in abis:

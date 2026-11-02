@@ -310,12 +310,11 @@ for (const entry of obt.apps) {
   const got = matches.at(-1)?.[Number(settings.matchGroupToUse)];
   check(`obtainium/${entry.app}: version regex matches the endpoint page`,
     matches.length > 0, matches.length ? `${matches.length} match(es)` : "NO MATCH");
-  check(`obtainium/${entry.app}: extracted version is app version + patch revision (${entry.build_version})`,
-    got === entry.build_version && got.startsWith(entry.version + "-"), got);
-  // ObtainX orders only a NUMERIC revision after "-" (version_comparison.dart
-  // build revision); "+metadata" it drops, so patch-only rebuilds vanished.
-  check(`obtainium/${entry.app}: patch revision is numeric, so ObtainX can order it`,
-    /^-\d+(\.\d+)*$/.test((got ?? "").slice(entry.version.length)), got);
+  check(`obtainium/${entry.app}: extracted version is the update version (${entry.build_version})`,
+    got === entry.build_version && got.startsWith(entry.version), got);
+  // The phone reports the APK's versionName and ObtainX compares it with this page: they must be the same text.
+  const inside = execFileSync("python3", ["-c", `import sys;sys.path.insert(0,"tools");from apk_package import *;print(manifest_attrs(manifest_from_url(sys.argv[1])).get("versionName"))`, entry.apk], { cwd: REPO, encoding: "utf8" }).trim();
+  check(`obtainium/${entry.app}: the page offers the versionName inside the APK`, inside === got, `page ${got}, APK ${inside}`);
   check(`obtainium/${entry.app}: version detection on (an older app on the phone shows as an update)`,
     settings.versionDetection === true);
 

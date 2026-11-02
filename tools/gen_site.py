@@ -31,7 +31,7 @@ from pathlib import Path
 from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from apk_package import package_of, signer_of  # noqa: E402
+from apk_package import manifest_attrs, manifest_from_url, package_of, signer_of  # noqa: E402
 from gen_catalog import _upstream_ver_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -303,7 +303,7 @@ def asset_tools(body: str, asset_name: str, release_tools: dict[str, Any]) -> di
 
 def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:
     """Put the app's own patch bundle first: the release notes list every bundle of the
-    release, and the update version is read from the first (see build_version). The app's
+    release, and the first is shown as the main one. The app's
     main bundle is the first patch source of its config.toml table: for Stremio that is
     Qutaiba-Khader's, and Morphe's bundle only lends it "Clone app"."""
     patches = tools.get("patches") or []
@@ -519,34 +519,13 @@ first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 """
 
 
-_REV_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|pre|alpha|beta|rc)[-._]?(\d*))?", re.IGNORECASE)
-# One numeric slot must keep dev.16 < alpha.1 < beta.3 < rc.1 < the final bundle, and ObtainX orders numbers only.
-_PRE_BASE = {"dev": 0, "pre": 1000, "alpha": 2000, "beta": 3000, "rc": 4000}
-
-
 def build_version(build: dict[str, Any]) -> str:
-    """The version Obtainium/ObtainX tracks: app version, "-", the patch version.
-
-    The app version alone (21.16.256) does not move when only the patches do.
-    The patches go in as a numeric BUILD REVISION (21.16.256-1.46.0; a dev
-    bundle 1.47.0-dev.16 becomes 21.40.161-1.47.0.16) because that is the one
-    form both apps order against the phone's own version: ObtainX
-    (version_comparison.dart) drops "+metadata" entirely, so the old
-    21.16.256+p1.46.0 made a patch-only rebuild look like the same build, and
-    with detection off it never compared with the phone at all - an older app
-    already on the phone stayed "Up to date". Falls back to 0 when the release
-    notes name no bundle.
+    """The version Obtainium/ObtainX tracks: exactly the versionName inside the APK, because that is what the phone
+    reports once it is installed (resolve_versions). ObtainX compares the two: anything else is "Version order
+    unclear" and an update offered for what is already there. Builds carry the patch version in it as well:
+    46.2.3.0.8.1 (src/core/apk_version.py), so a patch-only rebuild is a real, ordered update.
     """
-    patches = [p["version"] for p in build.get("patches") or [] if p.get("version")]
-    m = _REV_RE.search(patches[0]) if patches else None
-    if not m:
-        return f"{build['version']}-0"  # lowest: a date here would outrank every later patch version
-    rev = m.group(1)
-    if m.group(2):
-        rev += f".{_PRE_BASE[m.group(2).lower()] + int(m.group(3) or 0)}"
-    elif build.get("prerelease"):
-        rev += ".9999"  # a final bundle on the pre-release channel comes after its own dev.N
-    return f"{build['version']}-{rev}"
+    return build.get("update_version") or build["version"]
 
 
 # Read from the endpoint page itself (versionExtractWholePage): Obtainium gets
@@ -561,9 +540,8 @@ def obtainium_entry(app: dict[str, Any], build: dict[str, Any], file: dict[str, 
         "versionExtractionRegEx": BUILD_VERSION_REGEX,
         "matchGroupToUse": "1",
         "versionExtractWholePage": True,
-        # compare with the phone: an older app already installed (patched on
-        # the phone, or an earlier build) must show as an update. The patch
-        # revision in build_version still makes patch-only rebuilds updates.
+        # compare with the phone: the page's version is the APK's own versionName,
+        # so an older app shows as an update and the current one shows as current.
         "versionDetection": True,
         "apkFilterRegEx": "\\.apk$",
     }
@@ -644,6 +622,35 @@ def resolve_packages(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> N
         else:
             print(f"  warn: could not read {app['id']} package ({error}); "
                   "leaving it unknown - no Obtainium entry this run", file=sys.stderr)
+
+
+def resolve_versions(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> None:
+    """Set each current build's update_version: the versionName its APK really has.
+
+    Read from the APK (3 attempts), else what the live site recorded for the same file. If neither, the file name's
+    version, which is the same unless the store added a label.
+    """
+    live_apps = live.get("apps") or {}
+    for app in apps.values():
+        if not app["builds"]:
+            continue
+        build, file = app["builds"][0], app["builds"][0]["files"][0]
+        error: Exception | None = None
+        for attempt in range(3):
+            try:
+                if name := manifest_attrs(manifest_from_url(file["url"])).get("versionName"):
+                    build["update_version"] = name
+                    break
+            except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
+                error = exc
+                time.sleep(2 * (attempt + 1))
+        if build.get("update_version"):
+            continue
+        prev = live_apps.get(app["id"]) or {}
+        prev_file = (prev.get("files") or [{}])[0]
+        if file.get("sha256") and file["sha256"] == prev_file.get("sha256") and prev.get("update_version"):
+            build["update_version"] = prev["update_version"]
+        print(f"  warn: could not read {app['id']} version ({error})", file=sys.stderr)
 
 
 def resolve_signers(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> None:
@@ -767,8 +774,8 @@ def write_obtainium(apps: dict[str, dict[str, Any]], site_url: str, repo: str, n
         "repo": repo,
         "how": (
             "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the "
-            "phone. The version is read from the APK filename, so Obtainium only prompts when "
-            "the app version really changes."
+            "phone. The version on the page is the versionName inside the APK, which is what the "
+            "phone reports, so Obtainium and ObtainX compare like with like."
         ),
         "add_all_url": site_url + "obtainium/_all.html",
         "add_all_deep_link": deep_all,
@@ -828,6 +835,7 @@ def main() -> int:
 
     resolve_packages(apps, live)
     resolve_signers(apps, live)
+    resolve_versions(apps, live)
     signer, wrong = expected_signer(apps)
     if wrong:
         # Fail before writing anything: the live site and the Obtainium pages keep

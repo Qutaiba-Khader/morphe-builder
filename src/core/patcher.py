@@ -201,6 +201,16 @@ class PatcherCLI:
             output_apk.unlink(missing_ok=True)
             raise PatcherError(f"Patching '{stock_apk.name}' failed:\n{exc}") from exc
 
+    def sign(self, apk: Path) -> None:
+        """morphe-builder: sign a rewritten APK with the same key the CLI used."""
+        alias = os.getenv("KEYSTORE_ALIAS")
+        if not (self.ks_path and os.getenv("KEYSTORE_PASS") and alias):
+            raise PatcherError("No keystore to sign the APK with")
+        # The CLI's jar holds the BKS keystore's provider; apksigner finds it on the class path.
+        _run_java("--enable-native-access=ALL-UNNAMED", "-cp", f"{self.apksigner}{os.pathsep}{self.cli_jar}", "com.android.apksigner.ApkSignerTool",
+                  "sign", "--ks", self.ks_path, "--ks-type", "BKS", "--ks-key-alias", alias, "--ks-pass", "env:KEYSTORE_PASS", "--key-pass", "env:KEYSTORE_PASS",
+                  "--provider-class", "org.bouncycastle.jce.provider.BouncyCastleProvider", apk)
+
     def check_signature(self, apk: Path, pkg_name: str) -> bool:
         expected = self._signatures.get(pkg_name)
         if not expected:

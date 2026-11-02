@@ -9,7 +9,8 @@
     "tools/apk_package.py",
     "src/scripts/matrix.py",
     "src/core/patcher.py",
-    "src/core/builder.py"
+    "src/core/builder.py",
+    "src/core/apk_version.py"
   ],
   "exclude": [
     "tests/**/*.py",

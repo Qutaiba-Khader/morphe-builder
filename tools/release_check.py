@@ -26,7 +26,6 @@ sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
 from apk_package import manifest_attrs, manifest_from_url, names_from_url, signer_of  # noqa: E402
 from gen_catalog import _upstream_ver_key  # noqa: E402
-from verify_apk import version_matches  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FEED = "https://api.strem.io/downloads/config"
@@ -100,8 +99,6 @@ def check_offers(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, 
                                                 f"the releases say {want[0]['version']} ({want[0]['tag']})")
         if app.get("pin") and have.get("version") != app["pin"]:
             found[f"pin-not-offered:{app_id}"] = f"{app_id}: config.toml pins {app['pin']}, the site offers {have.get('version')}"
-        if entry.get("build_version") != gen_site.build_version(want[0]):
-            found[f"offered-stale:{app_id}"] = f"{app_id}: the update version is {entry.get('build_version')}, the releases say {gen_site.build_version(want[0])}"
         page = data["pages"].get(app_id) or ""
         links = re.findall(r'href="([^"]+\.apk)"', page)
         meta = re.search(gen_site.BUILD_VERSION_REGEX, page)
@@ -111,7 +108,7 @@ def check_offers(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, 
             found[f"page-version:{app_id}"] = f"{app_id}: its update page says {meta.group(1) if meta else 'nothing'}, not {entry['build_version']}"
         if not have.get("patches"):
             found[f"no-bundle:{app_id}"] = f"{app_id}: its release notes name no patch bundle, so a patch update would not be noticed"
-        if not entry["build_version"].startswith(have.get("version", "") + "-"):
+        if not entry["build_version"].startswith(have.get("version", "")):
             found[f"page-version:{app_id}"] = f"{app_id}: update version {entry['build_version']} does not start with {have.get('version')}"
         found.update(_check_apk(app_id, entry, have, data))
         notes = next((str(r.get("body") or "") for r in data["releases"] if r.get("tag_name") == have.get("tag")), "")
@@ -129,8 +126,9 @@ def _check_apk(app_id: str, entry: dict[str, Any], have: dict[str, Any], data: d
     found: dict[str, str] = {}
     if apk.get("package") != entry.get("package"):
         found[f"apk-package:{app_id}"] = f"{app_id}: the APK is {apk.get('package')}, the update entry says {entry.get('package')}"
-    if not version_matches(apk.get("version"), have.get("version") or ""):
-        found[f"apk-version:{app_id}"] = f"{app_id}: the APK says version {apk.get('version')}, the site says {have.get('version')}"
+    if apk.get("version") is not None and apk["version"] != entry.get("build_version"):
+        found[f"apk-version:{app_id}"] = (f"{app_id}: the update page offers {entry.get('build_version')}, the APK says {apk['version']}: "
+                                          "ObtainX compares those two once it is installed")
     arch, abis = entry.get("arch"), apk.get("abis")
     if abis is not None and arch not in (None, "all") and arch not in abis:
         found[f"apk-cpu:{app_id}"] = f"{app_id}: built for {arch}, but its libraries are for {sorted(abis) or 'nothing'}"
@@ -142,7 +140,7 @@ def _check_apk(app_id: str, entry: dict[str, Any], have: dict[str, Any], data: d
 def offer_rank(version: str, text: str) -> tuple[Any, ...]:
     """The order ObtainX gives update versions: the app version with its label, then the patch revision.
     Real: 21.44.528-2.1.0.6 to 21.44.528-BETA-2.1.0.7 has higher numbers and is still no update."""
-    revision = text[len(version) + 1:] if text.startswith(f"{version}-") else text
+    revision = text[len(version) + 1:] if text.startswith((f"{version}-", f"{version}.")) else ("" if text == version else text)
     return (_upstream_ver_key(version), tuple(int(n) for n in re.findall(r"\d+", revision)))
 
 
@@ -418,7 +416,7 @@ def main() -> int:
     # A source that could not be read says nothing about the offer: it waits as its own problem.
     unread = any(k.startswith(("check-error:latest", "check-error:obtainium", "check-error:update page")) for k in errors)
     offers = {} if unread else check_offers(apps, data)
-    direction = {} if unread else check_direction(apps, data, state.get("offered") or {})
+    direction = {} if unread else check_direction(apps, data, state.get("offers") or {})
     problems = {**errors, **offers, **direction, **check_upstream(apps, data), **check_runs(data, now)}
     if "check-error:releases" in errors:
         problems = {k: v for k, v in problems.items() if k.startswith("check-error")}  # no releases read: nothing else can be judged
@@ -426,11 +424,11 @@ def main() -> int:
         problems.update({k: rec["text"] for k, rec in (state.get("problems") or {}).items() if k.startswith("flow-test:")})
     new_state = update_state(state, problems, now)
     # What was offered: kept through a backwards problem, so it stays flagged until the offer is back above it.
-    new_state["offered"] = dict(state.get("offered") or {})
+    new_state["offers"] = dict(state.get("offers") or {})
     if not unread:
         for entry in data["obtainium"].get("apps") or []:
             if not any(k in direction for k in (f"offer-backwards:{entry['app']}", f"offer-package:{entry['app']}")):
-                new_state["offered"][entry["app"]] = {"text": entry["build_version"], "version": entry.get("version"), "package": entry.get("package")}
+                new_state["offers"][entry["app"]] = {"text": entry["build_version"], "version": entry.get("version"), "package": entry.get("package")}
     state_file.write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
     now_active = active(new_state, now)
     (state_dir / "report.json").write_text(json.dumps({
