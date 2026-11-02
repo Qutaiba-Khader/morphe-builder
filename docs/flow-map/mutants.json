@@ -128,8 +128,8 @@
  {
   "id": "G-CODE-highest",
   "file": "tools/verify_apk.py",
-  "find": "return max(codes) if codes else None",
-  "replace": "return codes[-1] if codes else None"
+  "find": "return max(codes) or None if codes else None",
+  "replace": "return codes[-1] or None if codes else None"
  },
  {
   "id": "G-HEALTH-downgrade",

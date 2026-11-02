@@ -40,7 +40,7 @@ APK_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|arme
 CERT = "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
 # Real builds below the highest versionCode ever released, which Android refuses on a phone holding that one:
 # YouTube Experimental after 21.41.525 and after 21.44.528-BETA. verify_apk rejects these now.
-REAL_CODE_DROPS = {"26.10.14-morphe-dev", "26.10.15-morphe-dev", "26.11.01-morphe-dev", "26.11.02-morphe-dev"}
+REAL_CODE_DROPS = {"26.10.14-morphe-dev", "26.10.15-morphe-dev", "26.11.01-morphe-dev"}
 
 
 def order(version):
@@ -157,6 +157,8 @@ class Offers(unittest.TestCase):
         self.assertEqual(latest["stremio-tv"], ("1.12.1", "1.12.1-0.6.0"))
         self.assertEqual(latest["stremio-tv-replace"], ("1.12.1", "1.12.1-0.6.0"))
         self.assertEqual(latest["reddit-experimental"][1], "2026.42.0-2.1.0.6")
+        code = HISTORY["apks"]["26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk"]["versionCode"]
+        self.assertEqual(code, "2147483647", "above every real YouTube build, so a phone holding any of them can update")
 
 
 class Apks(unittest.TestCase):
@@ -266,13 +268,13 @@ class ThePages(unittest.TestCase):
 
     # P-HIS-22
     def test_P_HIS_22_the_real_notes_with_each_apks_bundles_are_read(self):
-        recent = [r for r in OURS if "<!-- patches:" in r["body"]]
-        self.assertGreaterEqual(len(recent), 2)
-        for release in recent:
-            for asset in release["assets"]:
-                build = gen_site.collect([release])
-                app = next(a for a in build.values() if a["builds"][0]["files"][0]["name"] == asset["name"])
-                self.assertTrue(app["builds"][0]["patches"], asset["name"])
+        recent = {r["tag_name"]: r for r in OURS if "<!-- patches:" in r["body"]}
+        self.assertLessEqual({"26.11.02-subs", "26.11.02-morphe-dev"}, set(recent))
+        apps = gen_site.collect([recent["26.11.02-subs"]])
+        replacement = apps["stremio-tv-replace"]["builds"][0]["patches"]
+        self.assertEqual([p["file"] for p in replacement], ["Qutaiba-Khader/patches-0.6.0.mpp"], "this APK has no Morphe bundle, unlike the clones")
+        clone = apps["stremio-tv"]["builds"][0]["patches"]
+        self.assertEqual([p["version"] for p in clone], ["0.6.0", "2.0.0"], "its own bundle first")
 
 
 class SameDay(unittest.TestCase):

@@ -8,6 +8,7 @@ that fails is deleted so it is never uploaded, and the job goes red.
 """
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import os
 import re
 import sys
@@ -35,15 +36,26 @@ def version_matches(inside: str | None, named: str) -> bool:
 
 
 def shipped_code(stem: str, repo: str) -> int | None:
-    """The highest versionCode of any published build of this app; a phone can hold any of them. None if unreadable."""
+    """The highest versionCode of any published build of this app; a phone can hold any of them. Every release counts, not
+    every name: a rebuild keeps its file name with another code (21.44.528 is 1561310186 in one release, the maximum in
+    the next). An unreadable file is left out with a warning. None when nothing can be read."""
     try:
-        files = {a["name"]: a["browser_download_url"] for r in gen_site.fetch_releases(repo) for a in r.get("assets", [])
-                 if a["name"].lower().startswith(f"{stem}-v") and a["name"].endswith(".apk")}
-        codes = [int(manifest_attrs(manifest_from_url(url)).get("versionCode") or 0) for url in files.values()]
-        return max(codes) if codes else None
+        urls = [a["browser_download_url"] for r in gen_site.fetch_releases(repo) for a in r.get("assets", [])
+                if a["name"].lower().startswith(f"{stem}-v") and a["name"].endswith(".apk")]
     except Exception as exc:  # noqa: BLE001 - this check must not stop a build by itself; Health compares the offer too
         print(f"::warning::could not read what {stem} shipped: {exc}")
         return None
+
+    def code_of(url: str) -> int:
+        try:
+            return int(manifest_attrs(manifest_from_url(url)).get("versionCode") or 0)
+        except Exception as exc:  # noqa: BLE001
+            print(f"::warning::could not read {url}: {exc}")
+            return 0
+
+    with ThreadPoolExecutor(8) as pool:
+        codes = list(pool.map(code_of, urls))
+    return max(codes) or None if codes else None
 
 
 def pinned_stems(config_path: Path) -> set[str]:

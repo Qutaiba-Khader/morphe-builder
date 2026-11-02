@@ -262,14 +262,21 @@ class Downgrade(unittest.TestCase):
     # P-REL-121
     def test_P_REL_121_the_bar_is_the_highest_code_ever_shipped(self):
         rels = [{"tag_name": "a", "assets": [{"name": "s-v1-all.apk", "browser_download_url": "old"}, {"name": "x.apk", "browser_download_url": "no"}]},
-                {"tag_name": "b", "assets": [{"name": "s-v2-all.apk", "browser_download_url": "new"}]}]
-        codes = {"old": coded_manifest("p", "1", 77), "new": coded_manifest("p", "2", 55)}
+                {"tag_name": "b", "assets": [{"name": "s-v1-all.apk", "browser_download_url": "new"}, {"name": "s-v2-all.apk", "browser_download_url": "bad"}]}]
+        codes = {"old": coded_manifest("p", "1", 77), "new": coded_manifest("p", "1", 55)}
+
+        def read(url):
+            if url == "bad":
+                raise OSError("gone")
+            return codes[url]
+
         with mock.patch.object(gen_site, "fetch_releases", return_value=rels), \
-                mock.patch.object(verify_apk, "manifest_from_url", side_effect=lambda url: codes[url]):
-            self.assertEqual(verify_apk.shipped_code("s", "o/r"), 77, "a phone can hold the old build")
+                mock.patch.object(verify_apk, "manifest_from_url", side_effect=read), redirect_stdout(io.StringIO()):
+            self.assertEqual(verify_apk.shipped_code("s", "o/r"), 77, "the same file name in another release, and one file unreadable")
             self.assertIsNone(verify_apk.shipped_code("nothing", "o/r"))
         with mock.patch.object(gen_site, "fetch_releases", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
             self.assertIsNone(verify_apk.shipped_code("s", "o/r"))
+
     # P-REL-122
     def test_P_REL_122_the_whole_check_deletes_a_lower_code_build(self):
         good = make_apk(self.tmp.name, TV_NEW)
@@ -286,7 +293,7 @@ class Direction(unittest.TestCase):
 
     def data(self, version, text, code="100", highest=100, package="p"):
         return {"obtainium": {"apps": [{"app": "stremio-tv", "apk": "u", "version": version, "build_version": text, "package": package}]},
-                "apks": {"u": {"code": code}}, "shipped_codes": {"stremio-tv": {"code": highest, "file": "f"}}}
+                "apks": {"u": {"code": code}}, "shipped_codes": {"codes": {"stremio-tv": {"code": highest, "file": "f"}}, "unread": []}}
     # P-REL-117
     def test_P_REL_117_a_lower_update_version_a_lower_code_or_a_new_package_is_reported(self):
         old = {"stremio-tv": {"text": "1.12.1-0.6.0", "version": "1.12.1", "package": "p"}}
@@ -321,7 +328,8 @@ class Direction(unittest.TestCase):
 
     # P-REL-127
     def test_P_REL_127_the_highest_code_of_each_app_is_read_from_every_file(self):
-        rels = [{"assets": [{"name": TV_OLD, "browser_download_url": "a"}, {"name": TV_NEW, "browser_download_url": "b"}, {"name": PHONE_NEW, "browser_download_url": "c"}, {"name": "other.txt", "browser_download_url": "d"}]}]
+        rels = [{"assets": [{"name": TV_NEW, "browser_download_url": "a"}, {"name": PHONE_NEW, "browser_download_url": "c"}, {"name": "other.txt", "browser_download_url": "d"}]},
+                {"assets": [{"name": TV_NEW, "browser_download_url": "b"}]}]  # the same name with another code
         answers = {"a": coded_manifest("p", "1", 9), "b": coded_manifest("p", "2", 5)}
 
         def read(url):
@@ -330,7 +338,10 @@ class Direction(unittest.TestCase):
             return answers[url]
 
         with mock.patch.object(release_check, "manifest_from_url", side_effect=read):
-            self.assertEqual(release_check.shipped_codes(rels), {"stremio-tv": {"code": 9, "file": TV_OLD}})
+            got = release_check.shipped_codes(rels)
+        self.assertEqual(got, {"codes": {"stremio-tv": {"code": 9, "file": TV_NEW}}, "unread": [PHONE_NEW]})
+        self.assertIn("check-error:apk-codes", problems(world(shipped_codes=got)))
+
     # P-REL-128
     def test_P_REL_128_an_apk_with_no_line_in_notes_that_have_them_claims_no_bundle(self):
         notes = f"- 🟢 » Phone: [`2.5.1`]({DL}/t/{PHONE_NEW}) <!-- patches: Qutaiba-Khader/patches-0.7.0.mpp -->\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.7.0.mpp`"

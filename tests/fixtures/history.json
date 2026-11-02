@@ -1231,7 +1231,7 @@
 },
 {
 "name": "youtube-experimental-morphe-dev-v21.44.528-all.apk",
-"size": 159078848,
+"size": 159246843,
 "state": "uploaded",
 "browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk"
 }
@@ -4113,7 +4113,7 @@
 "26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk": {
 "package": "app.morphe.android.youtube.dev",
 "versionName": "21.44.528",
-"versionCode": "1561310186",
+"versionCode": "2147483647",
 "abis": [
 "arm64-v8a",
 "armeabi-v7a"

@@ -157,7 +157,7 @@ def check_direction(apps: list[dict[str, Any]], data: dict[str, Any], previous: 
         if app_id in pinned:
             continue
         apk = data["apks"].get(entry["apk"]) or {}
-        code, highest = apk.get("code"), (data.get("shipped_codes") or {}).get(app_id)
+        code, highest = apk.get("code"), ((data.get("shipped_codes") or {}).get("codes") or {}).get(app_id)
         if code and highest and int(code) < highest["code"]:
             found[f"offer-downgrade:{app_id}"] = (f"{app_id}: offered versionCode {code} is lower than {highest['code']} of {highest['file']}: "
                                                   "Android refuses it on a phone holding that build")
@@ -168,29 +168,33 @@ def check_direction(apps: list[dict[str, Any]], data: dict[str, Any], previous: 
     return found
 
 
-def shipped_codes(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """app id -> the highest versionCode of any APK ever published. One read per distinct file name."""
+def shipped_codes(releases: list[dict[str, Any]]) -> dict[str, Any]:
+    """{"codes": app id -> the highest versionCode of any APK ever published, "unread": files that could not be read}.
+    One read per published file, not per name: a rebuild keeps its name with another code."""
     config = gen_site.app_config()
-    files: dict[str, tuple[str, str]] = {}
+    files: list[tuple[str, str, str]] = []
     for release in releases:
         for asset in release.get("assets", []):
             parts = gen_site.split_asset(asset["name"], config)
             if parts and (entry := config.get(parts[0])):
-                files.setdefault(asset["name"], (entry["id"], asset["browser_download_url"]))
+                files.append((entry["id"], asset["name"], asset["browser_download_url"]))
 
-    def code_of(item: tuple[str, tuple[str, str]]) -> tuple[str, str, int]:
-        name, (app_id, url) = item
+    def code_of(item: tuple[str, str, str]) -> tuple[str, str, int | None]:
+        app_id, name, url = item
         try:
             return app_id, name, int(manifest_attrs(manifest_from_url(url)).get("versionCode") or 0)
-        except Exception:  # noqa: BLE001 - one file unreadable: the others still set the bar
-            return app_id, name, 0
+        except Exception:  # noqa: BLE001 - the others still set the bar; this one is reported
+            return app_id, name, None
 
-    out: dict[str, dict[str, Any]] = {}
+    codes: dict[str, dict[str, Any]] = {}
+    unread: list[str] = []
     with ThreadPoolExecutor(8) as pool:
-        for app_id, name, code in pool.map(code_of, files.items()):
-            if code > (out.get(app_id) or {"code": 0})["code"]:
-                out[app_id] = {"code": code, "file": name}
-    return out
+        for app_id, name, code in pool.map(code_of, files):
+            if code is None:
+                unread.append(name)
+            elif code > (codes.get(app_id) or {"code": 0})["code"]:
+                codes[app_id] = {"code": code, "file": name}
+    return {"codes": codes, "unread": unread}
 
 
 def check_upstream(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, str]:
@@ -227,6 +231,8 @@ def check_runs(data: dict[str, Any], now: datetime) -> dict[str, str]:
         found[f"package-conflict:{item.get('app')}"] = f"{item.get('app')} has the same package as {item.get('shares_with')}: it gets no update entry"
     for app_id in (data["obtainium"].get("unknown_package") or []):
         found[f"package-unknown:{app_id}"] = f"{app_id}: its package could not be read: it gets no update entry"
+    if unread := (data.get("shipped_codes") or {}).get("unread"):
+        found["check-error:apk-codes"] = f"{len(unread)} published APKs could not be read, so the versionCode bar may be low: {unread[:3]}"
     site = data.get("site_run")
     if site and site.get("conclusion") in BAD_CONCLUSIONS:
         found["site-failed"] = f"the Site workflow ended {site['conclusion']}: phones keep being offered the last published versions"
