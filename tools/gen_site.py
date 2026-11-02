@@ -115,22 +115,26 @@ def fetch_live(site_url: str) -> dict[str, Any]:
         return {}
 
 
-def fetch_releases(repo: str, max_pages: int = 4) -> list[dict[str, Any]]:
+def all_releases(repo: str, page_size: int = 30, max_pages: int = 20) -> list[dict[str, Any]]:
+    """Every release, drafts included. Small pages: a page of 100 with all its assets is about 380 KB and
+    GitHub cut that answer off three reads in a row (2026-11-02), which skipped the whole site."""
     out: list[dict[str, Any]] = []
     for page in range(1, max_pages + 1):
         try:
-            batch = _get(f"{API}/repos/{repo}/releases?per_page=100&page={page}")
+            batch = _get(f"{API}/repos/{repo}/releases?per_page={page_size}&page={page}")
         except urllib.error.HTTPError as exc:
             if page == 1:
                 raise  # nothing read at all: never mistake that for "no releases"
             print(f"warn: releases page {page} failed: {exc}", file=sys.stderr)
             break
-        if not batch:
-            break
         out.extend(batch)
-        if len(batch) < 100:
+        if len(batch) < page_size:
             break
-    return [r for r in out if not r.get("draft")]
+    return out
+
+
+def fetch_releases(repo: str) -> list[dict[str, Any]]:
+    return [r for r in all_releases(repo) if not r.get("draft")]
 
 
 def slug(text: str) -> str:
@@ -272,7 +276,7 @@ _NOTE_RE = {
     "patches": re.compile(r"Patches:\s*`([^`]+\.mpp)`"),
     "cli": re.compile(r"CLI:\s*`([^`]+\.jar)`"),
 }
-_FILE_VERSION_RE = re.compile(r"-(\d[\w.+-]*?)(?:-all)?\.(?:mpp|jar)$")
+_FILE_VERSION_RE = re.compile(r"-v?(\d[\w.+-]*?)(?:-all)?\.(?:mpp|jar)$")
 
 
 def build_tools(body: str) -> dict[str, Any]:
@@ -284,6 +288,21 @@ def build_tools(body: str) -> dict[str, Any]:
             m = _FILE_VERSION_RE.search(file)
             found[key].append({"file": file, "version": m.group(1) if m else ""})
     return {"patches": found["patches"], "cli": (found["cli"] or [None])[0]}
+
+
+_OWN_BUNDLES_RE = re.compile(r"<!-- patches: ([^>]*?) -->")
+
+
+def asset_tools(body: str, asset_name: str, release_tools: dict[str, Any]) -> dict[str, Any]:
+    """The tools of one APK: the bundles its own line of the notes records, else the release's."""
+    for line in (body or "").splitlines():
+        if f"/{asset_name})" in line and (m := _OWN_BUNDLES_RE.search(line)):
+            own = []
+            for file in m.group(1).split(","):
+                v = _FILE_VERSION_RE.search(file)
+                own.append({"file": file, "version": v.group(1) if v else ""})
+            return {**release_tools, "patches": own}
+    return release_tools
 
 
 def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:
@@ -382,7 +401,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                     "published": published,
                     "prerelease": bool(rel.get("prerelease")),
                     "release_url": rel.get("html_url", ""),
-                    **_main_patches_first(build_tools(rel.get("body") or ""), entry.get("patch_org", "")),
+                    **_main_patches_first(asset_tools(rel.get("body") or "", asset["name"], build_tools(rel.get("body") or "")), entry.get("patch_org", "")),
                     "files": [],
                 },
             )
@@ -504,7 +523,9 @@ first, then come back to this page. <a href="../">Back to Morphe Builder</a></p>
 """
 
 
-_REV_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(?:dev|alpha|beta|rc|pre)[-._]?(\d+))?", re.IGNORECASE)
+_REV_RE = re.compile(r"(\d+(?:\.\d+)*)(?:[-._]?(dev|pre|alpha|beta|rc)[-._]?(\d*))?", re.IGNORECASE)
+# One numeric slot must keep dev.16 < alpha.1 < beta.3 < rc.1 < the final bundle, and ObtainX orders numbers only.
+_PRE_BASE = {"dev": 0, "pre": 1000, "alpha": 2000, "beta": 3000, "rc": 4000}
 
 
 def build_version(build: dict[str, Any]) -> str:
@@ -526,7 +547,7 @@ def build_version(build: dict[str, Any]) -> str:
         return f"{build['version']}-0"  # lowest: a date here would outrank every later patch version
     rev = m.group(1)
     if m.group(2):
-        rev += f".{m.group(2)}"
+        rev += f".{_PRE_BASE[m.group(2).lower()] + int(m.group(3) or 0)}"
     elif build.get("prerelease"):
         rev += ".9999"  # a final bundle on the pre-release channel comes after its own dev.N
     return f"{build['version']}-{rev}"

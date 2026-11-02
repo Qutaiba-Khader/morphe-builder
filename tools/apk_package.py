@@ -55,7 +55,7 @@ def _string_pool(data: bytes, off: int) -> list[str]:
 
 
 def manifest_attrs(axml: bytes) -> dict[str, str]:
-    """The string attributes of the <manifest> element (package, versionName, ...)."""
+    """The attributes of the <manifest> element (package, versionName, versionCode, ...)."""
     strings: list[str] = []
     off = 8  # skip the file header
     while off + 8 <= len(axml):
@@ -75,6 +75,8 @@ def manifest_attrs(axml: bytes) -> dict[str, str]:
                     _a_ns, a_name, a_raw = struct.unpack_from("<iii", axml, a)
                     if a_raw >= 0:
                         attrs[strings[a_name]] = strings[a_raw]
+                    elif attr_size >= 20 and axml[a + 15] in (0x10, 0x11):  # a typed integer: versionCode
+                        attrs[strings[a_name]] = str(struct.unpack_from("<I", axml, a + 16)[0])
                 return attrs
         off += chunk_size
     raise LookupError("no <manifest> element found")

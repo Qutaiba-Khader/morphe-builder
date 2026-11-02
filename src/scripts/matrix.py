@@ -98,14 +98,22 @@ def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: Netwo
         epr(f"No release carries {', '.join(missing)}: building brand '{brand}'")
     return bool(missing)
 
+def _bundle_of(release: dict[str, Any]) -> str:
+    """morphe-builder: the version in the .mpp file's name, which is what the release notes name, without the leading v.
+    Not always the tag's: icysymmetra's v0.9.0-dev.2 ships patches-0.9.0-dev.1.mpp."""
+    for asset in release.get("assets") or []:
+        if m := re.search(r"-v?(\d[\w.+-]*?)\.mpp$", str(asset.get("name") or "")):
+            return m.group(1)
+    return str(release.get("tag_name") or "").lstrip("v")
+
 def _expected_bundle(source: str, version: str, net: NetworkManager) -> str:
-    """morphe-builder: the patch version a build would use now (as prebuilts.py picks it), without the leading v."""
+    """morphe-builder: the patch version a build would use now (as prebuilts.py picks it)."""
     clean_src = source.split(":", 1)[1]
     if version == "dev":
         releases = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases?per_page=100", headers=net.gh_headers))
-        return get_highest_ver([str(r["tag_name"]) for r in releases if r.get("tag_name")]).lstrip("v")
-    release = json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases/latest", headers=net.gh_headers))
-    return str(release.get("tag_name") or "").lstrip("v")
+        best = get_highest_ver([str(r["tag_name"]) for r in releases if r.get("tag_name")])
+        return _bundle_of(next(r for r in releases if r.get("tag_name") == best))
+    return _bundle_of(json.loads(net.get(f"https://api.github.com/repos/{clean_src}/releases/latest", headers=net.gh_headers)))
 
 def _apps_behind(brand: str, apps: list[AppEntry], source: str, expected: str, releases: list[dict[str, Any]]) -> list[str]:
     """morphe-builder: the apps whose newest build is not on the expected patch version.
@@ -123,7 +131,9 @@ def _apps_behind(brand: str, apps: list[AppEntry], source: str, expected: str, r
             behind.append(app.table)
             continue
         notes = str(max(own, key=lambda r: str(r["published_at"])).get("body") or "").lower()
-        named = re.findall(rf"`{re.escape(org)}/([^`]+)\.mpp`", notes)
+        # The APK's own line says which bundles it has; older releases only list the release's.
+        line = next((ln for ln in notes.splitlines() if f"/{stem}-v" in ln and "<!-- patches:" in ln), "")
+        named = re.findall(rf"{re.escape(org)}/([^,\s]+)\.mpp", line) or re.findall(rf"`{re.escape(org)}/([^`]+)\.mpp`", notes)
         # all, not any: jobs that straddle a patch release leave two bundles in the notes
         if named and not all(n.endswith(f"-{expected.lower()}") for n in named):
             behind.append(app.table)

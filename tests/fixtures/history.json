@@ -1,0 +1,6526 @@
+{
+"note": "Real data. Rebuild with tools/history_fixture.py and tools/history_obtainx.py.",
+"ours": [
+{
+"tag_name": "26.09.20-morphe",
+"published_at": "2026-09-20T09:30:41Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.14.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/reddit-morphe-v2026.14.0-all.apk)\n- 🟢 » YouTube: [`21.13.164`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.43.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.14.0-all.apk",
+"size": 83868358,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/reddit-morphe-v2026.14.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.13.164-all.apk",
+"size": 128343109,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.20-morphe-dev",
+"published_at": "2026-09-20T09:35:34Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.38.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.44.0-dev.9.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+"size": 95496158,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.21-morphe",
+"published_at": "2026-09-21T16:23:54Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.14.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/reddit-morphe-v2026.14.0-all.apk)\n- 🟢 » YouTube: [`21.16.256`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/youtube-morphe-v21.16.256-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.44.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.14.0-all.apk",
+"size": 83856070,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/reddit-morphe-v2026.14.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.16.256-all.apk",
+"size": 128710898,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe/youtube-morphe-v21.16.256-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.21-morphe-dev",
+"published_at": "2026-09-21T16:37:38Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.38.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.38.123`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.44.0.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+"size": 95496158,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.38.123-all.apk",
+"size": 140247773,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.21-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.22-morphe-dev",
+"published_at": "2026-09-22T14:37:42Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.38.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.22-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.38.123`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.22-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.2.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+"size": 95496158,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.22-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.38.123-all.apk",
+"size": 140247773,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.22-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.23-morphe-dev",
+"published_at": "2026-09-23T14:52:45Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.38.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.23-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.38.123`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.23-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.16.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.4.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+"size": 95500254,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.23-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.38.123-all.apk",
+"size": 140251869,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.23-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.24-morphe-dev",
+"published_at": "2026-09-24T14:50:55Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.38.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.24-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.38.123`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.24-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.9.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.38.0-all.apk",
+"size": 94398430,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.24-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.38.123-all.apk",
+"size": 140260232,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.24-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.25-morphe-dev",
+"published_at": "2026-09-25T15:08:32Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.25-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.38.123`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.25-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.14.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94812943,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.25-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.38.123-all.apk",
+"size": 140301192,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.25-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.26-morphe-dev",
+"published_at": "2026-09-26T14:20:08Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.26-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.26-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.17.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94809508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.26-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141754054,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.26-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.27-morphe-dev",
+"published_at": "2026-09-27T15:06:10Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.27-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.27-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.18.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94809508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.27-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141782726,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.27-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.28-morphe-dev",
+"published_at": "2026-09-28T18:05:37Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.28-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.28-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.19.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94809508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.28-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141782726,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.28-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.29-morphe-dev",
+"published_at": "2026-09-29T16:28:56Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.29-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.29-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.17.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.20.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94809508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.29-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141790918,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.29-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.09.30-morphe-dev",
+"published_at": "2026-09-30T16:23:57Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.30-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.30-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.21.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94817039,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.30-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141831878,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.30-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.01-morphe-dev",
+"published_at": "2026-10-01T17:00:15Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0-dev.23.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94817039,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141924193,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.01-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.02-morphe-dev",
+"published_at": "2026-10-02T16:13:30Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94817039,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141899617,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.02-morphe",
+"published_at": "2026-10-02T16:13:46Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.24.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/reddit-morphe-v2026.24.0-all.apk)\n- 🟢 » YouTube: [`21.16.256`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/youtube-morphe-v21.16.256-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.45.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.24.0-all.apk",
+"size": 93646533,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/reddit-morphe-v2026.24.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.16.256-all.apk",
+"size": 129888380,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.02-morphe/youtube-morphe-v21.16.256-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.03-morphe-dev",
+"published_at": "2026-10-03T14:40:03Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.39.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.03-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.03-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.46.0-dev.1.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.39.0-all.apk",
+"size": 94817039,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.03-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141463967,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.03-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.04-morphe-dev",
+"published_at": "2026-10-04T15:15:20Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.39.522`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.04-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.46.0-dev.2.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.39.522-all.apk",
+"size": 141480351,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.04-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.05-morphe-dev",
+"published_at": "2026-10-05T19:14:17Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.46.0-dev.7.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk",
+"size": 107497110,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143599482,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.05-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.06-morphe",
+"published_at": "2026-10-06T16:39:38Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.24.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe/reddit-morphe-v2026.24.0-all.apk)\n- 🟢 » YouTube: [`21.16.256`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe/youtube-morphe-v21.16.256-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.46.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.24.0-all.apk",
+"size": 102473281,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe/reddit-morphe-v2026.24.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.16.256-all.apk",
+"size": 129522216,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe/youtube-morphe-v21.16.256-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.06-morphe-dev",
+"published_at": "2026-10-06T16:39:45Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.46.0.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk",
+"size": 107497110,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143607674,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.07-morphe-dev",
+"published_at": "2026-10-07T17:25:18Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.07-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0-dev.1.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143628154,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.07-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.08-morphe-dev",
+"published_at": "2026-10-08T17:23:04Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0-dev.4.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk",
+"size": 107517590,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143632341,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.08-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.09-morphe-dev",
+"published_at": "2026-10-09T16:56:49Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.09-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.09-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0-dev.9.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.40.0-all.apk",
+"size": 107517590,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.09-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143673301,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.09-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.10-metra",
+"published_at": "2026-10-10T09:03:29Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » TikTok: [`46.2.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-metra/tiktok-metra-v46.2.3-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `icysymmetra/patches-0.8.0.mpp`",
+"assets": [
+{
+"name": "tiktok-metra-v46.2.3-all.apk",
+"size": 597347508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-metra/tiktok-metra-v46.2.3-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.10-morphe-dev",
+"published_at": "2026-10-10T15:50:25Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0-dev.19.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 107940652,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143701537,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.10-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.11-morphe",
+"published_at": "2026-10-11T16:14:42Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.24.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/reddit-morphe-v2026.24.0-all.apk)\n- 🟢 » YouTube: [`21.20.405`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/youtube-morphe-v21.20.405-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.24.0-all.apk",
+"size": 102489573,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/reddit-morphe-v2026.24.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.20.405-all.apk",
+"size": 131166013,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe/youtube-morphe-v21.20.405-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.11-morphe-dev",
+"published_at": "2026-10-11T16:15:00Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.40.161`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 107968663,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.40.161-all.apk",
+"size": 143894049,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.12-morphe-dev",
+"published_at": "2026-10-12T19:46:11Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.12-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.41.525`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.12-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.3.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 108267671,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.12-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.41.525-all.apk",
+"size": 144707362,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.12-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.13-morphe-dev",
+"published_at": "2026-10-13T17:32:17Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.13-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.41.525`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.13-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.6.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 108497047,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.13-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.41.525-all.apk",
+"size": 144797474,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.13-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.14-morphe-dev",
+"published_at": "2026-10-14T15:00:03Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.14-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.41.525`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.14-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.7.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 108497047,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.14-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.41.525-all.apk",
+"size": 129966747,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.14-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.15-morphe-dev",
+"published_at": "2026-10-15T14:49:46Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.41.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.15-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.41.525`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.15-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.8.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.41.0-all.apk",
+"size": 108497047,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.15-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.41.525-all.apk",
+"size": 129966747,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.15-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.16-morphe-dev",
+"published_at": "2026-10-16T14:44:18Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.9.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108747880,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145305472,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.16-metra",
+"published_at": "2026-10-16T14:45:00Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » TikTok: [`46.2.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-metra/tiktok-metra-v46.2.3-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `icysymmetra/patches-0.8.1.mpp`",
+"assets": [
+{
+"name": "tiktok-metra-v46.2.3-all.apk",
+"size": 597347508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.16-metra/tiktok-metra-v46.2.3-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.17-morphe-dev",
+"published_at": "2026-10-17T13:35:38Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.10.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108797032,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145435036,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.17-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.18-morphe-dev",
+"published_at": "2026-10-18T13:54:51Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.18-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.18-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.12.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108821608,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.18-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145496476,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.18-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.19-morphe-dev",
+"published_at": "2026-10-19T16:55:30Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.19-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.19-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.13.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108952680,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.19-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145590881,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.19-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.20-morphe-dev",
+"published_at": "2026-10-20T14:55:17Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.15.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108952680,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145570401,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.20-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.21-morphe-dev",
+"published_at": "2026-10-21T15:02:23Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0-dev.18.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 108952680,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 145631900,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.21-subs",
+"published_at": "2026-10-21T23:31:38Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.3.0.mpp`\n> ⚙️ » Patches: `MorpheApp/patches-1.47.0.mpp`",
+"assets": [
+{
+"name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
+"size": 92975909,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
+"size": 92898085,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.21-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.22-subs",
+"published_at": "2026-10-22T15:00:59Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.3.1.mpp`",
+"assets": [
+{
+"name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
+"size": 92975909,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
+"size": 92898085,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.22-metra",
+"published_at": "2026-10-22T15:02:41Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » TikTok: [`46.2.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.18.1-all.jar`\n> ⚙️ » Patches: `icysymmetra/patches-0.8.1.mpp`",
+"assets": [
+{
+"name": "tiktok-metra-v46.2.3-all.apk",
+"size": 597347508,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.23-morphe-dev",
+"published_at": "2026-10-23T14:52:02Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.42.241`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.1.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 110501145,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.42.241-all.apk",
+"size": 147729346,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.23-morphe",
+"published_at": "2026-10-23T19:55:03Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.24.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/reddit-morphe-v2026.24.0-all.apk)\n- 🟢 » YouTube: [`21.20.405`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/youtube-morphe-v21.20.405-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.24.0-all.apk",
+"size": 104431254,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/reddit-morphe-v2026.24.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.20.405-all.apk",
+"size": 134306872,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe/youtube-morphe-v21.20.405-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.24-morphe-dev",
+"published_at": "2026-10-24T13:56:38Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.4.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 110497049,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 149722990,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "reddit-login-helper",
+"published_at": "2026-10-24T20:21:03Z",
+"prerelease": true,
+"html_url": "",
+"body": "",
+"assets": [
+{
+"name": "reddit-login-step1-2024.02.0.apk",
+"size": 78959242,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/reddit-login-helper/reddit-login-step1-2024.02.0.apk"
+}
+]
+},
+{
+"tag_name": "26.10.24-morphe",
+"published_at": "2026-10-24T20:23:28Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.24.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk)\n- 🟢 » YouTube: [`21.20.405`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/youtube-morphe-v21.20.405-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.24.0-all.apk",
+"size": 104431254,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.20.405-all.apk",
+"size": 134306872,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/youtube-morphe-v21.20.405-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.25-subs",
+"published_at": "2026-10-25T11:17:02Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.0-all.jar`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.4.0.mpp`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`",
+"assets": [
+{
+"name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
+"size": 94180251,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
+"size": 94098272,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.25-morphe-dev",
+"published_at": "2026-10-25T14:14:49Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk)\n- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.5.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 110497049,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 149722990,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.26-morphe-dev",
+"published_at": "2026-10-26T16:43:19Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.7.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 150153484,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.26-subs",
+"published_at": "2026-10-26T22:54:36Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio Phone Clone (arm64-v8a): [`2.4.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk)\n- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.11.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.5.0.mpp`",
+"assets": [
+{
+"name": "stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
+"size": 97383925,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk"
+},
+{
+"name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
+"size": 94184347,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk",
+"size": 94102368,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.27-subs",
+"published_at": "2026-10-27T10:48:07Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio Phone Clone (arm64-v8a): [`2.4.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk)\n- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.12.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.12.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.6.0.mpp`",
+"assets": [
+{
+"name": "stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
+"size": 97388021,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk"
+},
+{
+"name": "stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
+"size": 73498809,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk",
+"size": 73408639,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.27-morphe-dev",
+"published_at": "2026-10-27T15:50:45Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.8.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 150634796,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.28-subs",
+"published_at": "2026-10-28T16:33:42Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio Phone Clone (arm64-v8a): [`2.5.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk)\n- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.12.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.12.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.48.0.mpp`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.6.0.mpp`",
+"assets": [
+{
+"name": "stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk",
+"size": 77508629,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk"
+},
+{
+"name": "stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
+"size": 73498809,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk",
+"size": 73408639,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.10.28-morphe-dev",
+"published_at": "2026-10-28T16:34:13Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.10.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 151437612,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.29-morphe-dev",
+"published_at": "2026-10-29T16:50:29Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.29-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.19.1-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-1.49.0-dev.11.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 151499828,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.29-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.30-morphe-dev",
+"published_at": "2026-10-30T16:38:45Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.43.523`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.0.0.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.43.523-all.apk",
+"size": 153883700,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.30-morphe",
+"published_at": "2026-10-30T16:38:52Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/reddit-morphe-v2026.40.0-all.apk)\n- 🟢 » YouTube: [`21.30.216`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/youtube-morphe-v21.30.216-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.0.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.40.0-all.apk",
+"size": 110118635,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/reddit-morphe-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.30.216-all.apk",
+"size": 145967163,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe/youtube-morphe-v21.30.216-all.apk"
+}
+]
+},
+{
+"tag_name": "26.10.31-morphe-dev",
+"published_at": "2026-10-31T15:42:42Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.44.528-BETA`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.31-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.3.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk",
+"size": 158071126,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.31-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk"
+}
+]
+},
+{
+"tag_name": "26.11.01-morphe-dev",
+"published_at": "2026-11-01T16:44:32Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » YouTube Experimental: [`21.44.528`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.01-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.5.mpp`",
+"assets": [
+{
+"name": "youtube-experimental-morphe-dev-v21.44.528-all.apk",
+"size": 159046080,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.01-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk"
+}
+]
+},
+{
+"tag_name": "26.11.02-morphe",
+"published_at": "2026-11-02T03:21:00Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Reddit: [`2026.40.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/reddit-morphe-v2026.40.0-all.apk)\n- 🟢 » YouTube: [`21.30.216`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/youtube-morphe-v21.30.216-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.0.0.mpp`",
+"assets": [
+{
+"name": "reddit-morphe-v2026.40.0-all.apk",
+"size": 110118635,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/reddit-morphe-v2026.40.0-all.apk"
+},
+{
+"name": "youtube-morphe-v21.30.216-all.apk",
+"size": 145967163,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/youtube-morphe-v21.30.216-all.apk"
+}
+]
+},
+{
+"tag_name": "26.11.02-morphe-dev",
+"published_at": "2026-11-02T20:10:54Z",
+"prerelease": true,
+"html_url": "",
+"body": "- 🟢 » Reddit Experimental: [`2026.42.0`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk) (wanted 2026.44.0)\n- 🟢 » YouTube Experimental: [`21.44.528`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.6.mpp`",
+"assets": [
+{
+"name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+"size": 111119641,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+},
+{
+"name": "youtube-experimental-morphe-dev-v21.44.528-all.apk",
+"size": 159078848,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk"
+}
+]
+},
+{
+"tag_name": "26.11.02-subs",
+"published_at": "2026-11-02T20:11:16Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » Stremio Phone Clone (arm64-v8a): [`2.5.1`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk)\n- 🟢 » Stremio TV Replacement (armeabi-v7a): [`1.12.1`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk)\n- 🟢 » Stremio TV Clone (armeabi-v7a): [`1.12.1`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `MorpheApp/patches-2.0.0.mpp`\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.6.0.mpp`",
+"assets": [
+{
+"name": "stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk",
+"size": 77512781,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk"
+},
+{
+"name": "stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk",
+"size": 73498809,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk"
+},
+{
+"name": "stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk",
+"size": 73408639,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk"
+}
+]
+},
+{
+"tag_name": "26.11.02-metra",
+"published_at": "2026-11-02T21:33:39Z",
+"prerelease": false,
+"html_url": "",
+"body": "- 🟢 » TikTok: [`46.2.3`](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-metra/tiktok-metra-v46.2.3-all.apk)\n> ⚙️ » CLI: `MorpheApp/morphe-desktop-1.20.0-all.jar`\n> ⚙️ » Patches: `icysymmetra/patches-0.8.1.mpp`",
+"assets": [
+{
+"name": "tiktok-metra-v46.2.3-all.apk",
+"size": 600857898,
+"state": "uploaded",
+"browser_download_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-metra/tiktok-metra-v46.2.3-all.apk"
+}
+]
+}
+],
+"upstream": {
+"morphe-patches": [
+{
+"tag": "v1.38.0",
+"published": "2026-08-01T07:07:41Z",
+"prerelease": false,
+"files": [
+"patches-1.38.0.mpp"
+]
+},
+{
+"tag": "v1.38.1-dev.1",
+"published": "2026-08-01T08:39:09Z",
+"prerelease": true,
+"files": [
+"patches-1.38.1-dev.1.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.1",
+"published": "2026-08-02T15:37:30Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.2",
+"published": "2026-08-03T07:34:22Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.3",
+"published": "2026-08-03T15:41:11Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.4",
+"published": "2026-08-04T13:19:41Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.5",
+"published": "2026-08-05T15:16:28Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.6",
+"published": "2026-08-05T15:45:58Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.7",
+"published": "2026-08-06T09:15:46Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.8",
+"published": "2026-08-06T11:45:55Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.9",
+"published": "2026-08-07T10:40:19Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.10",
+"published": "2026-08-07T15:12:44Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.39.0-dev.11",
+"published": "2026-08-08T09:12:53Z",
+"prerelease": true,
+"files": [
+"patches-1.39.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.39.0",
+"published": "2026-08-08T11:22:51Z",
+"prerelease": false,
+"files": [
+"patches-1.39.0.mpp"
+]
+},
+{
+"tag": "v1.39.1-dev.1",
+"published": "2026-08-08T15:37:43Z",
+"prerelease": true,
+"files": [
+"patches-1.39.1-dev.1.mpp"
+]
+},
+{
+"tag": "v1.39.1",
+"published": "2026-08-08T17:05:00Z",
+"prerelease": false,
+"files": [
+"patches-1.39.1.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.1",
+"published": "2026-08-09T15:44:39Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.2",
+"published": "2026-08-10T08:42:24Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.3",
+"published": "2026-08-11T08:43:03Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.4",
+"published": "2026-08-12T09:26:46Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.5",
+"published": "2026-08-13T09:30:03Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.6",
+"published": "2026-08-14T12:56:05Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.7",
+"published": "2026-08-15T20:56:55Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.8",
+"published": "2026-08-17T17:30:40Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.9",
+"published": "2026-08-18T07:59:46Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.10",
+"published": "2026-08-18T14:21:59Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.11",
+"published": "2026-08-19T09:08:13Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.12",
+"published": "2026-08-19T11:57:00Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.13",
+"published": "2026-08-20T11:01:17Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.13.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.14",
+"published": "2026-08-21T10:12:24Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.14.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.15",
+"published": "2026-08-21T19:26:03Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.15.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.16",
+"published": "2026-08-21T21:17:02Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.16.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.17",
+"published": "2026-08-22T07:01:13Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.17.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.18",
+"published": "2026-08-22T09:21:29Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.18.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.19",
+"published": "2026-08-22T17:22:50Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.19.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.20",
+"published": "2026-08-23T08:30:19Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.20.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.21",
+"published": "2026-08-23T10:28:43Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.21.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.22",
+"published": "2026-08-24T07:13:52Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.22.mpp"
+]
+},
+{
+"tag": "v1.40.0-dev.23",
+"published": "2026-08-24T11:34:26Z",
+"prerelease": true,
+"files": [
+"patches-1.40.0-dev.23.mpp"
+]
+},
+{
+"tag": "v1.40.0",
+"published": "2026-08-24T11:45:33Z",
+"prerelease": false,
+"files": [
+"patches-1.40.0.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.1",
+"published": "2026-08-26T08:59:58Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.2",
+"published": "2026-08-27T09:19:52Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.3",
+"published": "2026-08-28T11:36:48Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.4",
+"published": "2026-08-29T10:32:42Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.5",
+"published": "2026-08-29T17:31:15Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.6",
+"published": "2026-08-30T07:42:07Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.7",
+"published": "2026-08-30T13:14:22Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.8",
+"published": "2026-08-31T08:51:13Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.9",
+"published": "2026-08-31T12:45:53Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.10",
+"published": "2026-08-31T18:14:01Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.11",
+"published": "2026-08-31T21:33:28Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.41.0-dev.12",
+"published": "2026-09-01T08:43:02Z",
+"prerelease": true,
+"files": [
+"patches-1.41.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.41.0",
+"published": "2026-09-01T16:30:24Z",
+"prerelease": false,
+"files": [
+"patches-1.41.0.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.1",
+"published": "2026-09-03T11:37:16Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.2",
+"published": "2026-09-04T11:37:23Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.3",
+"published": "2026-09-05T08:47:28Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.4",
+"published": "2026-09-06T08:12:41Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.5",
+"published": "2026-09-06T10:45:19Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.6",
+"published": "2026-09-06T12:43:48Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.7",
+"published": "2026-09-07T12:42:40Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.8",
+"published": "2026-09-08T12:46:30Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.9",
+"published": "2026-09-09T07:46:42Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.42.0-dev.10",
+"published": "2026-09-09T13:22:37Z",
+"prerelease": true,
+"files": [
+"patches-1.42.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.42.0",
+"published": "2026-09-09T21:01:44Z",
+"prerelease": false,
+"files": [
+"patches-1.42.0.mpp"
+]
+},
+{
+"tag": "v1.42.1-dev.1",
+"published": "2026-09-10T21:27:59Z",
+"prerelease": true,
+"files": [
+"patches-1.42.1-dev.1.mpp"
+]
+},
+{
+"tag": "v1.42.1-dev.2",
+"published": "2026-09-11T10:20:03Z",
+"prerelease": true,
+"files": [
+"patches-1.42.1-dev.2.mpp"
+]
+},
+{
+"tag": "v1.42.1-dev.3",
+"published": "2026-09-11T12:32:37Z",
+"prerelease": true,
+"files": [
+"patches-1.42.1-dev.3.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.1",
+"published": "2026-09-12T07:43:59Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.2",
+"published": "2026-09-12T22:06:22Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.3",
+"published": "2026-09-13T10:45:37Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.4",
+"published": "2026-09-13T19:00:01Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.5",
+"published": "2026-09-13T23:28:31Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.6",
+"published": "2026-09-14T00:38:22Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.43.0-dev.7",
+"published": "2026-09-14T10:12:45Z",
+"prerelease": true,
+"files": [
+"patches-1.43.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.43.0",
+"published": "2026-09-14T12:57:41Z",
+"prerelease": false,
+"files": [
+"patches-1.43.0.mpp"
+]
+},
+{
+"tag": "v1.43.1-dev.1",
+"published": "2026-09-15T08:51:15Z",
+"prerelease": true,
+"files": [
+"patches-1.43.1-dev.1.mpp"
+]
+},
+{
+"tag": "v1.43.1-dev.2",
+"published": "2026-09-15T11:58:50Z",
+"prerelease": true,
+"files": [
+"patches-1.43.1-dev.2.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.1",
+"published": "2026-09-15T17:30:22Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.2",
+"published": "2026-09-16T11:52:58Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.3",
+"published": "2026-09-17T11:52:11Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.4",
+"published": "2026-09-17T18:00:26Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.5",
+"published": "2026-09-18T07:55:08Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.6",
+"published": "2026-09-18T16:39:09Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.7",
+"published": "2026-09-19T09:58:14Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.8",
+"published": "2026-09-19T11:51:27Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.9",
+"published": "2026-09-19T15:08:08Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.10",
+"published": "2026-09-19T15:45:23Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.11",
+"published": "2026-09-19T18:45:02Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.12",
+"published": "2026-09-20T20:57:18Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.13",
+"published": "2026-09-20T23:51:56Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.13.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.14",
+"published": "2026-09-21T07:26:56Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.14.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.15",
+"published": "2026-09-21T08:39:58Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.15.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.16",
+"published": "2026-09-21T10:20:43Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.16.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.17",
+"published": "2026-09-21T10:41:52Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.17.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.18",
+"published": "2026-09-21T13:15:00Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.18.mpp"
+]
+},
+{
+"tag": "v1.44.0-dev.19",
+"published": "2026-09-21T13:40:13Z",
+"prerelease": true,
+"files": [
+"patches-1.44.0-dev.19.mpp"
+]
+},
+{
+"tag": "v1.44.0",
+"published": "2026-09-21T15:11:56Z",
+"prerelease": false,
+"files": [
+"patches-1.44.0.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.1",
+"published": "2026-09-22T09:11:48Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.2",
+"published": "2026-09-22T14:23:41Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.3",
+"published": "2026-09-22T20:09:06Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.4",
+"published": "2026-09-23T12:20:36Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.5",
+"published": "2026-09-23T15:12:02Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.6",
+"published": "2026-09-23T18:34:08Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.7",
+"published": "2026-09-23T21:14:04Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.8",
+"published": "2026-09-24T00:13:41Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.9",
+"published": "2026-09-24T08:47:17Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.10",
+"published": "2026-09-24T09:18:49Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.11",
+"published": "2026-09-24T11:04:28Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.12",
+"published": "2026-09-24T13:14:01Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.13",
+"published": "2026-09-24T21:53:35Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.13.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.14",
+"published": "2026-09-25T12:04:29Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.14.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.15",
+"published": "2026-09-25T15:57:58Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.15.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.16",
+"published": "2026-09-25T23:32:06Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.16.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.17",
+"published": "2026-09-26T08:15:05Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.17.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.18",
+"published": "2026-09-27T11:33:43Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.18.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.19",
+"published": "2026-09-28T16:09:32Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.19.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.20",
+"published": "2026-09-29T08:47:40Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.20.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.21",
+"published": "2026-09-30T09:20:47Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.21.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.22",
+"published": "2026-10-01T08:57:53Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.22.mpp"
+]
+},
+{
+"tag": "v1.45.0-dev.23",
+"published": "2026-10-01T16:14:30Z",
+"prerelease": true,
+"files": [
+"patches-1.45.0-dev.23.mpp"
+]
+},
+{
+"tag": "v1.45.0",
+"published": "2026-10-02T08:55:35Z",
+"prerelease": false,
+"files": [
+"patches-1.45.0.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.1",
+"published": "2026-10-03T09:22:23Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.2",
+"published": "2026-10-04T08:18:57Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.3",
+"published": "2026-10-04T20:00:42Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.4",
+"published": "2026-10-05T09:39:46Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.5",
+"published": "2026-10-05T10:28:51Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.6",
+"published": "2026-10-05T11:41:47Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.7",
+"published": "2026-10-05T14:49:58Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.8",
+"published": "2026-10-05T21:36:17Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.9",
+"published": "2026-10-06T09:01:16Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.46.0-dev.10",
+"published": "2026-10-06T10:49:00Z",
+"prerelease": true,
+"files": [
+"patches-1.46.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.46.0",
+"published": "2026-10-06T11:42:42Z",
+"prerelease": false,
+"files": [
+"patches-1.46.0.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.1",
+"published": "2026-10-06T22:59:43Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.2",
+"published": "2026-10-08T09:22:25Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.3",
+"published": "2026-10-08T10:28:08Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.4",
+"published": "2026-10-08T12:12:41Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.5",
+"published": "2026-10-08T18:09:58Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.6",
+"published": "2026-10-09T08:15:22Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.7",
+"published": "2026-10-09T10:55:06Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.8",
+"published": "2026-10-09T11:52:39Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.9",
+"published": "2026-10-09T12:16:16Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.10",
+"published": "2026-10-09T13:46:59Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.11",
+"published": "2026-10-09T15:29:13Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.12",
+"published": "2026-10-09T16:41:53Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.13",
+"published": "2026-10-09T22:11:32Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.13.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.14",
+"published": "2026-10-09T23:23:55Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.14.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.15",
+"published": "2026-10-10T06:35:31Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.15.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.16",
+"published": "2026-10-10T07:51:54Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.16.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.17",
+"published": "2026-10-10T09:04:24Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.17.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.18",
+"published": "2026-10-10T10:29:12Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.18.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.19",
+"published": "2026-10-10T14:55:13Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.19.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.20",
+"published": "2026-10-10T19:30:26Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.20.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.21",
+"published": "2026-10-10T21:02:44Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.21.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.22",
+"published": "2026-10-10T23:11:03Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.22.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.23",
+"published": "2026-10-11T07:39:28Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.23.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.24",
+"published": "2026-10-11T13:32:03Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.24.mpp"
+]
+},
+{
+"tag": "v1.47.0-dev.25",
+"published": "2026-10-11T15:09:15Z",
+"prerelease": true,
+"files": [
+"patches-1.47.0-dev.25.mpp"
+]
+},
+{
+"tag": "v1.47.0",
+"published": "2026-10-11T15:20:10Z",
+"prerelease": false,
+"files": [
+"patches-1.47.0.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.1",
+"published": "2026-10-12T07:08:11Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.2",
+"published": "2026-10-12T08:02:54Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.3",
+"published": "2026-10-12T08:30:23Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.4",
+"published": "2026-10-12T20:03:55Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.5",
+"published": "2026-10-13T07:23:49Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.6",
+"published": "2026-10-13T08:57:36Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.7",
+"published": "2026-10-14T09:07:59Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.8",
+"published": "2026-10-15T09:28:53Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.9",
+"published": "2026-10-16T08:36:34Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.10",
+"published": "2026-10-17T10:54:29Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.11",
+"published": "2026-10-17T18:40:08Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.11.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.12",
+"published": "2026-10-18T09:22:51Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.12.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.13",
+"published": "2026-10-19T15:39:53Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.13.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.14",
+"published": "2026-10-20T12:08:04Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.14.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.15",
+"published": "2026-10-20T12:48:18Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.15.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.16",
+"published": "2026-10-20T23:46:03Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.16.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.17",
+"published": "2026-10-21T08:24:32Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.17.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.18",
+"published": "2026-10-21T10:32:09Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.18.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.19",
+"published": "2026-10-22T07:49:06Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.19.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.20",
+"published": "2026-10-22T12:29:26Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.20.mpp"
+]
+},
+{
+"tag": "v1.48.0-dev.21",
+"published": "2026-10-22T12:59:59Z",
+"prerelease": true,
+"files": [
+"patches-1.48.0-dev.21.mpp"
+]
+},
+{
+"tag": "v1.48.0",
+"published": "2026-10-22T13:14:23Z",
+"prerelease": false,
+"files": [
+"patches-1.48.0.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.1",
+"published": "2026-10-23T10:58:30Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.1.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.2",
+"published": "2026-10-24T08:47:13Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.2.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.3",
+"published": "2026-10-24T09:55:27Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.3.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.4",
+"published": "2026-10-24T13:39:45Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.4.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.5",
+"published": "2026-10-24T17:56:40Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.5.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.6",
+"published": "2026-10-25T15:25:07Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.6.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.7",
+"published": "2026-10-26T07:48:29Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.7.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.8",
+"published": "2026-10-27T09:09:25Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.8.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.9",
+"published": "2026-10-27T19:52:31Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.9.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.10",
+"published": "2026-10-28T08:25:09Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.10.mpp"
+]
+},
+{
+"tag": "v1.49.0-dev.11",
+"published": "2026-10-29T08:24:08Z",
+"prerelease": true,
+"files": [
+"patches-1.49.0-dev.11.mpp"
+]
+},
+{
+"tag": "v2.0.0-dev.1",
+"published": "2026-10-29T18:33:56Z",
+"prerelease": true,
+"files": [
+"patches-2.0.0-dev.1.mpp"
+]
+},
+{
+"tag": "v2.0.0-dev.2",
+"published": "2026-10-30T08:05:40Z",
+"prerelease": true,
+"files": [
+"patches-2.0.0-dev.2.mpp"
+]
+},
+{
+"tag": "v2.0.0-dev.3",
+"published": "2026-10-30T09:00:47Z",
+"prerelease": true,
+"files": [
+"patches-2.0.0-dev.3.mpp"
+]
+},
+{
+"tag": "v2.0.0-dev.4",
+"published": "2026-10-30T11:01:50Z",
+"prerelease": true,
+"files": [
+"patches-2.0.0-dev.4.mpp"
+]
+},
+{
+"tag": "v2.0.0",
+"published": "2026-10-30T11:16:04Z",
+"prerelease": false,
+"files": [
+"patches-2.0.0.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.1",
+"published": "2026-10-31T08:26:14Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.1.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.2",
+"published": "2026-10-31T09:44:52Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.2.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.3",
+"published": "2026-10-31T15:25:02Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.3.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.4",
+"published": "2026-10-31T17:10:04Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.4.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.5",
+"published": "2026-11-01T09:55:14Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.5.mpp"
+]
+},
+{
+"tag": "v2.1.0-dev.6",
+"published": "2026-11-02T08:28:24Z",
+"prerelease": true,
+"files": [
+"patches-2.1.0-dev.6.mpp"
+]
+}
+],
+"morphe-cli": [
+{
+"tag": "v1.13.0-dev.5",
+"published": "2026-08-02T13:58:31Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.13.0-dev.6",
+"published": "2026-08-02T14:32:49Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.13.0-dev.7",
+"published": "2026-08-02T17:28:27Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.0-dev.7-all.jar"
+]
+},
+{
+"tag": "v1.13.0-dev.8",
+"published": "2026-08-04T13:07:36Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.0-dev.8-all.jar"
+]
+},
+{
+"tag": "v1.13.0-dev.9",
+"published": "2026-08-05T18:16:46Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.0-dev.9-all.jar"
+]
+},
+{
+"tag": "v1.13.0",
+"published": "2026-08-06T21:57:14Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.13.0-all.jar"
+]
+},
+{
+"tag": "v1.13.1-dev.1",
+"published": "2026-08-07T16:51:00Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.13.1-dev.2",
+"published": "2026-08-18T07:06:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.1-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.13.1",
+"published": "2026-08-18T07:13:16Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.13.1-all.jar"
+]
+},
+{
+"tag": "v1.13.2-dev.1",
+"published": "2026-08-21T21:21:31Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.2-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.13.2",
+"published": "2026-08-22T11:00:39Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.13.2-all.jar"
+]
+},
+{
+"tag": "v1.13.3-dev.1",
+"published": "2026-08-23T15:52:00Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.13.3-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.14.0-dev.1",
+"published": "2026-08-24T08:14:09Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.14.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.14.0-dev.2",
+"published": "2026-08-24T17:27:58Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.14.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.14.0",
+"published": "2026-08-25T12:37:50Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.14.0-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.1",
+"published": "2026-08-26T06:56:00Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.2",
+"published": "2026-08-26T08:07:05Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.3",
+"published": "2026-08-29T13:17:53Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.4",
+"published": "2026-08-29T15:55:53Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.5",
+"published": "2026-09-01T11:14:17Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.6",
+"published": "2026-09-01T14:48:38Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.7",
+"published": "2026-09-02T09:31:44Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.7-all.jar"
+]
+},
+{
+"tag": "v1.15.0-dev.8",
+"published": "2026-09-02T15:41:50Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.0-dev.8-all.jar"
+]
+},
+{
+"tag": "v1.15.0",
+"published": "2026-09-03T11:42:05Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.15.0-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.1",
+"published": "2026-09-04T07:17:51Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.2",
+"published": "2026-09-05T15:25:50Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.3",
+"published": "2026-09-06T06:00:14Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.4",
+"published": "2026-09-06T19:00:58Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.5",
+"published": "2026-09-09T07:21:31Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.6",
+"published": "2026-09-09T07:49:45Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.15.1-dev.7",
+"published": "2026-09-10T07:38:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.1-dev.7-all.jar"
+]
+},
+{
+"tag": "v1.15.1",
+"published": "2026-09-10T13:38:29Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.15.1-all.jar"
+]
+},
+{
+"tag": "v1.15.2-dev.1",
+"published": "2026-09-11T10:55:01Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.2-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.15.2-dev.2",
+"published": "2026-09-12T19:07:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.2-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.15.2-dev.3",
+"published": "2026-09-13T15:31:00Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.15.2-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.16.0-dev.1",
+"published": "2026-09-14T10:00:29Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.16.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.16.0",
+"published": "2026-09-14T18:46:26Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.16.0-all.jar"
+]
+},
+{
+"tag": "v1.16.1-dev.1",
+"published": "2026-09-17T11:53:52Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.16.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.1",
+"published": "2026-09-17T20:32:14Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.2",
+"published": "2026-09-18T08:00:57Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.3",
+"published": "2026-09-20T08:20:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.4",
+"published": "2026-09-20T10:27:38Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.5",
+"published": "2026-09-20T12:09:25Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.6",
+"published": "2026-09-20T14:01:42Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.7",
+"published": "2026-09-21T15:32:15Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.7-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.8",
+"published": "2026-09-22T07:11:20Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.8-all.jar"
+]
+},
+{
+"tag": "v1.17.0-dev.9",
+"published": "2026-09-23T21:41:25Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.0-dev.9-all.jar"
+]
+},
+{
+"tag": "v1.17.0",
+"published": "2026-09-24T07:43:18Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.17.0-all.jar"
+]
+},
+{
+"tag": "v1.17.1-dev.1",
+"published": "2026-09-24T10:32:15Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.17.1-dev.2",
+"published": "2026-09-25T16:49:21Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.1-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.17.1-dev.3",
+"published": "2026-09-28T07:44:20Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.17.1-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.1",
+"published": "2026-09-29T07:30:11Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.2",
+"published": "2026-09-29T08:02:07Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.3",
+"published": "2026-09-29T17:08:44Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.4",
+"published": "2026-09-29T19:33:27Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.5",
+"published": "2026-09-30T09:34:13Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.18.0-dev.6",
+"published": "2026-09-30T13:08:05Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.18.0",
+"published": "2026-09-30T15:40:59Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.18.0-all.jar"
+]
+},
+{
+"tag": "v1.18.1-dev.1",
+"published": "2026-10-03T15:01:45Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.18.1-dev.2",
+"published": "2026-10-03T18:19:20Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.1-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.18.1-dev.3",
+"published": "2026-10-03T18:36:55Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.1-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.18.1-dev.4",
+"published": "2026-10-03T21:02:57Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.1-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.18.1-dev.5",
+"published": "2026-10-04T20:38:14Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.1-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.18.1",
+"published": "2026-10-05T11:51:56Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.18.1-all.jar"
+]
+},
+{
+"tag": "v1.18.2-dev.1",
+"published": "2026-10-10T06:54:23Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.2-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.18.2-dev.2",
+"published": "2026-10-10T07:29:24Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.2-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.18.2-dev.3",
+"published": "2026-10-11T19:13:21Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.2-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.18.2-dev.4",
+"published": "2026-10-11T19:19:59Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.18.2-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.1",
+"published": "2026-10-16T10:00:33Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.2",
+"published": "2026-10-16T21:04:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.3",
+"published": "2026-10-17T00:34:53Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.4",
+"published": "2026-10-17T17:00:18Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.5",
+"published": "2026-10-18T08:31:06Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.6",
+"published": "2026-10-18T18:45:49Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.7",
+"published": "2026-10-18T19:54:28Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.7-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.8",
+"published": "2026-10-19T08:21:58Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.8-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.9",
+"published": "2026-10-19T10:29:03Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.9-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.10",
+"published": "2026-10-19T15:35:24Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.10-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.11",
+"published": "2026-10-19T18:15:59Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.11-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.13",
+"published": "2026-10-19T19:57:56Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.13-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.14",
+"published": "2026-10-19T20:08:58Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.14-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.15",
+"published": "2026-10-19T21:58:55Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.15-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.16",
+"published": "2026-10-20T17:17:08Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.16-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.17",
+"published": "2026-10-20T18:12:34Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.17-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.18",
+"published": "2026-10-21T07:47:15Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.18-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.19",
+"published": "2026-10-21T08:16:30Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.19-all.jar"
+]
+},
+{
+"tag": "v1.19.0-dev.20",
+"published": "2026-10-22T16:08:40Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.0-dev.20-all.jar"
+]
+},
+{
+"tag": "v1.19.0",
+"published": "2026-10-22T16:11:50Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.19.0-all.jar"
+]
+},
+{
+"tag": "v1.19.1-dev.1",
+"published": "2026-10-23T19:29:08Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.1-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.19.1-dev.2",
+"published": "2026-10-25T09:40:17Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.1-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.19.1-dev.3",
+"published": "2026-10-25T10:32:17Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.19.1-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.19.1",
+"published": "2026-10-25T12:42:35Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.19.1-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.1",
+"published": "2026-10-26T08:57:37Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.2",
+"published": "2026-10-26T18:27:12Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.3",
+"published": "2026-10-27T09:21:31Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.4",
+"published": "2026-10-28T13:32:54Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.5",
+"published": "2026-10-28T13:45:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.5-all.jar"
+]
+},
+{
+"tag": "v1.20.0-dev.6",
+"published": "2026-10-29T17:33:13Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-1.20.0-dev.6-all.jar"
+]
+},
+{
+"tag": "v1.20.0",
+"published": "2026-10-30T11:58:35Z",
+"prerelease": false,
+"files": [
+"morphe-desktop-1.20.0-all.jar"
+]
+},
+{
+"tag": "v2.0.0-dev.1",
+"published": "2026-11-01T11:58:49Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-2.0.0-dev.1-all.jar"
+]
+},
+{
+"tag": "v2.0.0-dev.2",
+"published": "2026-11-01T13:06:09Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-2.0.0-dev.2-all.jar"
+]
+},
+{
+"tag": "v2.0.0-dev.3",
+"published": "2026-11-01T20:03:22Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-2.0.0-dev.3-all.jar"
+]
+},
+{
+"tag": "v2.0.0-dev.4",
+"published": "2026-11-01T23:39:11Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-2.0.0-dev.4-all.jar"
+]
+},
+{
+"tag": "v2.0.0-dev.5",
+"published": "2026-11-02T19:55:51Z",
+"prerelease": true,
+"files": [
+"morphe-desktop-2.0.0-dev.5-all.jar"
+]
+}
+],
+"subs-patches": [
+{
+"tag": "v0.2.0",
+"published": "2026-10-21T09:43:11Z",
+"prerelease": false,
+"files": [
+"patches-0.2.0.mpp"
+]
+},
+{
+"tag": "v0.2.1",
+"published": "2026-10-21T19:48:58Z",
+"prerelease": false,
+"files": [
+"patches-0.2.1.mpp"
+]
+},
+{
+"tag": "v0.3.0",
+"published": "2026-10-21T21:49:50Z",
+"prerelease": false,
+"files": [
+"patches-0.3.0.mpp"
+]
+},
+{
+"tag": "v0.3.1",
+"published": "2026-10-22T00:47:13Z",
+"prerelease": false,
+"files": [
+"patches-0.3.1.mpp"
+]
+},
+{
+"tag": "v0.4.0",
+"published": "2026-10-25T11:14:42Z",
+"prerelease": false,
+"files": [
+"patches-0.4.0.mpp"
+]
+},
+{
+"tag": "v0.4.1",
+"published": "2026-10-26T06:47:50Z",
+"prerelease": false,
+"files": [
+"patches-0.4.1.mpp"
+]
+},
+{
+"tag": "v0.5.0",
+"published": "2026-10-26T21:18:01Z",
+"prerelease": false,
+"files": [
+"patches-0.5.0.mpp"
+]
+},
+{
+"tag": "v0.6.0",
+"published": "2026-10-27T10:45:55Z",
+"prerelease": false,
+"files": [
+"patches-0.6.0.mpp"
+]
+}
+],
+"tiktok-patches": [
+{
+"tag": "v0.5.0",
+"published": "2026-08-09T02:11:58Z",
+"prerelease": false,
+"files": [
+"patches-0.5.0.mpp"
+]
+},
+{
+"tag": "v0.6.0",
+"published": "2026-08-09T15:14:28Z",
+"prerelease": false,
+"files": [
+"patches-0.6.0.mpp"
+]
+},
+{
+"tag": "v0.6.1",
+"published": "2026-08-09T20:37:48Z",
+"prerelease": false,
+"files": [
+"patches-0.6.1.mpp"
+]
+},
+{
+"tag": "v0.6.2-dev.1",
+"published": "2026-08-10T19:16:25Z",
+"prerelease": true,
+"files": [
+"patches-0.6.2-dev.1.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.1",
+"published": "2026-08-10T22:14:24Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.1.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.2",
+"published": "2026-08-11T12:57:51Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.2.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.3",
+"published": "2026-08-11T20:13:17Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.3.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.4",
+"published": "2026-08-13T18:59:30Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.4.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.5",
+"published": "2026-08-16T21:56:01Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.5.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.6",
+"published": "2026-08-20T20:23:03Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.6.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.7",
+"published": "2026-08-20T20:33:59Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.7.mpp"
+]
+},
+{
+"tag": "v0.7.0-dev.8",
+"published": "2026-08-22T21:54:11Z",
+"prerelease": true,
+"files": [
+"patches-0.7.0-dev.8.mpp"
+]
+},
+{
+"tag": "v0.7.0",
+"published": "2026-08-23T00:36:23Z",
+"prerelease": false,
+"files": [
+"patches-0.7.0.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.1",
+"published": "2026-08-27T22:10:06Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.1.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.2",
+"published": "2026-08-30T20:30:09Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.2.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.3",
+"published": "2026-09-05T16:22:18Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.3.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.4",
+"published": "2026-09-06T11:13:42Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.4.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.5",
+"published": "2026-09-06T23:41:09Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.5.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.6",
+"published": "2026-09-07T10:43:47Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.6.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.7",
+"published": "2026-09-07T22:23:44Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.7.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.8",
+"published": "2026-09-11T09:29:43Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.8.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.9",
+"published": "2026-09-11T18:21:08Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.9.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.10",
+"published": "2026-09-14T08:54:19Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.10.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.11",
+"published": "2026-09-14T21:05:20Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.11.mpp"
+]
+},
+{
+"tag": "v0.8.0-dev.12",
+"published": "2026-09-25T21:33:08Z",
+"prerelease": true,
+"files": [
+"patches-0.8.0-dev.12.mpp"
+]
+},
+{
+"tag": "v0.8.0",
+"published": "2026-09-26T15:27:09Z",
+"prerelease": false,
+"files": [
+"patches-0.8.0.mpp"
+]
+},
+{
+"tag": "v0.8.1-dev.1",
+"published": "2026-10-15T18:17:31Z",
+"prerelease": true,
+"files": [
+"patches-0.8.1-dev.1.mpp"
+]
+},
+{
+"tag": "v0.8.1",
+"published": "2026-10-15T18:23:48Z",
+"prerelease": false,
+"files": [
+"patches-0.8.1.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.1",
+"published": "2026-10-23T10:19:39Z",
+"prerelease": true,
+"files": [
+"patches-0.8.1.mpp",
+"patches-0.9.0-dev.1.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.2",
+"published": "2026-10-24T10:22:27Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.1.mpp",
+"patches-0.9.0-dev.2.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.3",
+"published": "2026-10-24T18:46:18Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.2.mpp",
+"patches-0.9.0-dev.3.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.4",
+"published": "2026-10-25T15:37:17Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.3.mpp",
+"patches-0.9.0-dev.4.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.5",
+"published": "2026-11-01T15:55:35Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.4.mpp",
+"patches-0.9.0-dev.5.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.6",
+"published": "2026-11-01T22:28:22Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.5.mpp",
+"patches-0.9.0-dev.6.mpp"
+]
+},
+{
+"tag": "v0.9.0-dev.7",
+"published": "2026-11-02T20:37:46Z",
+"prerelease": true,
+"files": [
+"patches-0.9.0-dev.6.mpp",
+"patches-0.9.0-dev.7.mpp"
+]
+}
+]
+},
+"apks": {
+"26.11.02-metra/tiktok-metra-v46.2.3-all.apk": {
+"package": "com.zhiliaoapp.musically",
+"versionName": "46.2.3",
+"versionCode": "2024602030",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.44.528",
+"versionCode": "1561310186",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk": {
+"package": "com.stremio.one.subs.phone",
+"versionName": "2.5.1",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.12.1",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.12.1",
+"versionCode": "51048577",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-morphe/reddit-morphe-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.02-morphe/youtube-morphe-v21.30.216-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.30.216",
+"versionCode": "1561187872",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.11.01-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.44.528",
+"versionCode": "1561310186",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.31-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.44.528-BETA",
+"versionCode": "1561310187",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.30-morphe/reddit-morphe-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.30-morphe/youtube-morphe-v21.30.216-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.30.216",
+"versionCode": "1561187872",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.30-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.29-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk": {
+"package": "com.stremio.one.subs.phone",
+"versionName": "2.5.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.28-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.12.0",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.28-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.12.0",
+"versionCode": "51048576",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.28-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.27-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk": {
+"package": "com.stremio.one.subs.phone",
+"versionName": "2.4.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.27-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.12.0",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.27-subs/stremio-tv-replacement-subs-v1.12.0-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.12.0",
+"versionCode": "51048576",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.27-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.26-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk": {
+"package": "com.stremio.one.subs.phone",
+"versionName": "2.4.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.26-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.11.3",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.26-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.11.3",
+"versionCode": "41048579",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.26-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.25-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.11.3",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.25-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.11.3",
+"versionCode": "41048579",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.25-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.24-morphe/reddit-morphe-v2026.24.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.24.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.24-morphe/youtube-morphe-v21.20.405-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.20.405",
+"versionCode": "1561173354",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.24-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.24-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.43.523",
+"versionCode": "1561307650",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"reddit-login-helper/reddit-login-step1-2024.02.0.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2024.02.0",
+"versionCode": "1368985",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.23-morphe/reddit-morphe-v2026.24.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.24.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.23-morphe/youtube-morphe-v21.20.405-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.20.405",
+"versionCode": "1561173354",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.23-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.23-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.22-metra/tiktok-metra-v46.2.3-all.apk": {
+"package": "com.zhiliaoapp.musically",
+"versionName": "46.2.3",
+"versionCode": "2024602030",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.22-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.11.3",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.22-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.11.3",
+"versionCode": "41048579",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.21-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one.subs",
+"versionName": "1.11.3",
+"versionCode": "2147483647",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.21-subs/stremio-tv-replacement-subs-v1.11.3-armeabi-v7a.apk": {
+"package": "com.stremio.one",
+"versionName": "1.11.3",
+"versionCode": "41048579",
+"abis": [
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.21-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.21-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.20-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.20-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.19-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.19-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.18-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.18-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.17-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.17-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.16-metra/tiktok-metra-v46.2.3-all.apk": {
+"package": "com.zhiliaoapp.musically",
+"versionName": "46.2.3",
+"versionCode": "2024602030",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.16-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.42.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.16-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.42.241",
+"versionCode": "1561304923",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.15-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.15-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.41.525-EXTENDED",
+"versionCode": "1561303418",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.14-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.14-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.41.525-EXTENDED",
+"versionCode": "1561303418",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.13-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.13-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.41.525",
+"versionCode": "1561303420",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.12-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.12-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.41.525",
+"versionCode": "1561303420",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.11-morphe/reddit-morphe-v2026.24.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.24.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.11-morphe/youtube-morphe-v21.20.405-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.20.405",
+"versionCode": "1561173354",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.11-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.11-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.10-metra/tiktok-metra-v46.2.3-all.apk": {
+"package": "com.zhiliaoapp.musically",
+"versionName": "46.2.3",
+"versionCode": "2024602030",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.10-morphe-dev/reddit-experimental-morphe-dev-v2026.41.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.41.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.10-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.09-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.09-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.08-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.08-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.07-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.06-morphe/reddit-morphe-v2026.24.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.24.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.06-morphe/youtube-morphe-v21.16.256-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.16.256",
+"versionCode": "1561068412",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.06-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.06-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.05-morphe-dev/reddit-experimental-morphe-dev-v2026.40.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.40.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.05-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.40.161",
+"versionCode": "1561301413",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.04-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.03-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.03-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.02-morphe/reddit-morphe-v2026.24.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.24.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.02-morphe/youtube-morphe-v21.16.256-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.16.256",
+"versionCode": "1561068412",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.02-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.02-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.01-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.10.01-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.30-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.30-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.29-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.29-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.28-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.28-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.27-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.27-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.26-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.26-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.39.522",
+"versionCode": "1561299901",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.25-morphe-dev/reddit-experimental-morphe-dev-v2026.39.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.39.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.25-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.38.123",
+"versionCode": "1561297201",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.24-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.38.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.24-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.38.123",
+"versionCode": "1561297201",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.23-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.38.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.23-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.38.123",
+"versionCode": "1561297201",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.22-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.38.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.22-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.38.123",
+"versionCode": "1561297201",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.21-morphe/reddit-morphe-v2026.14.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.14.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.21-morphe/youtube-morphe-v21.16.256-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.16.256",
+"versionCode": "1561068412",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.21-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.38.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.21-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk": {
+"package": "app.morphe.android.youtube.dev",
+"versionName": "21.38.123",
+"versionCode": "1561297201",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.20-morphe/reddit-morphe-v2026.14.0-all.apk": {
+"package": "com.reddit.frontpage",
+"versionName": "2026.14.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.20-morphe/youtube-morphe-v21.13.164-all.apk": {
+"package": "app.morphe.android.youtube",
+"versionName": "21.13.164",
+"versionCode": "1561063732",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+},
+"26.09.20-morphe-dev/reddit-experimental-morphe-dev-v2026.38.0-all.apk": {
+"package": "com.reddit.frontpage.morphe",
+"versionName": "2026.38.0",
+"versionCode": "2147483647",
+"abis": [
+"arm64-v8a",
+"armeabi-v7a"
+],
+"signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
+}
+},
+"feed": [
+{
+"ts": "20260623045248",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260624141054",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260701000638",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260705074949",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260710210355",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260720145022",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260728225344",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260730231911",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260731103259",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260824060224",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260829092311",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260830012543",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260909040409",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260910101331",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260911084310",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260913202112",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260914195514",
+"android": {
+"versionName": "2.3.2",
+"tag": "v2.3.2",
+"versionCode": {
+"arm": "5048578",
+"arm64": "7145730",
+"x86_64": "8194306",
+"x86": "6097154"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260922112134",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260924003315",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20260927103525",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.10.4",
+"tag": "v1.10.4",
+"versionCode": {
+"arm": "31048580",
+"arm64": "33145732",
+"x86_64": "34194308",
+"x86": "32097156"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261004005137",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.11.2",
+"tag": "v1.11.2",
+"versionCode": {
+"arm": "41048578",
+"arm64": "43145730",
+"x86_64": "44194306",
+"x86": "42097154"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261004153643",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.11.2",
+"tag": "v1.11.2",
+"versionCode": {
+"arm": "41048578",
+"arm64": "43145730",
+"x86_64": "44194306",
+"x86": "42097154"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261007063858",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.11.2",
+"tag": "v1.11.2",
+"versionCode": {
+"arm": "41048578",
+"arm64": "43145730",
+"x86_64": "44194306",
+"x86": "42097154"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261010161549",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.11.3",
+"tag": "v1.11.3",
+"versionCode": {
+"arm": "41048579",
+"arm64": "43145731",
+"x86_64": "44194307",
+"x86": "42097155"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261022072224",
+"android": {
+"versionName": "2.4.0",
+"tag": "v2.4.0",
+"versionCode": {
+"arm": "6048576",
+"arm64": "8145728",
+"x86_64": "9194304",
+"x86": "7097152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.11.3",
+"tag": "v1.11.3",
+"versionCode": {
+"arm": "41048579",
+"arm64": "43145731",
+"x86_64": "44194307",
+"x86": "42097155"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "20261027221612",
+"android": {
+"versionName": "2.5.0",
+"tag": "v2.5.0",
+"versionCode": {
+"arm": "21548576",
+"arm64": "23645728",
+"x86_64": "24694304",
+"x86": "22597152"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.12.0",
+"tag": "v1.12.0",
+"versionCode": {
+"arm": "51048576",
+"arm64": "53145728",
+"x86_64": "54194304",
+"x86": "52097152"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+},
+{
+"ts": "live-20261103",
+"source": "live",
+"android": {
+"versionName": "2.5.1",
+"tag": "v2.5.1",
+"versionCode": {
+"arm": "21548577",
+"arm64": "23645729",
+"x86_64": "24694305",
+"x86": "22597153"
+}
+},
+"android_beta": {
+"versionName": "2.2.0-beta.5",
+"tag": "v2.2.0-beta.5",
+"versionCode": {
+"arm": "3048580",
+"x86": "4097156",
+"arm64": "5145732",
+"x86_64": "6194308"
+}
+},
+"android_tv": {
+"versionName": "1.12.1",
+"tag": "v1.12.1",
+"versionCode": {
+"arm": "51048577",
+"arm64": "53145729",
+"x86_64": "54194305",
+"x86": "52097153"
+}
+},
+"android_tv_beta": {
+"versionName": "1.10.0-rc.18",
+"tag": "v1.10.0-rc.18",
+"versionCode": {
+"arm": "21048593",
+"x86": "22097169",
+"arm64": "23145745",
+"x86_64": "24194321"
+}
+}
+}
+],
+"play": {
+"checked": "2026-11-03",
+"source": "self-hosted Play downloader, options endpoint",
+"com.stremio.one phone profile": {
+"version": "2.5.1",
+"code": 20500001
+}
+},
+"obtainx": {
+"1.11.3-0.3.0|1.11.3-0.3.1": "older",
+"1.11.3-0.3.1|1.11.3-0.4.0": "older",
+"1.11.3-0.4.0|1.11.3-0.5.0": "older",
+"1.11.3-0.5.0|1.12.0-0.6.0": "older",
+"1.12.0-0.6.0|1.12.1-0.6.0": "older",
+"1.12.0-2.0.0|1.12.1-0.6.0": "older",
+"2.4.0-0.5.0|2.4.0-0.6.0": "older",
+"2.4.0-0.6.0|2.5.0-0.6.0": "older",
+"2.5.0-0.6.0|2.5.1-0.6.0": "older",
+"2.5.0-2.0.0|2.5.1-0.6.0": "older",
+"2026.14.0-1.43.0|2026.14.0-1.44.0": "older",
+"2026.14.0-1.44.0|2026.24.0-1.45.0": "older",
+"2026.24.0-1.45.0|2026.24.0-1.46.0": "older",
+"2026.24.0-1.46.0|2026.24.0-1.47.0": "older",
+"2026.24.0-1.47.0|2026.24.0-1.48.0": "older",
+"2026.24.0-1.48.0|2026.40.0-2.0.0": "older",
+"2026.38.0-1.44.0.9|2026.38.0-1.44.0.9999": "older",
+"2026.38.0-1.44.0.9999|2026.38.0-1.45.0.2": "older",
+"2026.38.0-1.45.0.2|2026.38.0-1.45.0.4": "older",
+"2026.38.0-1.45.0.4|2026.38.0-1.45.0.9": "older",
+"2026.38.0-1.45.0.9|2026.39.0-1.45.0.14": "older",
+"2026.39.0-1.45.0.14|2026.39.0-1.45.0.17": "older",
+"2026.39.0-1.45.0.17|2026.39.0-1.45.0.18": "older",
+"2026.39.0-1.45.0.18|2026.39.0-1.45.0.19": "older",
+"2026.39.0-1.45.0.19|2026.39.0-1.45.0.20": "older",
+"2026.39.0-1.45.0.20|2026.39.0-1.45.0.21": "older",
+"2026.39.0-1.45.0.21|2026.39.0-1.45.0.23": "older",
+"2026.39.0-1.45.0.23|2026.39.0-1.45.0.9999": "older",
+"2026.39.0-1.45.0.9999|2026.39.0-1.46.0.1": "older",
+"2026.39.0-1.46.0.1|2026.40.0-1.46.0.7": "older",
+"2026.40.0-1.46.0.7|2026.40.0-1.46.0.9999": "older",
+"2026.40.0-1.46.0.9999|2026.40.0-1.47.0.4": "older",
+"2026.40.0-1.47.0.4|2026.40.0-1.47.0.9": "older",
+"2026.40.0-1.47.0.9|2026.41.0-1.47.0.19": "older",
+"2026.41.0-1.47.0.19|2026.41.0-1.47.0.9999": "older",
+"2026.41.0-1.47.0.9999|2026.41.0-1.48.0.3": "older",
+"2026.41.0-1.48.0.3|2026.41.0-1.48.0.6": "older",
+"2026.41.0-1.48.0.6|2026.41.0-1.48.0.7": "older",
+"2026.41.0-1.48.0.7|2026.41.0-1.48.0.8": "older",
+"2026.41.0-1.48.0.8|2026.42.0-1.48.0.9": "older",
+"2026.42.0-1.48.0.10|2026.42.0-1.48.0.12": "older",
+"2026.42.0-1.48.0.12|2026.42.0-1.48.0.13": "older",
+"2026.42.0-1.48.0.13|2026.42.0-1.48.0.15": "older",
+"2026.42.0-1.48.0.15|2026.42.0-1.48.0.18": "older",
+"2026.42.0-1.48.0.18|2026.42.0-1.49.0.1": "older",
+"2026.42.0-1.48.0.9|2026.42.0-1.48.0.10": "older",
+"2026.42.0-1.49.0.1|2026.42.0-1.49.0.4": "older",
+"2026.42.0-1.49.0.4|2026.42.0-1.49.0.5": "older",
+"2026.42.0-1.49.0.5|2026.42.0-2.1.0.6": "older",
+"21.13.164-1.43.0|21.16.256-1.44.0": "older",
+"21.16.256-1.44.0|21.16.256-1.45.0": "older",
+"21.16.256-1.45.0|21.16.256-1.46.0": "older",
+"21.16.256-1.46.0|21.20.405-1.47.0": "older",
+"21.20.405-1.47.0|21.20.405-1.48.0": "older",
+"21.20.405-1.48.0|21.30.216-2.0.0": "older",
+"21.30.216-2.0.0|21.30.216-2.0.0": "same",
+"21.38.123-1.44.0.9999|21.38.123-1.45.0.2": "older",
+"21.38.123-1.45.0.14|21.39.522-1.45.0.17": "older",
+"21.38.123-1.45.0.2|21.38.123-1.45.0.4": "older",
+"21.38.123-1.45.0.4|21.38.123-1.45.0.9": "older",
+"21.38.123-1.45.0.9|21.38.123-1.45.0.14": "older",
+"21.39.522-1.45.0.17|21.39.522-1.45.0.18": "older",
+"21.39.522-1.45.0.18|21.39.522-1.45.0.19": "older",
+"21.39.522-1.45.0.19|21.39.522-1.45.0.20": "older",
+"21.39.522-1.45.0.20|21.39.522-1.45.0.21": "older",
+"21.39.522-1.45.0.21|21.39.522-1.45.0.23": "older",
+"21.39.522-1.45.0.23|21.39.522-1.45.0.9999": "older",
+"21.39.522-1.45.0.9999|21.39.522-1.46.0.1": "older",
+"21.39.522-1.46.0.1|21.39.522-1.46.0.2": "older",
+"21.39.522-1.46.0.2|21.40.161-1.46.0.7": "older",
+"21.40.161-1.46.0.7|21.40.161-1.46.0.9999": "older",
+"21.40.161-1.46.0.9999|21.40.161-1.47.0.1": "older",
+"21.40.161-1.47.0.1|21.40.161-1.47.0.4": "older",
+"21.40.161-1.47.0.19|21.40.161-1.47.0.9999": "older",
+"21.40.161-1.47.0.4|21.40.161-1.47.0.9": "older",
+"21.40.161-1.47.0.9|21.40.161-1.47.0.19": "older",
+"21.40.161-1.47.0.9999|21.41.525-1.48.0.3": "older",
+"21.41.525-1.48.0.3|21.41.525-1.48.0.6": "older",
+"21.41.525-1.48.0.6|21.41.525-1.48.0.7": "older",
+"21.41.525-1.48.0.7|21.41.525-1.48.0.8": "older",
+"21.41.525-1.48.0.8|21.42.241-1.48.0.9": "older",
+"21.42.241-1.48.0.10|21.42.241-1.48.0.12": "older",
+"21.42.241-1.48.0.12|21.42.241-1.48.0.13": "older",
+"21.42.241-1.48.0.13|21.42.241-1.48.0.15": "older",
+"21.42.241-1.48.0.15|21.42.241-1.48.0.18": "older",
+"21.42.241-1.48.0.18|21.42.241-1.49.0.1": "older",
+"21.42.241-1.48.0.9|21.42.241-1.48.0.10": "older",
+"21.42.241-1.49.0.1|21.43.523-1.49.0.4": "older",
+"21.43.523-1.49.0.10|21.43.523-1.49.0.11": "older",
+"21.43.523-1.49.0.11|21.43.523-2.0.0.9999": "older",
+"21.43.523-1.49.0.4|21.43.523-1.49.0.5": "older",
+"21.43.523-1.49.0.5|21.43.523-1.49.0.7": "older",
+"21.43.523-1.49.0.7|21.43.523-1.49.0.8": "older",
+"21.43.523-1.49.0.8|21.43.523-1.49.0.10": "older",
+"21.43.523-2.0.0.9999|21.44.528-BETA-2.1.0.3": "older",
+"21.43.523-2.1.0.4|21.44.528-BETA-2.1.0.5": "older",
+"21.44.528-2.1.0.16|21.44.528-2.1.0.2001": "older",
+"21.44.528-2.1.0.2001|21.44.528-2.1.0.3001": "older",
+"21.44.528-2.1.0.3001|21.44.528-2.1.0.4001": "older",
+"21.44.528-2.1.0.4001|21.44.528-2.1.0.9999": "older",
+"21.44.528-2.1.0.5|21.44.528-2.1.0.6": "older",
+"21.44.528-2.1.0.9999|21.44.528-2.2.0.1": "older",
+"21.44.528-BETA-2.1.0.3|21.44.528-2.1.0.5": "older",
+"21.44.528-BETA-2.1.0.5|21.44.528-2.1.0.5": "older",
+"21.44.528-BETA-2.1.0.5|21.44.528-BETA-2.1.0.6": "older",
+"46.2.3-0.8.0|46.2.3-0.8.1": "older"
+}
+}

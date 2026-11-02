@@ -8,15 +8,17 @@ that fails is deleted so it is never uploaded, and the job goes red.
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
 import tomllib
+import urllib.request
 import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from apk_package import manifest_attrs, signer_of  # noqa: E402
+from apk_package import manifest_attrs, manifest_from_url, signer_of  # noqa: E402
 
 NAME_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|armeabi-v7a|x86_64|x86)\.apk$")
 MIN_BYTES = 1_000_000
@@ -25,6 +27,54 @@ VERIFIED_MARK = ".verified"
 # What a patch source must leave in the app. A patch that applied writes its extension
 # classes into the dex files; if they are absent the app would run unpatched.
 MARKERS = {"Qutaiba-Khader/stremio-subs-patches": b"Lapp/subsense/stremio/SubtitleRefresh;"}
+
+
+def version_matches(inside: str | None, named: str) -> bool:
+    """The version inside the APK against its file name. Stores can add a label inside only: YouTube 21.41.525
+    from APKMirror says 21.41.525-EXTENDED (real, 26.10.14-morphe-dev)."""
+    return inside is None or inside == named or inside.startswith(f"{named}-")
+
+
+def shipped_code(stem: str, repo: str, token: str) -> int | None:
+    """The versionCode of the newest published build of this app; None when it cannot be read."""
+    try:
+        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/releases?per_page=30",
+                                     headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            releases = json.loads(resp.read())
+        published = sorted((r for r in releases if r.get("published_at") and not r.get("draft")), key=lambda r: r["published_at"], reverse=True)
+        for rel in published:
+            for asset in rel.get("assets", []):
+                if asset["name"].lower().startswith(f"{stem}-v") and asset["name"].endswith(".apk"):
+                    return int(manifest_attrs(manifest_from_url(asset["browser_download_url"]))["versionCode"])
+    except Exception as exc:  # noqa: BLE001 - this check must not stop a build by itself; Health compares the offer too
+        print(f"::warning::could not read what {stem} last shipped: {exc}")
+    return None
+
+
+def pinned_stems(config_path: Path) -> set[str]:
+    """Apps config.toml pins: going to a lower version is what a pin is for."""
+    data = tomllib.loads(config_path.read_text(encoding="utf-8"))
+    default_brand = str(data.get("brand", "Morphe"))
+    out: set[str] = set()
+    for table, body in data.items():
+        if isinstance(body, dict) and re.search(r"@v?[^:]+:\d+$", str(body.get("stremio-dlurl", ""))):
+            name = str(body.get("app-name", table.replace("-", " ")))
+            out.add(f"{name.lower().replace(' ', '-')}-{str(body.get('brand', default_brand)).lower().replace(' ', '-')}")
+    return out
+
+
+def lower_code(apk: Path, stem: str, repo: str, token: str, pinned: set[str]) -> str:
+    """Android refuses to install a lower versionCode over a higher one. It happens for real: YouTube 21.44.528 has a lower
+    code than its own 21.44.528-BETA, and 21.41.525-EXTENDED than 21.41.525. Such a build waits for the next version."""
+    if stem in pinned or not repo or not token:
+        return ""
+    with zipfile.ZipFile(apk) as zf:
+        code = manifest_attrs(zf.read("AndroidManifest.xml")).get("versionCode")
+    shipped = shipped_code(stem, repo, token)
+    if code and shipped and int(code) < shipped:
+        return f"versionCode {code} is lower than the {shipped} already released: Android would refuse to install it over that"
+    return ""
 
 
 def clone_package(config_path: Path) -> dict[str, str]:
@@ -82,7 +132,7 @@ def problems(apk: Path, sources_by_stem: dict[str, list[str]], want_signer: str,
     elif (want_package := (packages or {}).get(m["stem"])) and attrs["package"] != want_package:
         found.append(f"the package is {attrs['package']}, config.toml asks for {want_package}")
     inside = attrs.get("versionName")
-    if inside is not None and inside != m["version"]:
+    if not version_matches(inside, m["version"]):
         found.append(f"the app says version {inside}, the file name says {m['version']}")
     arch = m["arch"]
     abis = {n.split("/")[1] for n in names if n.startswith("lib/") and n.count("/") >= 2}
@@ -103,6 +153,8 @@ def main(argv: list[str]) -> int:
     root = Path(__file__).resolve().parent.parent
     sources = patch_sources(root / "config.toml")
     packages = clone_package(root / "config.toml")
+    pinned = pinned_stems(root / "config.toml")
+    repo, token = os.getenv("GITHUB_REPOSITORY", ""), os.getenv("GITHUB_TOKEN", "")
     want = os.getenv("SIGNING_CERT_SHA256", "").replace(":", "").strip().lower()
     apks = [Path(a) for a in argv]
     if not want and os.getenv("GITHUB_ACTIONS"):
@@ -114,6 +166,9 @@ def main(argv: list[str]) -> int:
     failed = 0
     for apk in apks:
         found = problems(apk, sources, want, packages)
+        name = NAME_RE.match(apk.name)
+        if not found and name and (lower := lower_code(apk, name["stem"], repo, token, pinned)):
+            found = [lower]
         if found:
             failed += 1
             for line in found:

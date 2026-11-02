@@ -51,6 +51,12 @@ def _make_scraper(source: str, net: NetworkManager) -> BaseScraper:
         case _:
             raise ValueError(f"Unknown APK source: {source!r}")
 
+def _bundles_comment(entry: AppEntry, patcher: PatcherCLI) -> str:
+    """morphe-builder: which bundles THIS APK has, invisible in the rendered notes. Jobs resolve "latest" and "dev" one by
+    one and a same-day rebuild can leave an older APK behind, so the release's own bundle list is not per APK."""
+    names = [f"{re.sub(r'^(github|gitlab):', '', src).split('/')[0]}/{path.name}" for (src, _ver), path in patcher.mpp_map.items()]
+    return f" <!-- patches: {','.join(names)} -->" if names else ""
+
 def _last_shipped(entry: AppEntry, net: NetworkManager) -> str:
     """morphe-builder: the version of the app's newest published build, "" when unknown."""
     stem = f"{entry.app_name.lower().replace(' ', '-')}-{entry.brand.lower().replace(' ', '-')}-v"
@@ -211,7 +217,7 @@ def _build_single(entry: AppEntry, arch: str, label: str, net: NetworkManager, p
         github_asset_name = re.sub(r"\.+", ".", re.sub(r"[^a-zA-Z0-9@+\-_.]", ".", apk_output.name))
         ver_str = f"[`{version}`](https://github.com/{os.getenv('GITHUB_REPOSITORY')}/releases/download/{{TAG}}/{github_asset_name})" if IS_GITHUB else f"`{version}`"
         # "(wanted ...)" makes the daily check retry until the wanted version can be built (matrix.py)
-        return f"- 🟢 » {label}: {ver_str}" + (f" (wanted {wanted})" if wanted else "")
+        return f"- 🟢 » {label}: {ver_str}" + (f" (wanted {wanted})" if wanted else "") + _bundles_comment(entry, patcher)
     except (BuilderError, PatcherError, ScraperError, NetworkError, SignatureError) as exc:
         if isinstance(exc, SignatureError):
             _failed_signatures.add(entry.table)

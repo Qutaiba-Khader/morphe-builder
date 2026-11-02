@@ -32,7 +32,7 @@
  {
   "id": "G-VERIFY-version",
   "file": "tools/verify_apk.py",
-  "find": "if inside is not None and inside != m[\"version\"]:",
+  "find": "if not version_matches(inside, m[\"version\"]):",
   "replace": "if False:"
  },
  {
@@ -88,5 +88,41 @@
   "file": "tools/release_check.py",
   "find": "if now - _parse_time(rec[\"first_seen\"]) >= grace_of(key))",
   "replace": "if True)"
+ },
+ {
+  "id": "G-VERIFY-lower-code",
+  "file": "tools/verify_apk.py",
+  "find": "if code and shipped and int(code) < shipped:",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-VERIFY-store-label",
+  "file": "tools/verify_apk.py",
+  "find": "return inside is None or inside == named or inside.startswith(f\"{named}-\")",
+  "replace": "return inside is None or inside == named"
+ },
+ {
+  "id": "G-OFFER-own-line",
+  "file": "tools/gen_site.py",
+  "find": "return {**release_tools, \"patches\": own}",
+  "replace": "return release_tools"
+ },
+ {
+  "id": "G-NOTES-keep",
+  "file": "tools/prune_release.py",
+  "find": "out = new_lines[:last_green + 1] + kept + new_lines[last_green + 1:]",
+  "replace": "out = new_lines"
+ },
+ {
+  "id": "G-HEALTH-backwards",
+  "file": "tools/release_check.py",
+  "find": "if old.get(\"text\") and text_numbers(entry[\"build_version\"]) < text_numbers(old[\"text\"]):",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-REV-rank",
+  "file": "tools/gen_site.py",
+  "find": "rev += f\".{_PRE_BASE[m.group(2).lower()] + int(m.group(3) or 0)}\"",
+  "replace": "rev += f\".{int(m.group(3) or 0)}\""
  }
 ]

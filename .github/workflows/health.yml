@@ -65,6 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SIGNING_CERT_SHA256: ${{ vars.SIGNING_CERT_SHA256 }}
+          IGNORE_SYNC_FILES: ${{ vars.IGNORE_SYNC_FILES }}
           FLOW_TEST_LOG: flow.log
         run: python3 tools/release_check.py
 

@@ -23,22 +23,18 @@ sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
 
 
-def mislabeled(release: dict[str, Any], new_notes: str, started: str) -> list[dict[str, Any]]:
-    """APKs an earlier run left in today's release that the notes of this run would misdescribe.
-
-    Which patches an APK has is read from its release's notes. If this run used other bundles
-    and an app failed, its older APK would be labelled with bundles it does not have, and the
-    app would then count as up to date. Removing it leaves the previous release's build on offer
-    and makes the next check rebuild it.
-    """
-    bundles = lambda text: {p["file"] for p in gen_site.build_tools(text)["patches"]}  # noqa: E731
-    old, new = bundles(release.get("body") or ""), bundles(new_notes)
-    # Only a bundle the old APKs do not have makes them wrong. Fewer bundles just means the apps
-    # that use the others failed this time, and those APKs are still what their notes said.
-    if not old or not new - old:
-        return []
-    return [a for a in release.get("assets", [])
-            if a["name"].endswith(".apk") and str(a.get("updated_at") or "") < started]
+def merged_notes(old_body: str, new_notes: str, assets: list[str]) -> str:
+    """Today's notes after a rebuild: what this run built, plus the lines of APKs from an earlier run of the
+    day that are still in the release. Each APK's line says which bundles it has, so it stays described right."""
+    new_lines = new_notes.splitlines()
+    kept = [line for line in (old_body or "").splitlines()
+            if line.startswith("- 🟢") and any(f"/{name})" in line and f"/{name})" not in new_notes for name in assets)]
+    bundles = [line for line in (old_body or "").splitlines() if "» Patches:" in line and line.strip() not in new_notes]
+    if not kept and not bundles:
+        return new_notes
+    last_green = max((i for i, line in enumerate(new_lines) if line.startswith("- 🟢")), default=-1)
+    out = new_lines[:last_green + 1] + kept + new_lines[last_green + 1:]
+    return "\n".join(out + bundles) + "\n"
 
 
 def live_urls(site_url: str) -> set[str]:
@@ -55,26 +51,26 @@ def delete_asset(repo: str, asset_id: int) -> None:
         pass
 
 
-def drop_mislabeled(repo: str, tag: str, notes_file: str, started: str) -> int:
+def merge_notes_file(repo: str, tag: str, notes_file: str) -> int:
     # The list, not /releases/tags/: that answers 404 for a draft, which is every first build of a
     # day. And this is a safety net: failing here must not keep a good release from publishing.
     try:
         releases = gen_site._get(f"{gen_site.API}/repos/{repo}/releases?per_page=30")
     except Exception as exc:  # noqa: BLE001
-        print(f"::warning::could not read the releases to compare patches: {exc}")
+        print(f"::warning::could not read the releases to keep earlier notes: {exc}")
         return 0
     release = next((r for r in releases if r.get("tag_name") == tag), {})
-    for asset in mislabeled(release, Path(notes_file).read_text(encoding="utf-8"), started):
-        delete_asset(repo, asset["id"])
-        print(f"::warning::removed {asset['name']} from {tag}: it was not rebuilt and has older patches than this release's notes")
+    path = Path(notes_file)
+    path.write_text(merged_notes(release.get("body") or "", path.read_text(encoding="utf-8"),
+                                 [a["name"] for a in release.get("assets", []) if a["name"].endswith(".apk")]), encoding="utf-8")
     return 0
 
 
 def main(argv: list[str] | None = None, wait_seconds: int = 300, poll_seconds: int = 20) -> int:
     repo = os.getenv("GITHUB_REPOSITORY", "Qutaiba-Khader/morphe-builder")
     args = sys.argv[1:] if argv is None else argv
-    if args[:1] == ["--mislabeled"]:
-        return drop_mislabeled(repo, args[1], args[2], args[3])
+    if args[:1] == ["--merge-notes"]:
+        return merge_notes_file(repo, args[1], args[2])
     owner, name = repo.split("/", 1)
     site_url = os.getenv("SITE_URL", f"https://{owner.lower()}.github.io/{name}/")
     config = gen_site.app_config()
