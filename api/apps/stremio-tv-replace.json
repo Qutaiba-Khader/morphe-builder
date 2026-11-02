@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T21:34:53Z",
+  "generated": "2026-11-02T21:43:56Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv-replace",
   "name": "Stremio TV Replacement",
@@ -31,7 +31,7 @@
           "arch": "armeabi-v7a",
           "size": 73408639,
           "sha256": "6a8168ab698f1aeaf0ce487eb54a385a07ed253358541f810c71c950673b5db7",
-          "downloads": 12,
+          "downloads": 19,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk"
         }
