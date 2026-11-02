@@ -1,44 +1,7 @@
 {
- "checked_at": "2026-11-02T21:18:35Z",
- "offered": {
-  "reddit-experimental": {
-   "version": "2026.42.0",
-   "tag": "26.11.02-morphe-dev"
-  },
-  "youtube-experimental": {
-   "version": "21.44.528",
-   "tag": "26.11.02-morphe-dev"
-  },
-  "stremio-phone": {
-   "version": "2.5.1",
-   "tag": "26.11.02-subs"
-  },
-  "stremio-tv": {
-   "version": "1.12.1",
-   "tag": "26.11.02-subs"
-  },
-  "stremio-tv-replace": {
-   "version": "1.12.1",
-   "tag": "26.11.02-subs"
-  },
-  "reddit": {
-   "version": "2026.40.0",
-   "tag": "26.11.02-morphe"
-  },
-  "youtube": {
-   "version": "21.30.216",
-   "tag": "26.11.02-morphe"
-  },
-  "tiktok": {
-   "version": "46.2.3",
-   "tag": "26.10.22-metra"
-  }
- },
+ "checked_at": "2026-11-02T21:28:09Z",
+ "skipped": "Build APKs #19 is in_progress",
  "problems": [
   "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
- ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6"
  ]
 }
