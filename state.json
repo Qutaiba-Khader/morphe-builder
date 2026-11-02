@@ -4,13 +4,9 @@
    "first_seen": "2026-11-02T21:15:09Z",
    "text": "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
   },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-02T21:15:09Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-02T21:18:35Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6"
+  "wanted-behind:reddit-experimental": {
+   "first_seen": "2026-11-02T21:36:23Z",
+   "text": "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
   }
  }
 }
