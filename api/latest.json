@@ -1,7 +1,45 @@
 {
-  "generated": "2026-11-02T20:54:50Z",
+  "generated": "2026-11-02T21:15:19Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
+    "reddit-experimental": {
+      "id": "reddit-experimental",
+      "name": "Reddit Experimental",
+      "package": "com.reddit.frontpage.morphe",
+      "brand": "morphe-dev",
+      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
+      "source_package": "com.reddit.frontpage",
+      "icon": "https://play-lh.googleusercontent.com/8FVS0kvM60JwqZWRNzBIlwrZZxJa8vpli8IWaaTo8QXRe1PHmCNJ8UpWoXkGPV3jKEaTY2OVAeYoisOnGJXY=s128-rw",
+      "patch_sources": [
+        "MorpheApp/morphe-patches"
+      ],
+      "version": "2026.42.0",
+      "tag": "26.11.02-morphe-dev",
+      "published": "2026-11-02T20:10:54Z",
+      "prerelease": true,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.02-morphe-dev",
+      "patches": [
+        {
+          "file": "MorpheApp/patches-2.1.0-dev.6.mpp",
+          "version": "2.1.0-dev.6"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.20.0-all.jar",
+        "version": "1.20.0"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 111119641,
+          "sha256": "cce80c85ea54f0e8f80a4a437907492dd952a809dc8132e618d3139b755a4b4c",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
+          "name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk"
+        }
+      ],
+      "rebuilds": 10
+    },
     "youtube-experimental": {
       "id": "youtube-experimental",
       "name": "YouTube Experimental",
@@ -32,8 +70,8 @@
         {
           "arch": "all",
           "size": 159078848,
-          "sha256": "434249b8d94cb08bb42f5b4848398c5ec0953a84f101fe397c91f628c2d7db06",
-          "downloads": 4,
+          "sha256": "109bb1cd1260d4dfe83c3291463e1fb2eeebb2f8b713700e9994697a114c75a3",
+          "downloads": 0,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.44.528-all.apk"
         }
@@ -76,7 +114,7 @@
           "arch": "arm64-v8a",
           "size": 77512781,
           "sha256": "ff58d1bd291318799d64b331585f3bb9720db2fc420fe1c0a531e798ebd97593",
-          "downloads": 2,
+          "downloads": 8,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk"
         }
@@ -119,7 +157,7 @@
           "arch": "armeabi-v7a",
           "size": 73498809,
           "sha256": "49b4dab9ec34d8234461fdc49b8c623a53d497227fb51c01ff8cb2afd231b5b8",
-          "downloads": 2,
+          "downloads": 9,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk"
         }
@@ -161,7 +199,7 @@
           "arch": "armeabi-v7a",
           "size": 73408639,
           "sha256": "6a8168ab698f1aeaf0ce487eb54a385a07ed253358541f810c71c950673b5db7",
-          "downloads": 2,
+          "downloads": 8,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk"
         }
@@ -199,7 +237,7 @@
           "arch": "all",
           "size": 110118635,
           "sha256": "cd5cd01357cd88825d4522f9a62c5b47b2ae3bc6ad3bf32f308347107cce8a2b",
-          "downloads": 12,
+          "downloads": 17,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/reddit-morphe-v2026.40.0-all.apk",
           "name": "reddit-morphe-v2026.40.0-all.apk"
         }
@@ -237,50 +275,12 @@
           "arch": "all",
           "size": 145967163,
           "sha256": "c47d997d69f10e6400ff198cc4775683693074f4ce7ac09a594a19eee0518422",
-          "downloads": 12,
+          "downloads": 17,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-morphe/youtube-morphe-v21.30.216-all.apk",
           "name": "youtube-morphe-v21.30.216-all.apk"
         }
       ],
       "rebuilds": 2
-    },
-    "reddit-experimental": {
-      "id": "reddit-experimental",
-      "name": "Reddit Experimental",
-      "package": "com.reddit.frontpage.morphe",
-      "brand": "morphe-dev",
-      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "source_package": "com.reddit.frontpage",
-      "icon": "https://play-lh.googleusercontent.com/8FVS0kvM60JwqZWRNzBIlwrZZxJa8vpli8IWaaTo8QXRe1PHmCNJ8UpWoXkGPV3jKEaTY2OVAeYoisOnGJXY=s128-rw",
-      "patch_sources": [
-        "MorpheApp/morphe-patches"
-      ],
-      "version": "2026.42.0",
-      "tag": "26.10.25-morphe-dev",
-      "published": "2026-10-25T14:14:49Z",
-      "prerelease": true,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.25-morphe-dev",
-      "patches": [
-        {
-          "file": "MorpheApp/patches-1.49.0-dev.5.mpp",
-          "version": "1.49.0-dev.5"
-        }
-      ],
-      "cli": {
-        "file": "MorpheApp/morphe-desktop-1.19.1-all.jar",
-        "version": "1.19.1"
-      },
-      "files": [
-        {
-          "arch": "all",
-          "size": 110497049,
-          "sha256": "7839d349a4a4a8bee27f1cccc51c960c971f2a8a584f3a57c86ac2d1a273eb8c",
-          "downloads": 100,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.25-morphe-dev/reddit-experimental-morphe-dev-v2026.42.0-all.apk",
-          "name": "reddit-experimental-morphe-dev-v2026.42.0-all.apk"
-        }
-      ],
-      "rebuilds": 9
     },
     "tiktok": {
       "id": "tiktok",
@@ -313,7 +313,7 @@
           "arch": "all",
           "size": 597347508,
           "sha256": "03c42b6037c3350d1ecf2b4ab2f568becafabefd46a433f86e859ce18689e918",
-          "downloads": 150,
+          "downloads": 155,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
