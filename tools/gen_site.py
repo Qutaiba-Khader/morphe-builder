@@ -15,6 +15,7 @@ Stdlib only, so the workflow needs no dependency install.
 from __future__ import annotations
 
 import html
+import http.client
 import json
 import os
 import re
@@ -66,8 +67,17 @@ def _get(url: str) -> Any:
     # custom domain could put on a third-party host.
     if api and (token := os.getenv("GITHUB_TOKEN")):
         req.add_header("Authorization", f"Bearer {token}")
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read())
+    # A cut-off answer or a 5xx is the API's hiccup, not an answer: read it again.
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return json.loads(resp.read())
+        except (http.client.HTTPException, json.JSONDecodeError, urllib.error.URLError) as exc:
+            is_answer = isinstance(exc, urllib.error.HTTPError) and exc.code < 500
+            if is_answer or attempt == 2:
+                raise
+            time.sleep(2 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 # Workflows that turn a release back into a DRAFT while they rebuild it
@@ -132,8 +142,13 @@ def github_asset_name(name: str) -> str:
     return re.sub(r"\.+", ".", re.sub(r"[^a-zA-Z0-9@+\-_.]", ".", name))
 
 
+def version_key(version: str) -> tuple[int, ...]:
+    """Numeric order of an app version: 2.5.1 > 2.5.0, 1.12.1 > 1.9.9."""
+    return tuple(int(n) for n in re.findall(r"\d+", version))
+
+
 def app_config() -> dict[str, dict[str, str]]:
-    """filename stem -> {id, name, brand}, straight from config.toml.
+    """filename stem -> {id, name, brand, patch_org}, straight from config.toml.
 
     The stem is how builder.py names the output: the app name and the brand,
     lowercased with spaces hyphenated, as GitHub then stores it. Keying on it
@@ -153,7 +168,10 @@ def app_config() -> dict[str, dict[str, str]]:
         name = str(body.get("app-name", table.replace("-", " ")))
         brand = str(body.get("brand", default_brand))
         stem = github_asset_name(f"{name.lower().replace(' ', '-')}-{brand.lower().replace(' ', '-')}").lower()
-        out[stem] = {"id": slug(table), "name": name, "brand": brand}
+        patches = body.get("patches") or {}
+        first = next(iter(patches), "") if isinstance(patches, dict) else ""
+        patch_org = re.sub(r"^(github|gitlab):", "", first).split("/", 1)[0]
+        out[stem] = {"id": slug(table), "name": name, "brand": brand, "patch_org": patch_org}
     return out
 
 
@@ -264,8 +282,24 @@ def build_tools(body: str) -> dict[str, Any]:
     return {"patches": found["patches"], "cli": (found["cli"] or [None])[0]}
 
 
+def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:
+    """Put the app's own patch bundle first: the release notes list every bundle of the
+    release, and the update version is read from the first (see build_version). The app's
+    main bundle is the first patch source of its config.toml table: for Stremio that is
+    Qutaiba-Khader's, and Morphe's bundle only lends it "Clone app"."""
+    patches = tools.get("patches") or []
+    if org:
+        mine = [p for p in patches if p["file"].lower().startswith(org.lower() + "/")]
+        patches = mine + [p for p in patches if p not in mine]
+    return {**tools, "patches": patches}
+
+
 def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """app id -> {name, brand, builds[]}, newest build first."""
+    """app id -> {name, brand, builds[]}, newest build first.
+
+    A same-day rebuild adds to that day's release, so one release can hold two
+    versions of an app: within a release the highest version comes first.
+    """
     apps: dict[str, dict[str, Any]] = {}
     config = app_config()
     brands = sorted({e["brand"].lower().replace(" ", "-") for e in config.values()}, key=len, reverse=True)
@@ -310,7 +344,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                     "published": published,
                     "prerelease": bool(rel.get("prerelease")),
                     "release_url": rel.get("html_url", ""),
-                    **build_tools(rel.get("body") or ""),
+                    **_main_patches_first(build_tools(rel.get("body") or ""), entry.get("patch_org", "")),
                     "files": [],
                 },
             )
@@ -327,7 +361,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
     result: dict[str, dict[str, Any]] = {}
     for app_id, app in apps.items():
-        builds = sorted(app["builds"].values(), key=lambda b: b["published"], reverse=True)
+        builds = sorted(app["builds"].values(), key=lambda b: (b["published"], version_key(b["version"])), reverse=True)
         for b in builds:
             b["files"].sort(key=lambda f: ARCHES.index(f["arch"].lower()) if f["arch"].lower() in ARCHES else 99)
 
