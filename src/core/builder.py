@@ -61,7 +61,7 @@ def _last_shipped(entry: AppEntry, net: NetworkManager) -> str:
         return ""
     for rel in sorted((r for r in releases if r.get("published_at")), key=lambda r: str(r["published_at"]), reverse=True):
         names = [str(a.get("name") or "").lower() for a in rel.get("assets", [])]
-        versions = [n[len(stem):].rsplit("-", 1)[0] for n in names if n.startswith(stem) and n.endswith(".apk")]
+        versions = [re.sub(r"-(all|arm64-v8a|armeabi-v7a|x86_64|x86)\.apk$", "", n[len(stem):]) for n in names if n.startswith(stem) and n.endswith(".apk")]
         if versions:
             return max(versions, key=version_numbers)
     return ""

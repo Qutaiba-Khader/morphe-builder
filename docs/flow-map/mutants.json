@@ -2,14 +2,14 @@
  {
   "id": "G-OFFER-highest",
   "file": "tools/gen_site.py",
-  "find": "key=lambda b: (b[\"published\"], b[\"version\"] == app[\"pin\"], version_key(b[\"version\"])), reverse=True)",
-  "replace": "key=lambda b: (b[\"published\"], b[\"version\"] == app[\"pin\"]), reverse=True)"
+  "find": "key=lambda b: (b[\"version\"] == app[\"pin\"], b[\"published\"], version_key(b[\"version\"])), reverse=True)",
+  "replace": "key=lambda b: (b[\"version\"] == app[\"pin\"], b[\"published\"]), reverse=True)"
  },
  {
   "id": "G-OFFER-replaced-hidden",
   "file": "tools/gen_site.py",
-  "find": "if parts is None or asset[\"name\"] in replaced or asset.get(\"state\", \"uploaded\") != \"uploaded\":",
-  "replace": "if parts is None or asset.get(\"state\", \"uploaded\") != \"uploaded\":"
+  "find": "if (parts is None or asset[\"name\"] in replaced or asset.get(\"state\", \"uploaded\") != \"uploaded\"",
+  "replace": "if (parts is None or asset.get(\"state\", \"uploaded\") != \"uploaded\""
  },
  {
   "id": "G-OFFER-own-bundle",

@@ -105,6 +105,13 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-104 | apk_package.py names_from_url | file names are read over http | as named | `test_P_REL_104_file_names_are_read_over_http` | apk_package.py |
 | P-REL-105 | release_check.py _text | live pages are read with retries | as named | `test_P_REL_105_live_pages_are_read_with_retries` | release_check.py |
 | P-REL-106 | verify_apk.py main | no apks leaves no mark | as named | `test_P_REL_106_no_apks_leaves_no_mark` | verify_apk.py |
+| P-REL-107 | release flow, review findings | a straddled build is labelled with the lower bundle | as named | `test_P_REL_107_a_straddled_build_is_labelled_with_the_lower_bundle` | gen_site.py, release_check.py, builder.py |
+| P-REL-108 | release flow, review findings | a pin wins over a newer release and a missing pin is reported | as named | `test_P_REL_108_a_pin_wins_over_a_newer_release_and_a_missing_pin_is_reported` | gen_site.py, release_check.py, builder.py |
+| P-REL-109 | release flow, review findings | a final version beats its beta | as named | `test_P_REL_109_a_final_version_beats_its_beta` | gen_site.py, release_check.py, builder.py |
+| P-REL-110 | release flow, review findings | what was shipped reads past a hyphenated cpu name | as named | `test_P_REL_110_what_was_shipped_reads_past_a_hyphenated_cpu_name` | gen_site.py, release_check.py, builder.py |
+| P-REL-111 | release flow, review findings | a patch only rebuild the site missed is stale | as named | `test_P_REL_111_a_patch_only_rebuild_the_site_missed_is_stale` | gen_site.py, release_check.py, builder.py |
+| P-REL-112 | release flow, review findings | notes without its own bundle are reported | as named | `test_P_REL_112_notes_without_its_own_bundle_are_reported` | gen_site.py, release_check.py, builder.py |
+| P-REL-113 | release flow, review findings | a tiny asset is not offered | as named | `test_P_REL_113_a_tiny_asset_is_not_offered` | gen_site.py, release_check.py, builder.py |
 | P-REL-98 | matrix.py check_builds_needed | a same day rebuild already on the patches is not repeated | as named | `test_P_REL_98_a_same_day_rebuild_already_on_the_patches_is_not_repeated` | matrix.py check_builds_needed |
 | P-REL-99 | matrix.py _stremio_needs_build | a cancelled runs draft does not carry a version | as named | `test_P_REL_99_a_cancelled_runs_draft_does_not_carry_a_version` | matrix.py _stremio_needs_build |
 | P-REL-95 | release_check.py | a build below the wanted version is reported | as named | `test_P_REL_95_a_build_below_the_wanted_version_is_reported` | release_check.py |

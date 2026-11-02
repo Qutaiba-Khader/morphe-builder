@@ -62,6 +62,7 @@ def enabled_apps() -> list[dict[str, Any]]:
             "source": re.sub(r"^(github|gitlab):", "", source),
             "patch_version": spec.get("version", "latest") if isinstance(spec, dict) else "latest",
             "feed": str(body.get("stremio-dlurl", "")),
+            "pin": (m.group(1) if (m := re.search(r"@v?([^:]+):\d+$", str(body.get("stremio-dlurl", "")))) else ""),
             "keywords": bool(body.get("changelog-keywords")),
         })
     return apps
@@ -90,6 +91,10 @@ def check_offers(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, 
         if (have.get("version"), have.get("tag")) != (want[0]["version"], want[0]["tag"]):
             found[f"offered-stale:{app_id}"] = (f"{app_id}: the site offers {have.get('version')} ({have.get('tag')}), "
                                                 f"the releases say {want[0]['version']} ({want[0]['tag']})")
+        if app.get("pin") and have.get("version") != app["pin"]:
+            found[f"pin-not-offered:{app_id}"] = f"{app_id}: config.toml pins {app['pin']}, the site offers {have.get('version')}"
+        if entry.get("build_version") != gen_site.build_version(want[0]):
+            found[f"offered-stale:{app_id}"] = f"{app_id}: the update version is {entry.get('build_version')}, the releases say {gen_site.build_version(want[0])}"
         page = data["pages"].get(app_id) or ""
         links = re.findall(r'href="([^"]+\.apk)"', page)
         meta = re.search(gen_site.BUILD_VERSION_REGEX, page)
@@ -144,7 +149,9 @@ def check_upstream(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str
         if bundle:
             org = app["source"].split("/", 1)[0].lower()
             mine = [p.get("version") for p in have.get("patches") or [] if p.get("file", "").lower().startswith(org + "/")]
-            if mine and bundle not in mine:
+            if not mine:
+                found[f"no-bundle:{app['id']}"] = f"{app['id']}: its release notes do not name its own patch bundle"
+            elif bundle not in mine:
                 found[f"patches-behind:{app['id']}"] = f"{app['id']}: {app['source']} is at {bundle}, we offer {mine[0]}"
     return found
 

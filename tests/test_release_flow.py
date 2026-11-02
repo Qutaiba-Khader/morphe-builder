@@ -166,6 +166,55 @@ class Workflows(unittest.TestCase):
         self.assertIn("git push origin health", health)
 
 
+class Review(unittest.TestCase):
+    """Wrong answers an independent review found."""
+
+    # P-REL-107
+    def test_P_REL_107_a_straddled_build_is_labelled_with_the_lower_bundle(self):
+        notes = ("> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.7.mpp`\n> ⚙️ » Patches: `MorpheApp/patches-2.1.0-dev.6.mpp`\n")
+        name = "youtube-experimental-morphe-dev-v21.44.528-all.apk"
+        build = gen_site.collect([release("t-morphe-dev", [name], body=notes, prerelease=True)])["youtube-experimental"]["builds"][0]
+        self.assertEqual(gen_site.build_version(build), "21.44.528-2.1.0.6", "the real dev.7 rebuild must still show as newer")
+
+    # P-REL-108
+    def test_P_REL_108_a_pin_wins_over_a_newer_release_and_a_missing_pin_is_reported(self):
+        config = {k: {**v, "pin": "1.12.0"} if v["id"] == "stremio-tv" else v for k, v in gen_site.app_config().items()}
+        rels = [release("old-subs", [TV_OLD], published="2026-10-01T00:00:00Z"), release("new-subs", [TV_NEW], published="2026-11-01T00:00:00Z")]
+        with mock.patch.object(gen_site, "app_config", return_value=config):
+            self.assertEqual(gen_site.collect(rels)["stremio-tv"]["builds"][0]["version"], "1.12.0")
+        pinned = [{**APPS[0], "pin": "1.11.3"}]
+        self.assertIn("pin-not-offered:stremio-tv", release_check.check_offers(pinned, world()))
+
+    # P-REL-109
+    def test_P_REL_109_a_final_version_beats_its_beta(self):
+        self.assertGreater(gen_site.version_key("2.2.0"), gen_site.version_key("2.2.0-beta.5"))
+        self.assertGreater(gen_site.version_key("2.5.10"), gen_site.version_key("2.5.9"))
+
+    # P-REL-110
+    def test_P_REL_110_what_was_shipped_reads_past_a_hyphenated_cpu_name(self):
+        app = entry(name="Stremio Phone Clone")
+        rel = release("a", [PHONE_NEW])
+        self.assertEqual(builder._last_shipped(app, Net({"releases": [rel]})), "2.5.1")
+
+    # P-REL-111
+    def test_P_REL_111_a_patch_only_rebuild_the_site_missed_is_stale(self):
+        data = world()
+        data["obtainium"]["apps"][0]["build_version"] = "1.12.1-0.5.0"
+        data["pages"]["stremio-tv"] = data["pages"]["stremio-tv"].replace("1.12.1-0.6.0", "1.12.1-0.5.0")
+        self.assertIn("offered-stale:stremio-tv", release_check.check_offers(APPS, data))
+
+    # P-REL-112
+    def test_P_REL_112_notes_without_its_own_bundle_are_reported(self):
+        data = world()
+        data["latest"]["apps"]["stremio-tv"]["patches"] = [{"file": "Other/patches-1.mpp", "version": "1"}]
+        self.assertIn("no-bundle:stremio-tv", release_check.check_upstream(APPS, data))
+
+    # P-REL-113
+    def test_P_REL_113_a_tiny_asset_is_not_offered(self):
+        rel = release("t", [asset(PHONE_NEW, size=100)])
+        self.assertNotIn("stremio-phone", gen_site.collect([rel]))
+
+
 class StockCheck(unittest.TestCase):
     # P-REL-94
     def test_P_REL_94_every_enabled_app_has_a_stock_signature_to_check(self):
@@ -592,7 +641,8 @@ class Fallback(unittest.TestCase):
     def test_P_REL_47_last_shipped_reads_the_newest_build_of_this_app(self):
         app = entry(table="Reddit-Experimental", name="Reddit Experimental", brand="morphe-dev")
         rels = [release("a", ["reddit-experimental-morphe-dev-v2026.40.0-all.apk"], published="2026-10-01T00:00:00Z"),
-                release("b", ["reddit-experimental-morphe-dev-v2026.42.0-all.apk", "other-v1-all.apk"], published="2026-10-25T00:00:00Z")]
+                release("b", ["reddit-experimental-morphe-dev-v2026.42.0-all.apk", "other-v1-all.apk"], published="2026-10-25T00:00:00Z"),
+                release("c", ["other-v2-all.apk"], published="2026-11-01T00:00:00Z")]
         self.assertEqual(builder._last_shipped(app, Net({"releases": rels})), "2026.42.0")
         self.assertEqual(builder._last_shipped(app, Net({"releases": []})), "")
         with mock.patch.object(builder, "epr"):

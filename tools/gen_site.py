@@ -32,6 +32,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from apk_package import package_of, signer_of  # noqa: E402
+from gen_catalog import _upstream_ver_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC_DIR = ROOT / "site" / "static"
@@ -143,9 +144,9 @@ def github_asset_name(name: str) -> str:
     return re.sub(r"\.+", ".", re.sub(r"[^a-zA-Z0-9@+\-_.]", ".", name))
 
 
-def version_key(version: str) -> tuple[int, ...]:
-    """Numeric order of an app version: 2.5.1 > 2.5.0, 1.12.1 > 1.9.9."""
-    return tuple(int(n) for n in re.findall(r"\d+", version))
+def version_key(version: str) -> tuple[Any, ...]:
+    """The order of an app version: 2.5.1 > 2.5.0, 1.12.1 > 1.9.9, 2.2.0 > 2.2.0-beta.5."""
+    return _upstream_ver_key(version)
 
 
 def app_config() -> dict[str, dict[str, str]]:
@@ -292,7 +293,10 @@ def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:
     Qutaiba-Khader's, and Morphe's bundle only lends it "Clone app"."""
     patches = tools.get("patches") or []
     if org:
-        mine = [p for p in patches if p["file"].lower().startswith(org.lower() + "/")]
+        # Lowest first: jobs that straddle a patch release leave two of them in the notes, and an
+        # update version too low only offers the app once more. Too high would hide the real update.
+        mine = sorted((p for p in patches if p["file"].lower().startswith(org.lower() + "/")),
+                      key=lambda p: _upstream_ver_key(p["version"]))
         patches = mine + [p for p in patches if p not in mine]
     return {**tools, "patches": patches}
 
@@ -327,7 +331,8 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
     A same-day rebuild adds to that day's release, so one release can hold two
     versions of an app: within a release the highest version comes first, unless
-    config.toml pins the app to one (a pin is how a broken new version is backed out).
+    config.toml pins the app to one (a pin is how a broken new version is backed out),
+    which also wins over any newer release.
     """
     apps: dict[str, dict[str, Any]] = {}
     config = app_config()
@@ -338,7 +343,8 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         for asset in rel.get("assets", []):
             parts = split_asset(asset["name"], config)
             # an asset still uploading has no working link yet, whatever its version
-            if parts is None or asset["name"] in replaced or asset.get("state", "uploaded") != "uploaded":
+            if (parts is None or asset["name"] in replaced or asset.get("state", "uploaded") != "uploaded"
+                    or asset.get("size", 0) < MIN_APK_BYTES):
                 continue
             stem, version, arch = parts
             entry = config.get(stem)
@@ -393,7 +399,7 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
     result: dict[str, dict[str, Any]] = {}
     for app_id, app in apps.items():
-        builds = sorted(app["builds"].values(), key=lambda b: (b["published"], b["version"] == app["pin"], version_key(b["version"])), reverse=True)
+        builds = sorted(app["builds"].values(), key=lambda b: (b["version"] == app["pin"], b["published"], version_key(b["version"])), reverse=True)
         for b in builds:
             b["files"].sort(key=lambda f: ARCHES.index(f["arch"].lower()) if f["arch"].lower() in ARCHES else 99)
 
