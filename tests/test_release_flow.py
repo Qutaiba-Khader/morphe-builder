@@ -123,18 +123,47 @@ class Site(unittest.TestCase):
             with self.assertRaises(http.client.HTTPException):
                 gen_site._get(gen_site.API + "/x")
         self.assertEqual(call.call_count, 3)
-
-
     # P-REL-92
     def test_P_REL_92_an_apk_still_uploading_is_not_offered(self):
         rel = release("t", [asset(PHONE_OLD), asset(PHONE_NEW, state="starter")])
         self.assertEqual([b["version"] for b in gen_site.collect([rel])["stremio-phone"]["builds"]], ["2.5.0"])
-
     # P-REL-93
     def test_P_REL_93_architectures_are_ordered_by_version(self):
         other = "stremio-phone-clone-subs-v2.5.1-armeabi-v7a.apk"
         rel = release("t", [PHONE_OLD, other])
         self.assertEqual([b["version"] for b in gen_site.collect([rel])["stremio-phone"]["builds"]], ["2.5.1", "2.5.0"])
+
+
+class Workflows(unittest.TestCase):
+    """What no unit test runs: the steps must at least be there, in order."""
+
+    def text(self, name):
+        return (ROOT / ".github/workflows" / name).read_text(encoding="utf-8")
+    # P-REL-100
+    def test_P_REL_100_nothing_uploads_before_the_check(self):
+        build = self.text("build.yml")
+        self.assertLess(build.index("name: Build APKs\n        env"), build.index("name: Verify APKs"))
+        self.assertLess(build.index("name: Verify APKs"), build.index("name: Upload APKs to release"))
+        self.assertIn("build/.verified", build)
+        self.assertIn(verify_apk.VERIFIED_MARK, build)
+    # P-REL-101
+    def test_P_REL_101_a_rebuild_never_drafts_a_published_release(self):
+        build = self.text("build.yml")
+        self.assertNotIn("--draft --repo", build.split("gh release create")[0])
+        self.assertIn("concurrency:", build)
+        self.assertLess(build.index("--draft=false --title"), build.rindex('startswith("build-")) | .apiUrl'), "logs go only after the release is finalized")
+    # P-REL-102
+    def test_P_REL_102_a_crashed_check_cannot_look_like_nothing_new(self):
+        ci = self.text("ci.yml")
+        self.assertNotIn('echo "build_matrix=$(uv run', ci)
+        self.assertIn("jq -e", ci)
+    # P-REL-103
+    def test_P_REL_103_the_site_prunes_after_publishing_and_health_keeps_its_state(self):
+        site, health = self.text("site.yml"), self.text("health.yml")
+        self.assertLess(site.index("name: Publish to gh-pages"), site.index("prune_release.py"))
+        self.assertIn("release_check.py", health)
+        self.assertIn("if: always()", health.split("name: Keep the state")[1])
+        self.assertIn("git push origin health", health)
 
 
 class StockCheck(unittest.TestCase):
@@ -190,16 +219,26 @@ class Prune(unittest.TestCase):
         self.assertEqual(prune_release.mislabeled(rel, notes, started), [old])
         self.assertEqual(prune_release.mislabeled(rel, rel["body"], started), [], "same bundles: labelled correctly")
         self.assertEqual(prune_release.mislabeled(rel, "", started), [], "no new notes: nothing changes")
+        both = release("t", [old], body="> ⚙️ » Patches: `M/patches-2.0.0.mpp`\n> ⚙️ » Patches: `Q/patches-0.6.0.mpp`")
+        fewer = "> ⚙️ » Patches: `Q/patches-0.6.0.mpp`"
+        self.assertEqual(prune_release.mislabeled(both, fewer, started), [], "only the apps using M failed: their APKs are still right")
     # P-REL-14
     def test_P_REL_14_the_build_job_entry_point_deletes_them(self):
         rel = release("t", [asset(TV_OLD, updated_at="2026-11-02T03:00:00Z")], body="> ⚙️ » Patches: `Q/patches-0.6.0.mpp`")
         with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as notes:
             notes.write("> ⚙️ » Patches: `Q/patches-0.7.0.mpp`")
         self.addCleanup(os.unlink, notes.name)
-        with mock.patch.object(gen_site, "_get", return_value=rel), \
+        with mock.patch.object(gen_site, "_get", return_value=[rel]), \
                 mock.patch.object(prune_release, "delete_asset") as delete, redirect_stdout(io.StringIO()):
             self.assertEqual(prune_release.main(["--mislabeled", "t", notes.name, "2026-11-02T20:00:00Z"]), 0)
         delete.assert_called_once()
+        # a draft is not at /releases/tags/, and any failure here must not stop the release
+        with mock.patch.object(gen_site, "_get", return_value=[]), \
+                mock.patch.object(prune_release, "delete_asset") as delete, redirect_stdout(io.StringIO()):
+            self.assertEqual(prune_release.main(["--mislabeled", "t", notes.name, "2026-11-02T20:00:00Z"]), 0)
+        delete.assert_not_called()
+        with mock.patch.object(gen_site, "_get", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
+            self.assertEqual(prune_release.main(["--mislabeled", "t", notes.name, "2026-11-02T20:00:00Z"]), 0)
     # P-REL-15
     def test_P_REL_15_delete_and_live_urls_use_the_real_endpoints(self):
         with mock.patch.object(prune_release.urllib.request, "urlopen") as call:
@@ -292,6 +331,13 @@ class Verify(unittest.TestCase):
         bad = Path(self.tmp.name) / TV_NEW
         bad.write_bytes(os.urandom(1_100_000))
         self.assertIn("not a readable APK", self.check(bad)[0])
+        truncated = Path(self.tmp.name) / TV_NEW
+        with zipfile.ZipFile(truncated, "w") as zf:
+            zf.writestr("AndroidManifest.xml", manifest(package="p", versionName="1")[:30])
+            zf.writestr("padding", os.urandom(1_100_000))
+        self.assertIn("not a readable APK", self.check(truncated)[0], "a cut-off manifest raises struct.error")
+        with mock.patch.object(verify_apk, "signer_of", side_effect=struct.error("short")):
+            self.assertIn("cannot read the signature", self.check(make_apk(self.tmp.name, TV_NEW), "good")[0])
     # P-REL-23
     def test_P_REL_23_a_rejected_apk_is_deleted_and_the_job_fails(self):
         good = make_apk(self.tmp.name, TV_NEW)
@@ -314,10 +360,17 @@ class Verify(unittest.TestCase):
     # P-REL-25
     def test_P_REL_25_ci_without_the_expected_key_fails(self):
         good = make_apk(self.tmp.name, TV_NEW)
-        with mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "", "GITHUB_ACTIONS": "true"}), redirect_stdout(io.StringIO()):
-            self.assertEqual(verify_apk.main([str(good)]), 1)
         with mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "", "GITHUB_ACTIONS": ""}), redirect_stdout(io.StringIO()):
             self.assertEqual(verify_apk.main([str(good)]), 0)
+        self.assertTrue((good.parent / verify_apk.VERIFIED_MARK).exists(), "the upload step goes by this mark")
+        with mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "", "GITHUB_ACTIONS": "true"}), redirect_stdout(io.StringIO()):
+            self.assertEqual(verify_apk.main([str(good)]), 1)
+        self.assertFalse(good.exists(), "not checked for the key means it does not go out")
+    # P-REL-106
+    def test_P_REL_106_no_apks_leaves_no_mark(self):
+        with mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": "", "GITHUB_ACTIONS": ""}), redirect_stdout(io.StringIO()):
+            self.assertEqual(verify_apk.main([]), 0)
+
     # P-REL-26
     def test_P_REL_26_config_gives_each_clone_and_its_patches(self):
         config = ROOT / "config.toml"
@@ -371,6 +424,15 @@ TV_RELEASE = release("26.11.02-subs", [TV_NEW], published=NEW)
 
 class Check(unittest.TestCase):
     """Whether the daily check starts a build."""
+    # P-REL-98
+    def test_P_REL_98_a_same_day_rebuild_already_on_the_patches_is_not_repeated(self):
+        answers = self.answers(upstream_date="2026-11-03T00:00:00Z")  # newer than the release's date, same bundle
+        self.assertEqual(self.run_check([entry()], answers), [])
+    # P-REL-99
+    def test_P_REL_99_a_cancelled_runs_draft_does_not_carry_a_version(self):
+        draft = release("26.11.02-subs", [TV_NEW], published=None, draft=True)
+        rel = release("26.10.28-subs", [TV_OLD], published="2026-10-28T00:00:00Z")
+        self.assertTrue(matrix._stremio_needs_build("owner/repo", "subs", [entry()], Net(self.answers(ours=[draft, rel]))))
 
     def run_check(self, apps, answers):
         out = io.StringIO()
@@ -555,7 +617,7 @@ def world(**over):
         "pages": {"stremio-tv": f'<meta name="build-version" content="1.12.1-0.6.0"><a href="{APK_URL}">x</a>'},
         "apks": {APK_URL: {"package": "com.stremio.one.subs", "version": "1.12.1", "signer": "good"}},
         "feeds": {"stremio-tv": "1.12.1"},
-        "bundles": {"Qutaiba-Khader/stremio-subs-patches": "0.6.0"},
+        "bundles": {("Qutaiba-Khader/stremio-subs-patches", "latest"): "0.6.0"},
         "ci": {"id": 1, "created_at": "2026-11-03T10:00:00Z", "conclusion": "success"},
         "site_run": {"conclusion": "success"},
         "ci_failed_jobs": [],
@@ -601,6 +663,18 @@ class Health(unittest.TestCase):
         self.assertIn("apk-package:stremio-tv", problems(world(apks={APK_URL: {**good, "package": "x"}})))
         self.assertIn("apk-version:stremio-tv", problems(world(apks={APK_URL: {**good, "version": "1.0"}})))
         self.assertIn("apk-signer:stremio-tv", problems(world(apks={APK_URL: {**good, "signer": "bad"}})))
+        data = world(apks={APK_URL: {**good, "abis": {"arm64-v8a"}}})
+        data["obtainium"]["apps"][0]["arch"] = "armeabi-v7a"
+        self.assertIn("apk-cpu:stremio-tv", problems(data))
+        data = world(apks={APK_URL: {**good, "abis": {"armeabi-v7a"}}})
+        data["obtainium"]["apps"][0]["arch"] = "armeabi-v7a"
+        self.assertEqual(problems(data), {})
+    # P-REL-95
+    def test_P_REL_95_a_build_below_the_wanted_version_is_reported(self):
+        data = world()
+        data["releases"][0]["body"] += "\n- 🟢 » Stremio TV Clone: `1.12.1` (wanted 1.12.2)\n"
+        self.assertIn("wanted-behind:stremio-tv", release_check.check_offers(APPS, data))
+        self.assertEqual(release_check.grace_of("wanted-behind:x"), timedelta(days=3))
     # P-REL-53
     def test_P_REL_53_release_notes_with_no_bundle_are_caught(self):
         data = world()
@@ -610,7 +684,8 @@ class Health(unittest.TestCase):
     def test_P_REL_54_upstream_ahead_of_the_offer_is_caught(self):
         self.assertIn("feed-behind:stremio-tv", problems(world(feeds={"stremio-tv": "1.12.2"})))
         self.assertIn("check-error:feed:stremio-tv", problems(world(feeds={"stremio-tv": ""})))
-        self.assertIn("patches-behind:stremio-tv", problems(world(bundles={"Qutaiba-Khader/stremio-subs-patches": "0.7.0"})))
+        self.assertIn("patches-behind:stremio-tv", problems(world(bundles={("Qutaiba-Khader/stremio-subs-patches", "latest"): "0.7.0"})))
+        self.assertEqual(problems(world(bundles={("Qutaiba-Khader/stremio-subs-patches", "dev"): "9.9.9"})), {}, "another channel of the source")
         keyword_app = [{**APPS[0], "keywords": True}]
         self.assertEqual(release_check.check_upstream(keyword_app, world(feeds={"stremio-tv": "9"})), {})
     # P-REL-55
@@ -621,6 +696,9 @@ class Health(unittest.TestCase):
         self.assertIn("ci-stale", problems(world(ci={"created_at": "2026-11-01T10:00:00Z"})))
         self.assertIn("ci-failed:build (x)", problems(world(ci_failed_jobs=["build (x)"])))
         self.assertIn("site-failed", problems(world(site_run={"conclusion": "failure"})))
+        self.assertIn("site-failed", problems(world(site_run={"conclusion": "startup_failure"})))
+        self.assertEqual(problems(world(site_run={"conclusion": "cancelled"})), {}, "replaced in its queue")
+        self.assertIn("ci-failed", problems(world(ci={"id": 1, "created_at": "2026-11-03T10:00:00Z", "conclusion": "timed_out"})))
         self.assertIn("tests-failed", problems(world(tests_run={"conclusion": "failure"})))
         self.assertIn("sync-behind", problems(world(sync_behind=6)))
         self.assertIn("flow-test:readme row", problems(world(flow_failures=["readme row"])))
@@ -680,6 +758,17 @@ class Health(unittest.TestCase):
         code, report = self.run_main(world(releases=[]), {"check-error:releases": "cannot read"})
         self.assertEqual(code, 0)
         self.assertEqual(report["waiting"], ["cannot read"])
+    # P-REL-96
+    def test_P_REL_96_an_unread_page_does_not_claim_the_offer_is_wrong(self):
+        code, report = self.run_main(world(pages={}, latest={}, obtainium={"apps": []}), {"check-error:latest.json": "down"})
+        self.assertEqual((code, report["problems"]), (0, []))
+        self.assertEqual(report["waiting"], ["down"])
+    # P-REL-97
+    def test_P_REL_97_flow_test_findings_last_until_its_next_run(self):
+        state = {"problems": {"flow-test:row": {"first_seen": "2026-11-01T00:00:00Z", "text": "site flow test: row"}}}
+        code, report = self.run_main(world(flow_failures=None), state=state)
+        self.assertEqual(code, 1)
+        self.assertEqual(report["problems"], ["site flow test: row"])
     # P-REL-65
     def test_P_REL_65_a_running_build_skips_the_check(self):
         folder = tempfile.mkdtemp()
@@ -742,22 +831,25 @@ class Health(unittest.TestCase):
         self.assertEqual(release_check.feed_versions([{**APPS[0], "feed": "u#android_tv@1.0:5"}]), {}, "a pin is not compared")
         dev = [{**APPS[0], "source": "M/p", "patch_version": "dev"}]
         with mock.patch.object(gen_site, "_get", return_value=[{"tag_name": "v2.1.0-dev.9"}, {"tag_name": "v2.1.0-dev.14"}]):
-            self.assertEqual(release_check.patch_bundles(dev), {"M/p": "2.1.0-dev.14"})
+            self.assertEqual(release_check.patch_bundles(dev), {("M/p", "dev"): "2.1.0-dev.14"})
         with mock.patch.object(gen_site, "_get", return_value={"tag_name": "v0.6.0"}):
-            self.assertEqual(release_check.patch_bundles(APPS), {APPS[0]["source"]: "0.6.0"})
+            self.assertEqual(release_check.patch_bundles(APPS), {(APPS[0]["source"], "latest"): "0.6.0"})
     # P-REL-70
     def test_P_REL_70_flow_test_failures_are_read_from_its_log(self):
         with tempfile.NamedTemporaryFile("w", suffix=".log", delete=False, encoding="utf-8") as log:
             log.write("PASS  a\nFAIL  readme row  — detail\n")
         self.addCleanup(os.unlink, log.name)
+        self.assertEqual(release_check.flow_failures(log.name), ["readme row", "it did not finish"])
+        Path(log.name).write_text("PASS  a\nFAIL  readme row  — detail\n\n1/2 passed\n", encoding="utf-8")
         self.assertEqual(release_check.flow_failures(log.name), ["readme row"])
-        self.assertEqual(release_check.flow_failures(""), [])
-        self.assertEqual(release_check.flow_failures("/no/such/file"), [])
+        self.assertIsNone(release_check.flow_failures(""))
+        self.assertIsNone(release_check.flow_failures("/no/such/file"))
     # P-REL-71
     def test_P_REL_71_read_apk_turns_any_failure_into_a_finding(self):
         with mock.patch.object(release_check, "manifest_from_url", return_value=manifest(package="p", versionName="1")), \
+                mock.patch.object(release_check, "names_from_url", return_value=["lib/x86/a.so", "classes.dex"]), \
                 mock.patch.object(release_check, "signer_of", return_value="s"):
-            self.assertEqual(release_check.read_apk("u"), {"package": "p", "version": "1", "signer": "s"})
+            self.assertEqual(release_check.read_apk("u"), {"package": "p", "version": "1", "signer": "s", "abis": {"x86"}})
         with mock.patch.object(release_check, "manifest_from_url", side_effect=urllib.error.URLError("404")):
             self.assertIn("404", release_check.read_apk("u")["error"])
     # P-REL-72
@@ -867,12 +959,26 @@ class FakeUrl:
 class ApkReader(unittest.TestCase):
     """Reading a published APK without downloading it."""
 
+    # P-REL-104
+    def test_P_REL_104_file_names_are_read_over_http(self):
+        with mock.patch.object(apk_package.urllib.request, "urlopen", FakeUrl(signed_apk_bytes())):
+            self.assertEqual(apk_package.names_from_url("https://x/a.apk"), ["AndroidManifest.xml"])
+
+    # P-REL-105
+    def test_P_REL_105_live_pages_are_read_with_retries(self):
+        answer = mock.MagicMock()
+        answer.__enter__.return_value.read.return_value = b"page"
+        with mock.patch.object(release_check.urllib.request, "urlopen", side_effect=[OSError("reset"), answer]), mock.patch.object(release_check.time, "sleep"):
+            self.assertEqual(release_check._text("https://x/p"), "page")
+        with mock.patch.object(release_check.urllib.request, "urlopen", side_effect=OSError("reset")) as call, mock.patch.object(release_check.time, "sleep"):
+            with self.assertRaises(OSError):
+                release_check._text("https://x/p")
+        self.assertEqual(call.call_count, 3)
     # P-REL-76
     def test_P_REL_76_package_and_signer_over_http(self):
         with mock.patch.object(apk_package.urllib.request, "urlopen", FakeUrl(signed_apk_bytes())):
             self.assertEqual(apk_package.package_of("https://x/a.apk"), "a.b")
             self.assertEqual(apk_package.signer_of("https://x/a.apk"), __import__("hashlib").sha256(b"certificate").hexdigest())
-
     # P-REL-77
     def test_P_REL_77_a_local_file_reads_the_same(self):
         with tempfile.NamedTemporaryFile(suffix=".apk", delete=False) as f:
@@ -880,7 +986,6 @@ class ApkReader(unittest.TestCase):
         self.addCleanup(os.unlink, f.name)
         self.assertEqual(apk_package.package_of(f.name), "a.b")
         self.assertEqual(apk_package.signer_of(f.name), __import__("hashlib").sha256(b"certificate").hexdigest())
-
     # P-REL-78
     def test_P_REL_78_an_unsigned_or_broken_file_is_refused(self):
         with mock.patch.object(apk_package.urllib.request, "urlopen", FakeUrl(b"junk" * 40)):
@@ -899,14 +1004,12 @@ class ApkReader(unittest.TestCase):
         with mock.patch.object(apk_package.urllib.request, "urlopen", FakeUrl(signed_apk_bytes(scheme=0x1234))):
             with self.assertRaisesRegex(LookupError, "no v2/v3"):
                 apk_package.signer_of("https://x/a.apk")
-
     # P-REL-79
     def test_P_REL_79_utf16_string_pools_read_too(self):
         text = "x"
         raw = struct.pack("<H", len(text)) + text.encode("utf-16-le") + b"\0\0"
         pool = struct.pack("<HHIIIIII", 1, 28, 28 + 4 + len(raw), 1, 0, 0, 32, 0) + struct.pack("<I", 0) + raw
         self.assertEqual(apk_package._string_pool(pool, 0), [text])
-
     # P-REL-80
     def test_P_REL_80_the_command_line_prints_the_answer(self):
         out = io.StringIO()
@@ -931,22 +1034,18 @@ class BuildList(unittest.TestCase):
                 mock.patch.dict(os.environ, env or {}), redirect_stdout(out):
             matrix.get_matrix(source)
         return json.loads(out.getvalue())
-
     # P-REL-81
     def test_P_REL_81_each_app_of_the_brand_is_listed(self):
         got = self.matrix_of("subs", [entry(), entry(table="Other", brand="morphe")])
         self.assertEqual(got, {"include": [{"id": "Stremio-TV"}], "prerelease": False})
-
     # P-REL-82
     def test_P_REL_82_a_dev_brand_is_a_prerelease(self):
         dev = entry(patches={"github:M/p": {"version": "dev", "include": [], "exclude": []}})
         self.assertTrue(self.matrix_of("subs", [dev])["prerelease"])
-
     # P-REL-83
     def test_P_REL_83_an_unknown_source_stops_the_build(self):
         with mock.patch.object(matrix, "abort", side_effect=SystemExit(1)), self.assertRaises(SystemExit):
             self.matrix_of("nothing", [entry()])
-
     # P-REL-84
     def test_P_REL_84_keywords_filter_only_with_the_filter_on(self):
         keyed = entry(keywords=["photos"])
@@ -967,27 +1066,22 @@ class BuildList(unittest.TestCase):
                 mock.patch.dict(os.environ, {"GITHUB_REPOSITORY": "owner/repo"}), redirect_stdout(out):
             matrix.check_builds_needed(force_all=force)
         return json.loads(out.getvalue())
-
     # P-REL-85
     def test_P_REL_85_force_builds_every_brand_and_no_apps_builds_none(self):
         self.assertEqual(self.check([entry()], {}, force=True), ["subs"])
         self.assertEqual(self.check([], {}), [])
-
     # P-REL-86
     def test_P_REL_86_an_unreadable_upstream_builds_rather_than_misses(self):
         answers = {"releases/latest": RuntimeError("down"), "owner/repo/releases": []}
         self.assertEqual(self.check([entry(urls={})], answers), ["subs"])
-
     # P-REL-87
     def test_P_REL_87_a_removed_patch_repo_skips_that_brand(self):
         answers = {"releases/latest": matrix.ResourceNotFoundError("gone"), "owner/repo/releases": []}
         self.assertEqual(self.check([entry(urls={})], answers), [])
-
     # P-REL-88
     def test_P_REL_88_a_brand_with_no_release_yet_builds(self):
         answers = {"releases/latest": {"tag_name": "v1", "published_at": NEW}, "owner/repo/releases": []}
         self.assertEqual(self.check([entry(urls={})], answers), ["subs"])
-
     # P-REL-89
     def test_P_REL_89_feed_failures(self):
         net = Net({"api.strem.io": RuntimeError("down"), "owner/repo/releases": RuntimeError("down")})
@@ -997,14 +1091,12 @@ class BuildList(unittest.TestCase):
         net = Net({"api.strem.io": {"entries": [{"id": "android_tv", "value": {"versionName": "1", "tag": "v1", "versionCode": {"arm": "1"}}}]}, "owner/repo/releases": RuntimeError("down")})
         with mock.patch.object(matrix, "epr"):
             self.assertTrue(matrix._stremio_needs_build("owner/repo", "subs", [entry()], net), "our releases unreadable: build rather than miss")
-
     # P-REL-90
     def test_P_REL_90_the_newest_dev_release_is_found_by_date(self):
         net = Net({"releases?per_page": [{"published_at": "2026-10-01T00:00:00Z", "body": "old"}, {"published_at": "2026-11-01T00:00:00Z", "body": "new"}, {"draft": True, "published_at": "2026-12-01T00:00:00Z", "body": "draft"}]})
         self.assertEqual(matrix._fetch_latest_release("github:M/p", net, version="dev"), ("new", "2026-11-01T00:00:00Z"))
         gitlab = Net({"gitlab.com": {"description": "d", "released_at": "2026-01-01T00:00:00Z"}})
         self.assertEqual(matrix._fetch_latest_release("gitlab:a/b", gitlab), ("d", "2026-01-01T00:00:00Z"))
-
     # P-REL-91
     def test_P_REL_91_the_command_line_runs_the_right_check(self):
         with mock.patch.object(matrix, "_require_ci"), mock.patch.object(matrix, "check_builds_needed") as check, mock.patch.object(matrix, "get_matrix") as get:

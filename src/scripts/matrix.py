@@ -91,7 +91,8 @@ def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: Netwo
     except Exception as exc:
         epr(f"Failed to fetch our releases: {exc}")
         return True
-    names = [str(a.get("name") or "").lower() for r in releases if str(r.get("tag_name") or "").split("-", 1)[-1] == brand for a in r.get("assets", [])]
+    # morphe-builder: a draft does not count: a cancelled run leaves one, and nobody can download from it
+    names = [str(a.get("name") or "").lower() for r in releases if not r.get("draft") and str(r.get("tag_name") or "").split("-", 1)[-1] == brand for a in r.get("assets", [])]
     missing = sorted(f"{stem} {v}" for stem, v in wanted if not any(n.startswith(f"{stem}-v{v.lower()}-") for n in names))
     if missing:
         epr(f"No release carries {', '.join(missing)}: building brand '{brand}'")
@@ -226,30 +227,31 @@ def check_builds_needed(force_all: bool = False) -> None:
 
             if not our_date:
                 brands_to_build.append(brand)
-            elif upstream_date and datetime.fromisoformat(upstream_date) > datetime.fromisoformat(our_date):
+                continue
+            behind: list[str] | None = None
+            spec = next(iter(entries_by_brand[brand][0].patches.values()))
+            try:
+                expected = _expected_bundle(patches_source, spec["version"], net)
+                raw = json.loads(net.get(f"https://api.github.com/repos/{repo}/releases?per_page=100", headers=net.gh_headers))
+                behind = _apps_behind(brand, entries_by_brand[brand], patches_source, expected, raw) if expected[:1].isdigit() else None
+            except Exception as exc:
+                epr(f"Could not compare '{brand}' with its patches: {exc}")
+            if upstream_date and datetime.fromisoformat(upstream_date) > datetime.fromisoformat(our_date):
                 changelog_lower = changelog_text.lower()
                 has_apps = False
                 for app in entries_by_brand.get(brand, []):
                     if not app.changelog_keywords or any(kw in changelog_lower for kw in app.changelog_keywords):
                         has_apps = True
                         break
-                if has_apps:
+                # A same-day rebuild keeps the release's date, so a date alone would rebuild it at every check.
+                keyed = any(app.changelog_keywords for app in entries_by_brand.get(brand, []))
+                if has_apps and (behind is None or behind or keyed):
                     brands_to_build.append(brand)
-            if brand not in brands_to_build and our_date:
-                # A retry at most once a day, so one app that cannot build does not rebuild its brand every run.
-                age = datetime.now(UTC) - datetime.fromisoformat(our_date)
-                spec = next(iter(entries_by_brand[brand][0].patches.values()), {"version": "latest"})
-                if age > RETRY_AFTER:
-                    try:
-                        expected = _expected_bundle(patches_source, spec["version"], net)
-                        raw = json.loads(net.get(f"https://api.github.com/repos/{repo}/releases?per_page=100", headers=net.gh_headers))
-                        behind = _apps_behind(brand, entries_by_brand[brand], patches_source, expected, raw) if expected[:1].isdigit() else []
-                    except Exception as exc:
-                        epr(f"Could not compare '{brand}' with its patches: {exc}")
-                        behind = []
-                    if behind:
-                        epr(f"Not on patches {expected}: {', '.join(behind)}: building brand '{brand}'")
-                        brands_to_build.append(brand)
+                    continue
+            # A retry at most once a day, so one app that cannot build does not rebuild its brand every run.
+            if behind and datetime.now(UTC) - datetime.fromisoformat(our_date) > RETRY_AFTER:
+                epr(f"Not on the wanted patches or version: {', '.join(behind)}: building brand '{brand}'")
+                brands_to_build.append(brand)
         for brand, apps in entries_by_brand.items():
             if brand not in brands_to_build and any("stremio" in a.dl_urls for a in apps) and _stremio_needs_build(repo, brand, apps, net):
                 brands_to_build.append(brand)

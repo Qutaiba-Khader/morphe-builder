@@ -12,7 +12,7 @@ on:
       - 'config.toml'
       - 'flowmap.json'
       - 'docs/flow-map/**'
-      - '.github/workflows/tests.yml'
+      - '.github/workflows/**'
   pull_request:
   workflow_dispatch:
 

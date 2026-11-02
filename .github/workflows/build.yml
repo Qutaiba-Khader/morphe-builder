@@ -156,6 +156,10 @@ jobs:
         run: |
           shopt -s nullglob
           apks=(./build/*.apk)
+          if [[ ${#apks[@]} -gt 0 && ! -f ./build/.verified ]]; then
+            echo "::error title=APK rejected::the check did not finish, so nothing is uploaded"
+            exit 1
+          fi
           if [[ ${#apks[@]} -eq 0 ]]; then
             echo "No APKs to upload, skipping"
             exit 0
@@ -214,8 +218,13 @@ jobs:
         run: |
           mkdir -p logs
           # No log = every build of this run failed, and the APKs here are from an earlier one.
-          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "build-*.md" --dir logs || echo "::warning::no build logs in $TAG"
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[] | select(.name | startswith("build-")) | .apiUrl' | xargs -I{} gh api --method DELETE "{}"
+          # A log that exists must download: a failure here must not pass for "no logs".
+          count=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '[.assets[].name | select(startswith("build-"))] | length')
+          if [ "$count" -gt 0 ]; then
+            gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern "build-*.md" --dir logs
+          else
+            echo "::warning::no build logs in $TAG"
+          fi
 
       - name: Combine logs and finalize release
         if: steps.check.outputs.has_apks == 'true'
@@ -224,6 +233,7 @@ jobs:
           TAG: ${{ needs.prepare.outputs.version }}
           PRERELEASE: ${{ needs.prepare.outputs.prerelease }}
         run: |
+          set -o pipefail
           uv run python -m src.scripts.logs combine-logs logs | sed "s/{TAG}/$TAG/g" > final.md
           [ -s final.md ] && python3 tools/prune_release.py --mislabeled "$TAG" final.md "${{ needs.prepare.outputs.started }}"
           notes=(); [ -s final.md ] && notes=(--notes-file final.md)  # no new logs: keep the notes that describe the APKs
@@ -232,6 +242,8 @@ jobs:
           else
             gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --title "$TAG" "${notes[@]}"
           fi
+          # Only now: until the release is finalized the logs are what a re-run needs.
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[] | select(.name | startswith("build-")) | .apiUrl' | xargs -I{} gh api --method DELETE "{}"
 
       - name: Send Telegram notification
         if: steps.check.outputs.has_apks == 'true' && env.TG_TOKEN != '' && env.TG_CHAT != ''

@@ -98,6 +98,18 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-92 | tools/gen_site.py collect | an apk still uploading is not offered | as named | `test_P_REL_92_an_apk_still_uploading_is_not_offered` | gen_site.py collect |
 | P-REL-93 | tools/gen_site.py collect | architectures are ordered by version | as named | `test_P_REL_93_architectures_are_ordered_by_version` | gen_site.py collect |
 | P-REL-94 | sig.txt against config.toml | every enabled app has a stock signature to check | as named | `test_P_REL_94_every_enabled_app_has_a_stock_signature_to_check` | sig.txt |
+| P-REL-100 | build.yml | nothing uploads before the check | as named | `test_P_REL_100_nothing_uploads_before_the_check` | build.yml |
+| P-REL-101 | build.yml | a rebuild never drafts a published release | as named | `test_P_REL_101_a_rebuild_never_drafts_a_published_release` | build.yml |
+| P-REL-102 | ci.yml | a crashed check cannot look like nothing new | as named | `test_P_REL_102_a_crashed_check_cannot_look_like_nothing_new` | ci.yml |
+| P-REL-103 | site.yml, health.yml | the site prunes after publishing and health keeps its state | as named | `test_P_REL_103_the_site_prunes_after_publishing_and_health_keeps_its_state` | site.yml, health.yml |
+| P-REL-104 | apk_package.py names_from_url | file names are read over http | as named | `test_P_REL_104_file_names_are_read_over_http` | apk_package.py |
+| P-REL-105 | release_check.py _text | live pages are read with retries | as named | `test_P_REL_105_live_pages_are_read_with_retries` | release_check.py |
+| P-REL-106 | verify_apk.py main | no apks leaves no mark | as named | `test_P_REL_106_no_apks_leaves_no_mark` | verify_apk.py |
+| P-REL-98 | matrix.py check_builds_needed | a same day rebuild already on the patches is not repeated | as named | `test_P_REL_98_a_same_day_rebuild_already_on_the_patches_is_not_repeated` | matrix.py check_builds_needed |
+| P-REL-99 | matrix.py _stremio_needs_build | a cancelled runs draft does not carry a version | as named | `test_P_REL_99_a_cancelled_runs_draft_does_not_carry_a_version` | matrix.py _stremio_needs_build |
+| P-REL-95 | release_check.py | a build below the wanted version is reported | as named | `test_P_REL_95_a_build_below_the_wanted_version_is_reported` | release_check.py |
+| P-REL-96 | release_check.py main | an unread page does not claim the offer is wrong | as named | `test_P_REL_96_an_unread_page_does_not_claim_the_offer_is_wrong` | release_check.py main |
+| P-REL-97 | release_check.py main | flow test findings last until its next run | as named | `test_P_REL_97_flow_test_findings_last_until_its_next_run` | release_check.py main |
 
 ## Mode combinations
 

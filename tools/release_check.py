@@ -13,6 +13,7 @@ import json
 import os
 import re
 import sys
+import time
 import tomllib
 import urllib.error
 import urllib.request
@@ -22,7 +23,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
-from apk_package import manifest_attrs, manifest_from_url, signer_of  # noqa: E402
+from apk_package import manifest_attrs, manifest_from_url, names_from_url, signer_of  # noqa: E402
 from gen_catalog import _upstream_ver_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -35,10 +36,14 @@ GRACE = {
     "feed-behind": timedelta(hours=14),
     "patches-behind": timedelta(hours=14),
     "offered-stale": timedelta(hours=1),
+    "apk-unreachable": timedelta(hours=2),
+    "wanted-behind": timedelta(days=3),
     "sync-behind": timedelta(days=7),
     "check-error": timedelta(hours=12),
 }
 CI_MAX_AGE = timedelta(hours=30)
+# Not "cancelled": a run another run replaced in its queue is normal.
+BAD_CONCLUSIONS = ("failure", "startup_failure", "timed_out", "action_required")
 
 
 def enabled_apps() -> list[dict[str, Any]]:
@@ -47,7 +52,7 @@ def enabled_apps() -> list[dict[str, Any]]:
     default_brand = str(data.get("brand", "Morphe"))
     apps = []
     for table, body in data.items():
-        if not isinstance(body, dict) or body.get("enabled") is not True:
+        if not isinstance(body, dict) or body.get("enabled", True) is not True:
             continue
         patches = body.get("patches") or {}
         source, spec = next(iter(patches.items()), ("", {}))
@@ -97,6 +102,11 @@ def check_offers(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, 
         if not entry["build_version"].startswith(have.get("version", "") + "-"):
             found[f"page-version:{app_id}"] = f"{app_id}: update version {entry['build_version']} does not start with {have.get('version')}"
         found.update(_check_apk(app_id, entry, have, data))
+        notes = next((str(r.get("body") or "") for r in data["releases"] if r.get("tag_name") == have.get("tag")), "")
+        for line in notes.splitlines():
+            wanted = re.search(r"\(wanted ([^)]+)\)", line)
+            if wanted and have.get("version", "\0") in line:
+                found[f"wanted-behind:{app_id}"] = f"{app_id}: built on {have.get('version')} because {wanted.group(1)} cannot be downloaded yet"
     return found
 
 
@@ -109,6 +119,9 @@ def _check_apk(app_id: str, entry: dict[str, Any], have: dict[str, Any], data: d
         found[f"apk-package:{app_id}"] = f"{app_id}: the APK is {apk.get('package')}, the update entry says {entry.get('package')}"
     if apk.get("version") not in (None, have.get("version")):
         found[f"apk-version:{app_id}"] = f"{app_id}: the APK says version {apk.get('version')}, the site says {have.get('version')}"
+    arch, abis = entry.get("arch"), apk.get("abis")
+    if abis is not None and arch not in (None, "all") and arch not in abis:
+        found[f"apk-cpu:{app_id}"] = f"{app_id}: built for {arch}, but its libraries are for {sorted(abis) or 'nothing'}"
     if data.get("signer") and apk.get("signer") != data["signer"]:
         found[f"apk-signer:{app_id}"] = f"{app_id}: the APK is signed with {apk.get('signer')}: phones cannot update to it"
     return found
@@ -127,7 +140,7 @@ def check_upstream(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str
             found[f"check-error:feed:{app['id']}"] = f"{app['id']}: Stremio's feed no longer lists its entry"
         elif feed_version and feed_version != have.get("version"):
             found[f"feed-behind:{app['id']}"] = f"{app['id']}: Stremio publishes {feed_version}, we offer {have.get('version')}"
-        bundle = data["bundles"].get(app["source"])
+        bundle = data["bundles"].get((app["source"], app["patch_version"]))
         if bundle:
             org = app["source"].split("/", 1)[0].lower()
             mine = [p.get("version") for p in have.get("patches") or [] if p.get("file", "").lower().startswith(org + "/")]
@@ -147,11 +160,11 @@ def check_runs(data: dict[str, Any], now: datetime) -> dict[str, str]:
     for app_id in (data["obtainium"].get("unknown_package") or []):
         found[f"package-unknown:{app_id}"] = f"{app_id}: its package could not be read: it gets no update entry"
     site = data.get("site_run")
-    if site and site.get("conclusion") == "failure":
-        found["site-failed"] = "the Site workflow failed: phones keep being offered the last published versions"
+    if site and site.get("conclusion") in BAD_CONCLUSIONS:
+        found["site-failed"] = f"the Site workflow ended {site['conclusion']}: phones keep being offered the last published versions"
     tests = data.get("tests_run")
-    if tests and tests.get("conclusion") == "failure":
-        found["tests-failed"] = "the release flow tests failed on the newest code"
+    if tests and tests.get("conclusion") in BAD_CONCLUSIONS:
+        found["tests-failed"] = f"the release flow tests ended {tests['conclusion']} on the newest code"
     ci = data.get("ci")
     if not ci:
         found["ci-stale"] = "the CI workflow has no runs"
@@ -161,6 +174,8 @@ def check_runs(data: dict[str, Any], now: datetime) -> dict[str, str]:
             found["ci-stale"] = f"the daily check last ran {int(age.total_seconds() // 3600)} h ago: GitHub may have stopped the schedule"
         for job in data.get("ci_failed_jobs") or []:
             found[f"ci-failed:{job}"] = f"the build failed: {job}"
+        if ci.get("conclusion") in BAD_CONCLUSIONS and not data.get("ci_failed_jobs"):
+            found["ci-failed"] = f"the daily check ended {ci['conclusion']} with no failed job to name"
     if data.get("sync_behind"):
         found["sync-behind"] = f"{data['sync_behind']} upstream commits are not merged: the sync may be stuck"
     for name in data.get("flow_failures") or []:
@@ -195,15 +210,23 @@ def active(state: dict[str, Any], now: datetime) -> list[str]:
 def read_apk(url: str) -> dict[str, Any]:
     try:
         attrs = manifest_attrs(manifest_from_url(url))
-        return {"package": attrs.get("package"), "version": attrs.get("versionName"), "signer": signer_of(url)}
+        abis = {n.split("/")[1] for n in names_from_url(url) if n.startswith("lib/") and n.count("/") >= 2}
+        return {"package": attrs.get("package"), "version": attrs.get("versionName"), "signer": signer_of(url), "abis": abis}
     except Exception as exc:  # noqa: BLE001 - any failure to read it is the finding
         return {"error": str(exc)[:200]}
 
 
 def _text(url: str) -> str:
     req = urllib.request.Request(f"{url}?_={int(datetime.now().timestamp())}", headers={"User-Agent": "morphe-builder-health"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode("utf-8", "replace")
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                return resp.read().decode("utf-8", "replace")
+        except OSError:
+            if attempt == 2:
+                raise
+            time.sleep(5 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 def feed_versions(apps: list[dict[str, Any]]) -> dict[str, str]:
@@ -214,14 +237,14 @@ def feed_versions(apps: list[dict[str, Any]]) -> dict[str, str]:
     return {a["id"]: str((entries.get(a["feed"].partition("#")[2]) or {}).get("versionName") or "") for a in wanted}
 
 
-def patch_bundles(apps: list[dict[str, Any]]) -> dict[str, str]:
-    out: dict[str, str] = {}
+def patch_bundles(apps: list[dict[str, Any]]) -> dict[tuple[str, str], str]:
+    out: dict[tuple[str, str], str] = {}
     for source, version in {(a["source"], a["patch_version"]) for a in apps if a["source"]}:
         if version == "dev":
             tags = [r["tag_name"] for r in gen_site._get(f"{gen_site.API}/repos/{source}/releases?per_page=100")]
-            out[source] = max(tags, key=_upstream_ver_key).lstrip("v")
+            out[source, version] = max(tags, key=_upstream_ver_key).lstrip("v")
         else:
-            out[source] = str(gen_site._get(f"{gen_site.API}/repos/{source}/releases/latest")["tag_name"]).lstrip("v")
+            out[source, version] = str(gen_site._get(f"{gen_site.API}/repos/{source}/releases/latest")["tag_name"]).lstrip("v")
     return out
 
 
@@ -269,10 +292,15 @@ def gather(repo: str, site_url: str, apps: list[dict[str, Any]]) -> tuple[dict[s
     }, errors
 
 
-def flow_failures(path: str) -> list[str]:
+def flow_failures(path: str) -> list[str] | None:
+    """The names of the failed flow tests; None when it did not run on this check."""
     if not path or not Path(path).exists():
-        return []
-    return [line[6:].split("  — ")[0].strip() for line in Path(path).read_text(encoding="utf-8").splitlines() if line.startswith("FAIL  ")]
+        return None
+    lines = Path(path).read_text(encoding="utf-8").splitlines()
+    failed = [line[6:].split("  — ")[0].strip() for line in lines if line.startswith("FAIL  ")]
+    if not any(re.fullmatch(r"\d+/\d+ passed", line.strip()) for line in lines):
+        failed.append("it did not finish")
+    return failed
 
 
 def main() -> int:
@@ -294,9 +322,14 @@ def main() -> int:
 
     apps = enabled_apps()
     data, errors = gather(repo, site_url, apps)
-    problems = {**errors, **check_offers(apps, data), **check_upstream(apps, data), **check_runs(data, now)}
+    # A source that could not be read says nothing about the offer: it waits as its own problem.
+    unread = any(k.startswith(("check-error:latest", "check-error:obtainium", "check-error:update page")) for k in errors)
+    offers = {} if unread else check_offers(apps, data)
+    problems = {**errors, **offers, **check_upstream(apps, data), **check_runs(data, now)}
     if "check-error:releases" in errors:
         problems = {k: v for k, v in problems.items() if k.startswith("check-error")}  # no releases read: nothing else can be judged
+    if data["flow_failures"] is None:  # the flow test runs once a day: its findings last until the next one
+        problems.update({k: rec["text"] for k, rec in (state.get("problems") or {}).items() if k.startswith("flow-test:")})
     new_state = update_state(state, problems, now)
     state_file.write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
     now_active = active(new_state, now)

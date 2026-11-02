@@ -56,8 +56,8 @@
  {
   "id": "G-CHECK-retry-day",
   "file": "src/scripts/matrix.py",
-  "find": "if age > RETRY_AFTER:",
-  "replace": "if True:"
+  "find": "if behind and datetime.now(UTC) - datetime.fromisoformat(our_date) > RETRY_AFTER:",
+  "replace": "if behind:"
  },
  {
   "id": "G-FALLBACK-floor",

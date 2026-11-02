@@ -9,6 +9,8 @@ on:
     types: [completed]
   schedule:
     - cron: '15 */6 * * *'
+    # once a day with the whole-site flow test, which reads every published APK
+    - cron: '45 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -44,13 +46,13 @@ jobs:
         run: sleep 150
 
       - uses: actions/setup-node@v5
-        if: github.event_name != 'workflow_run'
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '45 3 * * *'
         with:
           node-version: 22
 
-      # The whole-site flow test, on the six-hourly run: it reads every published APK.
+      # The whole-site flow test: it reads every published APK, so once a day.
       - name: Site flow test
-        if: github.event_name != 'workflow_run'
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '45 3 * * *'
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -20,6 +20,7 @@ from apk_package import manifest_attrs, signer_of  # noqa: E402
 
 NAME_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|armeabi-v7a|x86_64|x86)\.apk$")
 MIN_BYTES = 1_000_000
+VERIFIED_MARK = ".verified"
 
 # What a patch source must leave in the app. A patch that applied writes its extension
 # classes into the dex files; if they are absent the app would run unpatched.
@@ -73,7 +74,7 @@ def problems(apk: Path, sources_by_stem: dict[str, list[str]], want_signer: str,
             for marker in markers:
                 if not any(marker in zf.read(n) for n in dex):
                     found.append(f"patch marker {marker.decode()} is not in the app")
-    except (zipfile.BadZipFile, KeyError, LookupError, OSError) as exc:
+    except Exception as exc:  # noqa: BLE001 - whatever makes it unreadable, it does not go out
         return [f"not a readable APK: {exc}"]
 
     if not attrs.get("package"):
@@ -90,7 +91,7 @@ def problems(apk: Path, sources_by_stem: dict[str, list[str]], want_signer: str,
     if want_signer:
         try:
             signer = signer_of(str(apk))
-        except (LookupError, OSError) as exc:
+        except Exception as exc:  # noqa: BLE001
             found.append(f"cannot read the signature: {exc}")
         else:
             if signer != want_signer:
@@ -103,10 +104,13 @@ def main(argv: list[str]) -> int:
     sources = patch_sources(root / "config.toml")
     packages = clone_package(root / "config.toml")
     want = os.getenv("SIGNING_CERT_SHA256", "").replace(":", "").strip().lower()
+    apks = [Path(a) for a in argv]
     if not want and os.getenv("GITHUB_ACTIONS"):
         print("::error title=APK rejected::the repository variable SIGNING_CERT_SHA256 is not set")
+        for apk in apks:
+            apk.unlink(missing_ok=True)
+        Path("build.md").unlink(missing_ok=True)
         return 1
-    apks = [Path(a) for a in argv]
     failed = 0
     for apk in apks:
         found = problems(apk, sources, want, packages)
@@ -119,6 +123,9 @@ def main(argv: list[str]) -> int:
             print(f"ok {apk.name}")
     if failed and not any(a.exists() for a in apks):
         Path("build.md").unlink(missing_ok=True)  # nothing of this job is released, so its notes are not either
+    # The upload step goes only by this mark: a check that crashed leaves none, and nothing is uploaded.
+    if apks:
+        (apks[0].parent / VERIFIED_MARK).write_text("ok", encoding="utf-8")
     return 1 if failed else 0
 
 

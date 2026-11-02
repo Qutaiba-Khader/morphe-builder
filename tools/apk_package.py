@@ -107,6 +107,15 @@ def package_from_url(url: str) -> str:
 
 def manifest_from_url(url: str) -> bytes:
     """Read AndroidManifest.xml using HTTP range requests only."""
+    return _read_remote(url)[0]
+
+
+def names_from_url(url: str) -> list[str]:
+    """The names of the files in the APK, using HTTP range requests only."""
+    return _read_remote(url)[1]
+
+
+def _read_remote(url: str) -> tuple[bytes, list[str]]:
     with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=60) as head:
         total = int(head.headers["Content-Length"])
         url = head.geturl()
@@ -120,6 +129,8 @@ def manifest_from_url(url: str) -> bytes:
 
     cd = tail[-(total - cd_off) :] if cd_off >= total - tail_len else _fetch(url, cd_off, cd_off + cd_size - 1)
 
+    names: list[str] = []
+    found = None
     p = 0
     while p + 46 <= len(cd) and cd[p : p + 4] == b"PK\x01\x02":
         method, = struct.unpack_from("<H", cd, p + 10)
@@ -127,6 +138,7 @@ def manifest_from_url(url: str) -> bytes:
         name_len, extra_len, comment_len = struct.unpack_from("<HHH", cd, p + 28)
         local_off, = struct.unpack_from("<I", cd, p + 42)
         name = cd[p + 46 : p + 46 + name_len].decode("utf-8", "replace")
+        names.append(name)
         if name == "AndroidManifest.xml":
             local = _fetch(url, local_off, local_off + 30 + 65536)
             ln_len, le_len = struct.unpack_from("<HH", local, 26)
@@ -135,9 +147,11 @@ def manifest_from_url(url: str) -> bytes:
             blob = local[data_at : data_at + comp_size]
             if len(blob) < comp_size:
                 blob = _fetch(url, local_off + data_at, need)
-            return zlib.decompress(blob, -15) if method == 8 else blob
+            found = zlib.decompress(blob, -15) if method == 8 else blob
         p += 46 + name_len + extra_len + comment_len
-    raise LookupError("AndroidManifest.xml not in the central directory")
+    if found is None:
+        raise LookupError("AndroidManifest.xml not in the central directory")
+    return found, names
 
 
 # ------------------------------------------------------------ signing block
