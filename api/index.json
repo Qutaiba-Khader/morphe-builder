@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-01T22:16:25Z",
+  "generated": "2026-11-02T03:22:11Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -24,7 +24,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "2026.40.0",
-      "updated": "2026-10-30T16:38:52Z",
+      "updated": "2026-11-02T03:21:00Z",
       "versions": 3,
       "api": "api/apps/reddit.json"
     },
@@ -46,7 +46,7 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "2.5.0",
-      "updated": "2026-10-28T16:33:42Z",
+      "updated": "2026-11-02T03:21:51Z",
       "versions": 2,
       "api": "api/apps/stremio-phone.json"
     },
@@ -57,7 +57,7 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.0",
-      "updated": "2026-10-28T16:33:42Z",
+      "updated": "2026-11-02T03:21:51Z",
       "versions": 2,
       "api": "api/apps/stremio-tv.json"
     },
@@ -68,7 +68,7 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.0",
-      "updated": "2026-10-28T16:33:42Z",
+      "updated": "2026-11-02T03:21:51Z",
       "versions": 2,
       "api": "api/apps/stremio-tv-replace.json"
     },
@@ -90,7 +90,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "21.30.216",
-      "updated": "2026-10-30T16:38:52Z",
+      "updated": "2026-11-02T03:21:00Z",
       "versions": 4,
       "api": "api/apps/youtube.json"
     },
