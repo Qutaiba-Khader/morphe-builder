@@ -970,6 +970,8 @@ class ApkReader(unittest.TestCase):
         answer.__enter__.return_value.read.return_value = b"page"
         with mock.patch.object(release_check.urllib.request, "urlopen", side_effect=[OSError("reset"), answer]), mock.patch.object(release_check.time, "sleep"):
             self.assertEqual(release_check._text("https://x/p"), "page")
+        with mock.patch.object(release_check.urllib.request, "urlopen", side_effect=[OSError("reset"), OSError("reset"), answer]), mock.patch.object(release_check.time, "sleep"):
+            self.assertEqual(release_check._text("https://x/p"), "page")
         with mock.patch.object(release_check.urllib.request, "urlopen", side_effect=OSError("reset")) as call, mock.patch.object(release_check.time, "sleep"):
             with self.assertRaises(OSError):
                 release_check._text("https://x/p")

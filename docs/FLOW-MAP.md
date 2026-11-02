@@ -10,7 +10,7 @@ python3 tools/flow/flowmap.py update    # mechanical update: line numbers, skele
 ```
 
 <!-- TOTALS:START -->
-**Last clean pass 2026-11-03 00:13:40 +0300:** 90 paths, 0 gate tests · lines 1229/1581 (77.7%) · branches 401/608 (66.0%) · 0 justified, 0 unjustified.
+**Last clean pass 2026-11-03 00:25:30 +0300:** 102 paths, 0 gate tests · lines 1279/1628 (78.6%) · branches 419/624 (67.1%) · 0 justified, 0 unjustified.
 <!-- TOTALS:END -->
 
 ## Areas
