@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T21:29:56Z",
+  "generated": "2026-11-02T21:34:53Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -79,7 +79,7 @@
       "brand": "Metra",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "46.2.3",
-      "updated": "2026-10-22T15:02:41Z",
+      "updated": "2026-11-02T21:33:39Z",
       "versions": 1,
       "api": "api/apps/tiktok.json"
     },

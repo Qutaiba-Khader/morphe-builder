@@ -1,7 +1,45 @@
 {
-  "generated": "2026-11-02T21:29:56Z",
+  "generated": "2026-11-02T21:34:53Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
+    "tiktok": {
+      "id": "tiktok",
+      "name": "TikTok",
+      "package": "com.zhiliaoapp.musically",
+      "brand": "Metra",
+      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
+      "source_package": "com.zhiliaoapp.musically",
+      "icon": "https://play-lh.googleusercontent.com/2o7iuqPe-0msP3DvNhzoOgNo4eZ6GkL_RtGVeKyBn5UBQAW5cw-GW5V3wDOHB1yTQuqWzrFLFOv2u4_5ea1uhg=s128-rw",
+      "patch_sources": [
+        "icysymmetra/tiktok-patches-for-morphe"
+      ],
+      "version": "46.2.3",
+      "tag": "26.11.02-metra",
+      "published": "2026-11-02T21:33:39Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.02-metra",
+      "patches": [
+        {
+          "file": "icysymmetra/patches-0.8.1.mpp",
+          "version": "0.8.1"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-1.20.0-all.jar",
+        "version": "1.20.0"
+      },
+      "files": [
+        {
+          "arch": "all",
+          "size": 600857898,
+          "sha256": "40263d9c6252f57e4b91b7b6d83c2a5d2a57ed925141de3446beb09ca3a36866",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-metra/tiktok-metra-v46.2.3-all.apk",
+          "name": "tiktok-metra-v46.2.3-all.apk"
+        }
+      ],
+      "rebuilds": 4
+    },
     "reddit-experimental": {
       "id": "reddit-experimental",
       "name": "Reddit Experimental",
@@ -281,44 +319,6 @@
         }
       ],
       "rebuilds": 2
-    },
-    "tiktok": {
-      "id": "tiktok",
-      "name": "TikTok",
-      "package": "com.zhiliaoapp.musically",
-      "brand": "Metra",
-      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "source_package": "com.zhiliaoapp.musically",
-      "icon": "https://play-lh.googleusercontent.com/2o7iuqPe-0msP3DvNhzoOgNo4eZ6GkL_RtGVeKyBn5UBQAW5cw-GW5V3wDOHB1yTQuqWzrFLFOv2u4_5ea1uhg=s128-rw",
-      "patch_sources": [
-        "icysymmetra/tiktok-patches-for-morphe"
-      ],
-      "version": "46.2.3",
-      "tag": "26.10.22-metra",
-      "published": "2026-10-22T15:02:41Z",
-      "prerelease": false,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.10.22-metra",
-      "patches": [
-        {
-          "file": "icysymmetra/patches-0.8.1.mpp",
-          "version": "0.8.1"
-        }
-      ],
-      "cli": {
-        "file": "MorpheApp/morphe-desktop-1.18.1-all.jar",
-        "version": "1.18.1"
-      },
-      "files": [
-        {
-          "arch": "all",
-          "size": 597347508,
-          "sha256": "03c42b6037c3350d1ecf2b4ab2f568becafabefd46a433f86e859ce18689e918",
-          "downloads": 159,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.22-metra/tiktok-metra-v46.2.3-all.apk",
-          "name": "tiktok-metra-v46.2.3-all.apk"
-        }
-      ],
-      "rebuilds": 3
     }
   }
 }
