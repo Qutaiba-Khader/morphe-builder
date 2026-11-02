@@ -78,23 +78,17 @@ def fetch_mpp(src: str, ver: str, net: NetworkManager) -> Path:
 
 def _get_target_asset(assets: list[dict[str, Any]], ext: str, src: str, ver: str) -> dict[str, Any]:
     suffix = f".{ext}"
-    matches: list[dict[str, Any]] = []
-    non_dev: list[dict[str, Any]] = []
-    for a in assets:
-        name = a.get("name", "")
-        if not name.endswith(suffix):
-            continue
-        matches.append(a)
-        if "-dev" not in name:
-            non_dev.append(a)
-
-    target = non_dev if (len(matches) > 1 and non_dev) else matches
-    if not target:
+    matches: list[dict[str, Any]] = [a for a in assets if a.get("name", "").endswith(suffix)]
+    if not matches:
         raise PrebuiltsError(f"No asset (.{ext}) found for {src} @ {ver}")
 
-    if len(target) > 1:
-        wpr(f"More than 1 asset found for {src} @ {ver}, falling back to the first one")
-    return target[0]
+    # morphe-builder: a release can hold the previous bundle too: icysymmetra's v0.9.0-dev.7 has
+    # patches-0.9.0-dev.6.mpp and patches-0.9.0-dev.7.mpp. The file of this tag, else the highest.
+    if len(matches) > 1:
+        wpr(f"More than 1 asset found for {src} @ {ver}: {[a.get('name') for a in matches]}")
+    tag = ver.lstrip("v")
+    exact = [a for a in matches if a.get("name", "").removesuffix(suffix).endswith(f"-{tag}")]
+    return (exact or [max(matches, key=lambda a: _ver_key(a.get("name", "").split("-", 1)[-1]))])[0]
 
 def _build_changelog(tag: str, org: str, name: str, tag_name: str, gitlab: bool, clean_src: str) -> str:
     changelog = f"> ⚙️ » {tag}: `{org}/{name}`  \n"

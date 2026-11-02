@@ -139,6 +139,7 @@ Each app gets its patch bundle's **recommended** set, the patches the authors sw
 
 - `GmsCore support` is added by the builder. It is what makes a non-root YouTube work (with MicroG-RE), and it is also what renames the app to `app.morphe.android.youtube`.
 - The pre-release builds keep `Clone app` on purpose, because it gives them their own package. For YouTube the package has to be passed to it explicitly (`-e 'Clone app' -OpackageName=…`): `GmsCore support` asks `Clone app` for the package and falls back to `app.morphe.android.youtube` only while that option is still `Default`. A Morphe CLI `-O` option belongs to the `-e` right before it.
+- YouTube Experimental keeps `Disable Play Store updates`: it sets the versionCode to the maximum, because real YouTube builds went down in versionCode twice and Android refuses that.
 - `Disable Play Store updates` needs an explicit exclude because the builder force-enables it. The CLI resolves `-d` over a later `-e`, and the build log confirms it with `Skipping disabled: Disable Play Store updates`. Without it the Play Store is no longer blocked from updating a patched app; that is harmless for YouTube, which is renamed, but worth knowing for an app that keeps its original package.
 
 </details>

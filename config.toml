@@ -78,9 +78,10 @@ version = "exp"
 patcher-args = "-e 'Clone app' -OpackageName=app.morphe.android.youtube.dev -e 'Change header' -Ocustom=icons/YouTube/header -e 'Custom branding' -OcustomIcon=icons/YouTube/branding -OcustomName='YouTube Morphe Dev'"
 
 [YouTube-Experimental.patches]
+# "Disable Play Store updates" stays on here: it sets the versionCode to the maximum. Real YouTube builds went down twice
+# (21.44.528 is below its own 21.44.528-BETA) and Android refuses that, so a phone would be stuck.
 "github:MorpheApp/morphe-patches" = { version = "dev", exclude = [
   "Change installer source",
-  "Disable Play Store updates",
   "Override certificate pinning",
 ] }
 

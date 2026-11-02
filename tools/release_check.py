@@ -17,6 +17,7 @@ import time
 import tomllib
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -138,25 +139,58 @@ def _check_apk(app_id: str, entry: dict[str, Any], have: dict[str, Any], data: d
     return found
 
 
-def text_numbers(text: str) -> tuple[int, ...]:
-    return tuple(int(n) for n in re.findall(r"\d+", text))
+def offer_rank(version: str, text: str) -> tuple[Any, ...]:
+    """The order ObtainX gives update versions: the app version with its label, then the patch revision.
+    Real: 21.44.528-2.1.0.6 to 21.44.528-BETA-2.1.0.7 has higher numbers and is still no update."""
+    revision = text[len(version) + 1:] if text.startswith(f"{version}-") else text
+    return (_upstream_ver_key(version), tuple(int(n) for n in re.findall(r"\d+", revision)))
 
 
 def check_direction(apps: list[dict[str, Any]], data: dict[str, Any], previous: dict[str, Any]) -> dict[str, str]:
-    """An offer that moved backwards since the last check. Android refuses a lower versionCode, and ObtainX
-    shows a lower update version as "up to date", so phones would just stop updating. A pin is deliberate."""
+    """An offer phones cannot take. Android refuses a lower versionCode than the one installed, and a phone can
+    hold ANY build ever released, so the highest ever shipped is the bar. ObtainX shows a lower update version as
+    "up to date". A changed package makes a different app. A pin is deliberate."""
     found: dict[str, str] = {}
     pinned = {a["id"] for a in apps if a.get("pin")}
     for entry in data["obtainium"].get("apps") or []:
         app_id, old = entry["app"], previous.get(entry["app"]) or {}
-        if app_id in pinned or not old:
+        if app_id in pinned:
             continue
-        code, old_code = (data["apks"].get(entry["apk"]) or {}).get("code"), old.get("code")
-        if code and old_code and int(code) < int(old_code):
-            found[f"offer-downgrade:{app_id}"] = f"{app_id}: versionCode went from {old_code} to {code}: Android refuses to install it over the old one"
-        if old.get("text") and text_numbers(entry["build_version"]) < text_numbers(old["text"]):
+        apk = data["apks"].get(entry["apk"]) or {}
+        code, highest = apk.get("code"), (data.get("shipped_codes") or {}).get(app_id)
+        if code and highest and int(code) < highest["code"]:
+            found[f"offer-downgrade:{app_id}"] = (f"{app_id}: offered versionCode {code} is lower than {highest['code']} of {highest['file']}: "
+                                                  "Android refuses it on a phone holding that build")
+        if old.get("text") and old.get("version") and offer_rank(entry.get("version", ""), entry["build_version"]) < offer_rank(old["version"], old["text"]):
             found[f"offer-backwards:{app_id}"] = f"{app_id}: the update version went from {old['text']} to {entry['build_version']}: phones see no update"
+        if old.get("package") and entry.get("package") and old["package"] != entry["package"]:
+            found[f"offer-package:{app_id}"] = f"{app_id}: the package changed from {old['package']} to {entry['package']}: phones get a second app, not an update"
     return found
+
+
+def shipped_codes(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """app id -> the highest versionCode of any APK ever published. One read per distinct file name."""
+    config = gen_site.app_config()
+    files: dict[str, tuple[str, str]] = {}
+    for release in releases:
+        for asset in release.get("assets", []):
+            parts = gen_site.split_asset(asset["name"], config)
+            if parts and (entry := config.get(parts[0])):
+                files.setdefault(asset["name"], (entry["id"], asset["browser_download_url"]))
+
+    def code_of(item: tuple[str, tuple[str, str]]) -> tuple[str, str, int]:
+        name, (app_id, url) = item
+        try:
+            return app_id, name, int(manifest_attrs(manifest_from_url(url)).get("versionCode") or 0)
+        except Exception:  # noqa: BLE001 - one file unreadable: the others still set the bar
+            return app_id, name, 0
+
+    out: dict[str, dict[str, Any]] = {}
+    with ThreadPoolExecutor(8) as pool:
+        for app_id, name, code in pool.map(code_of, files.items()):
+            if code > (out.get(app_id) or {"code": 0})["code"]:
+                out[app_id] = {"code": code, "file": name}
+    return out
 
 
 def check_upstream(apps: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, str]:
@@ -277,11 +311,14 @@ def feed_versions(apps: list[dict[str, Any]]) -> dict[str, str]:
 
 
 def _file_version(release: dict[str, Any]) -> str:
-    """The version in the bundle's file name, which our notes record. Not always the tag's: a real v0.9.0-dev.2 ships patches-0.9.0-dev.1.mpp."""
-    for asset in release.get("assets") or []:
-        if str(asset.get("name", "")).endswith(".mpp") and (m := gen_site._FILE_VERSION_RE.search(asset["name"])):
-            return m.group(1)
-    return str(release["tag_name"]).lstrip("v")
+    """The bundle version a build of this release would use. A release can hold the previous bundle too (real:
+    v0.9.0-dev.7 has dev.6 and dev.7): the file of the tag, else the highest."""
+    tag = str(release["tag_name"]).lstrip("v")
+    versions = [m.group(1) for a in release.get("assets") or []
+                if str(a.get("name", "")).endswith(".mpp") and (m := gen_site._FILE_VERSION_RE.search(a["name"]))]
+    if not versions or tag in versions:
+        return tag
+    return max(versions, key=_upstream_ver_key)
 
 
 def patch_bundles(apps: list[dict[str, Any]]) -> dict[tuple[str, str], str]:
@@ -329,6 +366,7 @@ def gather(repo: str, site_url: str, apps: list[dict[str, Any]]) -> tuple[dict[s
         "apks": {e["apk"]: read_apk(e["apk"]) for e in entries if e["app"] in {a["id"] for a in apps}},
         "feeds": read("Stremio's feed", lambda: feed_versions(apps), {}),
         "bundles": read("patch releases", lambda: patch_bundles(apps), {}),
+        "shipped_codes": read("the APKs ever published", lambda: shipped_codes([r for r in raw if not r.get("draft")]), {}),
         "ci": ci,
         "site_run": (site_runs.get("workflow_runs") or [None])[0],
         "tests_run": (tests_runs.get("workflow_runs") or [None])[0],
@@ -385,8 +423,8 @@ def main() -> int:
     new_state["offered"] = dict(state.get("offered") or {})
     if not unread:
         for entry in data["obtainium"].get("apps") or []:
-            if not any(k in direction for k in (f"offer-downgrade:{entry['app']}", f"offer-backwards:{entry['app']}")):
-                new_state["offered"][entry["app"]] = {"text": entry["build_version"], "code": (data["apks"].get(entry["apk"]) or {}).get("code")}
+            if not any(k in direction for k in (f"offer-backwards:{entry['app']}", f"offer-package:{entry['app']}")):
+                new_state["offered"][entry["app"]] = {"text": entry["build_version"], "version": entry.get("version"), "package": entry.get("package")}
     state_file.write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
     now_active = active(new_state, now)
     (state_dir / "report.json").write_text(json.dumps({

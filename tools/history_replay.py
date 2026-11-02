@@ -31,7 +31,13 @@ EXTRA_PAIRS = [
     ("21.44.528-2.1.0.3001", "21.44.528-2.1.0.4001"),
     ("21.44.528-2.1.0.4001", "21.44.528-2.1.0.9999"),
     ("21.44.528-2.1.0.9999", "21.44.528-2.2.0.1"),
-    ("21.30.216-2.0.0", "21.30.216-2.0.0"),        # a rebuild with nothing new
+]
+# Not an update, and known: a rebuild; a beta after its final; a patch-only rebuild of an app whose version has
+# a numbered label, the form of Stremio's beta feed (which we do not follow).
+NOT_UPDATES = [
+    ("21.30.216-2.0.0", "21.30.216-2.0.0"),
+    ("21.44.528-2.1.0.6", "21.44.528-BETA-2.1.0.7"),
+    ("2.2.0-beta.5-0.6.0", "2.2.0-beta.5-0.7.0"),
 ]
 
 
@@ -58,7 +64,7 @@ def transitions(releases: list[dict[str, Any]]) -> list[tuple[str, str, str]]:
 
 
 def pairs(history: dict[str, Any]) -> list[list[str]]:
-    wanted = {(a, b) for a, b, _ in transitions(history["ours"])} | set(EXTRA_PAIRS)
+    wanted = {(a, b) for a, b, _ in transitions(history["ours"])} | set(EXTRA_PAIRS) | set(NOT_UPDATES)
     return [list(p) for p in sorted(wanted)]
 
 

@@ -10,12 +10,16 @@ import json
 import os
 import re
 import sys
+import tempfile
 import unittest
+import zipfile
+from contextlib import redirect_stdout
+from io import StringIO as _StringIO
 from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path[:0] = [str(ROOT), str(ROOT / "tools")]
+sys.path[:0] = [str(ROOT), str(ROOT / "tools"), str(ROOT / "tests")]
 os.environ.setdefault("GITHUB_REPOSITORY", "Qutaiba-Khader/morphe-builder")
 
 import gen_site  # noqa: E402
@@ -23,6 +27,9 @@ import history_replay  # noqa: E402
 import release_check  # noqa: E402
 import verify_apk  # noqa: E402
 
+from test_release_flow import coded_manifest  # noqa: E402
+
+from src.core import prebuilts  # noqa: E402
 from src.core.prebuilts import get_highest_ver  # noqa: E402
 from src.scrapers.stremio import StremioScraper  # noqa: E402
 from src.scripts import matrix  # noqa: E402
@@ -31,8 +38,9 @@ HISTORY = history_replay.load()
 OURS = HISTORY["ours"]
 APK_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|armeabi-v7a)\.apk$")
 CERT = "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
-# The two moments a real next build had a LOWER versionCode: Android refuses it, verify_apk now rejects it.
-REAL_CODE_DROPS = {("26.10.13-morphe-dev", "26.10.14-morphe-dev"), ("26.10.31-morphe-dev", "26.11.01-morphe-dev")}
+# Real builds below the highest versionCode ever released, which Android refuses on a phone holding that one:
+# YouTube Experimental after 21.41.525 and after 21.44.528-BETA. verify_apk rejects these now.
+REAL_CODE_DROPS = {"26.10.14-morphe-dev", "26.10.15-morphe-dev", "26.11.01-morphe-dev", "26.11.02-morphe-dev"}
 
 
 def order(version):
@@ -64,12 +72,14 @@ class Upstream(unittest.TestCase):
                         lag.append(release["tag"])
                     checked += 1
         self.assertGreater(checked, 300)
-        # real: TikTok's dev releases carry the file of the dev before; never a final, and we follow its finals
-        self.assertEqual(sorted(lag), [f"v0.9.0-dev.{n}" for n in range(1, 8)])
-        self.assertEqual(matrix._bundle_of({"tag_name": "v0.9.0-dev.2", "assets": [{"name": "patches-0.9.0-dev.1.mpp"}]}), "0.9.0-dev.1")
-        self.assertEqual(release_check._file_version({"tag_name": "v0.9.0-dev.2", "assets": [{"name": "patches-0.9.0-dev.1.mpp"}]}), "0.9.0-dev.1")
-        self.assertEqual(matrix._bundle_of({"tag_name": "v1.0"}), "1.0")
-        self.assertEqual(release_check._file_version({"tag_name": "v1.0"}), "1.0")
+        # real: TikTok's dev releases also carry the bundle of the dev before; every release still has the file of its tag
+        self.assertEqual(sorted(set(lag)), [f"v0.9.0-dev.{n}" for n in range(1, 8)])
+        for release in HISTORY["upstream"]["tiktok-patches"]:
+            assets = [{"name": f} for f in release["files"]]
+            want = release["tag"].lstrip("v")
+            self.assertEqual(matrix._bundle_of({"tag_name": release["tag"], "assets": assets}), want)
+            self.assertEqual(release_check._file_version({"tag_name": release["tag"], "assets": assets}), want)
+            self.assertEqual(prebuilts._get_target_asset(assets, "mpp", "s", release["tag"])["name"], f"patches-{want}.mpp")
 
     # P-HIS-03
     def test_P_HIS_03_every_real_bundle_moves_the_update_version_up(self):
@@ -79,7 +89,7 @@ class Upstream(unittest.TestCase):
                 version = release["tag"].lstrip("v")
                 # a dev channel takes every release of its source; finals count as the channel's top
                 build = {"version": "1.0", "tag": "t", "prerelease": True, "patches": [{"file": f"o/patches-{version}.mpp", "version": version}]}
-                texts.append(release_check.text_numbers(gen_site.build_version(build)))
+                texts.append(tuple(int(n) for n in re.findall(r"\d+", gen_site.build_version(build))))
             self.assertEqual(texts, sorted(texts), key)
             self.assertEqual(len(texts), len(set(texts)), key)
 
@@ -128,6 +138,7 @@ class Offers(unittest.TestCase):
     # P-HIS-07
     def test_P_HIS_07_rebuilds_with_nothing_new_are_not_offered(self):
         self.assertEqual(HISTORY["obtainx"]["21.30.216-2.0.0|21.30.216-2.0.0"], "same")
+        self.assertEqual(prebuilts.get_highest_ver(["v2.1.0-dev.20", "v2.1.0"]), "v2.1.0")
         apps = gen_site.collect(OURS)
         for app_id in apps:
             rows = history_replay.offers(OURS)[app_id]
@@ -136,7 +147,7 @@ class Offers(unittest.TestCase):
 
     # P-HIS-08
     def test_P_HIS_08_the_formats_that_broke_or_could_break_stay_right_in_obtainx(self):
-        for installed, offered in history_replay.EXTRA_PAIRS[:-1]:
+        for installed, offered in history_replay.EXTRA_PAIRS:
             self.assertEqual(HISTORY["obtainx"][f"{installed}|{offered}"], "older", f"{installed} -> {offered}")
 
     # P-HIS-09
@@ -186,16 +197,21 @@ class Apks(unittest.TestCase):
                 self.assertIn(match["arch"], facts["abis"], asset["name"])
 
     # P-HIS-13
-    def test_P_HIS_13_only_the_two_known_drops_in_version_code_and_they_are_refused_now(self):
+    def test_P_HIS_13_builds_below_the_highest_version_code_are_the_known_ones_and_are_refused(self):
         seen, drops = {}, set()
-        for release, asset, facts, match in self.named():
+        for release, _asset, facts, match in self.named():
             code = int(facts["versionCode"])
             last = seen.get(match["stem"])
             if last and code < last[1]:
-                drops.add((last[0], release["tag_name"]))
-                stem_apk = (facts["versionName"], last[1])
-                self.assertLess(code, stem_apk[1])
-            seen[match["stem"]] = (release["tag_name"], code)
+                drops.add(release["tag_name"])
+                # the real file, through the real check, with what was really shipped before it
+                with tempfile.TemporaryDirectory() as folder:
+                    apk = Path(folder) / "x.apk"
+                    with zipfile.ZipFile(apk, "w") as zf:
+                        zf.writestr("AndroidManifest.xml", coded_manifest(facts["package"], facts["versionName"], code))
+                    with mock.patch.object(verify_apk, "shipped_code", return_value=last[1]):
+                        self.assertIn("Android would refuse", verify_apk.lower_code(apk, match["stem"], "o/r", "t", set()))
+            seen[match["stem"]] = (release["tag_name"], max(code, last[1]) if last else code)
         self.assertEqual(drops, REAL_CODE_DROPS)
 
     # P-HIS-14
@@ -208,6 +224,55 @@ class Apks(unittest.TestCase):
                     self.assertIsNone(parts, "the helper APK is not an update of anything")
                 else:
                     self.assertIsNotNone(parts, asset["name"])
+
+
+class ThePages(unittest.TestCase):
+    """The real final state through the whole generator: latest.json, obtainium.json and every update page."""
+
+    # P-HIS-20
+    def test_P_HIS_20_every_real_app_gets_the_right_files(self):
+        facts = HISTORY["apks"]
+
+        def fact(url, key):
+            return facts["/".join(url.rsplit("/", 2)[1:])][key]
+
+        with tempfile.TemporaryDirectory() as folder:
+            out = Path(folder) / "_site"
+            with mock.patch.object(gen_site, "OUT_DIR", out), mock.patch.object(gen_site, "build_state", return_value=("idle", "")), \
+                    mock.patch.object(gen_site, "fetch_releases", return_value=OURS), mock.patch.object(gen_site, "fetch_live", return_value={}), \
+                    mock.patch.object(gen_site, "package_of", side_effect=lambda url: fact(url, "package")), \
+                    mock.patch.object(gen_site, "signer_of", side_effect=lambda url: fact(url, "signer")), \
+                    mock.patch.dict(os.environ, {"SIGNING_CERT_SHA256": CERT}), redirect_stdout(_StringIO()):
+                self.assertEqual(gen_site.main(), 0)
+            latest = json.loads((out / "api/latest.json").read_text(encoding="utf-8"))["apps"]
+            entries = {e["app"]: e for e in json.loads((out / "api/obtainium.json").read_text(encoding="utf-8"))["apps"]}
+            self.assertEqual(set(entries), set(latest))
+            for app_id, entry in entries.items():
+                page = (out / entry["page"]).read_text(encoding="utf-8")
+                self.assertEqual(re.findall(r'href="([^"]+\.apk)"', page), [entry["apk"]], app_id)
+                self.assertIn(f'content="{entry["build_version"]}"', page, app_id)
+                self.assertTrue(entry["build_version"].startswith(latest[app_id]["version"] + "-"), app_id)
+                self.assertEqual(entry["package"], fact(entry["apk"], "package"), app_id)
+                self.assertTrue(verify_apk.version_matches(fact(entry["apk"], "versionName"), latest[app_id]["version"]), app_id)
+                self.assertIn(f"-v{latest[app_id]['version']}-", entry["apk"], app_id)
+            self.assertEqual(entries["stremio-phone"]["build_version"], "2.5.1-0.6.0")
+            self.assertEqual(entries["stremio-tv"]["build_version"], "1.12.1-0.6.0")
+
+    # P-HIS-21
+    def test_P_HIS_21_what_is_not_an_update_is_known(self):
+        for installed, offered in history_replay.NOT_UPDATES:
+            self.assertNotEqual(HISTORY["obtainx"][f"{installed}|{offered}"], "older", f"{installed} -> {offered}")
+        self.assertEqual(HISTORY["obtainx"]["21.44.528-2.1.0.6|21.44.528-BETA-2.1.0.7"], "newer")
+
+    # P-HIS-22
+    def test_P_HIS_22_the_real_notes_with_each_apks_bundles_are_read(self):
+        recent = [r for r in OURS if "<!-- patches:" in r["body"]]
+        self.assertGreaterEqual(len(recent), 2)
+        for release in recent:
+            for asset in release["assets"]:
+                build = gen_site.collect([release])
+                app = next(a for a in build.values() if a["builds"][0]["files"][0]["name"] == asset["name"])
+                self.assertTrue(app["builds"][0]["patches"], asset["name"])
 
 
 class SameDay(unittest.TestCase):

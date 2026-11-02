@@ -120,13 +120,8 @@ def all_releases(repo: str, page_size: int = 30, max_pages: int = 20) -> list[di
     GitHub cut that answer off three reads in a row (2026-11-02), which skipped the whole site."""
     out: list[dict[str, Any]] = []
     for page in range(1, max_pages + 1):
-        try:
-            batch = _get(f"{API}/repos/{repo}/releases?per_page={page_size}&page={page}")
-        except urllib.error.HTTPError as exc:
-            if page == 1:
-                raise  # nothing read at all: never mistake that for "no releases"
-            print(f"warn: releases page {page} failed: {exc}", file=sys.stderr)
-            break
+        # A failure raises, on any page: a partial list could drop an app from the site.
+        batch = _get(f"{API}/repos/{repo}/releases?per_page={page_size}&page={page}")
         out.extend(batch)
         if len(batch) < page_size:
             break
@@ -302,7 +297,8 @@ def asset_tools(body: str, asset_name: str, release_tools: dict[str, Any]) -> di
                 v = _FILE_VERSION_RE.search(file)
                 own.append({"file": file, "version": v.group(1) if v else ""})
             return {**release_tools, "patches": own}
-    return release_tools
+    # Notes that record each APK's bundles but not this APK's: unknown, so no version can be claimed for it.
+    return {**release_tools, "patches": []} if _OWN_BUNDLES_RE.search(body or "") else release_tools
 
 
 def _main_patches_first(tools: dict[str, Any], org: str) -> dict[str, Any]:

@@ -8,16 +8,15 @@ that fails is deleted so it is never uploaded, and the job goes red.
 """
 from __future__ import annotations
 
-import json
 import os
 import re
 import sys
 import tomllib
-import urllib.request
 import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import gen_site  # noqa: E402
 from apk_package import manifest_attrs, manifest_from_url, signer_of  # noqa: E402
 
 NAME_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|armeabi-v7a|x86_64|x86)\.apk$")
@@ -35,21 +34,16 @@ def version_matches(inside: str | None, named: str) -> bool:
     return inside is None or inside == named or inside.startswith(f"{named}-")
 
 
-def shipped_code(stem: str, repo: str, token: str) -> int | None:
-    """The versionCode of the newest published build of this app; None when it cannot be read."""
+def shipped_code(stem: str, repo: str) -> int | None:
+    """The highest versionCode of any published build of this app; a phone can hold any of them. None if unreadable."""
     try:
-        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/releases?per_page=30",
-                                     headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            releases = json.loads(resp.read())
-        published = sorted((r for r in releases if r.get("published_at") and not r.get("draft")), key=lambda r: r["published_at"], reverse=True)
-        for rel in published:
-            for asset in rel.get("assets", []):
-                if asset["name"].lower().startswith(f"{stem}-v") and asset["name"].endswith(".apk"):
-                    return int(manifest_attrs(manifest_from_url(asset["browser_download_url"]))["versionCode"])
+        files = {a["name"]: a["browser_download_url"] for r in gen_site.fetch_releases(repo) for a in r.get("assets", [])
+                 if a["name"].lower().startswith(f"{stem}-v") and a["name"].endswith(".apk")}
+        codes = [int(manifest_attrs(manifest_from_url(url)).get("versionCode") or 0) for url in files.values()]
+        return max(codes) if codes else None
     except Exception as exc:  # noqa: BLE001 - this check must not stop a build by itself; Health compares the offer too
-        print(f"::warning::could not read what {stem} last shipped: {exc}")
-    return None
+        print(f"::warning::could not read what {stem} shipped: {exc}")
+        return None
 
 
 def pinned_stems(config_path: Path) -> set[str]:
@@ -71,7 +65,7 @@ def lower_code(apk: Path, stem: str, repo: str, token: str, pinned: set[str]) ->
         return ""
     with zipfile.ZipFile(apk) as zf:
         code = manifest_attrs(zf.read("AndroidManifest.xml")).get("versionCode")
-    shipped = shipped_code(stem, repo, token)
+    shipped = shipped_code(stem, repo)
     if code and shipped and int(code) < shipped:
         return f"versionCode {code} is lower than the {shipped} already released: Android would refuse to install it over that"
     return ""

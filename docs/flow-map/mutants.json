@@ -116,7 +116,7 @@
  {
   "id": "G-HEALTH-backwards",
   "file": "tools/release_check.py",
-  "find": "if old.get(\"text\") and text_numbers(entry[\"build_version\"]) < text_numbers(old[\"text\"]):",
+  "find": "if old.get(\"text\") and old.get(\"version\") and offer_rank(entry.get(\"version\", \"\"), entry[\"build_version\"]) < offer_rank(old[\"version\"], old[\"text\"]):",
   "replace": "if False:"
  },
  {
@@ -124,5 +124,29 @@
   "file": "tools/gen_site.py",
   "find": "rev += f\".{_PRE_BASE[m.group(2).lower()] + int(m.group(3) or 0)}\"",
   "replace": "rev += f\".{int(m.group(3) or 0)}\""
+ },
+ {
+  "id": "G-CODE-highest",
+  "file": "tools/verify_apk.py",
+  "find": "return max(codes) if codes else None",
+  "replace": "return codes[-1] if codes else None"
+ },
+ {
+  "id": "G-HEALTH-downgrade",
+  "file": "tools/release_check.py",
+  "find": "if code and highest and int(code) < highest[\"code\"]:",
+  "replace": "if False:"
+ },
+ {
+  "id": "G-FILE-of-tag",
+  "file": "src/core/prebuilts.py",
+  "find": "return (exact or [max(matches, key=lambda a: _ver_key(a.get(\"name\", \"\").split(\"-\", 1)[-1]))])[0]",
+  "replace": "return matches[0]"
+ },
+ {
+  "id": "G-NOTES-unknown",
+  "file": "tools/gen_site.py",
+  "find": "return {**release_tools, \"patches\": []} if _OWN_BUNDLES_RE.search(body or \"\") else release_tools",
+  "replace": "return release_tools"
  }
 ]

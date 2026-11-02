@@ -22,7 +22,7 @@ from typing import Any
 from src.core.config import CONFIG_PATH, AppEntry, load_toml, parse_app_entries, parse_config
 from src.core.logger import IS_GITHUB, abort, epr
 from src.core.network import NetworkManager, ResourceNotFoundError
-from src.core.prebuilts import get_highest_ver
+from src.core.prebuilts import _ver_key, get_highest_ver
 
 RETRY_AFTER = timedelta(hours=20)
 
@@ -99,12 +99,12 @@ def _stremio_needs_build(repo: str, brand: str, apps: list[AppEntry], net: Netwo
     return bool(missing)
 
 def _bundle_of(release: dict[str, Any]) -> str:
-    """morphe-builder: the version in the .mpp file's name, which is what the release notes name, without the leading v.
-    Not always the tag's: icysymmetra's v0.9.0-dev.2 ships patches-0.9.0-dev.1.mpp."""
-    for asset in release.get("assets") or []:
-        if m := re.search(r"-v?(\d[\w.+-]*?)\.mpp$", str(asset.get("name") or "")):
-            return m.group(1)
-    return str(release.get("tag_name") or "").lstrip("v")
+    """morphe-builder: the bundle version a build of this release would use, as _get_target_asset picks its file."""
+    tag = str(release.get("tag_name") or "").lstrip("v")
+    versions = [m.group(1) for a in release.get("assets") or [] if (m := re.search(r"-v?(\d[\w.+-]*?)\.mpp$", str(a.get("name") or "")))]
+    if not versions or tag in versions:
+        return tag
+    return max(versions, key=_ver_key)
 
 def _expected_bundle(source: str, version: str, net: NetworkManager) -> str:
     """morphe-builder: the patch version a build would use now (as prebuilts.py picks it)."""

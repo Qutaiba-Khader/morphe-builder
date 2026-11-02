@@ -3,7 +3,7 @@
 
 Network, so never run by a test. Reads every release of this repo and of the patch and CLI
 repositories, and the package, version and signer inside every published APK. The ObtainX answers are
-added by tools/history_obtainx.py on a machine holding ObtainX's own source.
+added by tools/history_replay.py --save, from a run of ObtainX's own compareVersionStrings.
 """
 from __future__ import annotations
 
@@ -42,7 +42,7 @@ def main() -> int:
     old = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {}
     repo = "Qutaiba-Khader/morphe-builder"
     ours = [r for r in releases(repo) if not r.get("draft")]
-    data = {"note": "Real data. Rebuild with tools/history_fixture.py and tools/history_obtainx.py.", "ours": [], "upstream": {}, "apks": {},
+    data = {"note": "Real data. Rebuild with tools/history_fixture.py and tools/history_replay.py.", "ours": [], "upstream": {}, "apks": {},
             "feed": old.get("feed", []), "play": old.get("play", {}), "obtainx": old.get("obtainx", {})}
     for rel in sorted(ours, key=lambda r: r["published_at"]):
         lines = [ln.strip() for ln in (rel.get("body") or "").splitlines()

@@ -52,14 +52,9 @@ def delete_asset(repo: str, asset_id: int) -> None:
 
 
 def merge_notes_file(repo: str, tag: str, notes_file: str) -> int:
-    # The list, not /releases/tags/: that answers 404 for a draft, which is every first build of a
-    # day. And this is a safety net: failing here must not keep a good release from publishing.
-    try:
-        releases = gen_site._get(f"{gen_site.API}/repos/{repo}/releases?per_page=30")
-    except Exception as exc:  # noqa: BLE001
-        print(f"::warning::could not read the releases to keep earlier notes: {exc}")
-        return 0
-    release = next((r for r in releases if r.get("tag_name") == tag), {})
+    # The list, not /releases/tags/: that answers 404 for a draft, which is every first build of a day. A failure
+    # here fails the step: rewriting the notes blind would misdescribe the APKs of an earlier run.
+    release = next((r for r in gen_site.all_releases(repo) if r.get("tag_name") == tag), {})
     path = Path(notes_file)
     path.write_text(merged_notes(release.get("body") or "", path.read_text(encoding="utf-8"),
                                  [a["name"] for a in release.get("assets", []) if a["name"].endswith(".apk")]), encoding="utf-8")

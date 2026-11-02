@@ -1,7 +1,7 @@
 # Real version formats (2026-08-01 to 2026-11-03)
 
 Every case below is replayed by `tests/test_version_history.py` from `tests/fixtures/history.json`. Rebuild the fixture with
-`tools/history_fixture.py`; answer new pairs from `tools/history_replay.py` with ObtainX's own `compareVersionStrings`, then `--save`.
+`tools/history_fixture.py`; answer the pairs `tools/history_replay.py` prints with ObtainX's own `compareVersionStrings`, then `tools/history_replay.py --save FILE`.
 
 | Format | Real example | Where it comes from | How it is handled |
 |---|---|---|---|
@@ -12,8 +12,8 @@ Every case below is replayed by `tests/test_version_history.py` from `tests/fixt
 | Patch, final | `v2.0.0`, `v0.6.0`, `v0.8.1` | Patch repos | `-2.0.0`; on a pre-release channel `.9999`, above its own dev.N |
 | Patch, dev | `v2.1.0-dev.6` | Morphe, TikTok | `-2.1.0.6`; alpha, beta and rc rank above dev in that slot |
 | Patch jump | `1.49.0-dev.5` to `2.1.0-dev.6` | An app stuck, then rebuilt | Still offered |
-| Tag and file disagree | tag `v0.9.0-dev.2`, file `patches-0.9.0-dev.1.mpp` | TikTok's dev releases | The file's version is compared, because the notes record it |
+| Two bundles in one release | tag `v0.9.0-dev.7` has `patches-0.9.0-dev.6.mpp` and `patches-0.9.0-dev.7.mpp` | TikTok's dev releases | The file of the tag, else the highest, in the builder and both checks |
 | Same-day rebuild | `26.11.02-subs` held 2.5.0 and 2.5.1 | Our releases | Best version offered, the other removed |
 | Same number again | `youtube-…-v21.30.216-all.apk` in many tags | Daily or manual rebuilds | Same text: not offered again |
-| versionCode goes down | 21.41.525 to -EXTENDED; 21.44.528-BETA to 21.44.528 | Real builds, 26.10.14 and 26.11.01 | Android refuses it: `verify_apk` rejects it now, Health reports it |
+| versionCode goes down | 21.41.525 to -EXTENDED; 21.44.528-BETA to 21.44.528 | Real builds, 26.10.14 and 26.11.01 | Android refuses it. YouTube Experimental now has the maximum code; for others `verify_apk` compares with the highest ever released, and Health reports it |
 | Version backwards | Not seen in the channels we follow | | Pin wins by design; otherwise Health reports it |

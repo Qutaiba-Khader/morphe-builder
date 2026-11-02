@@ -31,7 +31,7 @@ import prune_release  # noqa: E402
 import release_check  # noqa: E402
 import verify_apk  # noqa: E402
 
-from src.core import builder, patcher  # noqa: E402
+from src.core import builder, patcher, prebuilts  # noqa: E402
 from src.core.config import AppEntry  # noqa: E402
 from src.core.prebuilts import get_highest_ver  # noqa: E402
 from src.scripts import matrix  # noqa: E402
@@ -260,20 +260,16 @@ class Downgrade(unittest.TestCase):
         with mock.patch.object(verify_apk, "shipped_code", return_value=None):
             self.assertEqual(verify_apk.lower_code(self.apk(99), "s", "o/r", "t", set()), "", "unknown: Health is the backstop")
     # P-REL-121
-    def test_P_REL_121_what_was_shipped_is_read_from_the_newest_release(self):
-        rels = [{"published_at": "2026-10-01T00:00:00Z", "assets": [{"name": "s-v1-all.apk", "browser_download_url": "old"}]},
-                {"published_at": "2026-11-01T00:00:00Z", "assets": [{"name": "s-v2-all.apk", "browser_download_url": "new"}, {"name": "x.txt", "browser_download_url": "no"}]},
-                {"published_at": None, "draft": True, "assets": [{"name": "s-v3-all.apk", "browser_download_url": "draft"}]}]
-        answer = mock.MagicMock()
-        answer.__enter__.return_value.read.return_value = json.dumps(rels).encode()
-        with mock.patch.object(verify_apk.urllib.request, "urlopen", return_value=answer), \
-                mock.patch.object(verify_apk, "manifest_from_url", return_value=coded_manifest("p", "2", 55)) as read:
-            self.assertEqual(verify_apk.shipped_code("s", "o/r", "t"), 55)
-        read.assert_called_once_with("new")
-        with mock.patch.object(verify_apk.urllib.request, "urlopen", return_value=answer), redirect_stdout(io.StringIO()):
-            self.assertIsNone(verify_apk.shipped_code("nothing", "o/r", "t"))
-        with mock.patch.object(verify_apk.urllib.request, "urlopen", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
-            self.assertIsNone(verify_apk.shipped_code("s", "o/r", "t"))
+    def test_P_REL_121_the_bar_is_the_highest_code_ever_shipped(self):
+        rels = [{"tag_name": "a", "assets": [{"name": "s-v1-all.apk", "browser_download_url": "old"}, {"name": "x.apk", "browser_download_url": "no"}]},
+                {"tag_name": "b", "assets": [{"name": "s-v2-all.apk", "browser_download_url": "new"}]}]
+        codes = {"old": coded_manifest("p", "1", 77), "new": coded_manifest("p", "2", 55)}
+        with mock.patch.object(gen_site, "fetch_releases", return_value=rels), \
+                mock.patch.object(verify_apk, "manifest_from_url", side_effect=lambda url: codes[url]):
+            self.assertEqual(verify_apk.shipped_code("s", "o/r"), 77, "a phone can hold the old build")
+            self.assertIsNone(verify_apk.shipped_code("nothing", "o/r"))
+        with mock.patch.object(gen_site, "fetch_releases", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
+            self.assertIsNone(verify_apk.shipped_code("s", "o/r"))
     # P-REL-122
     def test_P_REL_122_the_whole_check_deletes_a_lower_code_build(self):
         good = make_apk(self.tmp.name, TV_NEW)
@@ -286,24 +282,30 @@ class Downgrade(unittest.TestCase):
 
 
 class Direction(unittest.TestCase):
-    """An offer that moves backwards."""
+    """An offer phones cannot take."""
 
-    def data(self, text, code="100"):
-        return {"obtainium": {"apps": [{"app": "stremio-tv", "apk": "u", "build_version": text}]}, "apks": {"u": {"code": code}}}
+    def data(self, version, text, code="100", highest=100, package="p"):
+        return {"obtainium": {"apps": [{"app": "stremio-tv", "apk": "u", "version": version, "build_version": text, "package": package}]},
+                "apks": {"u": {"code": code}}, "shipped_codes": {"stremio-tv": {"code": highest, "file": "f"}}}
     # P-REL-117
-    def test_P_REL_117_a_lower_update_version_or_version_code_is_reported(self):
-        old = {"stremio-tv": {"text": "1.12.1-0.6.0", "code": "100"}}
-        self.assertEqual(release_check.check_direction(APPS, self.data("1.12.1-0.6.1", "101"), old), {})
-        self.assertIn("offer-backwards:stremio-tv", release_check.check_direction(APPS, self.data("1.12.0-0.6.0"), old))
-        self.assertIn("offer-downgrade:stremio-tv", release_check.check_direction(APPS, self.data("1.12.2-0.6.0", "99"), old))
-        self.assertEqual(release_check.check_direction([{**APPS[0], "pin": "1.12.0"}], self.data("1.12.0-0.6.0", "99"), old), {}, "a pin is deliberate")
-        self.assertEqual(release_check.check_direction(APPS, self.data("1.12.0-0.6.0"), {}), {}, "nothing to compare with yet")
+    def test_P_REL_117_a_lower_update_version_a_lower_code_or_a_new_package_is_reported(self):
+        old = {"stremio-tv": {"text": "1.12.1-0.6.0", "version": "1.12.1", "package": "p"}}
+        self.assertEqual(release_check.check_direction(APPS, self.data("1.12.1", "1.12.1-0.6.1"), old), {})
+        self.assertIn("offer-backwards:stremio-tv", release_check.check_direction(APPS, self.data("1.12.0", "1.12.0-0.6.0"), old))
+        self.assertIn("offer-downgrade:stremio-tv", release_check.check_direction(APPS, self.data("1.12.2", "1.12.2-0.6.0", "99"), {}), "the highest ever shipped, with no earlier state")
+        self.assertIn("offer-package:stremio-tv", release_check.check_direction(APPS, self.data("1.12.1", "1.12.1-0.6.0", package="q"), old))
+        self.assertEqual(release_check.check_direction([{**APPS[0], "pin": "1.12.0"}], self.data("1.12.0", "1.12.0-0.6.0", "99"), old), {}, "a pin is deliberate")
+        self.assertEqual(release_check.check_direction(APPS, self.data("1.12.0", "1.12.0-0.6.0"), {}), {}, "nothing to compare with yet")
+        beta_after_final = self.data("21.44.528-BETA", "21.44.528-BETA-2.1.0.7")
+        was = {"stremio-tv": {"text": "21.44.528-2.1.0.6", "version": "21.44.528"}}
+        self.assertIn("offer-backwards:stremio-tv", release_check.check_direction(APPS, beta_after_final, was), "real ObtainX answer: not an update")
     # P-REL-118
     def test_P_REL_118_a_backwards_offer_stays_flagged_until_it_is_back_above(self):
         folder = tempfile.mkdtemp()
         self.addCleanup(lambda: __import__("shutil").rmtree(folder, ignore_errors=True))
-        Path(folder, "state.json").write_text(json.dumps({"offered": {"stremio-tv": {"text": "9.9.9-1", "code": "1"}}}), encoding="utf-8")
+        Path(folder, "state.json").write_text(json.dumps({"offered": {"stremio-tv": {"text": "9.9.9-1", "version": "9.9.9"}}}), encoding="utf-8")
         data = world()
+        data["obtainium"]["apps"][0]["version"] = "1.12.1"
         for _ in range(2):
             with mock.patch.dict(os.environ, {"HEALTH_DIR": folder}), mock.patch.object(release_check, "enabled_apps", return_value=APPS), \
                     mock.patch.object(release_check, "gather", return_value=(data, {})), mock.patch.object(gen_site, "build_state", return_value=("idle", "")), \
@@ -316,6 +318,38 @@ class Direction(unittest.TestCase):
         self.assertIn("sync-unprotected:src/core/x.py", problems(world(ignore_sync="tools src/core/y.py", changed_from_upstream=["src/core/x.py", "tools/a.py", "src/core/y.py"])))
         self.assertEqual(problems(world(ignore_sync="tools", changed_from_upstream=["tools/a.py"])), {})
         self.assertEqual(problems(world(ignore_sync="", changed_from_upstream=["x"])), {}, "no list to compare with: the check is off, not wrong")
+
+    # P-REL-127
+    def test_P_REL_127_the_highest_code_of_each_app_is_read_from_every_file(self):
+        rels = [{"assets": [{"name": TV_OLD, "browser_download_url": "a"}, {"name": TV_NEW, "browser_download_url": "b"}, {"name": PHONE_NEW, "browser_download_url": "c"}, {"name": "other.txt", "browser_download_url": "d"}]}]
+        answers = {"a": coded_manifest("p", "1", 9), "b": coded_manifest("p", "2", 5)}
+
+        def read(url):
+            if url == "c":
+                raise OSError("gone")
+            return answers[url]
+
+        with mock.patch.object(release_check, "manifest_from_url", side_effect=read):
+            self.assertEqual(release_check.shipped_codes(rels), {"stremio-tv": {"code": 9, "file": TV_OLD}})
+    # P-REL-128
+    def test_P_REL_128_an_apk_with_no_line_in_notes_that_have_them_claims_no_bundle(self):
+        notes = f"- 🟢 » Phone: [`2.5.1`]({DL}/t/{PHONE_NEW}) <!-- patches: Qutaiba-Khader/patches-0.7.0.mpp -->\n> ⚙️ » Patches: `Qutaiba-Khader/patches-0.7.0.mpp`"
+        apps = gen_site.collect([release("t", [TV_NEW, PHONE_NEW], body=notes)])
+        self.assertEqual(gen_site.build_version(apps["stremio-tv"]["builds"][0]), "1.12.1-0", "not 0.7.0: a real 0.7.0 build must still show as new")
+        self.assertEqual(gen_site.build_version(apps["stremio-phone"]["builds"][0]), "2.5.1-0.7.0")
+    # P-REL-129
+    def test_P_REL_129_the_builder_and_both_checks_pick_the_same_file_of_a_two_file_release(self):
+        cases = [(["patches-0.9.0-dev.6.mpp", "patches-0.9.0-dev.7.mpp"], "v0.9.0-dev.7", "0.9.0-dev.7"),
+                 (["patches-0.9.0.mpp", "patches-0.9.1.mpp"], "v9", "0.9.1"),
+                 (["patches-0.9.0-dev.7.mpp", "patches-0.9.0.mpp"], "v0.9.0", "0.9.0"),
+                 (["patches-0.8.1.mpp", "patches-0.9.0-dev.1.mpp"], "v0.9.0-dev.1", "0.9.0-dev.1")]
+        for names, tag, want in cases:
+            assets = [{"name": n} for n in names]
+            self.assertEqual(prebuilts._get_target_asset(assets, "mpp", "s", tag)["name"], f"patches-{want}.mpp")
+            self.assertEqual(matrix._bundle_of({"tag_name": tag, "assets": assets}), want)
+            self.assertEqual(release_check._file_version({"tag_name": tag, "assets": assets}), want)
+        with self.assertRaises(prebuilts.PrebuiltsError):
+            prebuilts._get_target_asset([{"name": "x.txt"}], "mpp", "s", "v1")
 
 
 class Edges(unittest.TestCase):
@@ -338,10 +372,8 @@ class Edges(unittest.TestCase):
         with mock.patch.object(gen_site, "all_releases", return_value=full + [{"tag_name": "d", "draft": True}]):
             self.assertEqual(gen_site.fetch_releases("o/r"), full)
         missing = urllib.error.HTTPError("u", 500, "no", {}, None)
-        with mock.patch.object(gen_site, "_get", side_effect=[full, missing]), mock.patch("sys.stderr", io.StringIO()):
-            self.assertEqual(gen_site.all_releases("o/r", page_size=2), full, "a later page failing keeps what was read")
-        with mock.patch.object(gen_site, "_get", side_effect=missing), self.assertRaises(urllib.error.HTTPError):
-            gen_site.all_releases("o/r")
+        with mock.patch.object(gen_site, "_get", side_effect=[full, missing]), self.assertRaises(urllib.error.HTTPError):
+            gen_site.all_releases("o/r", page_size=2)  # a partial list could drop an app from the site
     # P-REL-126
     def test_P_REL_126_a_pinned_table_is_recognised(self):
         with tempfile.NamedTemporaryFile("w", suffix=".toml", delete=False, encoding="utf-8") as f:
@@ -417,11 +449,11 @@ class Prune(unittest.TestCase):
         with mock.patch.object(gen_site, "_get", return_value=[rel]), redirect_stdout(io.StringIO()):
             self.assertEqual(prune_release.main(["--merge-notes", "t", notes.name]), 0)
         self.assertIn(TV_NEW, Path(notes.name).read_text(encoding="utf-8"))
-        # a draft is not at /releases/tags/, and any failure here must not stop the release
+        # a first build of the day has no earlier notes, and an unreadable list must not rewrite the notes blind
         with mock.patch.object(gen_site, "_get", return_value=[]), redirect_stdout(io.StringIO()):
             self.assertEqual(prune_release.main(["--merge-notes", "t", notes.name]), 0)
-        with mock.patch.object(gen_site, "_get", side_effect=OSError("down")), redirect_stdout(io.StringIO()):
-            self.assertEqual(prune_release.main(["--merge-notes", "t", notes.name]), 0)
+        with mock.patch.object(gen_site, "_get", side_effect=OSError("down")), self.assertRaises(OSError):
+            prune_release.main(["--merge-notes", "t", notes.name])
     # P-REL-15
     def test_P_REL_15_delete_and_live_urls_use_the_real_endpoints(self):
         with mock.patch.object(prune_release.urllib.request, "urlopen") as call:
