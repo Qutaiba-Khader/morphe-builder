@@ -8,35 +8,43 @@
  "offered": {
   "reddit": {
    "text": "2026.40.0-2.0.0",
-   "code": "2147483647"
+   "version": "2026.40.0",
+   "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
    "text": "2026.42.0-2.1.0.6",
-   "code": "2147483647"
+   "version": "2026.42.0",
+   "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
    "text": "2.5.1-0.6.0",
-   "code": "2147483647"
+   "version": "2.5.1",
+   "package": "com.stremio.one.subs.phone"
   },
   "stremio-tv": {
    "text": "1.12.1-0.6.0",
-   "code": "2147483647"
+   "version": "1.12.1",
+   "package": "com.stremio.one.subs"
   },
   "stremio-tv-replace": {
    "text": "1.12.1-0.6.0",
-   "code": "51048577"
+   "version": "1.12.1",
+   "package": "com.stremio.one"
   },
   "tiktok": {
    "text": "46.2.3-0.8.1",
-   "code": "2024602030"
+   "version": "46.2.3",
+   "package": "com.zhiliaoapp.musically"
   },
   "youtube": {
    "text": "21.30.216-2.0.0",
-   "code": "1561187872"
+   "version": "21.30.216",
+   "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
    "text": "21.44.528-2.1.0.6",
-   "code": "1561310186"
+   "version": "21.44.528",
+   "package": "app.morphe.android.youtube.dev"
   }
  }
 }
