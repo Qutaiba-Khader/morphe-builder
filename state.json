@@ -1,0 +1,24 @@
+{
+ "problems": {
+  "ci-failed:build (morphe-dev) / run (Reddit-Experimental)": {
+   "first_seen": "2026-11-02T21:15:09Z",
+   "text": "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
+  },
+  "offered-stale:reddit-experimental": {
+   "first_seen": "2026-11-02T21:15:09Z",
+   "text": "reddit-experimental: the site offers 2026.42.0 (26.10.25-morphe-dev), the releases say 2026.42.0 (26.11.02-morphe-dev)"
+  },
+  "patches-behind:reddit": {
+   "first_seen": "2026-11-02T21:15:09Z",
+   "text": "reddit: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 2.0.0"
+  },
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-02T21:15:09Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 1.49.0-dev.5"
+  },
+  "patches-behind:youtube": {
+   "first_seen": "2026-11-02T21:15:09Z",
+   "text": "youtube: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 2.0.0"
+  }
+ }
+}
