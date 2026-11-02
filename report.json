@@ -1,6 +1,10 @@
 {
- "checked_at": "2026-11-02T21:15:09Z",
+ "checked_at": "2026-11-02T21:18:35Z",
  "offered": {
+  "reddit-experimental": {
+   "version": "2026.42.0",
+   "tag": "26.11.02-morphe-dev"
+  },
   "youtube-experimental": {
    "version": "21.44.528",
    "tag": "26.11.02-morphe-dev"
@@ -25,10 +29,6 @@
    "version": "21.30.216",
    "tag": "26.11.02-morphe"
   },
-  "reddit-experimental": {
-   "version": "2026.42.0",
-   "tag": "26.10.25-morphe-dev"
-  },
   "tiktok": {
    "version": "46.2.3",
    "tag": "26.10.22-metra"
@@ -38,9 +38,7 @@
   "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
  ],
  "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 1.49.0-dev.5",
-  "reddit-experimental: the site offers 2026.42.0 (26.10.25-morphe-dev), the releases say 2026.42.0 (26.11.02-morphe-dev)",
-  "reddit: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 2.0.0",
-  "youtube: MorpheApp/morphe-patches is at 2.1.0-dev.6, we offer 2.0.0"
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.0.0, we offer 2.1.0-dev.6"
  ]
 }
