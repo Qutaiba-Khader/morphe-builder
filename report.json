@@ -1,6 +1,30 @@
 {
- "checked_at": "2026-11-03T00:37:45Z",
+ "checked_at": "2026-11-03T01:00:49Z",
  "offered": {
+  "stremio-phone": {
+   "version": "2.5.1",
+   "tag": "26.11.03-subs"
+  },
+  "stremio-tv": {
+   "version": "1.12.1",
+   "tag": "26.11.03-subs"
+  },
+  "stremio-tv-replace": {
+   "version": "1.12.1",
+   "tag": "26.11.03-subs"
+  },
+  "reddit": {
+   "version": "2026.40.0",
+   "tag": "26.11.03-morphe"
+  },
+  "youtube": {
+   "version": "21.30.216",
+   "tag": "26.11.03-morphe"
+  },
+  "tiktok": {
+   "version": "46.2.3",
+   "tag": "26.11.03-metra"
+  },
   "reddit-experimental": {
    "version": "2026.42.0",
    "tag": "26.11.03-morphe-dev"
@@ -8,30 +32,6 @@
   "youtube-experimental": {
    "version": "21.44.528",
    "tag": "26.11.03-morphe-dev"
-  },
-  "tiktok": {
-   "version": "46.2.3",
-   "tag": "26.11.02-metra"
-  },
-  "stremio-phone": {
-   "version": "2.5.1",
-   "tag": "26.11.02-subs"
-  },
-  "stremio-tv": {
-   "version": "1.12.1",
-   "tag": "26.11.02-subs"
-  },
-  "stremio-tv-replace": {
-   "version": "1.12.1",
-   "tag": "26.11.02-subs"
-  },
-  "reddit": {
-   "version": "2026.40.0",
-   "tag": "26.11.02-morphe"
-  },
-  "youtube": {
-   "version": "21.30.216",
-   "tag": "26.11.02-morphe"
   }
  },
  "problems": [],

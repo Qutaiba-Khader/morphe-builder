@@ -7,7 +7,7 @@
  },
  "offers": {
   "reddit": {
-   "text": "2026.40.0",
+   "text": "2026.40.0.2.0.0",
    "version": "2026.40.0",
    "package": "com.reddit.frontpage"
   },
@@ -17,27 +17,27 @@
    "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
-   "text": "2.5.1",
+   "text": "2.5.1.0.6.0",
    "version": "2.5.1",
    "package": "com.stremio.one.subs.phone"
   },
   "stremio-tv": {
-   "text": "1.12.1",
+   "text": "1.12.1.0.6.0",
    "version": "1.12.1",
    "package": "com.stremio.one.subs"
   },
   "stremio-tv-replace": {
-   "text": "1.12.1",
+   "text": "1.12.1.0.6.0",
    "version": "1.12.1",
    "package": "com.stremio.one"
   },
   "tiktok": {
-   "text": "46.2.3",
+   "text": "46.2.3.0.8.1",
    "version": "46.2.3",
    "package": "com.zhiliaoapp.musically"
   },
   "youtube": {
-   "text": "21.30.216",
+   "text": "21.30.216.2.0.0",
    "version": "21.30.216",
    "package": "app.morphe.android.youtube"
   },
