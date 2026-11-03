@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02T11:58:35Z",
+  "generated": "2026-11-03T11:35:29Z",
   "cli": "morphe-desktop-1.20.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -808,7 +808,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.1.0-dev.6",
+      "version": "v2.1.0-dev.7",
       "spec": "dev",
       "used_by": [
         {
@@ -1689,7 +1689,7 @@
       ]
     },
     "github:RookieEnough/De-Vanced": {
-      "patch_count": 76,
+      "patch_count": 71,
       "universal_patches": [
         "Clone app"
       ],
@@ -1947,10 +1947,16 @@
           ]
         },
         "com.microsoft.office.officelens": {
-          "versions": [],
+          "versions": [
+            "16.0.19628.20008"
+          ],
           "patches": [
             {
               "name": "Hide OneDrive migration",
+              "default": true
+            },
+            {
+              "name": "Prevent native JVM invalidation",
               "default": true
             }
           ]
@@ -2077,6 +2083,7 @@
         },
         "jp.pxv.android": {
           "versions": [
+            "6.202.1",
             "6.196.0",
             "6.141.1"
           ],
@@ -2112,42 +2119,10 @@
               "default": true
             }
           ]
-        },
-        "tv.twitch.android.app": {
-          "versions": [
-            "25.3.0",
-            "16.9.1"
-          ],
-          "patches": [
-            {
-              "name": "Auto claim channel points",
-              "default": true
-            },
-            {
-              "name": "Block audio ads",
-              "default": true
-            },
-            {
-              "name": "Block embedded ads",
-              "default": true
-            },
-            {
-              "name": "Block video ads",
-              "default": true
-            },
-            {
-              "name": "Debug mode",
-              "default": false
-            },
-            {
-              "name": "Show deleted messages",
-              "default": true
-            }
-          ]
         }
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
-      "version": "v1.6.2",
+      "version": "v1.6.3",
       "spec": "latest",
       "used_by": [
         {
@@ -8646,7 +8621,6 @@
       "github:rushiranpise/morphe-patches"
     ],
     "tv.twitch.android.app": [
-      "github:RookieEnough/De-Vanced",
       "github:arandomhooman/hoomans-morphe-patches"
     ],
     "verbosus.pialytic": [
