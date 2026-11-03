@@ -174,6 +174,8 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-146 | patcher.report_stock_version | only dex files holding morphe code go through the tool | as named | `test_P_REL_146_only_dex_files_holding_morphe_code_go_through_the_tool` | src/core/patcher.py |
 | P-REL-147 | apk_version.set_version_name | the new dex goes in and the real version is read first | as named | `test_P_REL_147_the_new_dex_goes_in_and_the_real_version_is_read_first` | src/core/apk_version.py |
 | P-REL-148 | apk_version.update_version | a rebuild is higher only on its own bundle | as named | `test_P_REL_148_a_rebuild_is_higher_only_on_its_own_bundle` | src/core/apk_version.py |
+| P-REL-149 | matrix.get_matrix | a manual build can name its apps | as named | `test_P_REL_149_a_manual_build_can_name_its_apps` | src/scripts/matrix.py, build.yml |
+| P-REL-150 | gen_site.collect | an app not rebuilt stays offered from its older release | as named | `test_P_REL_150_an_app_not_rebuilt_stays_offered_from_its_older_release` | gen_site.py |
 
 ## Mode combinations
 

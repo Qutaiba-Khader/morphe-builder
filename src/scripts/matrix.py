@@ -152,8 +152,13 @@ def get_matrix(source: str) -> None:
     has_changelog_keywords = False
     is_prerelease = False
     staged: list[AppEntry] = []
-    for entry in _load_entries():
-        if not entry.enabled or entry.brand.lower() != source_lower:
+    # morphe-builder: a manual build of some apps only. The others keep their APKs; a misspelled name stops the build.
+    only = {name.strip().lower() for name in os.getenv("ONLY_APPS", "").split(",") if name.strip()}
+    entries = [e for e in _load_entries() if e.enabled and e.brand.lower() == source_lower]
+    if unknown := only - {e.table.lower() for e in entries}:
+        abort(f"Not an app of patch source '{source}': {', '.join(sorted(unknown))}")
+    for entry in entries:
+        if only and entry.table.lower() not in only:
             continue
         if not patches_source:
             patches_source = next(iter(entry.patches), "")

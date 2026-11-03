@@ -281,6 +281,7 @@ class Workflows(unittest.TestCase):
         self.assertLess(build.index("name: Build APKs\n        env"), build.index("name: Verify APKs"))
         self.assertLess(build.index("name: Verify APKs"), build.index("name: Upload APKs to release"))
         self.assertIn("build/.verified", build)
+        self.assertIn("ONLY_APPS: ${{ inputs.apps }}", build, "the manual choice of apps reaches the matrix")
         self.assertIn(verify_apk.VERIFIED_MARK, build)
     # P-REL-101
     def test_P_REL_101_a_rebuild_never_drafts_a_published_release(self):
@@ -1594,6 +1595,19 @@ class BuildList(unittest.TestCase):
     def test_P_REL_81_each_app_of_the_brand_is_listed(self):
         got = self.matrix_of("subs", [entry(), entry(table="Other", brand="morphe")])
         self.assertEqual(got, {"include": [{"id": "Stremio-TV"}], "prerelease": False})
+    # P-REL-149
+    def test_P_REL_149_a_manual_build_can_name_its_apps(self):
+        apps = [entry(), entry(table="Stremio-TV-Replace"), entry(table="Stremio-Phone")]
+        got = self.matrix_of("subs", apps, {"ONLY_APPS": " stremio-tv "})
+        self.assertEqual(got["include"], [{"id": "Stremio-TV"}], "the clone alone, not the replacement")
+        self.assertEqual(self.matrix_of("subs", apps, {"ONLY_APPS": ""})["include"], [{"id": a.table} for a in apps], "empty = all")
+        with mock.patch.object(matrix, "abort", side_effect=SystemExit(1)), self.assertRaises(SystemExit):
+            self.matrix_of("subs", apps, {"ONLY_APPS": "Stremio-TVV"})
+    # P-REL-150
+    def test_P_REL_150_an_app_not_rebuilt_stays_offered_from_its_older_release(self):
+        apps = gen_site.collect([release("26.11.04-subs", [TV_NEW], published="2026-11-04T20:00:00Z"), release("26.11.03-subs", [PHONE_NEW, TV_OLD], published="2026-11-03T20:00:00Z")])
+        self.assertEqual(apps["stremio-phone"]["builds"][0]["version"], "2.5.1")
+        self.assertEqual(apps["stremio-tv"]["builds"][0]["version"], "1.12.1")
     # P-REL-82
     def test_P_REL_82_a_dev_brand_is_a_prerelease(self):
         dev = entry(patches={"github:M/p": {"version": "dev", "include": [], "exclude": []}})

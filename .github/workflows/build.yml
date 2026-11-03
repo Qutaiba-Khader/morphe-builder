@@ -19,10 +19,18 @@ on:
           - tiktok
           - subs
           - metra
+      apps:
+        description: 'Only these config.toml tables, comma-separated (empty = every app of the source)'
+        required: false
+        default: ''
+        type: string
   workflow_call:
     inputs:
       patch_source:
         default: 'morphe'
+        type: string
+      apps:
+        default: ''
         type: string
       filter_changelog:
         default: false
@@ -81,6 +89,7 @@ jobs:
         id: set-matrix
         env:
           FILTER_CHANGELOG: ${{ inputs.filter_changelog }}
+          ONLY_APPS: ${{ inputs.apps }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           RESULT="$(uv run python -m src.scripts.matrix get-matrix '${{ inputs.patch_source }}')"
