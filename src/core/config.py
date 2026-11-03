@@ -51,6 +51,7 @@ class AppEntry:
     patcher_args: list[str]
     patches: dict[str, PatchSpec]
     exclusive_patches: bool
+    rebuild: str
     cli_source: str
     cli_version: str
     skip_sigcheck: bool
@@ -127,6 +128,7 @@ def parse_app_entries(data: dict[str, object], main: Config) -> list[AppEntry]:
             patcher_args=shlex.split(str(t.get("patcher-args", ""))),
             patches=patches,
             exclusive_patches=_parse_bool(t, "exclusive-patches", False),
+            rebuild=str(t.get("rebuild", "")),
             cli_source=str(t.get("cli-source", main.cli_source)),
             cli_version=str(t.get("cli-version", main.cli_version)),
             skip_sigcheck=_parse_bool(t, "skip-sigcheck", False),

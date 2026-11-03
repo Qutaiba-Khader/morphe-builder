@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
-from apk_package import manifest_attrs, manifest_from_url, signer_of  # noqa: E402
+from apk_package import manifest_attrs, manifest_from_url, morphe_problem, morphe_versions, signer_of  # noqa: E402
 
 NAME_RE = re.compile(r"^(?P<stem>.+)-v(?P<version>.+)-(?P<arch>all|arm64-v8a|armeabi-v7a|x86_64|x86)\.apk$")
 MIN_BYTES = 1_000_000
@@ -130,6 +130,11 @@ def problems(apk: Path, sources_by_stem: dict[str, list[str]], want_signer: str,
             for marker in markers:
                 if not any(marker in zf.read(n) for n in dex):
                     found.append(f"patch marker {marker.decode()} is not in the app")
+            for name in sorted(dex, reverse=True):
+                if versions := morphe_versions(zf.read(name)):
+                    if problem := morphe_problem(versions, attrs.get("versionName"), m["stem"].endswith("-dev")):
+                        found.append(problem)
+                    break
     except Exception as exc:  # noqa: BLE001 - whatever makes it unreadable, it does not go out
         return [f"not a readable APK: {exc}"]
 

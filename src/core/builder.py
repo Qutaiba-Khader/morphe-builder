@@ -20,7 +20,7 @@ import zipfile
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from src.core.apk_version import ApkVersionError, set_version_name, update_version
+from src.core.apk_version import ApkVersionError, manifest_version_name, set_version_name, update_version
 from src.core.config import BUILD_DIR, TEMP_DIR, AppEntry, Config
 from src.core.logger import IS_GITHUB, epr, is_interrupted, pr, wpr
 from src.core.network import NetworkError, NetworkManager
@@ -59,7 +59,7 @@ def phone_version(entry: AppEntry, version: str, patcher: PatcherCLI) -> str:
     bundle = patcher.mpp_map[(source, spec["version"])].name
     match = re.search(r"-v?(\d[\w.+-]*?)\.mpp$", bundle)
     prerelease = any(s["version"] == "dev" for s in entry.patches.values())
-    return update_version(version, match.group(1) if match else "", prerelease)
+    return update_version(version, match.group(1) if match else "", prerelease, entry.rebuild)
 
 def _bundles_comment(entry: AppEntry, patcher: PatcherCLI) -> str:
     """morphe-builder: which bundles THIS APK has, invisible in the rendered notes. Jobs resolve "latest" and "dev" one by
@@ -187,7 +187,10 @@ def _apply_patch(entry: AppEntry, arch: str, version: str, force: bool, patcher:
     pr(f"Building '{entry.table}'")
     patcher.patch(dl_result.path, patched_apk, final_args, required=[p for spec in entry.patches.values() for p in spec["include"] if p not in auto_patches])
     # The phone reports this versionName, and the update page offers it (src/core/apk_version.py).
-    set_version_name(patched_apk, phone_version(entry, version_f, patcher))
+    # Morphe's code keeps seeing the app's real version (java/ReportStockVersion.java).
+    with zipfile.ZipFile(patched_apk) as apk:
+        stock = manifest_version_name(apk.read("AndroidManifest.xml"))
+    set_version_name(patched_apk, phone_version(entry, version_f, patcher), patcher.report_stock_version(patched_apk, stock))
     patcher.sign(patched_apk)
     apk_output = BUILD_DIR / apk_name
     shutil.move(patched_apk, apk_output)

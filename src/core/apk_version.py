@@ -6,6 +6,7 @@
 # could not be told from the same build: "46.2.3" against "46.2.3-0.8.1" is ObtainX's "Version order
 # unclear". So each APK's versionName carries the patch version: 46.2.3.0.8.1. Dots, not "-": in
 # ObtainX's version_comparison.dart a plain 46.2.3 is then simply older than 46.2.3.0.8.1, with no warning.
+# Morphe's own code reads the same name and must not see the patch number: see java/ReportStockVersion.java.
 #
 # Licensed under the GNU GPLv3, like the rest of this repository.
 # ---------------------------------------------------------
@@ -43,9 +44,36 @@ def revision(bundle_version: str, prerelease: bool) -> str:
     return f"{m.group(1)}.{FINAL_ON_PRERELEASE}" if prerelease else m.group(1)
 
 
-def update_version(app_version: str, bundle_version: str, prerelease: bool) -> str:
+def update_version(app_version: str, bundle_version: str, prerelease: bool, rebuild: str = "") -> str:
+    """rebuild "2.0.0:1" (config.toml) is a fix of ours on that very bundle: same numbers would never be offered to a phone,
+    so that bundle's builds get one more number. The next bundle or app version is higher either way, and drops it."""
     rev = revision(bundle_version, prerelease)
+    bundle, _, number = rebuild.partition(":")
+    if rev and number and bundle == bundle_version:
+        rev = f"{rev}.{number}"
     return f"{app_version}.{rev}" if rev else app_version
+
+
+def manifest_version_name(axml: bytes) -> str:
+    """The versionName of a binary AndroidManifest.xml, the app's real one before set_version_name."""
+    _type, header, pool_size = struct.unpack_from("<HHI", axml, 8)
+    flags = struct.unpack_from("<I", axml, 24)[0]
+    strings = _pool_strings(axml[8 : 8 + pool_size], bool(flags & UTF8_FLAG))
+    off = 8 + pool_size
+    while off + 8 <= len(axml):
+        chunk_type, head, size = struct.unpack_from("<HHI", axml, off)
+        if size <= 0:
+            break
+        if chunk_type == RES_XML_START_ELEMENT:
+            body = off + head
+            attr_start, attr_size, attr_count = struct.unpack_from("<HHH", axml, body + 8)
+            for i in range(attr_count):
+                a = body + attr_start + i * attr_size
+                if strings[struct.unpack_from("<I", axml, a + 4)[0]] == "versionName":
+                    return strings[struct.unpack_from("<i", axml, a + 8)[0]]
+            break
+        off += size
+    raise ApkVersionError("<manifest> has no android:versionName")
 
 
 def _encode(text: str, utf8: bool) -> bytes:
@@ -143,14 +171,14 @@ def _is_signature(name: str) -> bool:
     return bool(re.fullmatch(r"META-INF/(MANIFEST\.MF|[^/]+\.(SF|RSA|DSA|EC))", name, re.IGNORECASE))
 
 
-def set_version_name(apk: Path, name: str) -> None:
-    """Rewrite the APK with that versionName. Its signature no longer holds: sign it again after this."""
+def set_version_name(apk: Path, name: str, dex: dict[str, bytes] | None = None) -> None:
+    """Rewrite the APK with that versionName, and any dex files replaced. Its signature no longer holds: sign it again after this."""
     tmp = apk.with_suffix(".versioned.apk")
     with zipfile.ZipFile(apk) as src, zipfile.ZipFile(tmp, "w") as dst:
         for info in src.infolist():
             if _is_signature(info.filename):
                 continue
-            data = src.read(info.filename)
+            data = (dex or {}).get(info.filename) or src.read(info.filename)
             if info.filename == "AndroidManifest.xml":
                 data = set_manifest_version_name(data, name)
             out = zipfile.ZipInfo(info.filename, info.date_time)

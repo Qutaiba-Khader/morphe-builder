@@ -22,8 +22,10 @@
 
 strict-sigcheck = false
 
+# rebuild: a fix of ours on that bundle, "2.0.0:1" = one more number in its builds, so phones are offered it (src/core/apk_version.py).
 [YouTube]
 enabled = true
+rebuild = "2.0.0:1"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 gplay-dlurl = "https://play.google.com/store/apps/details?id=com.google.android.youtube"
 
@@ -47,6 +49,7 @@ arch = "both"
 
 [Reddit]
 enabled = true
+rebuild = "2.0.0:1"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 gplay-dlurl = "https://play.google.com/store/apps/details?id=com.reddit.frontpage"
 

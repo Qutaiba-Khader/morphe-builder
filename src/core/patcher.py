@@ -16,6 +16,8 @@ import contextlib
 import os
 import re
 import subprocess
+import tempfile
+import zipfile
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -31,6 +33,10 @@ class PatcherError(Exception):
 
 class SignatureError(PatcherError):
     """Raised when sig.txt has no entry for a package, or apksigner reports a hash mismatch."""
+
+# morphe-builder: Morphe's code must see the app's real version; these are the classes java/ReportStockVersion.java changes.
+REPORT_STOCK_TOOL = Path(__file__).parent / "java" / "ReportStockVersion.java"
+REPORT_STOCK_CLASSES = (b"Lapp/morphe/extension/shared/Utils;", b"Lapp/morphe/extension/shared/spoof/SpoofAppVersionPatch;")
 
 def _run_java(*args: str | Path, capture: bool = True, timeout: int = 600) -> str:
     result = subprocess.run(["java", *(str(a) for a in args)], capture_output=capture, text=True, timeout=timeout)
@@ -210,6 +216,23 @@ class PatcherCLI:
         _run_java("--enable-native-access=ALL-UNNAMED", "-cp", f"{self.apksigner}{os.pathsep}{self.cli_jar}", "com.android.apksigner.ApkSignerTool",
                   "sign", "--ks", self.ks_path, "--ks-type", "BKS", "--ks-key-alias", alias, "--ks-pass", "env:KEYSTORE_PASS", "--key-pass", "env:KEYSTORE_PASS",
                   "--provider-class", "org.bouncycastle.jce.provider.BouncyCastleProvider", apk)
+
+    def report_stock_version(self, apk: Path, version: str) -> dict[str, bytes]:
+        """morphe-builder: the dex files in which Morphe's code now reads the app's real version; none for an app without it."""
+        out: dict[str, bytes] = {}
+        with zipfile.ZipFile(apk) as zf, tempfile.TemporaryDirectory() as tmp:
+            for name in zf.namelist():
+                if not re.fullmatch(r"classes\d*\.dex", name):
+                    continue
+                data = zf.read(name)
+                if not any(mark in data for mark in REPORT_STOCK_CLASSES):
+                    continue
+                src, dst = Path(tmp, name), Path(tmp, f"new-{name}")
+                src.write_bytes(data)
+                _run_java("-cp", self.cli_jar, REPORT_STOCK_TOOL, src, dst, version)
+                if dst.exists():
+                    out[name] = dst.read_bytes()
+        return out
 
     def check_signature(self, apk: Path, pkg_name: str) -> bool:
         expected = self._signatures.get(pkg_name)

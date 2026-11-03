@@ -38,6 +38,12 @@ void main() {
     ['new app version', '46.2.3.0.9.0', '46.2.4.0.9.0'],
     ['dev update', '21.44.528.2.1.0.6', '21.44.528.2.1.0.7'],
     ['patch lower than phone', '46.2.3.0.9.0', '46.2.3.0.8.2'],
+    // our own fix on the same bundle, then the next bundle
+    ['rebuild youtube', '21.30.216.2.0.0', '21.30.216.2.0.0.1'],
+    ['rebuild reddit', '2026.40.0.2.0.0', '2026.40.0.2.0.0.1'],
+    ['rebuild current', '21.30.216.2.0.0.1', '21.30.216.2.0.0.1'],
+    ['bundle after rebuild', '21.30.216.2.0.0.1', '21.30.216.2.0.1'],
+    ['app after rebuild', '21.30.216.2.0.0.1', '21.33.100.2.0.0'],
   ];
   test('verdicts', () {
     for (final c in cases) {

@@ -137,6 +137,139 @@ class Site(unittest.TestCase):
         self.assertEqual([b["version"] for b in gen_site.collect([rel])["stremio-phone"]["builds"]], ["2.5.1", "2.5.0"])
 
 
+class MorpheSeesTheRealVersion(unittest.TestCase):
+    """Morphe's code reads the versionName too. With the patch number in it, the owner's stable YouTube opened with
+    "Experimental Alert ... 21.30.216.2.0.0" and sent that name to YouTube as the client version (26.11.03-morphe)."""
+    STOCK = (ROOT / "tests/fixtures/morphe-utils-stock.dex").read_bytes()
+    FIXED = (ROOT / "tests/fixtures/morphe-utils-fixed.dex").read_bytes()
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+    # P-REL-141
+    def test_P_REL_141_the_real_dex_is_read_as_morphe_reads_it(self):
+        self.assertEqual(apk_package.morphe_versions(self.STOCK), {"getAppVersionName": None, "getRecommendedAppVersion": "21.30.216"})
+        self.assertEqual(apk_package.morphe_versions(self.FIXED), {"getAppVersionName": "21.30.216", "getRecommendedAppVersion": "21.30.216"})
+        self.assertIsNone(apk_package.morphe_versions(b"not a dex"))
+        only_used = self.FIXED.replace(apk_package.MORPHE_UTILS.encode(), b"Lapp/morphe/extension/shared/Other;") + apk_package.MORPHE_UTILS.encode()
+        self.assertIsNone(apk_package.morphe_versions(only_used), "another dex that only calls it")
+    # P-REL-142
+    def test_P_REL_142_a_stable_build_that_would_alert_is_refused(self):
+        unfixed = apk_package.morphe_versions(self.STOCK)
+        fixed = apk_package.morphe_versions(self.FIXED)
+        self.assertIn("Experimental Alert", apk_package.morphe_problem(unfixed, "21.30.216.2.0.0", False))
+        self.assertEqual(apk_package.morphe_problem(fixed, "21.30.216.2.0.0.1", False), "")
+        self.assertEqual(apk_package.morphe_problem(fixed, "21.30.216", False), "")
+        self.assertIn("the app is", apk_package.morphe_problem(fixed, "21.44.528.2.1.0.7", True))
+        newer = {"getAppVersionName": "21.44.528", "getRecommendedAppVersion": "21.30.216"}
+        self.assertIn("above Morphe's recommended", apk_package.morphe_problem(newer, "21.44.528.2.0.0", False))
+        self.assertEqual(apk_package.morphe_problem(newer, "21.44.528.2.1.0.7", True), "", "experimental says so, and is")
+    # P-REL-143
+    def test_P_REL_143_verify_rejects_it_before_upload(self):
+        for dex, wanted in ((self.STOCK, True), (self.FIXED, False)):
+            path = make_apk(Path(self.tmp.name), "youtube-morphe-v21.30.216-all.apk", version="21.30.216.2.0.0", package="app.morphe.android.youtube", libs=())
+            with zipfile.ZipFile(path, "a") as zf:
+                zf.writestr("classes2.dex", dex)
+            found = [p for p in verify_apk.problems(path, {}, "") if "Morphe" in p]
+            self.assertEqual(bool(found), wanted, found)
+    # P-REL-144
+    def test_P_REL_144_health_reads_it_from_the_live_apk(self):
+        stale = {"package": "p", "version": "21.30.216.2.0.0", "morphe": apk_package.morphe_versions(self.STOCK)}
+        offer = {"apk": "https://x/youtube-morphe-v21.30.216-all.apk", "package": "p", "build_version": "21.30.216.2.0.0"}
+        data = {"apks": {offer["apk"]: stale}}
+        self.assertIn("apk-morphe:youtube", release_check._check_apk("youtube", offer, {}, data))
+        data = {"apks": {offer["apk"]: {**stale, "morphe": apk_package.morphe_versions(self.FIXED)}}}
+        self.assertNotIn("apk-morphe:youtube", release_check._check_apk("youtube", offer, {}, data))
+        with mock.patch.object(release_check, "manifest_from_url", return_value=manifest(package="p", versionName="1")), \
+                mock.patch.object(release_check, "names_from_url", return_value=[]), mock.patch.object(release_check, "signer_of", return_value="s"), \
+                mock.patch.object(release_check, "morphe_versions_from_url", return_value={"getAppVersionName": "1"}) as read:
+            self.assertEqual(release_check.read_apk("https://x/tiktok-metra-v1-all.apk")["morphe"], None, "not a Morphe bundle: no dex read")
+            read.assert_not_called()
+            self.assertEqual(release_check.read_apk("https://x/youtube-morphe-v1-all.apk")["morphe"], {"getAppVersionName": "1"})
+            self.assertEqual(release_check.read_apk("https://x/youtube-morphe-dev-v1-all.apk")["morphe"], {"getAppVersionName": "1"})
+    # P-REL-145
+    def test_P_REL_145_health_finds_the_class_over_http(self):
+        path = Path(self.tmp.name) / "a.apk"
+        with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("classes.dex", b"nothing here")
+            zf.writestr("classes2.dex", self.FIXED)
+            zf.writestr("classes3.dex", b"nothing here")
+        blob = path.read_bytes()
+
+        class Answer:
+            def __init__(self, url):
+                self.headers = {"Content-Length": str(len(blob))}
+                self.url = url
+            def geturl(self):
+                return self.url
+            def __enter__(self):
+                return self
+            def __exit__(self, *_):
+                return False
+
+        with mock.patch.object(apk_package.urllib.request, "urlopen", side_effect=lambda req, timeout=0: Answer(req.full_url)), \
+                mock.patch.object(apk_package, "_fetch", side_effect=lambda _u, start=None, end=None: blob[start:(None if end is None else end + 1)]):
+            self.assertEqual(apk_package.morphe_versions_from_url("https://x/a.apk")["getAppVersionName"], "21.30.216")
+            with zipfile.ZipFile(path, "w") as zf:
+                zf.writestr("classes.dex", b"stock code")
+                zf.writestr("resources.arsc", b"not a dex")
+            blob = path.read_bytes()
+            self.assertIsNone(apk_package.morphe_versions_from_url("https://x/a.apk"))
+    # P-REL-146
+    def test_P_REL_146_only_dex_files_holding_morphe_code_go_through_the_tool(self):
+        path = Path(self.tmp.name) / "a.apk"
+        with zipfile.ZipFile(path, "w") as zf:
+            zf.writestr("classes.dex", b"stock code")
+            zf.writestr("classes2.dex", self.STOCK)
+            zf.writestr("classes3.dex", b"Lapp/morphe/extension/shared/spoof/SpoofAppVersionPatch; only a reference")
+            zf.writestr("res/x.dex", self.STOCK)
+
+        def tool(*args, **_kw):
+            if Path(args[3]).name == "classes2.dex":
+                Path(args[4]).write_bytes(b"new")
+            return "1"
+
+        cli = patcher.PatcherCLI(Path("cli.jar"), {}, Path("apksigner.jar"))
+        with mock.patch.object(patcher, "_run_java", side_effect=tool) as java:
+            self.assertEqual(cli.report_stock_version(path, "21.30.216"), {"classes2.dex": b"new"})
+        self.assertEqual(java.call_count, 2)
+        self.assertEqual(java.call_args_list[0].args[-1], "21.30.216")
+    # P-REL-147
+    def test_P_REL_147_the_new_dex_goes_in_and_the_real_version_is_read_first(self):
+        path = Path(self.tmp.name) / "a.apk"
+        with zipfile.ZipFile(path, "w") as zf:
+            zf.writestr("AndroidManifest.xml", manifest(package="p", versionName="21.30.216"))
+            zf.writestr("classes.dex", b"old")
+            zf.writestr("classes2.dex", b"keep")
+        with zipfile.ZipFile(path) as zf:
+            self.assertEqual(apk_version.manifest_version_name(zf.read("AndroidManifest.xml")), "21.30.216")
+        apk_version.set_version_name(path, "21.30.216.2.0.0.1", {"classes.dex": b"new"})
+        with zipfile.ZipFile(path) as zf:
+            self.assertEqual(zf.read("classes.dex"), b"new")
+            self.assertEqual(zf.read("classes2.dex"), b"keep")
+            self.assertEqual(apk_version.manifest_version_name(zf.read("AndroidManifest.xml")), "21.30.216.2.0.0.1")
+        real = manifest(package="p", versionName="21.30.216")
+        pool_end = 8 + struct.unpack_from("<I", real, 12)[0]
+        resource_map = struct.pack("<HHI", 0x0180, 8, 12) + b"\0" * 4
+        self.assertEqual(apk_version.manifest_version_name(real[:pool_end] + resource_map + real[pool_end:]), "21.30.216")
+        for broken in (manifest(package="p"), real[:pool_end], real[:pool_end] + struct.pack("<HHI", 0x0180, 8, 0)):
+            with self.assertRaises(apk_version.ApkVersionError):
+                apk_version.manifest_version_name(broken)
+    # P-REL-148
+    def test_P_REL_148_a_rebuild_is_higher_only_on_its_own_bundle(self):
+        self.assertEqual(apk_version.update_version("21.30.216", "2.0.0", False, "2.0.0:1"), "21.30.216.2.0.0.1")
+        self.assertEqual(apk_version.update_version("21.33.1", "2.0.0", False, "2.0.0:1"), "21.33.1.2.0.0.1")
+        self.assertEqual(apk_version.update_version("21.30.216", "2.0.1", False, "2.0.0:1"), "21.30.216.2.0.1", "the next bundle drops it")
+        self.assertEqual(apk_version.update_version("21.30.216", "", False, "2.0.0:1"), "21.30.216")
+        self.assertEqual(builder.phone_version(entry(patches=None), "1.12.1", self.cli_with("patches-0.6.0.mpp")), "1.12.1.0.6.0")
+
+    @staticmethod
+    def cli_with(bundle):
+        cli = mock.Mock()
+        cli.mpp_map = {("github:Qutaiba-Khader/stremio-subs-patches", "latest"): Path(bundle)}
+        return cli
+
+
 class Workflows(unittest.TestCase):
     """What no unit test runs: the steps must at least be there, in order."""
 
@@ -475,7 +608,8 @@ class VersionName(unittest.TestCase):
         cli.sign.side_effect = lambda _apk: order.append("sign")
         with tempfile.TemporaryDirectory() as folder, mock.patch.object(builder, "TEMP_DIR", Path(folder)), mock.patch.object(builder, "BUILD_DIR", Path(folder)), \
                 mock.patch.object(builder.shutil, "move"), mock.patch.object(builder, "pr"), \
-                mock.patch.object(builder, "set_version_name", side_effect=lambda _p, name: order.append(name)):
+                mock.patch.object(builder, "manifest_version_name", return_value="1.12.1"), mock.patch.object(builder.zipfile, "ZipFile"), \
+                mock.patch.object(builder, "set_version_name", side_effect=lambda _p, name, _dex: order.append(name)):
             builder._apply_patch(entry(), "armeabi-v7a", "1.12.1", True, cli, "", builder.DownloadResult(path=Path("s.apk"), is_bundle=False))
         self.assertEqual(order, ["patch", "1.12.1.0.6.0", "sign"])
     # P-REL-135
@@ -799,7 +933,7 @@ def entry(table="Stremio-TV", name="Stremio TV Clone", brand="subs", patches=Non
     patches = patches or {"github:Qutaiba-Khader/stremio-subs-patches": {"version": "latest", "include": ["Subtitle auto-refresh"], "exclude": []}}
     return AppEntry(table=table, app_name=name, brand=brand, arch="armeabi-v7a", dpi="", version=version,
                     dl_urls=urls if urls is not None else {"stremio": "https://api.strem.io/downloads/config#android_tv"},
-                    patcher_args=[], patches=patches, exclusive_patches=True, cli_source="c", cli_version="latest",
+                    patcher_args=[], patches=patches, exclusive_patches=True, rebuild="", cli_source="c", cli_version="latest",
                     skip_sigcheck=False, enabled=True, changelog_keywords=list(keywords))
 
 
@@ -1269,7 +1403,7 @@ class Health(unittest.TestCase):
         with mock.patch.object(release_check, "manifest_from_url", return_value=manifest(package="p", versionName="1")), \
                 mock.patch.object(release_check, "names_from_url", return_value=["lib/x86/a.so", "classes.dex"]), \
                 mock.patch.object(release_check, "signer_of", return_value="s"):
-            self.assertEqual(release_check.read_apk("u"), {"package": "p", "version": "1", "code": None, "signer": "s", "abis": {"x86"}})
+            self.assertEqual(release_check.read_apk("u"), {"package": "p", "version": "1", "code": None, "signer": "s", "abis": {"x86"}, "morphe": None})
         with mock.patch.object(release_check, "manifest_from_url", side_effect=urllib.error.URLError("404")):
             self.assertIn("404", release_check.read_apk("u")["error"])
     # P-REL-72

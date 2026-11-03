@@ -166,6 +166,14 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-95 | release flow | a build below the wanted version is reported | as named | `test_P_REL_95_a_build_below_the_wanted_version_is_reported` | src/core/apk_version.py, gen_site.py, verify_apk.py, release_check.py |
 | P-REL-96 | release flow | an unread page does not claim the offer is wrong | as named | `test_P_REL_96_an_unread_page_does_not_claim_the_offer_is_wrong` | src/core/apk_version.py, gen_site.py, verify_apk.py, release_check.py |
 | P-REL-97 | release flow | flow test findings last until its next run | as named | `test_P_REL_97_flow_test_findings_last_until_its_next_run` | src/core/apk_version.py, gen_site.py, verify_apk.py, release_check.py |
+| P-REL-141 | apk_package.morphe_versions | the real dex is read as morphe reads it | as named | `test_P_REL_141_the_real_dex_is_read_as_morphe_reads_it` | apk_package.py |
+| P-REL-142 | apk_package.morphe_problem | a stable build that would alert is refused | as named | `test_P_REL_142_a_stable_build_that_would_alert_is_refused` | apk_package.py |
+| P-REL-143 | verify_apk.problems | verify rejects it before upload | as named | `test_P_REL_143_verify_rejects_it_before_upload` | verify_apk.py |
+| P-REL-144 | release_check._check_apk | health reads it from the live apk | as named | `test_P_REL_144_health_reads_it_from_the_live_apk` | release_check.py |
+| P-REL-145 | apk_package.morphe_versions_from_url | health finds the class over http | as named | `test_P_REL_145_health_finds_the_class_over_http` | apk_package.py |
+| P-REL-146 | patcher.report_stock_version | only dex files holding morphe code go through the tool | as named | `test_P_REL_146_only_dex_files_holding_morphe_code_go_through_the_tool` | src/core/patcher.py |
+| P-REL-147 | apk_version.set_version_name | the new dex goes in and the real version is read first | as named | `test_P_REL_147_the_new_dex_goes_in_and_the_real_version_is_read_first` | src/core/apk_version.py |
+| P-REL-148 | apk_version.update_version | a rebuild is higher only on its own bundle | as named | `test_P_REL_148_a_rebuild_is_higher_only_on_its_own_bundle` | src/core/apk_version.py |
 
 ## Mode combinations
 
@@ -181,6 +189,6 @@ to fail), `external` (where it IS exercised), `presentation` (only looks change)
 
 | Location | Anchor | Class | Reason |
 |---|---|---|---|
-| `src/core/apk_version.py:112` | `6d955a9d39` | external | a manifest string over 32767 characters: the same reader in tools/apk_package.py reads real APKs; no such string in the 117 real APKs |
-| `src/core/apk_version.py:113` | `2f581d54a4` | external | same branch: a manifest string over 32767 characters |
-| `src/core/apk_version.py:111` | `ac61e01912` | external | same branch: a manifest string over 32767 characters |
+| `src/core/apk_version.py:140` | `6d955a9d39` | external | a manifest string over 32767 characters: the same reader in tools/apk_package.py reads real APKs; no such string in the 117 real APKs |
+| `src/core/apk_version.py:141` | `2f581d54a4` | external | same branch: a manifest string over 32767 characters |
+| `src/core/apk_version.py:139` | `ac61e01912` | external | same branch: a manifest string over 32767 characters |

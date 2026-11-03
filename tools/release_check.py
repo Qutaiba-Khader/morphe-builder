@@ -24,7 +24,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 import gen_site  # noqa: E402
-from apk_package import manifest_attrs, manifest_from_url, names_from_url, signer_of  # noqa: E402
+from apk_package import manifest_attrs, manifest_from_url, names_from_url, signer_of, morphe_problem, morphe_versions_from_url  # noqa: E402
 from gen_catalog import _upstream_ver_key  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -129,6 +129,8 @@ def _check_apk(app_id: str, entry: dict[str, Any], have: dict[str, Any], data: d
     if apk.get("version") is not None and apk["version"] != entry.get("build_version"):
         found[f"apk-version:{app_id}"] = (f"{app_id}: the update page offers {entry.get('build_version')}, the APK says {apk['version']}: "
                                           "ObtainX compares those two once it is installed")
+    if apk.get("morphe") and (problem := morphe_problem(apk["morphe"], apk.get("version"), entry["apk"].rsplit("/", 1)[-1].find("-dev-v") >= 0)):
+        found[f"apk-morphe:{app_id}"] = f"{app_id}: {problem}"
     arch, abis = entry.get("arch"), apk.get("abis")
     if abis is not None and arch not in (None, "all") and arch not in abis:
         found[f"apk-cpu:{app_id}"] = f"{app_id}: built for {arch}, but its libraries are for {sorted(abis) or 'nothing'}"
@@ -289,7 +291,9 @@ def read_apk(url: str) -> dict[str, Any]:
         attrs = manifest_attrs(manifest_from_url(url))
         abis = {n.split("/")[1] for n in names_from_url(url) if n.startswith("lib/") and n.count("/") >= 2}
         return {"package": attrs.get("package"), "version": attrs.get("versionName"), "code": attrs.get("versionCode"),
-                "signer": signer_of(url), "abis": abis}
+                "signer": signer_of(url), "abis": abis,
+                # Only Morphe's bundles have this code; the rest would mean reading every dex for nothing.
+                "morphe": morphe_versions_from_url(url) if re.search(r"-morphe(-dev)?-v", url) else None}
     except Exception as exc:  # noqa: BLE001 - any failure to read it is the finding
         return {"error": str(exc)[:200]}
 

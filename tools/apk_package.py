@@ -90,6 +90,74 @@ def package_from_manifest(axml: bytes) -> str:
     return attrs["package"]
 
 
+# --------------------------------------------------------------------- Morphe's code
+
+MORPHE_UTILS = "Lapp/morphe/extension/shared/Utils;"
+
+
+def _uleb(data: bytes, p: int) -> tuple[int, int]:
+    out = shift = 0
+    while True:
+        byte = data[p]
+        p += 1
+        out |= (byte & 0x7F) << shift
+        shift += 7
+        if not byte & 0x80:
+            return out, p
+
+
+def morphe_versions(dex: bytes) -> dict[str, str | None] | None:
+    """What Morphe's Utils answers, if this dex holds that class: {method: the version}. None for a method that does not simply
+    return a constant, as getAppVersionName does before our build step: it then reads the versionName with the patch number."""
+    if MORPHE_UTILS.encode() not in dex:
+        return None
+    _strings_n, strings, _types_n, types, _protos_n, _protos, _fields_n, _fields, _methods_n, methods, class_count, classes = struct.unpack_from("<12I", dex, 0x38)
+
+    def text(index: int) -> str:
+        _, p = _uleb(dex, struct.unpack_from("<I", dex, strings + 4 * index)[0])
+        return dex[p : dex.index(0, p)].decode("utf-8", "replace")
+
+    wanted = {"getAppVersionName": None, "getRecommendedAppVersion": None}
+    for i in range(class_count):
+        type_idx, data = struct.unpack_from("<I", dex, classes + 32 * i)[0], struct.unpack_from("<I", dex, classes + 32 * i + 24)[0]
+        if text(struct.unpack_from("<I", dex, types + 4 * type_idx)[0]) != MORPHE_UTILS or not data:
+            continue
+        p = data
+        sizes = []
+        for _ in range(4):
+            n, p = _uleb(dex, p)
+            sizes.append(n)
+        for _ in range(sizes[0] + sizes[1]):
+            _, p = _uleb(dex, p)
+            _, p = _uleb(dex, p)
+        for count in sizes[2:]:
+            index = 0
+            for k in range(count):
+                step, p = _uleb(dex, p)
+                index = step if k == 0 else index + step
+                _, p = _uleb(dex, p)
+                code, p = _uleb(dex, p)
+                name = text(struct.unpack_from("<I", dex, methods + 8 * index + 4)[0])
+                if name in wanted and code:
+                    start = code + 16
+                    if dex[start] == 0x1A and dex[start + 4] == 0x11 and dex[start + 1] == dex[start + 5]:  # const-string, return-object
+                        wanted[name] = text(struct.unpack_from("<H", dex, start + 2)[0])
+        return wanted
+    return None
+
+
+def morphe_problem(versions: dict[str, str | None], version_name: str | None, experimental: bool) -> str:
+    """Why Morphe's code in this build is wrong, as it decides: ExperimentalAppNoticePatch alerts when reported > recommended."""
+    reported, recommended = versions.get("getAppVersionName"), versions.get("getRecommendedAppVersion")
+    if not reported:
+        return "Morphe's code reads the versionName with the patch number: a stable build opens with its Experimental Alert"
+    if version_name and version_name != reported and not version_name.startswith(f"{reported}."):
+        return f"Morphe's code says version {reported}, the app is {version_name}"
+    if not experimental and recommended and reported > recommended:
+        return f"a stable build on {reported}, above Morphe's recommended {recommended}: it opens with its Experimental Alert"
+    return ""
+
+
 # --------------------------------------------------------------------- remote
 
 
@@ -115,6 +183,37 @@ def manifest_from_url(url: str) -> bytes:
 def names_from_url(url: str) -> list[str]:
     """The names of the files in the APK, using HTTP range requests only."""
     return _read_remote(url)[1]
+
+
+def morphe_versions_from_url(url: str) -> dict[str, str | None] | None:
+    """morphe_versions of an APK over HTTP. The extension's dex files come last, so few are fetched."""
+    with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=60) as head:
+        total = int(head.headers["Content-Length"])
+        url = head.geturl()
+    tail = _fetch(url, max(0, total - 128 * 1024))
+    eocd = tail.rfind(b"PK\x05\x06")
+    cd_size, cd_off = struct.unpack_from("<II", tail, eocd + 12)
+    cd = _fetch(url, cd_off, cd_off + cd_size - 1)
+    dexes: list[tuple[int, str, int, int, int]] = []
+    p = 0
+    while p + 46 <= len(cd) and cd[p : p + 4] == b"PK\x01\x02":
+        method, = struct.unpack_from("<H", cd, p + 10)
+        size, = struct.unpack_from("<I", cd, p + 20)
+        name_len, extra_len, comment_len = struct.unpack_from("<HHH", cd, p + 28)
+        at, = struct.unpack_from("<I", cd, p + 42)
+        name = cd[p + 46 : p + 46 + name_len].decode("utf-8", "replace")
+        if name.startswith("classes") and name.endswith(".dex"):
+            dexes.append((int(name[7:-4] or 1), name, method, size, at))
+        p += 46 + name_len + extra_len + comment_len
+    for _n, _name, method, size, at in sorted(dexes, reverse=True):
+        head_bytes = _fetch(url, at, at + 29)
+        name_len, extra_len = struct.unpack_from("<HH", head_bytes, 26)
+        start = at + 30 + name_len + extra_len
+        blob = _fetch(url, start, start + size - 1)
+        found = morphe_versions(zlib.decompress(blob, -15) if method == 8 else blob)
+        if found:
+            return found
+    return None
 
 
 def _read_remote(url: str) -> tuple[bytes, list[str]]:
