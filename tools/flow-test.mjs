@@ -318,11 +318,10 @@ for (const entry of obt.apps) {
   check(`obtainium/${entry.app}: version detection on (an older app on the phone shows as an update)`,
     settings.versionDetection === true);
 
-  // Obtainium's update decision (version_normalization.dart installedMatchesRemote):
-  // a patch-only rebuild must count as a new build, the same build must not.
-  const older = (got ?? "").slice(0, entry.version.length) + "-0.0.1";
-  check(`obtainium/${entry.app}: a patch-only rebuild is offered as an update`,
-    !!got && !installedMatchesRemote(older, got) && installedMatchesRemote(got, got), `${older} -> ${got}`);
+  // Obtainium's update decision (version_normalization.dart installedMatchesRemote): the build on the page must count as
+  // itself, and a higher patch number in dots must count as a new build. ObtainX's answers are in tests/test_version_history.py.
+  check(`obtainium/${entry.app}: a build with a higher patch number is offered as an update`,
+    !!got && !installedMatchesRemote(got, `${got}.1`) && installedMatchesRemote(got, got), `${got} -> ${got}.1`);
 
   const decoded = JSON.parse(decodeURIComponent(entry.deep_link.replace("obtainium://app/", "")));
   check(`obtainium/${entry.app}: deep link decodes to the same config`,

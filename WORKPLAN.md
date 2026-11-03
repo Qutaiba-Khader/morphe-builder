@@ -366,3 +366,15 @@ flow from a new upstream version to the phone's update page was reviewed, tested
 - **Recovering**: a new upstream the stock source does not have yet builds on the next lower version, never below what phones have, and
   is retried daily. To back out a broken version, pin it in `stremio-dlurl`; the pin wins over any newer release.
 - **Not covered**: nothing runs the patched app on a device here, so a patch that applies but misbehaves at run time is not caught.
+
+## Phase 20: installed against offered (2026-11-03)
+
+ObtainX showed "Version order unclear" on every app, and offered an update for what was installed: it compares the versionName the phone
+reports with the page's version, and `46.2.3` against `46.2.3-0.8.1` is `missingBuildRevision` in `lib/version/version_comparison.dart`.
+Every earlier test compared our releases with each other, never with what the phone reports.
+
+- The page offers exactly the versionName inside the APK (`tools/gen_site.py resolve_versions`). Health fails if they differ.
+- Builds write the patch version into versionName with dots (`src/core/apk_version.py`), then are signed again. `verify_apk` rejects a build
+  without it. In ObtainX `46.2.3` is older than `46.2.3.0.8.1`, with no warning, and patch-only updates are ordered.
+- Proof: ObtainX's own decision code (`tests/obtainx/installed_against_latest_test.dart`, run inside ObtainX's source tree with its Flutter) and
+  the real app on a phone: Update available, a real install through ObtainX, then Up to date, on YouTube Experimental.
