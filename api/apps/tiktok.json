@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-03T00:30:45Z",
+  "generated": "2026-11-03T00:59:15Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "tiktok",
   "name": "TikTok",
@@ -8,10 +8,10 @@
   "builds": [
     {
       "version": "46.2.3",
-      "tag": "26.11.02-metra",
-      "published": "2026-11-02T21:33:39Z",
+      "tag": "26.11.03-metra",
+      "published": "2026-11-03T00:58:30Z",
       "prerelease": false,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.02-metra",
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-metra",
       "patches": [
         {
           "file": "icysymmetra/patches-0.8.1.mpp",
@@ -25,15 +25,15 @@
       "files": [
         {
           "arch": "all",
-          "size": 600857898,
-          "sha256": "40263d9c6252f57e4b91b7b6d83c2a5d2a57ed925141de3446beb09ca3a36866",
-          "downloads": 57,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.02-metra/tiktok-metra-v46.2.3-all.apk",
+          "size": 603718114,
+          "sha256": "d8c8eca96a01bc6b36ab81d22735e48ef8833c5dd1b8620ec1ef0f892e2e8a15",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.03-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
       ],
-      "rebuilds": 4,
-      "update_version": "46.2.3"
+      "rebuilds": 5,
+      "update_version": "46.2.3.0.8.1"
     }
   ],
   "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
