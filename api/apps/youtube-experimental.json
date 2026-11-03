@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-03T10:21:32Z",
+  "generated": "2026-11-03T10:23:29Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube-experimental",
   "name": "YouTube Experimental",
@@ -33,7 +33,7 @@
         }
       ],
       "rebuilds": 3,
-      "update_version": "21.44.528.2.1.0.6"
+      "update_version": "21.44.528.2.1.0.7"
     },
     {
       "version": "21.44.528-BETA",
