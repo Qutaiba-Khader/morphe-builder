@@ -185,7 +185,8 @@ class PatcherCLI:
         return p_args
 
     def patch(self, stock_apk: Path, output_apk: Path, patch_args: list[str], required: Iterable[str] = ()) -> None:
-        base_cmd = ["-jar", self.cli_jar, "patch", stock_apk, "-o", output_apk]
+        # Absolute: CLI 2.0.0 links a bundle into its own temp folder using the path as given, so a relative one leads nowhere.
+        base_cmd = ["-jar", self.cli_jar, "patch", stock_apk.resolve(), "-o", output_apk]
         ks_args: list[str] = []
         if self.ks_path and (ks_pass := os.getenv("KEYSTORE_PASS")) and (ks_alias := os.getenv("KEYSTORE_ALIAS")):
             ks_args = [f"--keystore={self.ks_path}", f"--keystore-entry-password={ks_pass}", f"--keystore-password={ks_pass}", f"--signer={ks_alias}", f"--keystore-entry-alias={ks_alias}"]

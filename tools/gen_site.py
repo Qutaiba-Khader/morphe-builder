@@ -82,6 +82,43 @@ def _get(url: str) -> Any:
     raise AssertionError("unreachable")
 
 
+# The API address of each release file, by its public link (collect fills it).
+ASSET_API: dict[str, str] = {}
+
+
+class _StopRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *_args: Any, **_kwargs: Any) -> None:
+        return None
+
+
+def apk_url(url: str) -> str:
+    """Where to read this file's contents.
+
+    A same-day rebuild replaces a file under the same name, and for a few minutes its public link can still lead to the
+    old bytes: on 2026-11-04 the page got the old file's version for the new file. An asset's id belongs to the one file,
+    so read through that. The job token goes to the API only; the answer is a signed storage link. If that fails, the
+    public link is still better than nothing.
+    """
+    if not (api := ASSET_API.get(url)):
+        return url
+    req = urllib.request.Request(api)
+    req.add_header("Accept", "application/octet-stream")
+    req.add_header("User-Agent", "morphe-builder-site")
+    if token := os.getenv("GITHUB_TOKEN"):
+        req.add_header("Authorization", f"Bearer {token}")
+    error: Exception | str = "no redirect"
+    try:
+        urllib.request.build_opener(_StopRedirect()).open(req, timeout=30).close()
+    except urllib.error.HTTPError as exc:
+        if exc.code in (301, 302, 303, 307, 308) and (location := exc.headers.get("Location")):
+            return location
+        error = exc
+    except (http.client.HTTPException, urllib.error.URLError) as exc:
+        error = exc
+    print(f"  warn: reading {url} by its public link ({error})", file=sys.stderr)
+    return url
+
+
 # Workflows that turn a release back into a DRAFT while they rebuild it
 # (upstream build.yml "Prepare version and draft release"). While one runs, the
 # releases this script can see are a partial, older picture.
@@ -401,6 +438,8 @@ def collect(releases: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                     "files": [],
                 },
             )
+            if api_url := asset.get("url"):
+                ASSET_API[asset["browser_download_url"]] = api_url
             build["files"].append(
                 {
                     "arch": arch,
@@ -603,7 +642,7 @@ def resolve_packages(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> N
         error: Exception | None = None
         for attempt in range(3):
             try:
-                app["package"] = package_of(file["url"])
+                app["package"] = package_of(apk_url(file["url"]))
                 break
             except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
                 error = exc
@@ -638,7 +677,7 @@ def resolve_versions(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> N
         error: Exception | None = None
         for attempt in range(3):
             try:
-                if name := manifest_attrs(manifest_from_url(file["url"])).get("versionName"):
+                if name := manifest_attrs(manifest_from_url(apk_url(file["url"]))).get("versionName"):
                     build["update_version"] = name
                     break
             except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
@@ -668,7 +707,7 @@ def resolve_signers(apps: dict[str, dict[str, Any]], live: dict[str, Any]) -> No
         file = app["builds"][0]["files"][0]
         for attempt in range(3):
             try:
-                app["signer"] = signer_of(file["url"])
+                app["signer"] = signer_of(apk_url(file["url"]))
                 break
             except Exception as exc:  # noqa: BLE001 - network hiccup, retried below
                 error = exc

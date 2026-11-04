@@ -6,12 +6,14 @@ Each test name carries the ID of its row in docs/flow-map/main.md. Run with
 from __future__ import annotations
 
 import http.client
+import http.server
 import io
 import json
 import os
 import struct
 import sys
 import tempfile
+import threading
 import unittest
 import urllib.error
 import zipfile
@@ -1608,6 +1610,68 @@ class BuildList(unittest.TestCase):
         apps = gen_site.collect([release("26.11.04-subs", [TV_NEW], published="2026-11-04T20:00:00Z"), release("26.11.03-subs", [PHONE_NEW, TV_OLD], published="2026-11-03T20:00:00Z")])
         self.assertEqual(apps["stremio-phone"]["builds"][0]["version"], "2.5.1")
         self.assertEqual(apps["stremio-tv"]["builds"][0]["version"], "1.12.1")
+    # P-REL-151
+    def test_P_REL_151_the_cli_gets_the_bundle_by_its_absolute_path(self):
+        out = Path(tempfile.mkdtemp()) / "x.apk"
+        with mock.patch.object(patcher, "_run_java", return_value="") as run, redirect_stdout(io.StringIO()):
+            patcher.PatcherCLI(Path("cli.jar"), {}, Path("apksigner")).patch(Path("temp/s.apkm"), out, [])
+        given = run.call_args.args[run.call_args.args.index("patch") + 1]
+        self.assertTrue(Path(given).is_absolute(), given)
+        self.assertEqual(Path(given), Path("temp/s.apkm").resolve())
+    # P-REL-152
+    def test_P_REL_152_a_replaced_file_is_read_by_its_own_id(self):
+        link = f"{DL}/t/app-v1-all.apk"
+        api = "https://api.github.com/repos/o/r/releases/assets/7"
+        gone = urllib.error.HTTPError(api, 302, "Found", {"Location": "https://storage/new?sig=1"}, None)
+        with mock.patch.dict(gen_site.ASSET_API, {link: api}, clear=True), mock.patch.dict(os.environ, {"GITHUB_TOKEN": "t"}), \
+                mock.patch.object(gen_site.urllib.request, "build_opener") as opener:
+            opener.return_value.open.side_effect = gone
+            self.assertEqual(gen_site.apk_url(link), "https://storage/new?sig=1")
+            sent = opener.return_value.open.call_args.args[0]
+            self.assertEqual(sent.full_url, api)
+            self.assertEqual(sent.get_header("Accept"), "application/octet-stream")
+            self.assertEqual(sent.get_header("Authorization"), "Bearer t")
+            for failure in (urllib.error.URLError("down"), urllib.error.HTTPError(api, 404, "Not Found", {}, None)):
+                opener.return_value.open.side_effect = failure
+                with mock.patch("sys.stderr", io.StringIO()):
+                    self.assertEqual(gen_site.apk_url(link), link, "the public link is the fallback")
+            opener.return_value.open.side_effect = None
+            with mock.patch("sys.stderr", io.StringIO()):
+                self.assertEqual(gen_site.apk_url(link), link, "no redirect: nothing to follow")
+        self.assertEqual(gen_site.apk_url("https://elsewhere/x.apk"), "https://elsewhere/x.apk", "unknown file: as it is")
+        # A real server: the redirect is taken as the answer, not followed, and the token does not travel with it.
+        seen = []
+
+        class Answer(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                seen.append((self.path, self.headers.get("Authorization")))
+                self.send_response(302)
+                self.send_header("Location", f"http://127.0.0.1:{self.server.server_port}/storage")
+                self.end_headers()
+
+            def log_message(self, *_args):
+                pass
+
+        server = http.server.HTTPServer(("127.0.0.1", 0), Answer)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+        here = f"http://127.0.0.1:{server.server_port}"
+        env = {k: v for k, v in os.environ.items() if k != "GITHUB_TOKEN"}
+        with mock.patch.dict(gen_site.ASSET_API, {link: f"{here}/asset"}, clear=True), mock.patch.dict(os.environ, env, clear=True):
+            self.assertEqual(gen_site.apk_url(link), f"{here}/storage")
+        self.assertEqual(seen, [("/asset", None)], "asked once, the storage link not fetched, no token set")
+        with mock.patch.dict(gen_site.ASSET_API, {}, clear=True):
+            gen_site.collect([release("26.11.04-subs", [asset(TV_NEW, "26.11.04-subs", url=f"https://api/{TV_NEW}")])])
+            self.assertEqual(list(gen_site.ASSET_API.values()), [f"https://api/{TV_NEW}"])
+            read = []
+            apps = {"a": {"id": "a", "builds": [{"files": [{"url": link}]}]}}
+            with mock.patch.object(gen_site, "apk_url", side_effect=lambda u: read.append(u) or "https://storage/new"), \
+                    mock.patch.object(gen_site, "manifest_from_url", return_value=manifest(package="p", versionName="1.8")) as m:
+                gen_site.resolve_versions(apps, {})
+            self.assertEqual(read, [link])
+            m.assert_called_once_with("https://storage/new")
+            self.assertEqual(apps["a"]["builds"][0]["update_version"], "1.8")
     # P-REL-82
     def test_P_REL_82_a_dev_brand_is_a_prerelease(self):
         dev = entry(patches={"github:M/p": {"version": "dev", "include": [], "exclude": []}})
