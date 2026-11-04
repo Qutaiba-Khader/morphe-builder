@@ -1,5 +1,13 @@
 {
  "problems": {
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-04T19:46:38Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.10, we offer 2.1.0-dev.8"
+  },
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-04T19:46:38Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.10, we offer 2.1.0-dev.8"
+  },
   "wanted-behind:reddit-experimental": {
    "first_seen": "2026-11-02T21:36:23Z",
    "text": "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
