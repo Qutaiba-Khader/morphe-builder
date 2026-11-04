@@ -47,13 +47,13 @@ Newer app versions with development patches. Each one installs **next to** its s
 | App | Channel | Package | Release | Patches | Obtainium endpoint |
 |---|---|---|---|---|---|
 | Reddit | stable | `com.reddit.frontpage` | [`26.11.03-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-morphe) | `2.0.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.11.04-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.04-morphe-dev) | `2.1.0-dev.8` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.11.04-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.04-morphe-dev) | `2.1.0-dev.10` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
 | Stremio Phone Clone | stable | `com.stremio.one.subs.phone` | [`26.11.03-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-subs) | `0.6.0` + `2.0.0` | [stremio-phone.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-phone.html) |
 | Stremio TV Clone | stable | `com.stremio.one.subs` | [`26.11.03-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-subs) | `0.6.0` + `2.0.0` | [stremio-tv.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html) |
 | Stremio TV Replacement | stable | `com.stremio.one` | [`26.11.03-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-subs) | `0.6.0` | [stremio-tv-replace.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html) |
 | TikTok | stable | `com.zhiliaoapp.musically` | [`26.11.03-metra`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-metra) | `0.8.1` | [tiktok.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/tiktok.html) |
 | YouTube | stable | `app.morphe.android.youtube` | [`26.11.03-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.03-morphe) | `2.0.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.11.04-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.04-morphe-dev) | `2.1.0-dev.8` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.11.04-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.04-morphe-dev) | `2.1.0-dev.10` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
