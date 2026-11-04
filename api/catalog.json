@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-03T11:35:29Z",
-  "cli": "morphe-desktop-1.20.0-all.jar",
+  "generated": "2026-11-04T11:50:21Z",
+  "cli": "morphe-desktop-2.0.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 196,
+      "patch_count": 197,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -667,6 +667,10 @@
               "default": true
             },
             {
+              "name": "Watch later improvements",
+              "default": true
+            },
+            {
               "name": "Wide search bar",
               "default": true
             }
@@ -808,7 +812,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.1.0-dev.7",
+      "version": "v2.1.0-dev.8",
       "spec": "dev",
       "used_by": [
         {
