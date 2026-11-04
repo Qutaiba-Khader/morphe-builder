@@ -1,8 +1,8 @@
 {
  "problems": {
-  "apk-version:youtube-experimental": {
-   "first_seen": "2026-11-04T11:55:53Z",
-   "text": "youtube-experimental: the update page offers 21.44.528.2.1.0.7, the APK says 21.44.528.2.1.0.8: ObtainX compares those two once it is installed"
+  "apk-version:reddit-experimental": {
+   "first_seen": "2026-11-04T13:08:25Z",
+   "text": "reddit-experimental: the update page offers 2026.42.0.2.1.0.7, the APK says 2026.42.0.2.1.0.8: ObtainX compares those two once it is installed"
   },
   "ci-failed:build (morphe-dev) / run (Reddit-Experimental)": {
    "first_seen": "2026-11-04T11:55:53Z",
@@ -54,7 +54,7 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.44.528.2.1.0.7",
+   "text": "21.44.528.2.1.0.8",
    "version": "21.44.528",
    "package": "app.morphe.android.youtube.dev"
   }
