@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-04T11:38:53Z",
+ "checked_at": "2026-11-04T11:55:53Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.42.0",
@@ -34,10 +34,12 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [],
+ "problems": [
+  "the build failed: build (morphe-dev) / run (Reddit-Experimental)",
+  "youtube-experimental: the update page offers 21.44.528.2.1.0.7, the APK says 21.44.528.2.1.0.8: ObtainX compares those two once it is installed"
+ ],
  "waiting": [
   "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.8, we offer 2.1.0-dev.7",
-  "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.8, we offer 2.1.0-dev.7"
+  "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
  ]
 }
