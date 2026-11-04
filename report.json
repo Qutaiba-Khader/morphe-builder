@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-04T13:11:47Z",
+ "checked_at": "2026-11-04T13:21:20Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.42.0",
@@ -34,9 +34,7 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [
-  "the build failed: build (morphe-dev) / run (Reddit-Experimental)"
- ],
+ "problems": [],
  "waiting": [
   "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
  ]
