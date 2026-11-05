@@ -1,13 +1,13 @@
 {
- "checked_at": "2026-11-04T21:48:39Z",
+ "checked_at": "2026-11-05T02:05:01Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.42.0",
-   "tag": "26.11.04-morphe-dev"
+   "tag": "26.11.05-morphe-dev"
   },
   "youtube-experimental": {
    "version": "21.44.528",
-   "tag": "26.11.04-morphe-dev"
+   "tag": "26.11.05-morphe-dev"
   },
   "stremio-phone": {
    "version": "2.5.1",
