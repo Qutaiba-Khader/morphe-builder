@@ -1,5 +1,13 @@
 {
  "problems": {
+  "apk-version:reddit-experimental": {
+   "first_seen": "2026-11-05T11:55:30Z",
+   "text": "reddit-experimental: the update page offers 2026.42.0.2.1.0.10, the APK says 2026.42.0.2.1.0.11: ObtainX compares those two once it is installed"
+  },
+  "apk-version:youtube-experimental": {
+   "first_seen": "2026-11-05T11:55:30Z",
+   "text": "youtube-experimental: the update page offers 21.44.528.2.1.0.10, the APK says 21.44.528.2.1.0.11: ObtainX compares those two once it is installed"
+  },
   "patches-behind:reddit-experimental": {
    "first_seen": "2026-11-05T11:34:01Z",
    "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0-dev.11, we offer 2.1.0-dev.10"
