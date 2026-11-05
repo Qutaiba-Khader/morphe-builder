@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-05T20:16:28Z",
+ "checked_at": "2026-11-05T21:52:06Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.42.0",
@@ -34,8 +34,8 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [],
- "waiting": [
+ "problems": [
   "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
- ]
+ ],
+ "waiting": []
 }
