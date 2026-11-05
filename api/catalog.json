@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-04T11:50:21Z",
+  "generated": "2026-11-05T11:50:18Z",
   "cli": "morphe-desktop-2.0.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 197,
+      "patch_count": 198,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -623,6 +623,10 @@
               "default": true
             },
             {
+              "name": "Snackbar",
+              "default": true
+            },
+            {
               "name": "SponsorBlock",
               "default": true
             },
@@ -812,7 +816,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.1.0-dev.8",
+      "version": "v2.1.0-dev.11",
       "spec": "dev",
       "used_by": [
         {
@@ -1850,7 +1854,7 @@
         },
         "com.facebook.orca": {
           "versions": [
-            "573.0.0.44.88"
+            "586.0.0.55.92"
           ],
           "patches": [
             {
@@ -2126,7 +2130,7 @@
         }
       },
       "url": "https://github.com/RookieEnough/De-Vanced",
-      "version": "v1.6.3",
+      "version": "v1.6.4",
       "spec": "latest",
       "used_by": [
         {
