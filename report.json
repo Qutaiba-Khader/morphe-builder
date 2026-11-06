@@ -1,6 +1,10 @@
 {
- "checked_at": "2026-11-06T02:04:56Z",
+ "checked_at": "2026-11-06T06:03:56Z",
  "offered": {
+  "stremio-tv": {
+   "version": "1.12.1",
+   "tag": "26.11.06-subs"
+  },
   "reddit-experimental": {
    "version": "2026.42.0",
    "tag": "26.11.06-morphe-dev"
@@ -11,10 +15,6 @@
   },
   "stremio-phone": {
    "version": "2.5.1",
-   "tag": "26.11.03-subs"
-  },
-  "stremio-tv": {
-   "version": "1.12.1",
    "tag": "26.11.03-subs"
   },
   "stremio-tv-replace": {
@@ -37,5 +37,8 @@
  "problems": [
   "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
  ],
- "waiting": []
+ "waiting": [
+  "stremio-phone: Qutaiba-Khader/stremio-subs-patches is at 0.7.0, we offer 0.6.0",
+  "stremio-tv-replace: Qutaiba-Khader/stremio-subs-patches is at 0.7.0, we offer 0.6.0"
+ ]
 }
