@@ -1,35 +1,14 @@
 {
- "problems": {
-  "patches-behind:reddit": {
-   "first_seen": "2026-11-06T19:25:40Z",
-   "text": "reddit: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0"
-  },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-06T19:25:40Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11"
-  },
-  "patches-behind:youtube": {
-   "first_seen": "2026-11-06T19:25:40Z",
-   "text": "youtube: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-06T19:25:40Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11"
-  },
-  "wanted-behind:reddit-experimental": {
-   "first_seen": "2026-11-02T21:36:23Z",
-   "text": "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
-  }
- },
+ "problems": {},
  "offers": {
   "reddit": {
-   "text": "2026.40.0.2.0.0.1",
+   "text": "2026.40.0.2.1.0",
    "version": "2026.40.0",
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.42.0.2.1.0.11",
-   "version": "2026.42.0",
+   "text": "2026.45.0.2.1.0.9999",
+   "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
@@ -53,12 +32,12 @@
    "package": "com.zhiliaoapp.musically"
   },
   "youtube": {
-   "text": "21.30.216.2.0.0.1",
+   "text": "21.30.216.2.1.0",
    "version": "21.30.216",
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.44.528.2.1.0.11",
+   "text": "21.44.528.2.1.0.9999",
    "version": "21.44.528",
    "package": "app.morphe.android.youtube.dev"
   }

@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-06T19:41:46Z",
+ "checked_at": "2026-11-06T21:21:47Z",
  "offered": {
   "stremio-phone": {
    "version": "2.5.1",
@@ -13,34 +13,27 @@
    "version": "1.12.1",
    "tag": "26.11.06-subs"
   },
+  "reddit": {
+   "version": "2026.40.0",
+   "tag": "26.11.06-morphe"
+  },
+  "youtube": {
+   "version": "21.30.216",
+   "tag": "26.11.06-morphe"
+  },
   "reddit-experimental": {
-   "version": "2026.42.0",
+   "version": "2026.45.0",
    "tag": "26.11.06-morphe-dev"
   },
   "youtube-experimental": {
    "version": "21.44.528",
    "tag": "26.11.06-morphe-dev"
   },
-  "reddit": {
-   "version": "2026.40.0",
-   "tag": "26.11.03-morphe"
-  },
-  "youtube": {
-   "version": "21.30.216",
-   "tag": "26.11.03-morphe"
-  },
   "tiktok": {
    "version": "46.2.3",
    "tag": "26.11.03-metra"
   }
  },
- "problems": [
-  "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
- ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11",
-  "reddit: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11",
-  "youtube: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0"
- ]
+ "problems": [],
+ "waiting": []
 }
