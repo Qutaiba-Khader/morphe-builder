@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-06T02:01:13Z",
+  "generated": "2026-11-06T06:00:27Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -57,7 +57,7 @@
       "brand": "subs",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.1",
-      "updated": "2026-11-03T00:56:51Z",
+      "updated": "2026-11-06T05:59:15Z",
       "versions": 3,
       "api": "api/apps/stremio-tv.json"
     },
