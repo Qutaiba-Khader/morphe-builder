@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-06T11:49:11Z",
+ "checked_at": "2026-11-06T19:25:40Z",
  "offered": {
   "stremio-phone": {
    "version": "2.5.1",
@@ -37,5 +37,10 @@
  "problems": [
   "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
  ],
- "waiting": []
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11",
+  "reddit: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.1.0, we offer 2.1.0-dev.11",
+  "youtube: MorpheApp/morphe-patches is at 2.1.0, we offer 2.0.0"
+ ]
 }
