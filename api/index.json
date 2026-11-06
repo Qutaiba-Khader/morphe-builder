@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-06T11:47:01Z",
+  "generated": "2026-11-06T21:17:35Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -24,7 +24,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "2026.40.0",
-      "updated": "2026-11-03T00:57:04Z",
+      "updated": "2026-11-06T21:16:20Z",
       "versions": 3,
       "api": "api/apps/reddit.json"
     },
@@ -34,9 +34,9 @@
       "package": "com.reddit.frontpage.morphe",
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "latest_version": "2026.42.0",
+      "latest_version": "2026.45.0",
       "updated": "2026-11-06T01:59:59Z",
-      "versions": 5,
+      "versions": 6,
       "api": "api/apps/reddit-experimental.json"
     },
     {
@@ -90,7 +90,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "21.30.216",
-      "updated": "2026-11-03T00:57:04Z",
+      "updated": "2026-11-06T21:16:20Z",
       "versions": 4,
       "api": "api/apps/youtube.json"
     },

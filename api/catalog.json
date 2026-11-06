@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-05T11:50:18Z",
-  "cli": "morphe-desktop-2.0.0-all.jar",
+  "generated": "2026-11-06T11:46:20Z",
+  "cli": "morphe-desktop-2.1.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
       "patch_count": 198,
@@ -1679,7 +1679,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-subs-patches",
-      "version": "v0.6.0",
+      "version": "v0.7.1",
       "spec": "latest",
       "used_by": [
         {
