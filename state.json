@@ -1,13 +1,5 @@
 {
  "problems": {
-  "patches-behind:stremio-phone": {
-   "first_seen": "2026-11-06T06:03:56Z",
-   "text": "stremio-phone: Qutaiba-Khader/stremio-subs-patches is at 0.7.0, we offer 0.6.0"
-  },
-  "patches-behind:stremio-tv-replace": {
-   "first_seen": "2026-11-06T06:03:56Z",
-   "text": "stremio-tv-replace: Qutaiba-Khader/stremio-subs-patches is at 0.7.0, we offer 0.6.0"
-  },
   "wanted-behind:reddit-experimental": {
    "first_seen": "2026-11-02T21:36:23Z",
    "text": "reddit-experimental: built on 2026.42.0 because 2026.44.0 cannot be downloaded yet"
@@ -25,17 +17,17 @@
    "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
-   "text": "2.5.1.0.6.0",
+   "text": "2.5.1.0.7.1",
    "version": "2.5.1",
    "package": "com.stremio.one.subs.phone"
   },
   "stremio-tv": {
-   "text": "1.12.1.0.7.0",
+   "text": "1.12.1.0.7.1",
    "version": "1.12.1",
    "package": "com.stremio.one.subs"
   },
   "stremio-tv-replace": {
-   "text": "1.12.1.0.6.0",
+   "text": "1.12.1.0.7.1",
    "version": "1.12.1",
    "package": "com.stremio.one"
   },
