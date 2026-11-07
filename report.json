@@ -1,6 +1,14 @@
 {
- "checked_at": "2026-11-06T22:10:15Z",
+ "checked_at": "2026-11-07T01:39:24Z",
  "offered": {
+  "reddit-experimental": {
+   "version": "2026.45.0",
+   "tag": "26.11.07-morphe-dev"
+  },
+  "youtube-experimental": {
+   "version": "21.44.528",
+   "tag": "26.11.07-morphe-dev"
+  },
   "stremio-phone": {
    "version": "2.5.1",
    "tag": "26.11.06-subs"
@@ -20,14 +28,6 @@
   "youtube": {
    "version": "21.30.216",
    "tag": "26.11.06-morphe"
-  },
-  "reddit-experimental": {
-   "version": "2026.45.0",
-   "tag": "26.11.06-morphe-dev"
-  },
-  "youtube-experimental": {
-   "version": "21.44.528",
-   "tag": "26.11.06-morphe-dev"
   },
   "tiktok": {
    "version": "46.2.3",
