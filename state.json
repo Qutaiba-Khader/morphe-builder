@@ -3,14 +3,6 @@
   "flow-test:it did not finish": {
    "first_seen": "2026-11-08T10:48:15Z",
    "text": "site flow test: it did not finish"
-  },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-08T13:26:44Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-08T13:26:44Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1"
   }
  },
  "offers": {
@@ -20,7 +12,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.2.0.1",
+   "text": "2026.45.0.2.2.0.2",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -50,7 +42,7 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.44.528.2.2.0.1",
+   "text": "21.44.528.2.2.0.2",
    "version": "21.44.528",
    "package": "app.morphe.android.youtube.dev"
   }

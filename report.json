@@ -1,13 +1,13 @@
 {
- "checked_at": "2026-11-08T18:05:38Z",
+ "checked_at": "2026-11-08T20:13:11Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
-   "tag": "26.11.07-morphe-dev"
+   "tag": "26.11.08-morphe-dev"
   },
   "youtube-experimental": {
    "version": "21.44.528",
-   "tag": "26.11.07-morphe-dev"
+   "tag": "26.11.08-morphe-dev"
   },
   "stremio-phone": {
    "version": "2.5.1",
@@ -37,8 +37,5 @@
  "problems": [
   "site flow test: it did not finish"
  ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1"
- ]
+ "waiting": []
 }
