@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T11:01:12Z",
+  "generated": "2026-11-08T18:02:06Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version on the page is the versionName inside the APK, which is what the phone reports, so Obtainium and ObtainX compare like with like.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
