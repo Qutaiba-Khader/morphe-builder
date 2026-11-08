@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T06:34:30Z",
+  "generated": "2026-11-08T11:01:12Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube",
   "name": "YouTube",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 145587154,
           "sha256": "441ef3dec70cd76fac86c0815d9e5514d08a5093a563d7efcc0a55581888ee4e",
-          "downloads": 22,
+          "downloads": 28,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-morphe/youtube-morphe-v21.30.216-all.apk",
           "name": "youtube-morphe-v21.30.216-all.apk"
         }
@@ -56,7 +56,7 @@
           "arch": "all",
           "size": 134306872,
           "sha256": "4b14c1ee5333e211ab2ecfb6fe1cc50b82713ca73f51c34dc4af9d79a22a57ff",
-          "downloads": 194,
+          "downloads": 195,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.24-morphe/youtube-morphe-v21.20.405-all.apk",
           "name": "youtube-morphe-v21.20.405-all.apk"
         }
@@ -84,7 +84,7 @@
           "arch": "all",
           "size": 129522216,
           "sha256": "3957cf547e0839089fda4f6978919a4e55bcda8e2f6ec7bead048aa7c39b7020",
-          "downloads": 194,
+          "downloads": 195,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.06-morphe/youtube-morphe-v21.16.256-all.apk",
           "name": "youtube-morphe-v21.16.256-all.apk"
         }
@@ -112,7 +112,7 @@
           "arch": "all",
           "size": 128343109,
           "sha256": "14ff2b94685d3c8ca36ec17d9ce22c9cabd10d2961ef34b970e0afe24de93ae9",
-          "downloads": 177,
+          "downloads": 178,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.20-morphe/youtube-morphe-v21.13.164-all.apk",
           "name": "youtube-morphe-v21.13.164-all.apk"
         }
