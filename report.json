@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-08T06:37:56Z",
+ "checked_at": "2026-11-08T10:48:15Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -34,6 +34,11 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [],
- "waiting": []
+ "problems": [
+  "site flow test: it did not finish"
+ ],
+ "waiting": [
+  "28 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-morphe-v21.30.216-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk']",
+  "reddit: its APK cannot be read: The read operation timed out"
+ ]
 }

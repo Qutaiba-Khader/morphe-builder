@@ -1,5 +1,18 @@
 {
- "problems": {},
+ "problems": {
+  "apk-unreachable:reddit": {
+   "first_seen": "2026-11-08T10:48:15Z",
+   "text": "reddit: its APK cannot be read: The read operation timed out"
+  },
+  "check-error:apk-codes": {
+   "first_seen": "2026-11-08T10:48:15Z",
+   "text": "28 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-morphe-v21.30.216-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk']"
+  },
+  "flow-test:it did not finish": {
+   "first_seen": "2026-11-08T10:48:15Z",
+   "text": "site flow test: it did not finish"
+  }
+ },
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.1.0",
