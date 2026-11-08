@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-08T11:04:34Z",
+ "checked_at": "2026-11-08T13:26:44Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -38,10 +38,7 @@
   "site flow test: it did not finish"
  ],
  "waiting": [
-  "7 published APKs could not be read, so the versionCode bar may be low: ['reddit-experimental-morphe-dev-v2026.39.0-all.apk', 'youtube-experimental-morphe-dev-v21.38.123-all.apk', 'youtube-experimental-morphe-dev-v21.38.123-all.apk']",
-  "reddit: its APK cannot be read: HTTP Error 502: Bad Gateway",
-  "stremio-phone: its APK cannot be read: The read operation timed out",
-  "stremio-tv: its APK cannot be read: The read operation timed out",
-  "youtube-experimental: its APK cannot be read: The read operation timed out"
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.2, we offer 2.2.0-dev.1"
  ]
 }
