@@ -2,11 +2,23 @@
  "problems": {
   "apk-unreachable:reddit": {
    "first_seen": "2026-11-08T10:48:15Z",
-   "text": "reddit: its APK cannot be read: The read operation timed out"
+   "text": "reddit: its APK cannot be read: HTTP Error 502: Bad Gateway"
+  },
+  "apk-unreachable:stremio-phone": {
+   "first_seen": "2026-11-08T11:04:34Z",
+   "text": "stremio-phone: its APK cannot be read: The read operation timed out"
+  },
+  "apk-unreachable:stremio-tv": {
+   "first_seen": "2026-11-08T11:04:34Z",
+   "text": "stremio-tv: its APK cannot be read: The read operation timed out"
+  },
+  "apk-unreachable:youtube-experimental": {
+   "first_seen": "2026-11-08T11:04:34Z",
+   "text": "youtube-experimental: its APK cannot be read: The read operation timed out"
   },
   "check-error:apk-codes": {
    "first_seen": "2026-11-08T10:48:15Z",
-   "text": "28 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-morphe-v21.30.216-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk']"
+   "text": "7 published APKs could not be read, so the versionCode bar may be low: ['reddit-experimental-morphe-dev-v2026.39.0-all.apk', 'youtube-experimental-morphe-dev-v21.38.123-all.apk', 'youtube-experimental-morphe-dev-v21.38.123-all.apk']"
   },
   "flow-test:it did not finish": {
    "first_seen": "2026-11-08T10:48:15Z",
