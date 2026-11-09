@@ -1,12 +1,12 @@
 {
  "problems": {
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-09T12:13:20Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
+  "page-link:reddit-experimental": {
+   "first_seen": "2026-11-09T12:35:17Z",
+   "text": "reddit-experimental: its update page links ['https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.08-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk'], not https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.09-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk"
   },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-09T12:13:20Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
+  "page-version:reddit-experimental": {
+   "first_seen": "2026-11-09T12:35:17Z",
+   "text": "reddit-experimental: its update page says 2026.45.0.2.2.0.2, not 2026.45.0.2.2.0.3"
   }
  },
  "offers": {
@@ -16,7 +16,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.2.0.2",
+   "text": "2026.45.0.2.2.0.3",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -46,8 +46,8 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.44.528.2.2.0.2",
-   "version": "21.44.528",
+   "text": "21.45.82.2.2.0.3",
+   "version": "21.45.82",
    "package": "app.morphe.android.youtube.dev"
   }
  }

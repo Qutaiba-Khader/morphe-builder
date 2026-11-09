@@ -1,13 +1,13 @@
 {
- "checked_at": "2026-11-09T12:13:20Z",
+ "checked_at": "2026-11-09T12:35:17Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
-   "tag": "26.11.08-morphe-dev"
+   "tag": "26.11.09-morphe-dev"
   },
   "youtube-experimental": {
-   "version": "21.44.528",
-   "tag": "26.11.08-morphe-dev"
+   "version": "21.45.82",
+   "tag": "26.11.09-morphe-dev"
   },
   "stremio-phone": {
    "version": "2.5.1",
@@ -34,9 +34,9 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
- ]
+ "problems": [
+  "reddit-experimental: its update page links ['https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.08-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk'], not https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.09-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk",
+  "reddit-experimental: its update page says 2026.45.0.2.2.0.2, not 2026.45.0.2.2.0.3"
+ ],
+ "waiting": []
 }
