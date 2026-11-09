@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08T20:09:52Z",
+  "generated": "2026-11-09T01:24:30Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "youtube-experimental",
   "name": "YouTube Experimental",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 158617110,
           "sha256": "4d86b27eba25fe051030ec1572ebd29c1e034864445d50e21e1f2b34cf8ec814",
-          "downloads": 0,
+          "downloads": 5,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.08-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.44.528-all.apk"
         }
@@ -56,7 +56,7 @@
           "arch": "all",
           "size": 158071126,
           "sha256": "5f737253fad36aceaf0ce63550089f8dd80ab1cc31a748f096ca836440e6ae55",
-          "downloads": 144,
+          "downloads": 148,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.31-morphe-dev/youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.44.528-BETA-all.apk"
         }
@@ -84,7 +84,7 @@
           "arch": "all",
           "size": 153883700,
           "sha256": "45a6c049646cb054da393afc0f879e1dcc07cf841218dc76ecb36089b7ee7e7b",
-          "downloads": 144,
+          "downloads": 148,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.30-morphe-dev/youtube-experimental-morphe-dev-v21.43.523-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.43.523-all.apk"
         }
@@ -112,7 +112,7 @@
           "arch": "all",
           "size": 147729346,
           "sha256": "31a4b6b77a04fcee1b3d365933e0990f77cc61cd42819e38f660625d9fad4fce",
-          "downloads": 155,
+          "downloads": 159,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.23-morphe-dev/youtube-experimental-morphe-dev-v21.42.241-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.42.241-all.apk"
         }
@@ -140,7 +140,7 @@
           "arch": "all",
           "size": 129966747,
           "sha256": "1bac6047670e13c013c9c38ade1cbfc5cf867ce8de653358572bc0a7a0e515b6",
-          "downloads": 147,
+          "downloads": 151,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.15-morphe-dev/youtube-experimental-morphe-dev-v21.41.525-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.41.525-all.apk"
         }
@@ -168,7 +168,7 @@
           "arch": "all",
           "size": 143894049,
           "sha256": "63537af032fb84332aebda195e5d2ea93792dfdacfe2ddfa82acccb8e04e3b87",
-          "downloads": 147,
+          "downloads": 151,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.11-morphe-dev/youtube-experimental-morphe-dev-v21.40.161-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.40.161-all.apk"
         }
@@ -196,7 +196,7 @@
           "arch": "all",
           "size": 141480351,
           "sha256": "eb83e9ac209f804432f516480b1aaf191af3f541e1f8892ee49bf86537f69237",
-          "downloads": 157,
+          "downloads": 161,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.04-morphe-dev/youtube-experimental-morphe-dev-v21.39.522-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.39.522-all.apk"
         }
@@ -224,7 +224,7 @@
           "arch": "all",
           "size": 140301192,
           "sha256": "e81cac8c77568ecd8efe23e226e6bf9c887620633f6d457055086e41516ba701",
-          "downloads": 163,
+          "downloads": 167,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.09.25-morphe-dev/youtube-experimental-morphe-dev-v21.38.123-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.38.123-all.apk"
         }
