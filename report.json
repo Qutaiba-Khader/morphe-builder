@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-09T12:35:17Z",
+ "checked_at": "2026-11-09T13:24:08Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -34,9 +34,6 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [
-  "reddit-experimental: its update page links ['https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.08-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk'], not https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.09-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk",
-  "reddit-experimental: its update page says 2026.45.0.2.2.0.2, not 2026.45.0.2.2.0.3"
- ],
+ "problems": [],
  "waiting": []
 }

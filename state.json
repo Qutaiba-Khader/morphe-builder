@@ -1,14 +1,5 @@
 {
- "problems": {
-  "page-link:reddit-experimental": {
-   "first_seen": "2026-11-09T12:35:17Z",
-   "text": "reddit-experimental: its update page links ['https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.08-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk'], not https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.09-morphe-dev/reddit-experimental-morphe-dev-v2026.45.0-all.apk"
-  },
-  "page-version:reddit-experimental": {
-   "first_seen": "2026-11-09T12:35:17Z",
-   "text": "reddit-experimental: its update page says 2026.45.0.2.2.0.2, not 2026.45.0.2.2.0.3"
-  }
- },
+ "problems": {},
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.1.0",
