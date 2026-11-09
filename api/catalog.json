@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-07T10:51:43Z",
+  "generated": "2026-11-09T12:29:49Z",
   "cli": "morphe-desktop-2.1.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 201,
+      "patch_count": 202,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -515,6 +515,10 @@
               "default": true
             },
             {
+              "name": "On-the-go player",
+              "default": true
+            },
+            {
               "name": "Open channel of live avatar",
               "default": true
             },
@@ -560,6 +564,10 @@
             },
             {
               "name": "Player icon style",
+              "default": true
+            },
+            {
+              "name": "Playlist improvements",
               "default": true
             },
             {
@@ -676,10 +684,6 @@
             },
             {
               "name": "Voice over translation",
-              "default": true
-            },
-            {
-              "name": "Watch later improvements",
               "default": true
             },
             {
@@ -828,7 +832,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.2.0-dev.1",
+      "version": "v2.2.0-dev.3",
       "spec": "dev",
       "used_by": [
         {
@@ -2771,12 +2775,12 @@
       ]
     },
     "github:crimera/piko": {
-      "patch_count": 136,
+      "patch_count": 145,
       "universal_patches": [],
       "packages": {
         "com.instagram.android": {
           "versions": [
-            "447.0.0.55.81"
+            "452.1.0.53.64"
           ],
           "patches": [
             {
@@ -2829,10 +2833,14 @@
             },
             {
               "name": "Disable analytics",
-              "default": false
+              "default": true
             },
             {
               "name": "Disable comments",
+              "default": true
+            },
+            {
+              "name": "Disable disappearing messages swipe",
               "default": true
             },
             {
@@ -2857,7 +2865,7 @@
             },
             {
               "name": "Disable screenshot detection",
-              "default": false
+              "default": true
             },
             {
               "name": "Disable stories",
@@ -2869,6 +2877,10 @@
             },
             {
               "name": "Disable swipe to create",
+              "default": true
+            },
+            {
+              "name": "Disable telemetry",
               "default": true
             },
             {
@@ -2904,7 +2916,23 @@
               "default": true
             },
             {
+              "name": "Hidden chats",
+              "default": true
+            },
+            {
+              "name": "Hide feed posts",
+              "default": true
+            },
+            {
               "name": "Hide group creation button on sharesheet",
+              "default": true
+            },
+            {
+              "name": "Hide hidden requests",
+              "default": true
+            },
+            {
+              "name": "Hide like buttons",
               "default": true
             },
             {
@@ -2932,6 +2960,10 @@
               "default": true
             },
             {
+              "name": "Hide story follow button",
+              "default": true
+            },
+            {
               "name": "Hide suggested content",
               "default": true
             },
@@ -2953,7 +2985,11 @@
             },
             {
               "name": "Make ephemeral media permanent",
-              "default": false
+              "default": true
+            },
+            {
+              "name": "Mark as read after reply",
+              "default": true
             },
             {
               "name": "Mark chat as read manually",
@@ -2977,6 +3013,10 @@
             },
             {
               "name": "Remove empty bottom space",
+              "default": true
+            },
+            {
+              "name": "Resume Reels after scrolling",
               "default": true
             },
             {
@@ -3013,15 +3053,15 @@
             },
             {
               "name": "View DMs anonymously",
-              "default": false
+              "default": true
             },
             {
               "name": "View live anonymously",
-              "default": false
+              "default": true
             },
             {
               "name": "View stories anonymously",
-              "default": false
+              "default": true
             },
             {
               "name": "View story mentions",
@@ -3338,7 +3378,7 @@
         }
       },
       "url": "https://github.com/crimera/piko",
-      "version": "v3.10.0",
+      "version": "v3.11.0",
       "spec": "latest",
       "used_by": [
         {
