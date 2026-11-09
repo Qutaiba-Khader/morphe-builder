@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-09T07:07:08Z",
+ "checked_at": "2026-11-09T12:13:20Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -34,12 +34,9 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [
-  "site flow test: it did not finish"
- ],
+ "problems": [],
  "waiting": [
-  "26 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk', 'reddit-morphe-v2026.40.0-all.apk']",
-  "reddit: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>",
-  "youtube: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>"
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
  ]
 }

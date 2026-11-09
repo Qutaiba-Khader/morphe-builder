@@ -1,20 +1,12 @@
 {
  "problems": {
-  "apk-unreachable:reddit": {
-   "first_seen": "2026-11-09T07:07:08Z",
-   "text": "reddit: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>"
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-09T12:13:20Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
   },
-  "apk-unreachable:youtube": {
-   "first_seen": "2026-11-09T07:07:08Z",
-   "text": "youtube: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>"
-  },
-  "check-error:apk-codes": {
-   "first_seen": "2026-11-09T07:07:08Z",
-   "text": "26 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk', 'reddit-morphe-v2026.40.0-all.apk']"
-  },
-  "flow-test:it did not finish": {
-   "first_seen": "2026-11-08T10:48:15Z",
-   "text": "site flow test: it did not finish"
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-09T12:13:20Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.3, we offer 2.2.0-dev.2"
   }
  },
  "offers": {
