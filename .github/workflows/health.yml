@@ -59,6 +59,7 @@ jobs:
         run: |
           npm install --no-save --silent jsdom
           timeout 1500 node tools/flow-test.mjs > flow.log 2>&1 || true
+          grep -E '^FAIL' flow.log || true
           tail -3 flow.log
 
       - name: Check

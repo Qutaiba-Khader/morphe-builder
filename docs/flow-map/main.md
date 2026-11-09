@@ -178,6 +178,7 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-150 | gen_site.collect | an app not rebuilt stays offered from its older release | as named | `test_P_REL_150_an_app_not_rebuilt_stays_offered_from_its_older_release` | gen_site.py |
 | P-REL-151 | patcher.patch | the CLI gets the bundle by its absolute path | as named | `test_P_REL_151_the_cli_gets_the_bundle_by_its_absolute_path` | src/core/patcher.py |
 | P-REL-152 | gen_site.apk_url | a replaced file is read by its own id | as named | `test_P_REL_152_a_replaced_file_is_read_by_its_own_id` | gen_site.py |
+| P-REL-153 | site.yml publish | the site copy compares contents, not size and time | as named | `test_P_REL_153_the_site_copy_compares_contents_not_size_and_time` | .github/workflows/site.yml |
 
 ## Mode combinations
 

@@ -14,12 +14,22 @@ slug = lambda s: re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 print(json.dumps({slug(k): v.get("app-name", k.replace("-", " "))
                   for k, v in d.items() if isinstance(v, dict) and v.get("enabled", True) is True}))
 `], { cwd: REPO, encoding: "utf8" }));
+// A python helper that reads an APK over the network: a timeout or reset is tried again
+// (2026-11-09: one SSL handshake timeout ended the whole run).
+const readApk = (args) => {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return execFileSync("python3", args, { cwd: REPO, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+    } catch (err) {
+      if (attempt >= 3) throw err;
+      execFileSync("sleep", [String(3 * attempt)]);
+    }
+  }
+};
 // the package a built APK really declares (read over HTTP range requests)
-const apkPackage = (url) =>
-  execFileSync("python3", ["tools/apk_package.py", url], { cwd: REPO, encoding: "utf8" }).trim();
+const apkPackage = (url) => readApk(["tools/apk_package.py", url]);
 // SHA-256 of the certificate the APK is signed with (read from its signing block)
-const apkSigner = (url) =>
-  execFileSync("python3", ["tools/apk_package.py", "--signer", url], { cwd: REPO, encoding: "utf8" }).trim();
+const apkSigner = (url) => readApk(["tools/apk_package.py", "--signer", url]);
 
 // SITE_BASE=http://host:port/ runs the whole test against a local copy of _site
 const BASE = process.env.SITE_BASE || "https://qutaiba-khader.github.io/morphe-builder/";
@@ -30,6 +40,32 @@ const check = (name, ok, detail = "") => {
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// A network blip (reset, 5xx, 429) is retried, so one bad read does not end the run.
+const realFetch = globalThis.fetch;
+globalThis.fetch = async (input, init) => {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const res = await realFetch(input, init);
+      if ((res.status >= 500 || res.status === 429) && attempt < 4) { await sleep(2000 * attempt); continue; }
+      return res;
+    } catch (err) {
+      if (attempt >= 4) throw err;
+      await sleep(2000 * attempt);
+    }
+  }
+};
+
+// Anything that still throws is a failed check with its reason, never a silent stop
+// (2026-11-08: Node died after 73 s and the health check could only say "did not finish").
+const stopped = (err) => {
+  const why = String(err?.message ?? err).split("\n")[0].slice(0, 120);
+  check(`it stopped on an error (${why})`, false, String(err?.stack ?? "").split("\n").slice(1, 3).join(" ").trim());
+  console.log(`\n${results.filter((r) => r.ok).length}/${results.length} passed`);
+  process.exit(1);
+};
+process.on("uncaughtException", stopped);
+process.on("unhandledRejection", stopped);
 
 // Port of Obtainium's lib/utils/version_normalization.dart installedMatchesRemote:
 // true when the installed build IS the remote one (no update shown).
@@ -313,7 +349,7 @@ for (const entry of obt.apps) {
   check(`obtainium/${entry.app}: extracted version is the update version (${entry.build_version})`,
     got === entry.build_version && got.startsWith(entry.version), got);
   // The phone reports the APK's versionName and ObtainX compares it with this page: they must be the same text.
-  const inside = execFileSync("python3", ["-c", `import sys;sys.path.insert(0,"tools");from apk_package import *;print(manifest_attrs(manifest_from_url(sys.argv[1])).get("versionName"))`, entry.apk], { cwd: REPO, encoding: "utf8" }).trim();
+  const inside = readApk(["-c", `import sys;sys.path.insert(0,"tools");from apk_package import *;print(manifest_attrs(manifest_from_url(sys.argv[1])).get("versionName"))`, entry.apk]);
   check(`obtainium/${entry.app}: the page offers the versionName inside the APK`, inside === got, `page ${got}, APK ${inside}`);
   check(`obtainium/${entry.app}: version detection on (an older app on the phone shows as an update)`,
     settings.versionDetection === true);

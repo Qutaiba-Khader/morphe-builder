@@ -303,6 +303,11 @@ class Workflows(unittest.TestCase):
         self.assertIn("release_check.py", health)
         self.assertIn("if: always()", health.split("name: Keep the state")[1])
         self.assertIn("git push origin health", health)
+    # P-REL-153
+    def test_P_REL_153_the_site_copy_compares_contents_not_size_and_time(self):
+        publish = self.text("site.yml").split("name: Publish to gh-pages")[1].split("- name:")[0]
+        line = next(l for l in publish.splitlines() if l.strip().startswith("rsync "))
+        self.assertIn("--checksum", line.split())
 
 
 class Review(unittest.TestCase):

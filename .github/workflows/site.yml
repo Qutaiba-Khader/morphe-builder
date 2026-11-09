@@ -82,7 +82,11 @@ jobs:
             git -C "$out" checkout --orphan gh-pages
             git -C "$out" rm -rfq .
           fi
-          rsync -a --delete --exclude .git _site/ "$out/"
+          # --checksum: rsync's quick check skips a file whose size and mtime (to the
+          # second) match. An update page whose new link and version are the same
+          # length as the old ones, written in the second the worktree was checked
+          # out, was kept stale while api/obtainium.json moved on (Site #330, 2026-11-09).
+          rsync -a --checksum --delete --exclude .git _site/ "$out/"
           cd "$out"
           git add -A
           # "generated" timestamps change on every run; only real content counts
