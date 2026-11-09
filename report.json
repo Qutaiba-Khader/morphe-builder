@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-09T06:33:21Z",
+ "checked_at": "2026-11-09T07:07:08Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -37,5 +37,9 @@
  "problems": [
   "site flow test: it did not finish"
  ],
- "waiting": []
+ "waiting": [
+  "26 published APKs could not be read, so the versionCode bar may be low: ['reddit-morphe-v2026.40.0-all.apk', 'youtube-experimental-morphe-dev-v21.44.528-all.apk', 'reddit-morphe-v2026.40.0-all.apk']",
+  "reddit: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>",
+  "youtube: its APK cannot be read: <urlopen error [Errno 104] Connection reset by peer>"
+ ]
 }
