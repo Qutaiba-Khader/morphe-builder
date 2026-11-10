@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-10T11:50:37Z",
+ "checked_at": "2026-11-10T12:11:26Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -34,10 +34,15 @@
    "tag": "26.11.03-metra"
   }
  },
- "problems": [],
+ "problems": [
+  "tiktok: offered versionCode 2024602030 is lower than 2024704030 of tiktok-metra-v47.4.3-all.apk: Android refuses it on a phone holding that build"
+ ],
  "waiting": [
   "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4",
+  "reddit-experimental: the site offers 2026.45.0 (26.11.09-morphe-dev), the releases say 2026.45.0 (26.11.10-morphe-dev)",
   "tiktok: icysymmetra/tiktok-patches-for-morphe is at 0.9.0, we offer 0.8.1",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
+  "tiktok: the site offers 46.2.3 (26.11.03-metra), the releases say 47.4.3 (26.11.10-metra)",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4",
+  "youtube-experimental: the site offers 21.45.82 (26.11.09-morphe-dev), the releases say 21.45.82 (26.11.10-morphe-dev)"
  ]
 }
