@@ -1,5 +1,22 @@
 {
- "problems": {},
+ "problems": {
+  "patches-behind:reddit": {
+   "first_seen": "2026-11-10T19:44:48Z",
+   "text": "reddit: MorpheApp/morphe-patches is at 2.2.0, we offer 2.1.0"
+  },
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-10T19:44:48Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0, we offer 2.2.0-dev.5"
+  },
+  "patches-behind:youtube": {
+   "first_seen": "2026-11-10T19:44:48Z",
+   "text": "youtube: MorpheApp/morphe-patches is at 2.2.0, we offer 2.1.0"
+  },
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-10T19:44:48Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0, we offer 2.2.0-dev.5"
+  }
+ },
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.1.0",

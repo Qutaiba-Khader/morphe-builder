@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-10T12:51:10Z",
+ "checked_at": "2026-11-10T19:44:48Z",
  "offered": {
   "tiktok": {
    "version": "47.4.3",
@@ -35,5 +35,10 @@
   }
  },
  "problems": [],
- "waiting": []
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0, we offer 2.2.0-dev.5",
+  "reddit: MorpheApp/morphe-patches is at 2.2.0, we offer 2.1.0",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0, we offer 2.2.0-dev.5",
+  "youtube: MorpheApp/morphe-patches is at 2.2.0, we offer 2.1.0"
+ ]
 }
