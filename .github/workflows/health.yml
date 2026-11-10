@@ -40,10 +40,21 @@ jobs:
             git -C health-state rm -rfq .
           fi
 
-      # Started by a Site run: give Pages time to deploy what it pushed.
+      # Wait until Pages serves what the Site run pushed: the live api/obtainium.json equals the one on
+      # gh-pages. A fixed wait was not enough: on 2026-11-10 the deploy took 4.5 min, the check read the
+      # old TikTok offer against the new release and called it a downgrade. Pages deploys the whole site
+      # at once, so this one file stands for all of it. After 20 min the check runs on what is live.
       - name: Let Pages deploy
-        if: github.event_name == 'workflow_run'
-        run: sleep 150
+        run: |
+          git fetch -q --depth 1 origin gh-pages
+          git show FETCH_HEAD:api/obtainium.json > pushed.json
+          site="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/api/obtainium.json"
+          for i in $(seq 80); do
+            curl -sf -A morphe-builder-health "$site?_=$(date +%s%N)" -o live.json && cmp -s pushed.json live.json \
+              && { echo "Pages serves gh-pages $(git rev-parse --short FETCH_HEAD)"; exit 0; }
+            sleep 15
+          done
+          echo "::warning::Pages still does not serve gh-pages $(git rev-parse --short FETCH_HEAD) after 20 min"
 
       - uses: actions/setup-node@v5
         if: github.event_name == 'workflow_dispatch' || github.event.schedule == '45 3 * * *'

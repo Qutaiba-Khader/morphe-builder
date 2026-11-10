@@ -308,6 +308,14 @@ class Workflows(unittest.TestCase):
         publish = self.text("site.yml").split("name: Publish to gh-pages")[1].split("- name:")[0]
         line = next(l for l in publish.splitlines() if l.strip().startswith("rsync "))
         self.assertIn("--checksum", line.split())
+    # P-REL-154
+    def test_P_REL_154_health_waits_until_pages_serves_what_site_pushed(self):
+        step = self.text("health.yml").split("name: Let Pages deploy")[1].split("- uses:")[0]
+        self.assertNotIn("if:", step.split("run:")[0], "every run waits: a scheduled one can land mid-deploy too")
+        self.assertNotRegex(step, r"run: sleep \d+")
+        self.assertIn("origin gh-pages", step)
+        self.assertIn("api/obtainium.json", step)
+        self.assertIn("cmp -s pushed.json live.json", step)
 
 
 class Review(unittest.TestCase):

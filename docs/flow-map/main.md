@@ -179,6 +179,7 @@ One row per path, one test per row. The test's name or text holds the ID. "If it
 | P-REL-151 | patcher.patch | the CLI gets the bundle by its absolute path | as named | `test_P_REL_151_the_cli_gets_the_bundle_by_its_absolute_path` | src/core/patcher.py |
 | P-REL-152 | gen_site.apk_url | a replaced file is read by its own id | as named | `test_P_REL_152_a_replaced_file_is_read_by_its_own_id` | gen_site.py |
 | P-REL-153 | site.yml publish | the site copy compares contents, not size and time | as named | `test_P_REL_153_the_site_copy_compares_contents_not_size_and_time` | .github/workflows/site.yml |
+| P-REL-154 | health.yml wait | health waits until Pages serves what Site pushed | as named | `test_P_REL_154_health_waits_until_pages_serves_what_site_pushed` | .github/workflows/health.yml |
 
 ## Mode combinations
 
