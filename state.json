@@ -1,34 +1,5 @@
 {
- "problems": {
-  "offer-downgrade:tiktok": {
-   "first_seen": "2026-11-10T12:11:26Z",
-   "text": "tiktok: offered versionCode 2024602030 is lower than 2024704030 of tiktok-metra-v47.4.3-all.apk: Android refuses it on a phone holding that build"
-  },
-  "offered-stale:reddit-experimental": {
-   "first_seen": "2026-11-10T12:11:26Z",
-   "text": "reddit-experimental: the site offers 2026.45.0 (26.11.09-morphe-dev), the releases say 2026.45.0 (26.11.10-morphe-dev)"
-  },
-  "offered-stale:tiktok": {
-   "first_seen": "2026-11-10T12:11:26Z",
-   "text": "tiktok: the site offers 46.2.3 (26.11.03-metra), the releases say 47.4.3 (26.11.10-metra)"
-  },
-  "offered-stale:youtube-experimental": {
-   "first_seen": "2026-11-10T12:11:26Z",
-   "text": "youtube-experimental: the site offers 21.45.82 (26.11.09-morphe-dev), the releases say 21.45.82 (26.11.10-morphe-dev)"
-  },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-10T11:50:37Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
-  },
-  "patches-behind:tiktok": {
-   "first_seen": "2026-11-10T11:50:37Z",
-   "text": "tiktok: icysymmetra/tiktok-patches-for-morphe is at 0.9.0, we offer 0.8.1"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-10T11:50:37Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
-  }
- },
+ "problems": {},
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.1.0",
@@ -36,7 +7,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.2.0.4",
+   "text": "2026.45.0.2.2.0.5",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -56,8 +27,8 @@
    "package": "com.stremio.one"
   },
   "tiktok": {
-   "text": "46.2.3.0.8.1",
-   "version": "46.2.3",
+   "text": "47.4.3.0.9.0",
+   "version": "47.4.3",
    "package": "com.zhiliaoapp.musically"
   },
   "youtube": {
@@ -66,7 +37,7 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.45.82.2.2.0.4",
+   "text": "21.45.82.2.2.0.5",
    "version": "21.45.82",
    "package": "app.morphe.android.youtube.dev"
   }
