@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-09T22:42:08Z",
+ "checked_at": "2026-11-10T00:04:16Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -35,8 +35,5 @@
   }
  },
  "problems": [],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.4, we offer 2.2.0-dev.3",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.4, we offer 2.2.0-dev.3"
- ]
+ "waiting": []
 }
