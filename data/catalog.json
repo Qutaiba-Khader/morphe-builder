@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-09T12:29:49Z",
+  "generated": "2026-11-10T12:03:46Z",
   "cli": "morphe-desktop-2.1.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -832,7 +832,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.2.0-dev.3",
+      "version": "v2.2.0-dev.5",
       "spec": "dev",
       "used_by": [
         {
@@ -4117,16 +4117,88 @@
       ]
     },
     "github:icysymmetra/tiktok-patches-for-morphe": {
-      "patch_count": 42,
+      "patch_count": 136,
       "universal_patches": [],
       "packages": {
         "com.zhiliaoapp.musically": {
           "versions": [
-            "46.2.3"
+            "47.4.3"
           ],
           "patches": [
             {
+              "name": "Accent color",
+              "default": false
+            },
+            {
+              "name": "Advanced downloads",
+              "default": true
+            },
+            {
+              "name": "Allow Duet and Stitch",
+              "default": true
+            },
+            {
+              "name": "Allow screenshots and Circle to Search",
+              "default": true
+            },
+            {
               "name": "Always show publish date",
+              "default": true
+            },
+            {
+              "name": "Always upload in HD",
+              "default": true
+            },
+            {
+              "name": "AMOLED dark theme",
+              "default": false
+            },
+            {
+              "name": "App lock",
+              "default": true
+            },
+            {
+              "name": "Automatic video advance",
+              "default": true
+            },
+            {
+              "name": "Block author button",
+              "default": true
+            },
+            {
+              "name": "Block contact list access",
+              "default": true
+            },
+            {
+              "name": "Block installed app scanning",
+              "default": true
+            },
+            {
+              "name": "Block P2P video relay",
+              "default": false
+            },
+            {
+              "name": "Block popups",
+              "default": true
+            },
+            {
+              "name": "Block suggested video notifications",
+              "default": true
+            },
+            {
+              "name": "Camera and microphone indicator",
+              "default": true
+            },
+            {
+              "name": "Change app name",
+              "default": false
+            },
+            {
+              "name": "Comment publish diagnostics",
+              "default": true
+            },
+            {
+              "name": "Comment send fix",
               "default": true
             },
             {
@@ -4134,27 +4206,39 @@
               "default": true
             },
             {
+              "name": "Comment tools",
+              "default": true
+            },
+            {
+              "name": "Confirm feed interactions",
+              "default": true
+            },
+            {
+              "name": "Copy bio and IDs",
+              "default": true
+            },
+            {
               "name": "Copy comments without username",
               "default": true
+            },
+            {
+              "name": "Custom launcher icon",
+              "default": false
             },
             {
               "name": "Custom offline videos limit",
               "default": true
             },
             {
+              "name": "Device privacy guard",
+              "default": true
+            },
+            {
               "name": "Diagnostic tools",
-              "default": false
+              "default": true
             },
             {
               "name": "Disable login requirement",
-              "default": true
-            },
-            {
-              "name": "Disable long-press quick share",
-              "default": true
-            },
-            {
-              "name": "Disable long-press repost",
               "default": true
             },
             {
@@ -4162,15 +4246,27 @@
               "default": true
             },
             {
+              "name": "Disable telemetry",
+              "default": true
+            },
+            {
+              "name": "Disable the long press quick share",
+              "default": true
+            },
+            {
+              "name": "Disable the long press repost",
+              "default": true
+            },
+            {
+              "name": "Double-tap controls",
+              "default": true
+            },
+            {
               "name": "Downloads",
               "default": true
             },
             {
-              "name": "Enable Live search",
-              "default": true
-            },
-            {
-              "name": "Enable non-personalized search",
+              "name": "Drop the animated image cache",
               "default": true
             },
             {
@@ -4178,8 +4274,16 @@
               "default": true
             },
             {
+              "name": "Expand activity list",
+              "default": true
+            },
+            {
               "name": "Feature Gate Lab",
               "default": true
+            },
+            {
+              "name": "Feature Gate Recorder",
+              "default": false
             },
             {
               "name": "Feed filter",
@@ -4187,6 +4291,14 @@
             },
             {
               "name": "Feed tab navigation",
+              "default": true
+            },
+            {
+              "name": "Feed text sizes",
+              "default": true
+            },
+            {
+              "name": "Fit the video to the screen",
               "default": true
             },
             {
@@ -4198,15 +4310,31 @@
               "default": true
             },
             {
+              "name": "Follow diagnostics",
+              "default": true
+            },
+            {
               "name": "Force show Auto scroll",
               "default": true
             },
             {
-              "name": "Hide AI content",
+              "name": "Ghost mode",
+              "default": true
+            },
+            {
+              "name": "Hide already seen videos",
               "default": true
             },
             {
               "name": "Hide CAPTCHA popups",
+              "default": true
+            },
+            {
+              "name": "Hide comment popup ads",
+              "default": true
+            },
+            {
+              "name": "Hide comment typing suggestions",
               "default": true
             },
             {
@@ -4230,11 +4358,23 @@
               "default": true
             },
             {
-              "name": "Hide FYP unpersonalized slop videos",
+              "name": "Hide inbox items",
               "default": true
             },
             {
-              "name": "Hide quick comment reactions",
+              "name": "Hide inbox stories",
+              "default": true
+            },
+            {
+              "name": "Hide Play Store update offer",
+              "default": false
+            },
+            {
+              "name": "Hide profile shortcuts",
+              "default": true
+            },
+            {
+              "name": "Hide search suggestions",
               "default": true
             },
             {
@@ -4242,7 +4382,91 @@
               "default": true
             },
             {
+              "name": "Hide the launcher shortcuts",
+              "default": true
+            },
+            {
+              "name": "Hide the risk control CAPTCHA",
+              "default": false
+            },
+            {
+              "name": "Hide video overlays",
+              "default": true
+            },
+            {
               "name": "Hold-and-slide 2x lock",
+              "default": true
+            },
+            {
+              "name": "In-app browser privacy guard",
+              "default": true
+            },
+            {
+              "name": "Keep a streak going",
+              "default": true
+            },
+            {
+              "name": "Keep playing in the background",
+              "default": true
+            },
+            {
+              "name": "Keep pulled sounds",
+              "default": true
+            },
+            {
+              "name": "Keep the app language",
+              "default": true
+            },
+            {
+              "name": "Keep the Favorites tab",
+              "default": true
+            },
+            {
+              "name": "Keep the screen's refresh rate",
+              "default": true
+            },
+            {
+              "name": "Lift text length limits",
+              "default": true
+            },
+            {
+              "name": "Limit background traffic",
+              "default": true
+            },
+            {
+              "name": "LIVE controls",
+              "default": true
+            },
+            {
+              "name": "Location access governor",
+              "default": true
+            },
+            {
+              "name": "Long-press controls",
+              "default": true
+            },
+            {
+              "name": "Look like the store app",
+              "default": false
+            },
+            {
+              "name": "Mute feed videos",
+              "default": true
+            },
+            {
+              "name": "Network proxy",
+              "default": true
+            },
+            {
+              "name": "Network request report",
+              "default": false
+            },
+            {
+              "name": "Not interested button",
+              "default": true
+            },
+            {
+              "name": "Notification controls",
               "default": true
             },
             {
@@ -4250,20 +4474,72 @@
               "default": true
             },
             {
+              "name": "Picture-in-picture",
+              "default": true
+            },
+            {
+              "name": "Play SDR instead of HDR",
+              "default": true
+            },
+            {
+              "name": "Playback quality",
+              "default": true
+            },
+            {
               "name": "Playback speed",
               "default": true
             },
             {
-              "name": "Region spoof",
+              "name": "Prefer H.264 playback",
               "default": true
+            },
+            {
+              "name": "Profile background",
+              "default": true
+            },
+            {
+              "name": "Region spoof",
+              "default": false
             },
             {
               "name": "Remember clear display",
               "default": true
             },
             {
+              "name": "Remove avatar rings",
+              "default": true
+            },
+            {
+              "name": "Remove card scanner assets",
+              "default": false
+            },
+            {
+              "name": "Remove creation tools",
+              "default": false
+            },
+            {
+              "name": "Remove LIVE extras",
+              "default": false
+            },
+            {
+              "name": "Remove unused language packs",
+              "default": false
+            },
+            {
+              "name": "Repost diagnostics",
+              "default": true
+            },
+            {
+              "name": "Resource and battery governor",
+              "default": true
+            },
+            {
               "name": "Resume videos after scrolling",
               "default": true
+            },
+            {
+              "name": "Run beside the store app",
+              "default": false
             },
             {
               "name": "Sanitize sharing links",
@@ -4274,15 +4550,83 @@
               "default": true
             },
             {
-              "name": "Share sheet modification",
+              "name": "Share sheet tools",
               "default": true
             },
             {
-              "name": "Show seekbar",
+              "name": "Show author region",
               "default": true
             },
             {
-              "name": "Show seekbar thumbnail",
+              "name": "Show commenter handle and region",
+              "default": true
+            },
+            {
+              "name": "Show engagement rate",
+              "default": true
+            },
+            {
+              "name": "Show exact counts",
+              "default": true
+            },
+            {
+              "name": "Show follow status",
+              "default": true
+            },
+            {
+              "name": "Show LIVE search",
+              "default": true
+            },
+            {
+              "name": "Show the progress bar",
+              "default": true
+            },
+            {
+              "name": "Show the progress bar thumbnail",
+              "default": true
+            },
+            {
+              "name": "SIM spoof",
+              "default": true
+            },
+            {
+              "name": "Skip content warnings",
+              "default": true
+            },
+            {
+              "name": "Skip first-launch setup",
+              "default": false
+            },
+            {
+              "name": "Skip passkey sign-in",
+              "default": true
+            },
+            {
+              "name": "Skip the splash ad",
+              "default": true
+            },
+            {
+              "name": "Skip update checks",
+              "default": true
+            },
+            {
+              "name": "Stay on the video in full screen",
+              "default": true
+            },
+            {
+              "name": "Stop on-device AI profiling",
+              "default": true
+            },
+            {
+              "name": "Stop recording watch history",
+              "default": true
+            },
+            {
+              "name": "Stop saving search history",
+              "default": true
+            },
+            {
+              "name": "Stop search autoplay",
               "default": true
             },
             {
@@ -4290,14 +4634,46 @@
               "default": true
             },
             {
+              "name": "Story controls",
+              "default": true
+            },
+            {
+              "name": "Subtitle tools",
+              "default": true
+            },
+            {
+              "name": "Swipe-left controls",
+              "default": true
+            },
+            {
               "name": "Translate comments",
+              "default": true
+            },
+            {
+              "name": "Trust user certificates",
+              "default": false
+            },
+            {
+              "name": "Turn off haptics",
+              "default": true
+            },
+            {
+              "name": "Turn off screen transitions",
+              "default": true
+            },
+            {
+              "name": "Use non-personalized search",
+              "default": true
+            },
+            {
+              "name": "Use system font",
               "default": true
             }
           ]
         }
       },
       "url": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
-      "version": "v0.8.1",
+      "version": "v0.9.0",
       "spec": "latest",
       "used_by": [
         {
