@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-10T07:43:10Z",
+ "checked_at": "2026-11-10T11:50:37Z",
  "offered": {
   "reddit-experimental": {
    "version": "2026.45.0",
@@ -35,5 +35,9 @@
   }
  },
  "problems": [],
- "waiting": []
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4",
+  "tiktok: icysymmetra/tiktok-patches-for-morphe is at 0.9.0, we offer 0.8.1",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
+ ]
 }

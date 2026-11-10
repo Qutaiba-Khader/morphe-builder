@@ -1,5 +1,18 @@
 {
- "problems": {},
+ "problems": {
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-10T11:50:37Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
+  },
+  "patches-behind:tiktok": {
+   "first_seen": "2026-11-10T11:50:37Z",
+   "text": "tiktok: icysymmetra/tiktok-patches-for-morphe is at 0.9.0, we offer 0.8.1"
+  },
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-10T11:50:37Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.2.0-dev.5, we offer 2.2.0-dev.4"
+  }
+ },
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.1.0",
