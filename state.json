@@ -1,14 +1,5 @@
 {
- "problems": {
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-11T11:31:30Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.3.0-dev.1, we offer 2.2.0"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-11T11:31:30Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.3.0-dev.1, we offer 2.2.0"
-  }
- },
+ "problems": {},
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.2.0",
@@ -16,7 +7,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.2.0.9999",
+   "text": "2026.45.0.2.3.0.1",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -46,7 +37,7 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.45.82.2.2.0.9999",
+   "text": "21.45.82.2.3.0.1",
    "version": "21.45.82",
    "package": "app.morphe.android.youtube.dev"
   }
