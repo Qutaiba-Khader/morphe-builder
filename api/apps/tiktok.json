@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-11T19:48:46Z",
+  "generated": "2026-11-11T22:32:16Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "tiktok",
   "name": "TikTok",
@@ -8,14 +8,14 @@
   "builds": [
     {
       "version": "47.4.3",
-      "tag": "26.11.10-metra",
-      "published": "2026-11-10T12:06:44Z",
+      "tag": "26.11.11-metra",
+      "published": "2026-11-11T22:31:01Z",
       "prerelease": false,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.10-metra",
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.11-metra",
       "patches": [
         {
-          "file": "icysymmetra/patches-0.9.0.mpp",
-          "version": "0.9.0"
+          "file": "icysymmetra/patches-0.10.0.mpp",
+          "version": "0.10.0"
         }
       ],
       "cli": {
@@ -25,15 +25,15 @@
       "files": [
         {
           "arch": "all",
-          "size": 499785551,
-          "sha256": "341a601ab0e31243e4fcc25085228e867de14274b166f0a0f87bd5d3918d2bc8",
-          "downloads": 57,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.10-metra/tiktok-metra-v47.4.3-all.apk",
+          "size": 499793747,
+          "sha256": "a7748220e4ee9198ff597fdc850d0ef5270ce8d13fb5353eb6fef19c6e78d448",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.11-metra/tiktok-metra-v47.4.3-all.apk",
           "name": "tiktok-metra-v47.4.3-all.apk"
         }
       ],
-      "rebuilds": 1,
-      "update_version": "47.4.3.0.9.0"
+      "rebuilds": 2,
+      "update_version": "47.4.3.0.10.0"
     },
     {
       "version": "46.2.3",
@@ -56,7 +56,7 @@
           "arch": "all",
           "size": 603718114,
           "sha256": "d8c8eca96a01bc6b36ab81d22735e48ef8833c5dd1b8620ec1ef0f892e2e8a15",
-          "downloads": 192,
+          "downloads": 193,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.03-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
