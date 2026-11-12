@@ -1,10 +1,5 @@
 {
- "problems": {
-  "no-release:stremio-tv-ambient": {
-   "first_seen": "2026-11-12T04:15:51Z",
-   "text": "stremio-tv-ambient: no release holds a build of it"
-  }
- },
+ "problems": {},
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.2.0",
@@ -45,6 +40,11 @@
    "text": "21.45.82.2.3.0.1",
    "version": "21.45.82",
    "package": "app.morphe.android.youtube.dev"
+  },
+  "stremio-tv-ambient": {
+   "text": "1.12.1.0.1.0",
+   "version": "1.12.1",
+   "package": "com.stremio.one.ambient"
   }
  }
 }

@@ -1,6 +1,10 @@
 {
- "checked_at": "2026-11-12T04:15:51Z",
+ "checked_at": "2026-11-12T04:19:37Z",
  "offered": {
+  "stremio-tv-ambient": {
+   "version": "1.12.1",
+   "tag": "26.11.12-ambient"
+  },
   "tiktok": {
    "version": "47.4.3",
    "tag": "26.11.11-metra"
@@ -34,8 +38,6 @@
    "tag": "26.11.06-subs"
   }
  },
- "problems": [
-  "stremio-tv-ambient: no release holds a build of it"
- ],
+ "problems": [],
  "waiting": []
 }
