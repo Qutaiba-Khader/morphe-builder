@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-11T11:39:50Z",
+  "generated": "2026-11-12T12:08:43Z",
   "cli": "morphe-desktop-2.1.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -1709,6 +1709,38 @@
         {
           "table": "Stremio-Phone",
           "enabled": true
+        },
+        {
+          "table": "Stremio-TV-Ambient",
+          "enabled": true
+        }
+      ]
+    },
+    "github:Qutaiba-Khader/stremio-ambient-patches": {
+      "patch_count": 2,
+      "universal_patches": [],
+      "packages": {
+        "com.stremio.one": {
+          "versions": [],
+          "patches": [
+            {
+              "name": "Ambient app name and icon",
+              "default": true
+            },
+            {
+              "name": "Ambient light",
+              "default": true
+            }
+          ]
+        }
+      },
+      "url": "https://github.com/Qutaiba-Khader/stremio-ambient-patches",
+      "version": "v0.2.1",
+      "spec": "latest",
+      "used_by": [
+        {
+          "table": "Stremio-TV-Ambient",
+          "enabled": true
         }
       ]
     },
@@ -1748,6 +1780,10 @@
         },
         {
           "table": "Stremio-Phone",
+          "enabled": true
+        },
+        {
+          "table": "Stremio-TV-Ambient",
           "enabled": true
         }
       ]
@@ -4669,7 +4705,7 @@
         }
       },
       "url": "https://github.com/icysymmetra/tiktok-patches-for-morphe",
-      "version": "v0.9.0",
+      "version": "v0.10.0",
       "spec": "latest",
       "used_by": [
         {
@@ -8711,6 +8747,7 @@
       "github:rushiranpise/morphe-patches"
     ],
     "com.stremio.one": [
+      "github:Qutaiba-Khader/stremio-ambient-patches",
       "github:Qutaiba-Khader/stremio-subs-patches"
     ],
     "com.sumyapplications.bluetooth.earphone": [
