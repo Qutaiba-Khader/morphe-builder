@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T07:36:11Z",
+  "generated": "2026-11-12T09:03:16Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv-ambient",
   "name": "Stremio TV Ambient",
@@ -14,8 +14,8 @@
       "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.12-ambient",
       "patches": [
         {
-          "file": "Qutaiba-Khader/patches-0.1.0.mpp",
-          "version": "0.1.0"
+          "file": "Qutaiba-Khader/patches-0.2.0.mpp",
+          "version": "0.2.0"
         },
         {
           "file": "Qutaiba-Khader/patches-0.7.2.mpp",
@@ -33,15 +33,15 @@
       "files": [
         {
           "arch": "armeabi-v7a",
-          "size": 73761544,
-          "sha256": "62ef6bb8d94a4c63633e1063f68002f002b4ca7d3b7dae4932f4f64b5651bb43",
-          "downloads": 10,
+          "size": 73773832,
+          "sha256": "4d1b745cd1d07db07a06d24f8f477562660016f08e32af151762a4925723afdc",
+          "downloads": 0,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.12-ambient/stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk"
         }
       ],
       "rebuilds": 1,
-      "update_version": "1.12.1.0.1.0"
+      "update_version": "1.12.1.0.2.0"
     }
   ],
   "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603"
