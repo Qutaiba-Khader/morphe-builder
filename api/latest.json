@@ -1,7 +1,56 @@
 {
-  "generated": "2026-11-12T04:12:34Z",
+  "generated": "2026-11-12T04:18:45Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
+    "stremio-tv-ambient": {
+      "id": "stremio-tv-ambient",
+      "name": "Stremio TV Ambient",
+      "package": "com.stremio.one.ambient",
+      "brand": "ambient",
+      "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
+      "source_package": "com.stremio.one",
+      "icon": "https://play-lh.googleusercontent.com/OvTwEXzvUbeyfqdXd1vZiTfbBOTdMAA6EWw5TV00PiSirn7C1iz__HVD6PfXCHkN9quH_XdoPwCIT3GhB1Ukmw=s128-rw",
+      "patch_sources": [
+        "Qutaiba-Khader/stremio-ambient-patches",
+        "Qutaiba-Khader/stremio-subs-patches",
+        "MorpheApp/morphe-patches"
+      ],
+      "version": "1.12.1",
+      "tag": "26.11.12-ambient",
+      "published": "2026-11-12T04:17:32Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.12-ambient",
+      "patches": [
+        {
+          "file": "Qutaiba-Khader/patches-0.1.0.mpp",
+          "version": "0.1.0"
+        },
+        {
+          "file": "Qutaiba-Khader/patches-0.7.2.mpp",
+          "version": "0.7.2"
+        },
+        {
+          "file": "MorpheApp/patches-2.2.0.mpp",
+          "version": "2.2.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-2.1.1-all.jar",
+        "version": "2.1.1"
+      },
+      "files": [
+        {
+          "arch": "armeabi-v7a",
+          "size": 73761544,
+          "sha256": "62ef6bb8d94a4c63633e1063f68002f002b4ca7d3b7dae4932f4f64b5651bb43",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.12-ambient/stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk",
+          "name": "stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk"
+        }
+      ],
+      "rebuilds": 1,
+      "update_version": "1.12.1.0.1.0"
+    },
     "tiktok": {
       "id": "tiktok",
       "name": "TikTok",
