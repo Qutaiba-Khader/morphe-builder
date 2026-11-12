@@ -42,7 +42,7 @@
    "package": "app.morphe.android.youtube.dev"
   },
   "stremio-tv-ambient": {
-   "text": "1.12.1.0.1.0",
+   "text": "1.12.1.0.2.0",
    "version": "1.12.1",
    "package": "com.stremio.one.ambient"
   }
