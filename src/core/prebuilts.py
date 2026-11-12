@@ -67,10 +67,13 @@ def fetch_cli(cli_src: str, cli_ver: str, net: NetworkManager) -> Path:
     return jar
 
 def fetch_mpp(src: str, ver: str, net: NetworkManager) -> Path:
-    org = _strip_src_prefix(src).split("/")[0]
+    org, _, repo = _strip_src_prefix(src).partition("/")
     cl_dir = TEMP_DIR / org.lower()
-    cl_dir.mkdir(parents=True, exist_ok=True)
-    mpp, changelog = _fetch_single_asset(src, "Patches", ver, "mpp", cl_dir, net)
+    # morphe-builder: one folder per repository for the bundle, because a download clears the other bundles in its
+    # folder: two sources of one account (stremio-subs-patches + stremio-ambient-patches) deleted each other's file
+    mpp_dir = cl_dir / (repo.lower().replace("/", "_") or "_")
+    mpp_dir.mkdir(parents=True, exist_ok=True)
+    mpp, changelog = _fetch_single_asset(src, "Patches", ver, "mpp", mpp_dir, net)
     if changelog:
         with (cl_dir / "changelog.md").open("a", encoding="utf-8") as f:
             f.write(changelog)

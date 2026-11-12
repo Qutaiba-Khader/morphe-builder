@@ -508,6 +508,33 @@ class Direction(unittest.TestCase):
         with self.assertRaises(prebuilts.PrebuiltsError):
             prebuilts._get_target_asset([{"name": "x.txt"}], "mpp", "s", "v1")
 
+    # P-REL-155
+    def test_P_REL_155_two_bundles_of_one_account_both_stay(self):
+        class Net:
+            gh_headers: dict = {}
+
+            def get(self, url, headers=None):
+                repo = url.split("/repos/")[1].split("/releases")[0]
+                ver = "v0.1.0" if repo.endswith("ambient-patches") else "v0.7.2"
+                return json.dumps({"tag_name": ver, "assets": [{"name": f"patches-{ver[1:]}.mpp", "url": f"https://x/{repo}"}]})
+
+            def download(self, url, file, headers=None):
+                file.write_bytes(url.encode())
+
+        with tempfile.TemporaryDirectory() as tmp:
+            old = prebuilts.TEMP_DIR
+            prebuilts.TEMP_DIR = Path(tmp)
+            try:
+                a = prebuilts.fetch_mpp("github:Qutaiba-Khader/stremio-ambient-patches", "latest", Net())
+                b = prebuilts.fetch_mpp("github:Qutaiba-Khader/stremio-subs-patches", "latest", Net())
+                self.assertTrue(a.is_file() and b.is_file(), "the second download must not delete the first bundle")
+                self.assertNotEqual(a.parent, b.parent)
+                self.assertEqual(a.read_bytes(), b"https://x/Qutaiba-Khader/stremio-ambient-patches")
+                self.assertEqual(prebuilts.fetch_mpp("github:Qutaiba-Khader/stremio-ambient-patches", "latest", Net()), a, "cached")
+                self.assertEqual(len(list(Path(tmp).glob("*/changelog.md"))), 1, "release notes stay where the builder reads them")
+            finally:
+                prebuilts.TEMP_DIR = old
+
 
 class Edges(unittest.TestCase):
     """Small paths of the readers."""
