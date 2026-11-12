@@ -364,3 +364,24 @@ patcher-args = "-OpackageName=com.stremio.one.subs.phone"
 [Stremio-Phone.patches]
 "github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines", "Test app name"]
 "github:MorpheApp/morphe-patches" = ["Clone app"]
+
+# Stremio for Android TV "Stremio Ambient": a THIRD copy, beside the original and the TV Clone (owner's order 2026-11-12).
+# The subtitle patches (without their "Test app name") + the ambient light (Qutaiba-Khader/stremio-ambient-patches: the
+# picture's edge colours to HyperHDR, settings page on the TV) + Clone app -> com.stremio.one.ambient, named
+# "Stremio Ambient" with an edge-lit icon by its own patch. Its own brand "ambient", so its releases, its daily check and
+# its update numbers never touch the "subs" brand (TV Clone, TV Replacement, phone). The ambient patches come first: the
+# brand follows THEIR releases (a subtitle-patch release is built by hand, `apps=Stremio-TV-Ambient`, patch_source=ambient).
+[Stremio-TV-Ambient]
+enabled = true
+app-name = "Stremio TV Ambient"
+brand = "ambient"
+stremio-dlurl = "https://api.strem.io/downloads/config#android_tv"
+arch = "armeabi-v7a"
+version = "latest"
+exclusive-patches = true
+patcher-args = "-OpackageName=com.stremio.one.ambient"
+
+[Stremio-TV-Ambient.patches]
+"github:Qutaiba-Khader/stremio-ambient-patches" = ["Ambient light", "Ambient app name and icon"]
+"github:Qutaiba-Khader/stremio-subs-patches" = ["Subtitle auto-refresh", "Right-to-left subtitle lines"]
+"github:MorpheApp/morphe-patches" = ["Clone app"]

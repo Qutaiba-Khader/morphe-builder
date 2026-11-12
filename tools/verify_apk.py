@@ -26,7 +26,8 @@ VERIFIED_MARK = ".verified"
 
 # What a patch source must leave in the app. A patch that applied writes its extension
 # classes into the dex files; if they are absent the app would run unpatched.
-MARKERS = {"Qutaiba-Khader/stremio-subs-patches": b"Lapp/subsense/stremio/SubtitleRefresh;"}
+MARKERS = {"Qutaiba-Khader/stremio-subs-patches": b"Lapp/subsense/stremio/SubtitleRefresh;",
+           "Qutaiba-Khader/stremio-ambient-patches": b"Lapp/subsense/ambient/Ambient;"}
 
 
 def version_matches(inside: str | None, named: str) -> bool:

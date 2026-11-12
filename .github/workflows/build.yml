@@ -18,6 +18,7 @@ on:
           - de-vanced
           - tiktok
           - subs
+          - ambient
           - metra
       apps:
         description: 'Only these config.toml tables, comma-separated (empty = every app of the source)'
