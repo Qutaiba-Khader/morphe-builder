@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12T10:30:18Z",
+  "generated": "2026-11-12T12:09:13Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "tiktok",
   "name": "TikTok",
@@ -27,7 +27,7 @@
           "arch": "all",
           "size": 499793747,
           "sha256": "a7748220e4ee9198ff597fdc850d0ef5270ce8d13fb5353eb6fef19c6e78d448",
-          "downloads": 42,
+          "downloads": 52,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.11-metra/tiktok-metra-v47.4.3-all.apk",
           "name": "tiktok-metra-v47.4.3-all.apk"
         }
@@ -56,7 +56,7 @@
           "arch": "all",
           "size": 603718114,
           "sha256": "d8c8eca96a01bc6b36ab81d22735e48ef8833c5dd1b8620ec1ef0f892e2e8a15",
-          "downloads": 200,
+          "downloads": 204,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.03-metra/tiktok-metra-v46.2.3-all.apk",
           "name": "tiktok-metra-v46.2.3-all.apk"
         }
