@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-13T19:57:53Z",
+  "generated": "2026-11-13T21:50:18Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv-ambient",
   "name": "Stremio TV Ambient",
@@ -35,7 +35,7 @@
           "arch": "armeabi-v7a",
           "size": 73777929,
           "sha256": "5b012e4832908741fe8901461d96965377c1f74cc79911e2c76d10b8eb67475b",
-          "downloads": 15,
+          "downloads": 22,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.13-ambient/stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk"
         }
