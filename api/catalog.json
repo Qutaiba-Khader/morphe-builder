@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-12T12:08:43Z",
+  "generated": "2026-11-13T11:49:49Z",
   "cli": "morphe-desktop-2.1.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 204,
+      "patch_count": 205,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -19,6 +19,10 @@
             "9.15.51"
           ],
           "patches": [
+            {
+              "name": "A-B loop",
+              "default": true
+            },
             {
               "name": "Android Auto",
               "default": true
@@ -840,7 +844,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0-dev.1",
+      "version": "v2.3.0-dev.2",
       "spec": "dev",
       "used_by": [
         {
@@ -1735,7 +1739,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-ambient-patches",
-      "version": "v0.2.1",
+      "version": "v0.3.0",
       "spec": "latest",
       "used_by": [
         {

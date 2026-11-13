@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-13T07:07:17Z",
+  "generated": "2026-11-13T11:50:21Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -57,7 +57,7 @@
       "brand": "ambient",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.12.1",
-      "updated": "2026-11-12T04:17:32Z",
+      "updated": "2026-11-13T11:50:17Z",
       "versions": 1,
       "api": "api/apps/stremio-tv-ambient.json"
     },
