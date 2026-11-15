@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-14T11:11:19Z",
+  "generated": "2026-11-15T11:44:11Z",
   "cli": "morphe-desktop-2.1.1-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 211,
+      "patch_count": 212,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -157,6 +157,10 @@
             },
             {
               "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Pause when muted",
               "default": true
             },
             {
@@ -868,7 +872,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0-dev.5",
+      "version": "v2.3.0-dev.7",
       "spec": "dev",
       "used_by": [
         {
