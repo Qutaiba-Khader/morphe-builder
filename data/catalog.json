@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-15T11:44:11Z",
-  "cli": "morphe-desktop-2.1.1-all.jar",
+  "generated": "2026-11-16T12:24:13Z",
+  "cli": "morphe-desktop-2.2.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
       "patch_count": 212,
@@ -872,7 +872,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0-dev.7",
+      "version": "v2.3.0-dev.9",
       "spec": "dev",
       "used_by": [
         {
