@@ -1,5 +1,21 @@
 {
  "problems": {
+  "patches-behind:reddit": {
+   "first_seen": "2026-11-16T22:04:04Z",
+   "text": "reddit: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0"
+  },
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-16T22:04:04Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9"
+  },
+  "patches-behind:youtube": {
+   "first_seen": "2026-11-16T22:04:04Z",
+   "text": "youtube: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0"
+  },
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-16T22:04:04Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9"
+  },
   "wanted-behind:reddit-experimental": {
    "first_seen": "2026-11-13T21:51:15Z",
    "text": "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
