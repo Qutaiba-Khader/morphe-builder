@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-17T23:21:36Z",
+  "generated": "2026-11-17T23:57:20Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -34,9 +34,9 @@
       "package": "com.reddit.frontpage.morphe",
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "latest_version": "2026.45.0",
+      "latest_version": "2026.46.0",
       "updated": "2026-11-17T12:45:48Z",
-      "versions": 6,
+      "versions": 7,
       "api": "api/apps/reddit-experimental.json"
     },
     {
