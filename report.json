@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-17T12:47:55Z",
+ "checked_at": "2026-11-17T20:56:42Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
@@ -41,5 +41,8 @@
  "problems": [
   "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
  ],
- "waiting": []
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.1, we offer 2.3.0",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.1, we offer 2.3.0"
+ ]
 }
