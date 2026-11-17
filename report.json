@@ -1,12 +1,12 @@
 {
- "checked_at": "2026-11-17T23:23:05Z",
+ "checked_at": "2026-11-17T23:59:04Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
    "tag": "26.11.17-ambient"
   },
   "reddit-experimental": {
-   "version": "2026.45.0",
+   "version": "2026.46.0",
    "tag": "26.11.17-morphe-dev"
   },
   "youtube-experimental": {
@@ -38,8 +38,6 @@
    "tag": "26.11.06-subs"
   }
  },
- "problems": [
-  "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
- ],
+ "problems": [],
  "waiting": []
 }
