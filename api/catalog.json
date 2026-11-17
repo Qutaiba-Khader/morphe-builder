@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-16T12:24:13Z",
+  "generated": "2026-11-17T12:44:42Z",
   "cli": "morphe-desktop-2.2.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
@@ -872,7 +872,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0-dev.9",
+      "version": "v2.3.0",
       "spec": "dev",
       "used_by": [
         {
@@ -890,7 +890,7 @@
       ]
     },
     "github:MorpheApp/morphe-patches": {
-      "patch_count": 202,
+      "patch_count": 212,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -906,6 +906,10 @@
             "9.15.51"
           ],
           "patches": [
+            {
+              "name": "A-B loop",
+              "default": true
+            },
             {
               "name": "Android Auto",
               "default": true
@@ -940,6 +944,14 @@
             },
             {
               "name": "Custom font",
+              "default": true
+            },
+            {
+              "name": "Disable audio ducking",
+              "default": true
+            },
+            {
+              "name": "Disable auto captions",
               "default": true
             },
             {
@@ -1031,6 +1043,14 @@
               "default": false
             },
             {
+              "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Pause when muted",
+              "default": true
+            },
+            {
               "name": "Play albums songs",
               "default": true
             },
@@ -1056,6 +1076,10 @@
             },
             {
               "name": "Remember shuffle state",
+              "default": true
+            },
+            {
+              "name": "Remember video quality",
               "default": true
             },
             {
@@ -1139,6 +1163,10 @@
             },
             {
               "name": "Ask flyout menu",
+              "default": true
+            },
+            {
+              "name": "Autoplay control",
               "default": true
             },
             {
@@ -1310,6 +1338,10 @@
               "default": true
             },
             {
+              "name": "Fullscreen playlist panel",
+              "default": true
+            },
+            {
               "name": "Fullscreen video scale",
               "default": true
             },
@@ -1371,6 +1403,10 @@
             },
             {
               "name": "Hide video action buttons",
+              "default": true
+            },
+            {
+              "name": "Loop count",
               "default": true
             },
             {
@@ -1451,6 +1487,10 @@
             },
             {
               "name": "Player icon style",
+              "default": true
+            },
+            {
+              "name": "Playlist button",
               "default": true
             },
             {
@@ -1719,7 +1759,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.2.0",
+      "version": "v2.3.0",
       "spec": "latest",
       "used_by": [
         {
