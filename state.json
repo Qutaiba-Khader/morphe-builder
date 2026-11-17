@@ -1,13 +1,5 @@
 {
  "problems": {
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-17T20:56:42Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.1, we offer 2.3.0"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-17T20:56:42Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.1, we offer 2.3.0"
-  },
   "wanted-behind:reddit-experimental": {
    "first_seen": "2026-11-13T21:51:15Z",
    "text": "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
@@ -20,7 +12,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.3.0.9999",
+   "text": "2026.45.0.2.4.0.1",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -50,8 +42,8 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.45.82.2.3.0.9999",
-   "version": "21.45.82",
+   "text": "21.46.522.2.4.0.1",
+   "version": "21.46.522",
    "package": "app.morphe.android.youtube.dev"
   },
   "stremio-tv-ambient": {
