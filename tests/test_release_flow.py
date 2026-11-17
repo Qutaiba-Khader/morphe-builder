@@ -1787,5 +1787,34 @@ class BuildList(unittest.TestCase):
                 matrix.main()
 
 
+
+class ApkMirrorVariant(unittest.TestCase):
+    """The variant APKMirror is asked for (src/scrapers/apkmirror.py `_pick_variant`), on two saved release pages."""
+
+    def pick(self, version, arch="all", dpi="", version_code=None):
+        from bs4 import BeautifulSoup
+        from src.scrapers.apkmirror import APKMirrorScraper
+        soup = BeautifulSoup((ROOT / f"tests/fixtures/apkmirror/reddit-{version.replace('.', '-')}.html").read_text(), "html.parser")
+        got = APKMirrorScraper.__new__(APKMirrorScraper)._pick_variant(soup, dpi, arch, version_code=version_code, version=version)
+        return got and got[0].rsplit("/", 2)[-2]
+
+    # P-REL-156
+    def test_P_REL_156_a_version_with_no_full_dpi_bundle_is_still_downloadable(self):
+        # 2026-11-18: every universal 2026.46.0 bundle is 120-480dpi; the strict rule found none and Reddit
+        # Experimental stayed on 2026.45.0 ("cannot be downloaded yet") — the highest version code, universal
+        self.assertEqual(self.pick("2026.46.0"), "reddit-2026-46-0-6-android-apk-download")
+
+    # P-REL-157
+    def test_P_REL_157_a_full_dpi_bundle_is_still_preferred(self):
+        # 2026.45.0 has 120-640dpi universal bundles beside 120-480dpi ones: the full range wins, as before
+        self.assertEqual(self.pick("2026.45.0"), "reddit-2026-45-0-5-android-apk-download")
+
+    # P-REL-158
+    def test_P_REL_158_an_arch_build_and_a_version_code_pick_as_before(self):
+        self.assertEqual(self.pick("2026.46.0", arch="arm64-v8a"), "reddit-2026-46-0-5-android-apk-download")
+        self.assertEqual(self.pick("2026.46.0", version_code="2646090"), "reddit-2026-46-0-7-android-apk-download")
+        self.assertIsNone(self.pick("2026.46.0", version_code="1"), "an unknown version code: no relaxed second pass")
+        self.assertIsNone(self.pick("2026.46.0", dpi="320dpi"), "a configured DPI is never relaxed")
+
 if __name__ == "__main__":
     unittest.main()
