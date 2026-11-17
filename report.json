@@ -1,6 +1,14 @@
 {
- "checked_at": "2026-11-16T22:28:41Z",
+ "checked_at": "2026-11-17T00:02:21Z",
  "offered": {
+  "reddit": {
+   "version": "2026.40.0",
+   "tag": "26.11.16-morphe"
+  },
+  "youtube": {
+   "version": "21.30.216",
+   "tag": "26.11.16-morphe"
+  },
   "stremio-tv-ambient": {
    "version": "1.12.1",
    "tag": "26.11.16-ambient"
@@ -16,14 +24,6 @@
   "tiktok": {
    "version": "47.4.3",
    "tag": "26.11.11-metra"
-  },
-  "reddit": {
-   "version": "2026.40.0",
-   "tag": "26.11.10-morphe"
-  },
-  "youtube": {
-   "version": "21.30.216",
-   "tag": "26.11.10-morphe"
   },
   "stremio-phone": {
    "version": "2.5.1",
@@ -41,10 +41,5 @@
  "problems": [
   "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
  ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9",
-  "reddit: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9",
-  "youtube: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0"
- ]
+ "waiting": []
 }

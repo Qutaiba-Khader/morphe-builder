@@ -1,21 +1,5 @@
 {
  "problems": {
-  "patches-behind:reddit": {
-   "first_seen": "2026-11-16T22:04:04Z",
-   "text": "reddit: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0"
-  },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-16T22:04:04Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9"
-  },
-  "patches-behind:youtube": {
-   "first_seen": "2026-11-16T22:04:04Z",
-   "text": "youtube: MorpheApp/morphe-patches is at 2.3.0, we offer 2.2.0"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-16T22:04:04Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.3.0, we offer 2.3.0-dev.9"
-  },
   "wanted-behind:reddit-experimental": {
    "first_seen": "2026-11-13T21:51:15Z",
    "text": "reddit-experimental: built on 2026.45.0 because 2026.46.0 cannot be downloaded yet"
@@ -23,12 +7,12 @@
  },
  "offers": {
   "reddit": {
-   "text": "2026.40.0.2.2.0",
+   "text": "2026.40.0.2.3.0",
    "version": "2026.40.0",
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.45.0.2.3.0.9",
+   "text": "2026.45.0.2.3.0.9999",
    "version": "2026.45.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -53,12 +37,12 @@
    "package": "com.zhiliaoapp.musically"
   },
   "youtube": {
-   "text": "21.30.216.2.2.0",
+   "text": "21.30.216.2.3.0",
    "version": "21.30.216",
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.45.82.2.3.0.9",
+   "text": "21.45.82.2.3.0.9999",
    "version": "21.45.82",
    "package": "app.morphe.android.youtube.dev"
   },
