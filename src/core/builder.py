@@ -27,6 +27,12 @@ from src.core.network import NetworkError, NetworkManager
 from src.core.patcher import PatcherCLI, PatcherError, SignatureError, version_numbers
 from src.core.prebuilts import APKSIGNER, fetch_cli, fetch_mpp, get_highest_ver
 from src.scrapers.base import BaseScraper, DownloadResult, ScraperError
+from src.scrapers.gplay import take_secrets
+
+# morphe-builder (owner, 2026-11-18): the Google Play secrets leave the environment as soon as main.py imports this
+# module, before any tool runs, so only goopdl receives them (src/scrapers/gplay.py). Kept here, not in main.py, which
+# is upstream's file and an upstream sync would undo it.
+take_secrets()
 
 _failed_signatures: set[str] = set()
 MAX_OLDER_VERSIONS = 3
@@ -289,6 +295,7 @@ def _submit_entries(entries: list[AppEntry], pool: ThreadPoolExecutor, net: Netw
     return futures
 
 def run_build(entries: list[AppEntry], config: Config, net: NetworkManager) -> bool:
+    take_secrets()  # morphe-builder: again after main.py read a local .env
     if not entries:
         epr("No entries to build")
         return False

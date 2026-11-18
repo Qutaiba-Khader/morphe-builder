@@ -1854,6 +1854,27 @@ class GooglePlaySecrets(unittest.TestCase):
         self.gplay.take_secrets()  # a second call (after a local .env) keeps the first values
         self.assertEqual(self.gplay._SECRETS["GOOPDL_AAS_TOKEN"], self.TOKEN)
 
+    # P-REL-159
+    def test_P_REL_159_run_build_takes_a_local_env_secret_too(self):
+        from src.core import builder
+        os.environ["GOOPDL_AAS_TOKEN"] = self.TOKEN  # as a local .env would put it, after the import
+        with redirect_stdout(io.StringIO()), mock.patch("sys.stderr", io.StringIO()):
+            self.assertFalse(builder.run_build([], None, None))
+        self.assertNotIn("GOOPDL_AAS_TOKEN", os.environ)
+        self.assertEqual(self.gplay._SECRETS["GOOPDL_AAS_TOKEN"], self.TOKEN)
+        # with entries: the secret is gone before any build starts
+        seen = []
+        def submit(entries, pool, net, ks, strict):
+            seen.append("GOOPDL_AAS_TOKEN" in os.environ)
+            return []
+        os.environ["GOOPDL_AAS_TOKEN"] = self.TOKEN
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(builder, "TEMP_DIR", Path(d)), \
+                mock.patch.object(builder, "_submit_entries", submit), mock.patch.dict(os.environ, {"KEYSTORE_BASE64": ""}), \
+                redirect_stdout(io.StringIO()), mock.patch("sys.stderr", io.StringIO()):
+            cfg = mock.Mock(parallel_jobs=1, strict_sigcheck=False)
+            self.assertFalse(builder.run_build([mock.Mock()], cfg, None), "no build succeeded")
+        self.assertEqual(seen, [False])
+
     # P-REL-160
     def test_P_REL_160_every_printed_form_is_scrubbed(self):
         import base64
@@ -1925,8 +1946,10 @@ class GooglePlaySecrets(unittest.TestCase):
             self.assertIn("steps.guard.outcome == 'success'", step, f"{name} runs only after a clean guard")
         for name in ("ci.yml", "site.yml", "health.yml", "catalog.yml", "sync.yml", "tests.yml"):
             self.assertNotIn("GOOPDL", (ROOT / ".github/workflows" / name).read_text(), f"{name} never gets the Google secrets")
-        self.assertIn("take_secrets()", (ROOT / "main.py").read_text().split("from src.core.builder import run_build")[0],
-                      "main.py takes the secrets before importing anything that runs tools")
+        builder = (ROOT / "src/core/builder.py").read_text()
+        self.assertIn("\ntake_secrets()\n", builder.split("def ")[0], "taken when main.py imports the builder, before any tool runs")
+        self.assertIn("take_secrets()", builder.split("def run_build")[1][:300], "and again after a local .env is read")
+        self.assertNotIn("take_secrets", (ROOT / "main.py").read_text(), "main.py stays upstream's file")
 
 if __name__ == "__main__":
     unittest.main()

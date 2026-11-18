@@ -21,12 +21,7 @@ import sys
 from copy import replace
 from pathlib import Path
 
-from src.scrapers.gplay import take_secrets
-
-# morphe-builder: the Google Play secrets leave the environment before anything else runs (src/scrapers/gplay.py)
-take_secrets()
-
-from src.core.builder import run_build  # noqa: E402
+from src.core.builder import run_build
 from src.core.config import BUILD_DIR, CONFIG_PATH, TEMP_DIR, VALID_ARCHES, AppEntry, load_toml, parse_app_entries, parse_config
 from src.core.logger import abort, epr, mark_interrupted, pr
 from src.core.network import NetworkManager
@@ -47,7 +42,6 @@ def _load_dotenv(path: Path = Path(".env")) -> None:
         key = key.strip()
         if key and key not in os.environ:
             os.environ[key] = value.strip().strip('"\'')
-    take_secrets()  # morphe-builder: a local .env's Google Play secrets leave the environment too
 
 def _require_java(min_version: int = 21) -> None:
     if not shutil.which("java"):

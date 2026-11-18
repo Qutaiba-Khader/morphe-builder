@@ -111,7 +111,7 @@ fails rather than publish an APK that leaves 32-bit devices out.
 
 🔴 **On GitHub it needs a Google account.** Play's anonymous sign-in (Aurora's token service)
 answers HTTP 403 to GitHub's runners, so without one the Play step is skipped. Use a
-**secondary** account, never your main one:
+**new Google account made only for this**, never a personal one:
 
 1. On a computer with Chrome or Edge and [uv](https://docs.astral.sh/uv/), run
    `uvx --from goopdl==1.2.1 goopdl aastoken <the account's address> --browser`, sign in to that
@@ -128,7 +128,7 @@ Changing that account's password invalidates the token; repeat step 1 then.
   and a fork's pull request never gets repository secrets;
 - before the build prints anything, every encoded form of each secret (URL-encoded, base64) is
   masked in the log, on top of GitHub's own masking of the plain value;
-- `main.py` takes the secrets out of the environment first thing, so only goopdl receives them
+- the builder takes the secrets out of the environment before any tool runs, so only goopdl receives them
   (never the Java patcher, apksigner, git or uv), and goopdl's output is scrubbed before it is
   logged or put in an error message;
 - before anything is uploaded, every APK and the build log are searched for each secret in every
