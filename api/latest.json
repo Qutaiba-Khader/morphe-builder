@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-18T00:27:40Z",
+  "generated": "2026-11-18T01:16:16Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
     "stremio-tv-ambient": {
@@ -43,7 +43,7 @@
           "arch": "armeabi-v7a",
           "size": 73777931,
           "sha256": "e9af222973478e13ca454b625bfd1457533c203804531caea693ab303847898c",
-          "downloads": 30,
+          "downloads": 40,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.17-ambient/stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-ambient-ambient-v1.12.1-armeabi-v7a.apk"
         }
@@ -82,7 +82,7 @@
           "arch": "all",
           "size": 93872482,
           "sha256": "01f067f6a54dc9ece35e8ff54c818520e03c17cea2edc8baf062736e400f8659",
-          "downloads": 7,
+          "downloads": 17,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.17-morphe-dev/reddit-experimental-morphe-dev-v2026.46.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.46.0-all.apk"
         }
@@ -121,7 +121,7 @@
           "arch": "all",
           "size": 149669496,
           "sha256": "5ac367c8dc00b6aacf16cf168baeb1569859ea8d9ed8ea847ab9d03afc5933b4",
-          "downloads": 7,
+          "downloads": 18,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.17-morphe-dev/youtube-experimental-morphe-dev-v21.46.522-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.46.522-all.apk"
         }
@@ -160,7 +160,7 @@
           "arch": "all",
           "size": 95934536,
           "sha256": "0c542dd9209b5cbad2a0d602bdfc21d71690708cf035f7c3f28e1756c839072a",
-          "downloads": 50,
+          "downloads": 60,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.16-morphe/reddit-morphe-v2026.40.0-all.apk",
           "name": "reddit-morphe-v2026.40.0-all.apk"
         }
@@ -199,7 +199,7 @@
           "arch": "all",
           "size": 138925510,
           "sha256": "f3831ad13a410a8defbad9b6cac94e1304b2a7adf3582fb9cd4b5c908392d6cf",
-          "downloads": 49,
+          "downloads": 60,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.16-morphe/youtube-morphe-v21.30.216-all.apk",
           "name": "youtube-morphe-v21.30.216-all.apk"
         }
@@ -238,7 +238,7 @@
           "arch": "all",
           "size": 499793747,
           "sha256": "a7748220e4ee9198ff597fdc850d0ef5270ce8d13fb5353eb6fef19c6e78d448",
-          "downloads": 294,
+          "downloads": 304,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.11-metra/tiktok-metra-v47.4.3-all.apk",
           "name": "tiktok-metra-v47.4.3-all.apk"
         }
@@ -282,7 +282,7 @@
           "arch": "arm64-v8a",
           "size": 77111893,
           "sha256": "42a8a57e314283bfc0be80abae0ab4fca42b3b003ba0eeba818d5cc49dcb0e76",
-          "downloads": 428,
+          "downloads": 438,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk"
         }
@@ -326,7 +326,7 @@
           "arch": "armeabi-v7a",
           "size": 73106127,
           "sha256": "7ff36689a37f97b43eb485f7902c2c28292090d54feda7167b0097faff38b13e",
-          "downloads": 427,
+          "downloads": 437,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk"
         }
@@ -365,7 +365,7 @@
           "arch": "armeabi-v7a",
           "size": 73028246,
           "sha256": "d60bd640b5c09b6306dbdfebb74e5396983733d6b9249d78cb94ad47aac7b1bf",
-          "downloads": 424,
+          "downloads": 434,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-subs/stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.12.1-armeabi-v7a.apk"
         }
