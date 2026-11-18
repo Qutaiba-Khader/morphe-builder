@@ -1,0 +1,48 @@
+# morphe-builder (owner, 2026-11-18): run by hand to prove the Google Play source works with the account secrets.
+# Downloads one app from Google Play on GitHub's runner; builds and uploads nothing. Same leak safeguards as build.yml.
+name: Google Play check
+on:
+  workflow_dispatch:
+    inputs:
+      play_url:
+        description: 'Google Play page of the app to fetch'
+        default: 'https://play.google.com/store/apps/details?id=com.reddit.frontpage'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4  # v10.1.0
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          quiet: true
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Fetch from Google Play
+        env:
+          GOOPDL_ACCOUNT_EMAIL: ${{ secrets.GOOPDL_ACCOUNT_EMAIL }}
+          GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
+          PLAY_URL: ${{ inputs.play_url }}
+        run: |
+          uv run python tools/leak_guard.py mask
+          uv run python tools/gplay_check.py "$PLAY_URL"
+
+      - name: Leak guard
+        if: always()
+        env:
+          GOOPDL_ACCOUNT_EMAIL: ${{ secrets.GOOPDL_ACCOUNT_EMAIL }}
+          GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
+        run: uv run python tools/leak_guard.py check gplay-check

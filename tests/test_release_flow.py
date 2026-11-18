@@ -1951,5 +1951,52 @@ class GooglePlaySecrets(unittest.TestCase):
         self.assertIn("take_secrets()", builder.split("def run_build")[1][:300], "and again after a local .env is read")
         self.assertNotIn("take_secrets", (ROOT / "main.py").read_text(), "main.py stays upstream's file")
 
+class GooglePlayCheck(unittest.TestCase):
+    # P-REL-163
+    def test_P_REL_163_the_google_play_check_fetches_names_files_and_uploads_nothing(self):
+        import gplay_check
+        from src.scrapers import gplay
+        from src.scrapers.base import AppMetadata, DownloadResult
+        wf = (ROOT / ".github/workflows/gplay-check.yml").read_text()
+        self.assertIn("leak_guard.py mask\n          uv run python tools/gplay_check.py", wf)
+        self.assertLess(wf.index("- name: Fetch from Google Play"), wf.index("- name: Leak guard"))
+        self.assertIn("leak_guard.py check gplay-check", wf)
+        self.assertNotIn("contents: write", wf)
+        self.assertNotIn("actions/upload", wf)
+        self.assertNotIn("gh release", wf)
+
+        class Fake:
+            fail = False
+            def __init__(self, net): pass
+            def fetch_metadata(self, url):
+                if Fake.fail:
+                    raise gplay.GPlayError("Google Play needs the secrets")
+                return AppMetadata(pkg_name="com.x", versions=["1.2"])
+            def download(self, url, version, dest, arch, dpi):
+                dest.write_bytes(b"PK" * 600)
+                return DownloadResult(path=dest, is_bundle=True)
+
+        class Net:
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+
+        with tempfile.TemporaryDirectory() as d, mock.patch.object(gplay_check, "GPlayScraper", Fake), \
+                mock.patch.object(gplay_check, "NetworkManager", Net):
+            cwd = Path.cwd()
+            os.chdir(d)
+            try:
+                out = io.StringIO()
+                with redirect_stdout(out):
+                    self.assertEqual(gplay_check.main([]), 0)
+                self.assertIn("got check-1.2.apkm (1 KB)", out.getvalue())
+                self.assertIn("Google Play check passed: check-1.2.apkm", out.getvalue())
+                Fake.fail = True
+                out = io.StringIO()
+                with redirect_stdout(out):
+                    self.assertEqual(gplay_check.main(["https://play.google.com/store/apps/details?id=com.x", "arm64-v8a"]), 1)
+                self.assertIn("::error title=Google Play check failed::", out.getvalue())
+            finally:
+                os.chdir(cwd)
+
 if __name__ == "__main__":
     unittest.main()
