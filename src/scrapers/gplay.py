@@ -41,6 +41,37 @@ from src.scrapers.base import (
 )
 
 GOOPDL = ("uvx", "--quiet", "--from", "goopdl==1.2.1", "goopdl")
+
+# morphe-builder (owner, 2026-11-18): the Google account's secrets never leak.
+#  - take_secrets() (called first thing in main.py) moves them OUT of the process environment, so no other tool the
+#    build runs (the Java patcher, apksigner, git, uv) ever inherits them; only goopdl gets them, in its own env.
+#  - scrub() replaces them, in every form a tool could print (as is, URL-encoded, base64), before any goopdl output
+#    reaches a log line or an error message. GitHub masks the plain value too; the encoded forms it would not.
+_SECRET_KEYS = ("GOOPDL_ACCOUNT_EMAIL", "GOOPDL_AAS_TOKEN")
+_SECRETS: dict[str, str] = {}
+
+
+def take_secrets() -> None:
+    for key in _SECRET_KEYS:
+        value = os.environ.pop(key, "").strip()
+        if value:
+            _SECRETS.setdefault(key, value)
+
+
+def secret_forms(value: str) -> list[str]:
+    """Every form of a secret a tool might print: as is, URL-encoded both ways, base64 (standard and URL-safe)."""
+    import base64
+    from urllib.parse import quote, quote_plus
+    forms = {value, quote(value, safe=""), quote_plus(value), base64.b64encode(value.encode()).decode(),
+             base64.urlsafe_b64encode(value.encode()).decode()}
+    return sorted((f for f in forms if len(f) >= 6), key=len, reverse=True)
+
+
+def scrub(text: str) -> str:
+    for value in _SECRETS.values():
+        for form in secret_forms(value):
+            text = text.replace(form, "***")
+    return text
 TIMEOUT = 900
 # builder arch -> goopdl device type
 _ARCHES = {"arm64-v8a": "arm64", "armeabi-v7a": "armv7", "x86_64": "x86_64", "x86": "x86"}
@@ -126,7 +157,7 @@ class GPlayScraper(BaseScraper):
     def _run(self, *args: str, home: Path | None = None) -> subprocess.CompletedProcess[str]:
         if shutil.which(GOOPDL[0]) is None:
             raise GPlayError("uv is not installed, so goopdl cannot run")
-        env = dict(os.environ)
+        env = {**os.environ, **_SECRETS}  # the secrets go to goopdl only (take_secrets)
         if home is not None:
             # goopdl keeps its token pool in ~/.config/goopdl and reuses whatever device it holds,
             # whatever --profile says: one home per device type keeps a 32-bit phone 32-bit.
@@ -134,7 +165,8 @@ class GPlayScraper(BaseScraper):
             env.setdefault("UV_CACHE_DIR", str(Path.home() / ".cache" / "uv"))
             env["HOME"] = str(home)
         try:
-            return subprocess.run([*GOOPDL, *args], capture_output=True, text=True, timeout=TIMEOUT, check=False, env=env)
+            res = subprocess.run([*GOOPDL, *args], capture_output=True, text=True, timeout=TIMEOUT, check=False, env=env)
+            return subprocess.CompletedProcess(res.args, res.returncode, scrub(res.stdout or ""), scrub(res.stderr or ""))
         except subprocess.TimeoutExpired:
             raise GPlayError(f"goopdl took longer than {TIMEOUT} s") from None
 
@@ -142,7 +174,7 @@ class GPlayScraper(BaseScraper):
     def _usable() -> None:
         # Aurora's anonymous dispenser answers 403 to GitHub's runners (measured 2026-10-23 on every
         # device profile), so in CI only a Google account works: GOOPDL_ACCOUNT_EMAIL + GOOPDL_AAS_TOKEN.
-        if os.getenv("GITHUB_ACTIONS") == "true" and not (os.getenv("GOOPDL_ACCOUNT_EMAIL") and os.getenv("GOOPDL_AAS_TOKEN")):
+        if os.getenv("GITHUB_ACTIONS") == "true" and not (_SECRETS.get("GOOPDL_ACCOUNT_EMAIL") and _SECRETS.get("GOOPDL_AAS_TOKEN")):
             raise GPlayError("Google Play needs the GOOPDL_ACCOUNT_EMAIL and GOOPDL_AAS_TOKEN secrets on GitHub (see ADD.md)")
 
     def fetch_metadata(self, url: str) -> AppMetadata:

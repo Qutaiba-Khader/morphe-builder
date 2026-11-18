@@ -143,7 +143,25 @@ jobs:
           # Both unset = Google Play is skipped. Use a throwaway account (ADD.md).
           GOOPDL_ACCOUNT_EMAIL: ${{ secrets.GOOPDL_ACCOUNT_EMAIL }}
           GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
-        run: uv run main.py ${{ matrix.id }} ${{ matrix.arch }}
+        # Leak safeguards (owner, 2026-11-18): GitHub masks each secret as written; `mask` adds every encoded form
+        # (URL-encoded, base64) a tool could print. main.py then takes the Google secrets out of the environment so
+        # only goopdl gets them, and every goopdl output is scrubbed before it is logged (src/scrapers/gplay.py).
+        run: |
+          uv run python tools/leak_guard.py mask
+          uv run main.py ${{ matrix.id }} ${{ matrix.arch }}
+
+      # Nothing that holds a secret is uploaded: every APK and the build log are checked for each secret in every
+      # form; a file that holds one is deleted here and the job fails (tools/leak_guard.py names only the file). The two
+      # uploads run only after a clean guard: a guard that found a secret, or crashed, uploads nothing.
+      - name: Leak guard
+        id: guard
+        if: always()
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+          GOOPDL_ACCOUNT_EMAIL: ${{ secrets.GOOPDL_ACCOUNT_EMAIL }}
+          GOOPDL_AAS_TOKEN: ${{ secrets.GOOPDL_AAS_TOKEN }}
+        run: uv run python tools/leak_guard.py check build build.md
 
       # Nothing unusable gets as far as a release: wrong key, wrong version inside, wrong
       # CPU, or a patch that left nothing in the app. A rejected APK is deleted here.
@@ -158,7 +176,7 @@ jobs:
           [[ ${#apks[@]} -eq 0 ]] || python3 tools/verify_apk.py "${apks[@]}"
 
       - name: Upload APKs to release
-        if: always()
+        if: always() && steps.guard.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.version }}
@@ -176,7 +194,7 @@ jobs:
           gh release upload "$TAG" "${apks[@]}" --clobber --repo "$GITHUB_REPOSITORY"
 
       - name: Upload build log to draft release
-        if: always()
+        if: always() && steps.guard.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.version }}

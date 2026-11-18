@@ -1816,5 +1816,117 @@ class ApkMirrorVariant(unittest.TestCase):
         self.assertIsNone(self.pick("2026.46.0", version_code="1"), "an unknown version code: no relaxed second pass")
         self.assertIsNone(self.pick("2026.46.0", dpi="320dpi"), "a configured DPI is never relaxed")
 
+
+class GooglePlaySecrets(unittest.TestCase):
+    """The Google account's secrets never leak (owner, 2026-11-18): src/scrapers/gplay.py, tools/leak_guard.py, build.yml."""
+    EMAIL = "fake.account@example.com"
+    TOKEN = "aas_et/AKppINbFAKE+token/with=chars0123456789"
+
+    def setUp(self):
+        from src.scrapers import gplay
+        self.gplay = gplay
+        self.saved = dict(gplay._SECRETS)
+        gplay._SECRETS.clear()
+        self.env = mock.patch.dict(os.environ, {"GOOPDL_ACCOUNT_EMAIL": self.EMAIL, "GOOPDL_AAS_TOKEN": self.TOKEN})
+        self.env.start()
+
+    def tearDown(self):
+        self.env.stop()
+        self.gplay._SECRETS.clear()
+        self.gplay._SECRETS.update(self.saved)
+
+    # P-REL-159
+    def test_P_REL_159_only_goopdl_gets_the_secrets(self):
+        import subprocess as sp
+        self.gplay.take_secrets()
+        self.assertNotIn("GOOPDL_AAS_TOKEN", os.environ, "no other tool can inherit it")
+        self.assertNotIn("GOOPDL_ACCOUNT_EMAIL", os.environ)
+        out = sp.run([sys.executable, "-c", "import os;print(os.environ.get('GOOPDL_AAS_TOKEN', 'none'))"], capture_output=True, text=True)
+        self.assertEqual(out.stdout.strip(), "none", "a child process (the Java patcher, apksigner...) sees nothing")
+        seen = {}
+        def fake_run(cmd, **kw):
+            seen.update(kw["env"])
+            return sp.CompletedProcess(cmd, 3, f"login as {self.EMAIL} with {self.TOKEN}", "")
+        with mock.patch.object(self.gplay.shutil, "which", return_value="/usr/bin/uvx"), mock.patch.object(self.gplay.subprocess, "run", fake_run):
+            res = self.gplay.GPlayScraper.__new__(self.gplay.GPlayScraper)._run("latest", "com.x")
+        self.assertEqual(seen.get("GOOPDL_AAS_TOKEN"), self.TOKEN, "goopdl itself gets it")
+        self.assertEqual(res.stdout, "login as *** with ***", "and what goopdl prints comes back scrubbed")
+        self.gplay.take_secrets()  # a second call (after a local .env) keeps the first values
+        self.assertEqual(self.gplay._SECRETS["GOOPDL_AAS_TOKEN"], self.TOKEN)
+
+    # P-REL-160
+    def test_P_REL_160_every_printed_form_is_scrubbed(self):
+        import base64
+        from urllib.parse import quote, quote_plus
+        self.gplay.take_secrets()
+        for form in (self.TOKEN, quote(self.TOKEN, safe=""), quote_plus(self.TOKEN), base64.b64encode(self.TOKEN.encode()).decode(),
+                     base64.urlsafe_b64encode(self.TOKEN.encode()).decode(), self.EMAIL):
+            self.assertEqual(self.gplay.scrub(f"x {form} y"), "x *** y", form[:12])
+        self.gplay._SECRETS.clear()
+        with mock.patch.dict(os.environ, {"GITHUB_ACTIONS": "true"}):
+            os.environ.pop("GOOPDL_AAS_TOKEN", None)
+            with self.assertRaises(self.gplay.GPlayError):
+                self.gplay.GPlayScraper._usable()
+
+    # P-REL-161
+    def test_P_REL_161_the_leak_guard_masks_and_deletes_and_never_prints_a_secret(self):
+        import leak_guard
+        from urllib.parse import quote
+        with tempfile.TemporaryDirectory() as d:
+            build = Path(d) / "build"
+            build.mkdir()
+            clean = build / "notes.md"
+            clean.write_text("all good")
+            leaky = build / "build.md"
+            leaky.write_text(f"goopdl said {quote(self.TOKEN, safe='')}")
+            apk_with_pass = build / "app.apk"
+            apk_with_pass.write_bytes(b"PK\x03\x04 s3cret9 binary")
+            apk_with_token = build / "other.apk"
+            apk_with_token.write_bytes(b"PK " + self.TOKEN.encode())
+            out = io.StringIO()
+            with mock.patch.dict(os.environ, {"KEYSTORE_PASS": "s3cret9"}), redirect_stdout(out):
+                self.assertEqual(leak_guard.main(["mask"]), 0)
+                self.assertEqual(leak_guard.main(["check", str(build), str(Path(d) / "missing.md")]), 1)
+            text = out.getvalue()
+            masked = [ln for ln in text.splitlines() if ln.startswith("::add-mask::")]
+            self.assertGreaterEqual(len(masked), 6)
+            for ln in text.splitlines():
+                if not ln.startswith("::add-mask::"):
+                    self.assertNotIn(self.TOKEN, ln)
+                    self.assertNotIn(quote(self.TOKEN, safe=""), ln)
+                    self.assertNotIn("s3cret9", ln)
+            self.assertFalse(leaky.exists())
+            self.assertFalse(apk_with_token.exists())
+            self.assertTrue(apk_with_pass.exists(), "a short password is not looked for inside an APK")
+            self.assertTrue(clean.exists())
+            out = io.StringIO()
+            with redirect_stdout(out):
+                self.assertEqual(leak_guard.main(["check", str(build)]), 0)
+                self.assertEqual(leak_guard.main([]), 2)
+            self.assertIn("no secret", out.getvalue())
+            out = io.StringIO()
+            with mock.patch.dict(os.environ, {"RUNNER_DEBUG": "1"}), redirect_stdout(out):
+                self.assertEqual(leak_guard.main(["mask"]), 1, "a debug run would echo ::add-mask:: lines: refused")
+            self.assertNotIn("add-mask", out.getvalue())
+            self.assertNotIn(self.TOKEN, out.getvalue())
+
+    # P-REL-162
+    def test_P_REL_162_build_yml_masks_first_and_guards_before_any_upload(self):
+        wf = (ROOT / ".github/workflows/build.yml").read_text()
+        build = wf.index("- name: Build APKs")
+        guard = wf.index("- name: Leak guard")
+        self.assertLess(build, guard)
+        self.assertLess(guard, wf.index("- name: Upload APKs to release"))
+        self.assertLess(guard, wf.index("- name: Upload build log to draft release"))
+        self.assertIn("leak_guard.py mask\n          uv run main.py", wf, "the encoded forms are masked before the build prints anything")
+        self.assertIn("leak_guard.py check build build.md", wf)
+        for name in ("Upload APKs to release", "Upload build log to draft release"):
+            step = wf[wf.index(f"- name: {name}"):][:200]
+            self.assertIn("steps.guard.outcome == 'success'", step, f"{name} runs only after a clean guard")
+        for name in ("ci.yml", "site.yml", "health.yml", "catalog.yml", "sync.yml", "tests.yml"):
+            self.assertNotIn("GOOPDL", (ROOT / ".github/workflows" / name).read_text(), f"{name} never gets the Google secrets")
+        self.assertIn("take_secrets()", (ROOT / "main.py").read_text().split("from src.core.builder import run_build")[0],
+                      "main.py takes the secrets before importing anything that runs tools")
+
 if __name__ == "__main__":
     unittest.main()

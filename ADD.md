@@ -111,15 +111,30 @@ fails rather than publish an APK that leaves 32-bit devices out.
 
 🔴 **On GitHub it needs a Google account.** Play's anonymous sign-in (Aurora's token service)
 answers HTTP 403 to GitHub's runners, so without one the Play step is skipped. Use a
-**throwaway** account, not your own:
+**secondary** account, never your main one:
 
-1. Create a new Google account.
-2. On a computer with Chrome or Edge, run `uvx --from goopdl==1.2.1 goopdl aastoken --browser`,
-   sign in to that account and tap **I agree**. It prints an AAS token (`aas_et/…`).
-3. In the repository: **Settings → Secrets and variables → Actions → New repository secret**:
-   `GOOPDL_ACCOUNT_EMAIL` = the account's address, `GOOPDL_AAS_TOKEN` = the token.
+1. On a computer with Chrome or Edge and [uv](https://docs.astral.sh/uv/), run
+   `uvx --from goopdl==1.2.1 goopdl aastoken <the account's address> --browser`, sign in to that
+   account in the window it opens and tap **I agree**. It prints an AAS token (`aas_et/…`) in your
+   own terminal only; the password never leaves the browser.
+2. In the repository: **Settings → Secrets and variables → Actions → New repository secret**:
+   `GOOPDL_ACCOUNT_EMAIL` = the account's address, `GOOPDL_AAS_TOKEN` = the token. Paste it there
+   and nowhere else (no chat, no file), then clear the terminal.
 
-Changing that account's password invalidates the token; repeat step 2 then.
+Changing that account's password invalidates the token; repeat step 1 then.
+
+**Leak safeguards** (`tools/leak_guard.py`, `src/scrapers/gplay.py`, `build.yml`):
+- only the build step and the leak-guard step receive the two secrets; no other workflow does,
+  and a fork's pull request never gets repository secrets;
+- before the build prints anything, every encoded form of each secret (URL-encoded, base64) is
+  masked in the log, on top of GitHub's own masking of the plain value;
+- `main.py` takes the secrets out of the environment first thing, so only goopdl receives them
+  (never the Java patcher, apksigner, git or uv), and goopdl's output is scrubbed before it is
+  logged or put in an error message;
+- before anything is uploaded, every APK and the build log are searched for each secret in every
+  form; a file holding one is deleted and the job fails, and nothing is uploaded unless that check
+  finished cleanly;
+- a re-run with debug logging (which would echo the masking commands) refuses to use the secrets.
 
 ## Which apps and patches does a source have?
 
