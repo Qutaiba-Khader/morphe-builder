@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-18T00:28:32Z",
+ "checked_at": "2026-11-18T00:52:09Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
@@ -38,8 +38,6 @@
    "tag": "26.11.06-subs"
   }
  },
- "problems": [
-  "main.py differs from upstream and is not in IGNORE_SYNC_FILES: an upstream sync can undo it"
- ],
+ "problems": [],
  "waiting": []
 }
