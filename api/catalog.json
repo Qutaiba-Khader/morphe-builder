@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-17T12:44:42Z",
+  "generated": "2026-11-18T12:37:05Z",
   "cli": "morphe-desktop-2.2.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 212,
+      "patch_count": 220,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -184,6 +184,10 @@
               "default": true
             },
             {
+              "name": "Queue likes filter",
+              "default": true
+            },
+            {
               "name": "Remember repeat state",
               "default": true
             },
@@ -268,6 +272,10 @@
             },
             {
               "name": "Ambient mode",
+              "default": true
+            },
+            {
+              "name": "Android Auto parked app mode",
               "default": true
             },
             {
@@ -563,6 +571,10 @@
               "default": true
             },
             {
+              "name": "Open post images in fullscreen",
+              "default": true
+            },
+            {
               "name": "Open Shorts in regular player",
               "default": true
             },
@@ -715,6 +727,10 @@
               "default": true
             },
             {
+              "name": "Ungroup notifications",
+              "default": true
+            },
+            {
               "name": "Video delay",
               "default": true
             },
@@ -777,6 +793,10 @@
               "default": true
             },
             {
+              "name": "Flair filters",
+              "default": true
+            },
+            {
               "name": "Force system font",
               "default": true
             },
@@ -825,6 +845,10 @@
               "default": true
             },
             {
+              "name": "Keyword filters",
+              "default": true
+            },
+            {
               "name": "Media viewer black background",
               "default": true
             },
@@ -857,6 +881,10 @@
               "default": true
             },
             {
+              "name": "Share post content",
+              "default": true
+            },
+            {
               "name": "Show flairs in home feed",
               "default": true
             },
@@ -867,12 +895,16 @@
             {
               "name": "Start as guest",
               "default": true
+            },
+            {
+              "name": "Tablet grid feed",
+              "default": true
             }
           ]
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0",
+      "version": "v2.4.0-dev.2",
       "spec": "dev",
       "used_by": [
         {
