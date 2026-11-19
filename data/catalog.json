@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-18T12:37:05Z",
+  "generated": "2026-11-19T12:28:12Z",
   "cli": "morphe-desktop-2.2.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 220,
+      "patch_count": 224,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -80,6 +80,10 @@
               "default": true
             },
             {
+              "name": "Disable swipe to change track",
+              "default": true
+            },
+            {
               "name": "Downloads",
               "default": true
             },
@@ -117,10 +121,6 @@
             },
             {
               "name": "Hide ads",
-              "default": true
-            },
-            {
-              "name": "Hide buttons",
               "default": true
             },
             {
@@ -789,6 +789,10 @@
               "default": true
             },
             {
+              "name": "Feed auto-scroll",
+              "default": true
+            },
+            {
               "name": "Feed media max height",
               "default": true
             },
@@ -814,6 +818,10 @@
             },
             {
               "name": "Hide communities shelf",
+              "default": true
+            },
+            {
+              "name": "Hide interactive posts",
               "default": true
             },
             {
@@ -865,6 +873,14 @@
               "default": true
             },
             {
+              "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Post side panel",
+              "default": true
+            },
+            {
               "name": "Redgifs audio",
               "default": true
             },
@@ -904,7 +920,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.2",
+      "version": "v2.4.0-dev.5",
       "spec": "dev",
       "used_by": [
         {
@@ -3528,711 +3544,9 @@
       ]
     },
     "github:hoo-dles/morphe-patches": {
-      "patch_count": 78,
-      "universal_patches": [
-        "Change package name",
-        "Disable Pairip license check",
-        "Enable debug",
-        "Hide app icon",
-        "MicroG integration"
-      ],
-      "packages": {
-        "app.ttmikstories.android": {
-          "versions": [
-            "1.16.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "bitpit.launcher": {
-          "versions": [
-            "1.16.31"
-          ],
-          "patches": [
-            {
-              "name": "Enable Niagara Pro",
-              "default": true
-            }
-          ]
-        },
-        "ch.protonvpn.android": {
-          "versions": [
-            "5.20.57.0"
-          ],
-          "patches": [
-            {
-              "name": "Remove delay",
-              "default": true
-            },
-            {
-              "name": "Unlock custom DNS",
-              "default": true
-            },
-            {
-              "name": "Unlock LAN connections",
-              "default": true
-            },
-            {
-              "name": "Unlock split tunneling",
-              "default": true
-            }
-          ]
-        },
-        "cn.ommiao.iconpacker": {
-          "versions": [
-            "1.21.0-release"
-          ],
-          "patches": [
-            {
-              "name": "Unlock premium features",
-              "default": true
-            }
-          ]
-        },
-        "cn.wps.moffice_eng": {
-          "versions": [
-            "18.24"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "com.adguard.android": {
-          "versions": [
-            "4.14.2"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.adobe.lrmobile": {
-          "versions": [
-            "11.5.31"
-          ],
-          "patches": [
-            {
-              "name": "Unlock premium features",
-              "default": true
-            }
-          ]
-        },
-        "com.alltrails.alltrails": {
-          "versions": [
-            "26.3.20"
-          ],
-          "patches": [
-            {
-              "name": "Enable Peak membership",
-              "default": true
-            }
-          ]
-        },
-        "com.amazon.avod.thirdpartyclient": {
-          "versions": [
-            "3.0.470.1047"
-          ],
-          "patches": [
-            {
-              "name": "Enable speed control",
-              "default": true
-            },
-            {
-              "name": "Rename shared permissions",
-              "default": true
-            },
-            {
-              "name": "Skip ads",
-              "default": true
-            }
-          ]
-        },
-        "com.avocards": {
-          "versions": [
-            "3.0.18"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.bambuna.podcastaddict": {
-          "versions": [
-            "2026.10.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.bowerydigital.bend": {
-          "versions": [
-            "7.8.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.bunpoapp": {
-          "versions": [
-            "3.23.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Platinum",
-              "default": true
-            }
-          ]
-        },
-        "com.busuu.android.enc": {
-          "versions": [
-            "32.44.1(1717099)"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.duolingo": {
-          "versions": [
-            "6.98.4"
-          ],
-          "patches": [
-            {
-              "name": "Disable dynamic app icon",
-              "default": false
-            },
-            {
-              "name": "Enable debug mode",
-              "default": false
-            },
-            {
-              "name": "Enable Premium",
-              "default": true
-            },
-            {
-              "name": "Unlimited RampUp time",
-              "default": false
-            }
-          ]
-        },
-        "com.getmimo": {
-          "versions": [
-            "9.30"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "com.github.android": {
-          "versions": [
-            "1.271.1"
-          ],
-          "patches": [
-            {
-              "name": "AMOLED dark theme",
-              "default": true
-            }
-          ]
-        },
-        "com.goodreads": {
-          "versions": [
-            "2.75.0 Build 3"
-          ],
-          "patches": [
-            {
-              "name": "Disable ads",
-              "default": true
-            }
-          ]
-        },
-        "com.google.android.apps.magazines": {
-          "versions": [
-            "5.161.0.931240252"
-          ],
-          "patches": [
-            {
-              "name": "Enable custom tabs",
-              "default": true
-            }
-          ]
-        },
-        "com.hellochinese": {
-          "versions": [
-            "7.11.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.intsig.camscanner": {
-          "versions": [
-            "7.20.0.2606230000"
-          ],
-          "patches": [
-            {
-              "name": "Disable telemetry",
-              "default": true
-            },
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.lingodeer": {
-          "versions": [
-            "2.99.413"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium (ROOT)",
-              "default": true
-            }
-          ]
-        },
-        "com.lyfta": {
-          "versions": [
-            "1.599"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.merriamwebster": {
-          "versions": [],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.michaldrabik.showly2": {
-          "versions": [
-            "3.70.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.mirinae.mirinae": {
-          "versions": [
-            "2.2.2"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "com.mobilefootie.wc2010": {
-          "versions": [
-            "238.17666.20260928"
-          ],
-          "patches": [
-            {
-              "name": "Enable FotMob+",
-              "default": true
-            }
-          ]
-        },
-        "com.myfitnesspal.android": {
-          "versions": [
-            "26.31.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium+",
-              "default": true
-            }
-          ]
-        },
-        "com.pandora.android": {
-          "versions": [],
-          "patches": [
-            {
-              "name": "Disable ads",
-              "default": true
-            },
-            {
-              "name": "Unlimited skips",
-              "default": true
-            }
-          ]
-        },
-        "com.qbis.guessthecountry": {
-          "versions": [
-            "3.34.2"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.rp.hypertrophy": {
-          "versions": [
-            "1.1.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.sbs.diet": {
-          "versions": [
-            "5.7.9"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium (ROOT)",
-              "default": true
-            }
-          ]
-        },
-        "com.sbs.train": {
-          "versions": [
-            "1.2.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium (ROOT)",
-              "default": true
-            }
-          ]
-        },
-        "com.simyasolutions.ling.universal": {
-          "versions": [
-            "8.9.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "com.snorelab.app": {
-          "versions": [
-            "2.27.3.6291"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.sofascore.results": {
-          "versions": [
-            "26.08.18"
-          ],
-          "patches": [
-            {
-              "name": "Disable ads",
-              "default": true
-            }
-          ]
-        },
-        "com.soundcloud.android": {
-          "versions": [
-            "2026.08.26-release"
-          ],
-          "patches": [
-            {
-              "name": "AMOLED dark theme",
-              "default": false
-            },
-            {
-              "name": "Disable telemetry",
-              "default": true
-            },
-            {
-              "name": "Enable SoundCloud Go",
-              "default": true
-            }
-          ]
-        },
-        "com.superchinese": {
-          "versions": [
-            "6.8.1"
-          ],
-          "patches": [
-            {
-              "name": "Block launch upsell",
-              "default": true
-            },
-            {
-              "name": "Disable telemetry",
-              "default": true
-            },
-            {
-              "name": "Unlock all lessons",
-              "default": true
-            }
-          ]
-        },
-        "com.teslacoilsw.launcher": {
-          "versions": [
-            "88600 (8.8.6)"
-          ],
-          "patches": [
-            {
-              "name": "Enable Prime",
-              "default": true
-            }
-          ]
-        },
-        "com.toleio.us": {
-          "versions": [
-            "1.36.67"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.urbandroid.sleep": {
-          "versions": [
-            "20260526"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.wallpaperscraft.wallpaper": {
-          "versions": [
-            "3.61.01"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.windyty.android": {
-          "versions": [
-            "51.0.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "com.xodo.pdf.reader": {
-          "versions": [
-            "11.2.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "com.zombodroid.MemeGenerator": {
-          "versions": [
-            "4.6826"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "cz.ackee.ventusky": {
-          "versions": [
-            "53.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "ginlemon.flowerfree": {
-          "versions": [
-            "6.6 build 020"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "jp.ne.ibis.ibispaintx.app": {
-          "versions": [
-            "14.1.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Prime membership",
-              "default": true
-            }
-          ]
-        },
-        "kr.co.yjteam.dailypay": {
-          "versions": [
-            "6.0.7"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "kr.eggbun.eggconvo": {
-          "versions": [
-            "4.12.19"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            },
-            {
-              "name": "Force Native Keyboard",
-              "default": true
-            }
-          ]
-        },
-        "me.mycake": {
-          "versions": [
-            "6.4.0"
-          ],
-          "patches": [
-            {
-              "name": "Enable Plus",
-              "default": true
-            }
-          ]
-        },
-        "nom.vrd": {
-          "versions": [
-            "1.9.3-storage",
-            "1.9.3-GooglePlay"
-          ],
-          "patches": [
-            {
-              "name": "Disable telemetry",
-              "default": true
-            },
-            {
-              "name": "Remove trial limit",
-              "default": true
-            }
-          ]
-        },
-        "org.languageapp.lingory": {
-          "versions": [
-            "1.2.75"
-          ],
-          "patches": [
-            {
-              "name": "Block Permissions Request",
-              "default": true
-            },
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "org.totschnig.myexpenses": {
-          "versions": [
-            "4.1.1.2"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "pl.solidexplorer2": {
-          "versions": [
-            "3.6.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        },
-        "ru.iiec.pydroid3": {
-          "versions": [
-            "8.3_arm64"
-          ],
-          "patches": [
-            {
-              "name": "Enable Premium",
-              "default": true
-            }
-          ]
-        },
-        "videoeditor.videorecorder.screenrecorder": {
-          "versions": [
-            "2.5.1.1"
-          ],
-          "patches": [
-            {
-              "name": "Enable Pro",
-              "default": true
-            }
-          ]
-        }
-      },
-      "url": "https://github.com/hoo-dles/morphe-patches",
-      "version": "v1.47.0",
+      "url": "github:hoo-dles/morphe-patches",
       "spec": "latest",
+      "error": "HTTP Error 403: Forbidden",
       "used_by": [
         {
           "table": "Duolingo",
@@ -4250,7 +3564,10 @@
           "table": "CamScanner",
           "enabled": false
         }
-      ]
+      ],
+      "patch_count": 0,
+      "packages": {},
+      "universal_patches": []
     },
     "github:icysymmetra/tiktok-patches-for-morphe": {
       "patch_count": 136,
@@ -8156,9 +7473,6 @@
     "app.symfonik.music.player": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
-    "app.ttmikstories.android": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "app.vinztech.trackit": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
     ],
@@ -8168,14 +7482,10 @@
     "au.com.shiftyjelly.pocketcasts": [
       "github:rushiranpise/morphe-patches"
     ],
-    "bitpit.launcher": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "cast.video.screenmirroring.casttotv": [
       "github:rushiranpise/morphe-patches"
     ],
     "ch.protonvpn.android": [
-      "github:hoo-dles/morphe-patches",
       "github:rushiranpise/morphe-patches",
       "gitlab:Paresh-Maheshwari/paresh-patches"
     ],
@@ -8184,12 +7494,6 @@
     ],
     "cn.danatech.xingseus": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "cn.ommiao.iconpacker": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "cn.wps.moffice_eng": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.MojoFilterMediaLLC.RPGSoundSystem": [
       "github:rushiranpise/morphe-patches"
@@ -8213,11 +7517,7 @@
       "github:rushiranpise/morphe-patches"
     ],
     "com.adguard.android": [
-      "github:hoo-dles/morphe-patches",
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.adobe.lrmobile": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.adobe.photoshopmix": [
       "github:RookieEnough/De-Vanced"
@@ -8232,17 +7532,11 @@
     "com.alexandrucene.dayhistory": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.alltrails.alltrails": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.alphainventor.filemanager": [
       "github:rushiranpise/morphe-patches"
     ],
     "com.alphaprogression.alphaprogression": [
       "github:arandomhooman/hoomans-morphe-patches"
-    ],
-    "com.amazon.avod.thirdpartyclient": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.amazon.mShop.android.shopping": [
       "github:RookieEnough/De-Vanced",
@@ -8282,12 +7576,6 @@
     "com.atomengineapps.teachmeanatomy": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
-    "com.avocards": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.bambuna.podcastaddict": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.bandcamp.android": [
       "github:RookieEnough/De-Vanced"
     ],
@@ -8310,9 +7598,6 @@
     "com.blurams.ipc": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.bowerydigital.bend": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.brightstripe.parcels": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8322,12 +7607,6 @@
     "com.budget.tracker_app": [
       "github:arandomhooman/hoomans-morphe-patches",
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.bunpoapp": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.busuu.android.enc": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.bytesong.missionalarm": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
@@ -8408,9 +7687,6 @@
     "com.driverlicenseapp": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.duolingo": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.dv.adm": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
@@ -8461,12 +7737,6 @@
     "com.funnmedia.calory": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.getmimo": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.github.android": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.glgjing.money.manager.bookkeeping.meow": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8475,12 +7745,6 @@
     ],
     "com.gombosdev.ampere": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.goodreads": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.google.android.apps.magazines": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.google.android.apps.photos": [
       "github:RookieEnough/De-Vanced",
@@ -8503,9 +7767,6 @@
     "com.guochao.faceshow": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.hellochinese": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.hevy": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
@@ -8522,7 +7783,6 @@
       "github:crimera/piko"
     ],
     "com.intsig.camscanner": [
-      "github:hoo-dles/morphe-patches",
       "github:rushiranpise/morphe-patches"
     ],
     "com.iudesk.android.photo.editor": [
@@ -8570,9 +7830,6 @@
     "com.life360.android.safetymapd": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.lingodeer": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.livescore": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8584,9 +7841,6 @@
     ],
     "com.lumina.wallpapers": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
-    ],
-    "com.lyfta": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.mahersafadi.electron": [
       "github:rushiranpise/morphe-patches"
@@ -8603,17 +7857,11 @@
     "com.maxmpz.audioplayer": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
-    "com.merriamwebster": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.metalsoft.trackchecker_mobile": [
       "github:rushiranpise/morphe-patches"
     ],
     "com.meteoblue.droid": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.michaldrabik.showly2": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.microblink.photomath": [
       "github:RookieEnough/De-Vanced"
@@ -8633,14 +7881,8 @@
     "com.mindful.code.studio.toxly.scanner": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.mirinae.mirinae": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.mk.awake": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.mobilefootie.wc2010": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.mobisystems.office": [
       "github:rushiranpise/morphe-patches"
@@ -8656,9 +7898,6 @@
     ],
     "com.mxtech.videoplayer.pro": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
-    ],
-    "com.myfitnesspal.android": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.myprog.hexedit": [
       "github:RookieEnough/De-Vanced"
@@ -8712,9 +7951,6 @@
     "com.paget96.netspeedindicator": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.pandora.android": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.parallel.space.pro": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8748,9 +7984,6 @@
     "com.psiphon3.subscription": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.qbis.guessthecountry": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.quizlet.quizletandroid": [
       "github:arandomhooman/hoomans-morphe-patches"
     ],
@@ -8782,9 +8015,6 @@
     "com.roehl.habitkit": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
     ],
-    "com.rp.hypertrophy": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.rs.explorer.filemanager": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8794,23 +8024,11 @@
     "com.saldous.casetracker": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.sbs.diet": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.sbs.train": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.server.auditor.ssh.client": [
       "github:rushiranpise/morphe-patches"
     ],
     "com.shexa.permissionmanager": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.simyasolutions.ling.universal": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "com.snorelab.app": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.snow_forecast.snowforecast": [
       "github:rushiranpise/morphe-patches"
@@ -8828,14 +8046,10 @@
       "github:arandomhooman/hoomans-morphe-patches"
     ],
     "com.sofascore.results": [
-      "github:arandomhooman/hoomans-morphe-patches",
-      "github:hoo-dles/morphe-patches"
+      "github:arandomhooman/hoomans-morphe-patches"
     ],
     "com.solid.teleprompter": [
       "gitlab:Paresh-Maheshwari/paresh-patches"
-    ],
-    "com.soundcloud.android": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.spotangels.android": [
       "github:rushiranpise/morphe-patches"
@@ -8857,9 +8071,6 @@
     "com.sumyapplications.bluetooth.earphone": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.superchinese": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.tafayor.hibernator": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -8870,7 +8081,6 @@
       "github:rushiranpise/morphe-patches"
     ],
     "com.teslacoilsw.launcher": [
-      "github:hoo-dles/morphe-patches",
       "github:rushiranpise/morphe-patches"
     ],
     "com.theathletic": [
@@ -8890,9 +8100,6 @@
     ],
     "com.todoist": [
       "github:arandomhooman/hoomans-morphe-patches"
-    ],
-    "com.toleio.us": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.tomtom.gplay.navapp": [
       "github:rushiranpise/morphe-patches"
@@ -8931,9 +8138,6 @@
     "com.urbandroid.kinestop": [
       "github:rushiranpise/morphe-patches"
     ],
-    "com.urbandroid.sleep": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "com.viber.voip": [
       "github:RookieEnough/De-Vanced"
     ],
@@ -8942,9 +8146,6 @@
     ],
     "com.vythera.vyxelapps": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.wallpaperscraft.wallpaper": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.wallverse.wallpapers": [
       "github:rushiranpise/morphe-patches"
@@ -8968,14 +8169,10 @@
       "github:rushiranpise/morphe-patches"
     ],
     "com.windyty.android": [
-      "github:hoo-dles/morphe-patches",
       "github:rushiranpise/morphe-patches"
     ],
     "com.wolfram.android.alphapro": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "com.xodo.pdf.reader": [
-      "github:hoo-dles/morphe-patches"
     ],
     "com.yablio.sendfilestotv": [
       "github:rushiranpise/morphe-patches"
@@ -8989,14 +8186,8 @@
     "com.zhiliaoapp.musically": [
       "github:icysymmetra/tiktok-patches-for-morphe"
     ],
-    "com.zombodroid.MemeGenerator": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "currency.converter.moneta": [
       "github:arandomhooman/hoomans-morphe-patches"
-    ],
-    "cz.ackee.ventusky": [
-      "github:hoo-dles/morphe-patches"
     ],
     "cz.mroczis.netmonster": [
       "github:rushiranpise/morphe-patches"
@@ -9056,9 +8247,6 @@
     "game.puzzle.blockpuzzle": [
       "github:rushiranpise/morphe-patches"
     ],
-    "ginlemon.flowerfree": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "ginlemon.iconpackstudio": [
       "github:RookieEnough/De-Vanced"
     ],
@@ -9101,9 +8289,6 @@
     "jp.co.shueisha.mangaplus": [
       "github:rushiranpise/morphe-patches"
     ],
-    "jp.ne.ibis.ibispaintx.app": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "jp.pxv.android": [
       "github:RookieEnough/De-Vanced"
     ],
@@ -9113,12 +8298,6 @@
     "kha.prog.usbhotspot": [
       "github:rushiranpise/morphe-patches"
     ],
-    "kr.co.yjteam.dailypay": [
-      "github:hoo-dles/morphe-patches"
-    ],
-    "kr.eggbun.eggconvo": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "loseweightapp.loseweightappforwomen.womenworkoutathome": [
       "github:rushiranpise/morphe-patches"
     ],
@@ -9127,9 +8306,6 @@
     ],
     "me.highest.aviate": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "me.mycake": [
-      "github:hoo-dles/morphe-patches"
     ],
     "mega.privacy.android.app": [
       "github:rushiranpise/morphe-patches"
@@ -9155,14 +8331,8 @@
     "no.mobitroll.kahoot.android": [
       "github:rushiranpise/morphe-patches"
     ],
-    "nom.vrd": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "org.hola.play": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "org.languageapp.lingory": [
-      "github:hoo-dles/morphe-patches"
     ],
     "org.malwarebytes.antimalware": [
       "github:rushiranpise/morphe-patches"
@@ -9178,14 +8348,8 @@
       "github:rushiranpise/morphe-patches",
       "gitlab:Paresh-Maheshwari/paresh-patches"
     ],
-    "org.totschnig.myexpenses": [
-      "github:hoo-dles/morphe-patches"
-    ],
     "org.zwanoo.android.speedtest": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "pl.solidexplorer2": [
-      "github:hoo-dles/morphe-patches"
     ],
     "police.scanner.radio.broadcastify.citizen": [
       "github:rushiranpise/morphe-patches"
@@ -9195,9 +8359,6 @@
     ],
     "proton.android.pass": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "ru.iiec.pydroid3": [
-      "github:hoo-dles/morphe-patches"
     ],
     "sensustech.universal.tv.remote.control": [
       "github:rushiranpise/morphe-patches"
@@ -9222,9 +8383,6 @@
     ],
     "verbosus.pialytic": [
       "github:rushiranpise/morphe-patches"
-    ],
-    "videoeditor.videorecorder.screenrecorder": [
-      "github:hoo-dles/morphe-patches"
     ],
     "women.workout.female.fitness": [
       "github:rushiranpise/morphe-patches"
