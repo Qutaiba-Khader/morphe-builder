@@ -1,9 +1,9 @@
 {
- "checked_at": "2026-11-20T12:16:29Z",
+ "checked_at": "2026-11-20T12:30:57Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
-   "tag": "26.11.19-ambient"
+   "tag": "26.11.20-ambient"
   },
   "reddit-experimental": {
    "version": "2026.46.0",
