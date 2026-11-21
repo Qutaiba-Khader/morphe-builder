@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-19T12:28:12Z",
-  "cli": "morphe-desktop-2.2.0-all.jar",
+  "generated": "2026-11-21T12:03:35Z",
+  "cli": "morphe-desktop-2.3.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 224,
+      "patch_count": 227,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -821,6 +821,10 @@
               "default": true
             },
             {
+              "name": "Hide home tabs",
+              "default": true
+            },
+            {
               "name": "Hide interactive posts",
               "default": true
             },
@@ -833,6 +837,10 @@
               "default": true
             },
             {
+              "name": "Hide post buttons",
+              "default": true
+            },
+            {
               "name": "Hide Reddit search",
               "default": false
             },
@@ -842,6 +850,10 @@
             },
             {
               "name": "Hide Trending shelves",
+              "default": true
+            },
+            {
+              "name": "Hide Videos for you shelf",
               "default": true
             },
             {
@@ -920,7 +932,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.5",
+      "version": "v2.4.0-dev.6",
       "spec": "dev",
       "used_by": [
         {
