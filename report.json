@@ -1,6 +1,10 @@
 {
- "checked_at": "2026-11-21T11:51:28Z",
+ "checked_at": "2026-11-21T12:03:46Z",
  "offered": {
+  "stremio-tv-ambient": {
+   "version": "1.12.1",
+   "tag": "26.11.21-ambient"
+  },
   "reddit-experimental": {
    "version": "2026.47.0",
    "tag": "26.11.20-morphe-dev"
@@ -8,10 +12,6 @@
   "youtube-experimental": {
    "version": "21.46.522",
    "tag": "26.11.20-morphe-dev"
-  },
-  "stremio-tv-ambient": {
-   "version": "1.12.1",
-   "tag": "26.11.20-ambient"
   },
   "reddit": {
    "version": "2026.40.0",
