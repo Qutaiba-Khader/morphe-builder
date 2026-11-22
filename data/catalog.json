@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-21T12:03:35Z",
+  "generated": "2026-11-22T12:15:48Z",
   "cli": "morphe-desktop-2.3.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 227,
+      "patch_count": 231,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -29,6 +29,10 @@
             },
             {
               "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Apple Music animated artwork",
               "default": true
             },
             {
@@ -225,6 +229,10 @@
             },
             {
               "name": "Skip silence",
+              "default": true
+            },
+            {
+              "name": "Sonos Cast",
               "default": true
             },
             {
@@ -467,6 +475,10 @@
               "default": true
             },
             {
+              "name": "Glass menus",
+              "default": true
+            },
+            {
               "name": "GmsCore support",
               "default": true
             },
@@ -524,6 +536,10 @@
             },
             {
               "name": "Hide video action buttons",
+              "default": true
+            },
+            {
+              "name": "Hold gesture",
               "default": true
             },
             {
@@ -932,7 +948,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.6",
+      "version": "v2.4.0-dev.7",
       "spec": "dev",
       "used_by": [
         {
