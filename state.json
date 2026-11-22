@@ -1,5 +1,14 @@
 {
- "problems": {},
+ "problems": {
+  "patches-behind:reddit-experimental": {
+   "first_seen": "2026-11-22T19:42:17Z",
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.8, we offer 2.4.0-dev.7"
+  },
+  "patches-behind:youtube-experimental": {
+   "first_seen": "2026-11-22T19:42:17Z",
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.8, we offer 2.4.0-dev.7"
+  }
+ },
  "offers": {
   "reddit": {
    "text": "2026.40.0.2.3.0",
