@@ -3,14 +3,6 @@
   "flow-test:sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk": {
    "first_seen": "2026-11-23T13:45:18Z",
    "text": "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
-  },
-  "patches-behind:reddit-experimental": {
-   "first_seen": "2026-11-23T13:45:18Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.9, we offer 2.4.0-dev.8"
-  },
-  "patches-behind:youtube-experimental": {
-   "first_seen": "2026-11-23T13:45:18Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.9, we offer 2.4.0-dev.8"
   }
  },
  "offers": {
@@ -20,7 +12,7 @@
    "package": "com.reddit.frontpage"
   },
   "reddit-experimental": {
-   "text": "2026.47.0.2.4.0.8",
+   "text": "2026.47.0.2.4.0.9",
    "version": "2026.47.0",
    "package": "com.reddit.frontpage.morphe"
   },
@@ -50,7 +42,7 @@
    "package": "app.morphe.android.youtube"
   },
   "youtube-experimental": {
-   "text": "21.46.522.2.4.0.8",
+   "text": "21.46.522.2.4.0.9",
    "version": "21.46.522",
    "package": "app.morphe.android.youtube.dev"
   },
