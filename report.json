@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-23T14:02:26Z",
+ "checked_at": "2026-11-23T23:54:56Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
@@ -41,5 +41,10 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": []
+ "waiting": [
+  "stremio-phone: Stremio publishes 2.6.0, we offer 2.5.1",
+  "stremio-tv-ambient: Stremio publishes 1.13.0, we offer 1.12.1",
+  "stremio-tv-replace: Stremio publishes 1.13.0, we offer 1.12.1",
+  "stremio-tv: Stremio publishes 1.13.0, we offer 1.12.1"
+ ]
 }

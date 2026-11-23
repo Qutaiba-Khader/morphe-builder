@@ -1,5 +1,21 @@
 {
  "problems": {
+  "feed-behind:stremio-phone": {
+   "first_seen": "2026-11-23T23:54:56Z",
+   "text": "stremio-phone: Stremio publishes 2.6.0, we offer 2.5.1"
+  },
+  "feed-behind:stremio-tv": {
+   "first_seen": "2026-11-23T23:54:56Z",
+   "text": "stremio-tv: Stremio publishes 1.13.0, we offer 1.12.1"
+  },
+  "feed-behind:stremio-tv-ambient": {
+   "first_seen": "2026-11-23T23:54:56Z",
+   "text": "stremio-tv-ambient: Stremio publishes 1.13.0, we offer 1.12.1"
+  },
+  "feed-behind:stremio-tv-replace": {
+   "first_seen": "2026-11-23T23:54:56Z",
+   "text": "stremio-tv-replace: Stremio publishes 1.13.0, we offer 1.12.1"
+  },
   "flow-test:sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk": {
    "first_seen": "2026-11-23T13:45:18Z",
    "text": "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
