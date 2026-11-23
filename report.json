@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-23T08:04:32Z",
+ "checked_at": "2026-11-23T13:45:18Z",
  "offered": {
   "stremio-tv-ambient": {
    "version": "1.12.1",
@@ -38,6 +38,11 @@
    "tag": "26.11.06-subs"
   }
  },
- "problems": [],
- "waiting": []
+ "problems": [
+  "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
+ ],
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.9, we offer 2.4.0-dev.8",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.9, we offer 2.4.0-dev.8"
+ ]
 }
