@@ -1,21 +1,5 @@
 {
  "problems": {
-  "feed-behind:stremio-phone": {
-   "first_seen": "2026-11-23T23:54:56Z",
-   "text": "stremio-phone: Stremio publishes 2.6.0, we offer 2.5.1"
-  },
-  "feed-behind:stremio-tv": {
-   "first_seen": "2026-11-23T23:54:56Z",
-   "text": "stremio-tv: Stremio publishes 1.13.0, we offer 1.12.1"
-  },
-  "feed-behind:stremio-tv-ambient": {
-   "first_seen": "2026-11-23T23:54:56Z",
-   "text": "stremio-tv-ambient: Stremio publishes 1.13.0, we offer 1.12.1"
-  },
-  "feed-behind:stremio-tv-replace": {
-   "first_seen": "2026-11-23T23:54:56Z",
-   "text": "stremio-tv-replace: Stremio publishes 1.13.0, we offer 1.12.1"
-  },
   "flow-test:sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk": {
    "first_seen": "2026-11-23T13:45:18Z",
    "text": "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
@@ -33,18 +17,18 @@
    "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
-   "text": "2.5.1.0.7.2",
-   "version": "2.5.1",
+   "text": "2.6.0.0.7.2",
+   "version": "2.6.0",
    "package": "com.stremio.one.subs.phone"
   },
   "stremio-tv": {
-   "text": "1.12.1.0.7.2",
-   "version": "1.12.1",
+   "text": "1.13.0.0.7.2",
+   "version": "1.13.0",
    "package": "com.stremio.one.subs"
   },
   "stremio-tv-replace": {
-   "text": "1.12.1.0.7.2",
-   "version": "1.12.1",
+   "text": "1.13.0.0.7.2",
+   "version": "1.13.0",
    "package": "com.stremio.one"
   },
   "tiktok": {
@@ -63,8 +47,8 @@
    "package": "app.morphe.android.youtube.dev"
   },
   "stremio-tv-ambient": {
-   "text": "1.12.1.0.3.0",
-   "version": "1.12.1",
+   "text": "1.13.0.0.3.0",
+   "version": "1.13.0",
    "package": "com.stremio.one.ambient"
   }
  }

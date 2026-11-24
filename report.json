@@ -1,9 +1,21 @@
 {
- "checked_at": "2026-11-24T00:16:35Z",
+ "checked_at": "2026-11-24T02:48:07Z",
  "offered": {
+  "stremio-phone": {
+   "version": "2.6.0",
+   "tag": "26.11.24-subs"
+  },
+  "stremio-tv": {
+   "version": "1.13.0",
+   "tag": "26.11.24-subs"
+  },
+  "stremio-tv-replace": {
+   "version": "1.13.0",
+   "tag": "26.11.24-subs"
+  },
   "stremio-tv-ambient": {
-   "version": "1.12.1",
-   "tag": "26.11.23-ambient"
+   "version": "1.13.0",
+   "tag": "26.11.24-ambient"
   },
   "reddit-experimental": {
    "version": "2026.47.0",
@@ -24,27 +36,10 @@
   "tiktok": {
    "version": "47.4.3",
    "tag": "26.11.11-metra"
-  },
-  "stremio-phone": {
-   "version": "2.5.1",
-   "tag": "26.11.06-subs"
-  },
-  "stremio-tv": {
-   "version": "1.12.1",
-   "tag": "26.11.06-subs"
-  },
-  "stremio-tv-replace": {
-   "version": "1.12.1",
-   "tag": "26.11.06-subs"
   }
  },
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": [
-  "stremio-phone: Stremio publishes 2.6.0, we offer 2.5.1",
-  "stremio-tv-ambient: Stremio publishes 1.13.0, we offer 1.12.1",
-  "stremio-tv-replace: Stremio publishes 1.13.0, we offer 1.12.1",
-  "stremio-tv: Stremio publishes 1.13.0, we offer 1.12.1"
- ]
+ "waiting": []
 }
