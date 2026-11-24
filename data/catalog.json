@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-23T13:58:56Z",
+  "generated": "2026-11-24T14:30:23Z",
   "cli": "morphe-desktop-2.3.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 250,
+      "patch_count": 256,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -347,6 +347,10 @@
               "default": true
             },
             {
+              "name": "Comment search",
+              "default": true
+            },
+            {
               "name": "Copy text",
               "default": true
             },
@@ -480,6 +484,10 @@
             },
             {
               "name": "Fullscreen video scale",
+              "default": true
+            },
+            {
+              "name": "Ghost mode",
               "default": true
             },
             {
@@ -699,10 +707,6 @@
               "default": true
             },
             {
-              "name": "Search comments",
-              "default": true
-            },
-            {
               "name": "Seekbar",
               "default": true
             },
@@ -801,6 +805,10 @@
           ],
           "patches": [
             {
+              "name": "Always show Hide",
+              "default": true
+            },
+            {
               "name": "App icon",
               "default": true
             },
@@ -810,6 +818,10 @@
             },
             {
               "name": "Collapse all comments",
+              "default": true
+            },
+            {
+              "name": "Colorize comment indent lines",
               "default": true
             },
             {
@@ -829,7 +841,19 @@
               "default": true
             },
             {
+              "name": "Disable bottom bar auto-hide",
+              "default": true
+            },
+            {
+              "name": "Disable home feed auto-refresh",
+              "default": true
+            },
+            {
               "name": "Disable modern home",
+              "default": true
+            },
+            {
+              "name": "Disable refresh on back to exit",
               "default": true
             },
             {
@@ -1024,7 +1048,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.9",
+      "version": "v2.4.0-dev.11",
       "spec": "dev",
       "used_by": [
         {
