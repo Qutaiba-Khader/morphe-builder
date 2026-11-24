@@ -1,11 +1,44 @@
 {
-  "generated": "2026-11-24T00:15:17Z",
+  "generated": "2026-11-24T02:46:49Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-phone",
   "name": "Stremio Phone Clone",
   "package": "com.stremio.one.subs.phone",
   "brand": "subs",
   "builds": [
+    {
+      "version": "2.6.0",
+      "tag": "26.11.24-subs",
+      "published": "2026-11-24T02:45:34Z",
+      "prerelease": false,
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.24-subs",
+      "patches": [
+        {
+          "file": "Qutaiba-Khader/patches-0.7.2.mpp",
+          "version": "0.7.2"
+        },
+        {
+          "file": "MorpheApp/patches-2.3.0.mpp",
+          "version": "2.3.0"
+        }
+      ],
+      "cli": {
+        "file": "MorpheApp/morphe-desktop-2.3.0-all.jar",
+        "version": "2.3.0"
+      },
+      "files": [
+        {
+          "arch": "arm64-v8a",
+          "size": 78455378,
+          "sha256": "dcae047bffcbee36ee053254603297dfaa3393a01ae982a1c9486f778495330d",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.24-subs/stremio-phone-clone-subs-v2.6.0-arm64-v8a.apk",
+          "name": "stremio-phone-clone-subs-v2.6.0-arm64-v8a.apk"
+        }
+      ],
+      "rebuilds": 1,
+      "update_version": "2.6.0.0.7.2"
+    },
     {
       "version": "2.5.1",
       "tag": "26.11.06-subs",
@@ -31,13 +64,12 @@
           "arch": "arm64-v8a",
           "size": 77111893,
           "sha256": "42a8a57e314283bfc0be80abae0ab4fca42b3b003ba0eeba818d5cc49dcb0e76",
-          "downloads": 669,
+          "downloads": 676,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-subs/stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.5.1-arm64-v8a.apk"
         }
       ],
-      "rebuilds": 3,
-      "update_version": "2.5.1.0.7.2"
+      "rebuilds": 3
     },
     {
       "version": "2.5.0",
@@ -64,7 +96,7 @@
           "arch": "arm64-v8a",
           "size": 77508629,
           "sha256": "a297a8985c45156d79fb8169086cf0887067ce8474164687a7187b6b94a249e8",
-          "downloads": 331,
+          "downloads": 332,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.5.0-arm64-v8a.apk"
         }
@@ -96,7 +128,7 @@
           "arch": "arm64-v8a",
           "size": 97388021,
           "sha256": "e2b49482821beba1e94fc39e63737012e281ebc65e95e8b05ded6f53fc59f9d4",
-          "downloads": 297,
+          "downloads": 298,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.27-subs/stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.4.0-arm64-v8a.apk"
         }
