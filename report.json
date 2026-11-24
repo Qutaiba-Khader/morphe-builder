@@ -1,6 +1,14 @@
 {
- "checked_at": "2026-11-24T14:21:44Z",
+ "checked_at": "2026-11-24T14:34:43Z",
  "offered": {
+  "reddit-experimental": {
+   "version": "2026.47.0",
+   "tag": "26.11.24-morphe-dev"
+  },
+  "youtube-experimental": {
+   "version": "21.47.483",
+   "tag": "26.11.24-morphe-dev"
+  },
   "stremio-phone": {
    "version": "2.6.0",
    "tag": "26.11.24-subs"
@@ -16,14 +24,6 @@
   "stremio-tv-ambient": {
    "version": "1.13.0",
    "tag": "26.11.24-ambient"
-  },
-  "reddit-experimental": {
-   "version": "2026.47.0",
-   "tag": "26.11.23-morphe-dev"
-  },
-  "youtube-experimental": {
-   "version": "21.46.522",
-   "tag": "26.11.23-morphe-dev"
   },
   "reddit": {
    "version": "2026.40.0",
@@ -41,8 +41,5 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.11, we offer 2.4.0-dev.9",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.11, we offer 2.4.0-dev.9"
- ]
+ "waiting": []
 }
