@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-24T14:30:23Z",
+  "generated": "2026-11-25T13:51:52Z",
   "cli": "morphe-desktop-2.3.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 256,
+      "patch_count": 265,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -25,6 +25,10 @@
             },
             {
               "name": "Android Auto",
+              "default": true
+            },
+            {
+              "name": "Android Auto third-party apps",
               "default": true
             },
             {
@@ -799,6 +803,7 @@
         "com.reddit.frontpage": {
           "versions": [
             "2026.40.0",
+            "2026.37.0",
             "2026.24.0",
             "2026.10.0",
             "2024.02.0"
@@ -853,6 +858,10 @@
               "default": true
             },
             {
+              "name": "Disable post detail swipe",
+              "default": true
+            },
+            {
               "name": "Disable refresh on back to exit",
               "default": true
             },
@@ -897,7 +906,15 @@
               "default": true
             },
             {
+              "name": "Glass navigation bar",
+              "default": true
+            },
+            {
               "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide Answers preview",
               "default": true
             },
             {
@@ -905,7 +922,19 @@
               "default": true
             },
             {
+              "name": "Hide comment flairs and badges",
+              "default": true
+            },
+            {
               "name": "Hide communities shelf",
+              "default": true
+            },
+            {
+              "name": "Hide community highlights",
+              "default": true
+            },
+            {
+              "name": "Hide community menu badge",
               "default": true
             },
             {
@@ -1021,6 +1050,10 @@
               "default": true
             },
             {
+              "name": "See-through status bar",
+              "default": true
+            },
+            {
               "name": "Share post content",
               "default": true
             },
@@ -1043,12 +1076,16 @@
             {
               "name": "Tablet grid feed",
               "default": true
+            },
+            {
+              "name": "Video playback speed",
+              "default": true
             }
           ]
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.11",
+      "version": "v2.4.0-dev.12",
       "spec": "dev",
       "used_by": [
         {
