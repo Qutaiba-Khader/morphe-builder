@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-24T22:42:12Z",
+  "generated": "2026-11-25T00:20:59Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "how": "Add the source_url as an Obtainium app of type 'HTML', or open add_url on the phone. The version on the page is the versionName inside the APK, which is what the phone reports, so Obtainium and ObtainX compare like with like.",
   "add_all_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/_all.html",
@@ -73,7 +73,7 @@
       "build_version": "1.13.0.0.3.0",
       "package": "com.stremio.one.ambient",
       "source_url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-ambient.html",
-      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.24-ambient/stremio-tv-ambient-ambient-v1.13.0-armeabi-v7a.apk",
+      "apk": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.25-ambient/stremio-tv-ambient-ambient-v1.13.0-armeabi-v7a.apk",
       "config": {
         "id": "com.stremio.one.ambient",
         "url": "https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-ambient.html",
