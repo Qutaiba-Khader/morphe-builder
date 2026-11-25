@@ -6,11 +6,11 @@
   },
   "patches-behind:reddit-experimental": {
    "first_seen": "2026-11-25T21:42:52Z",
-   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.13, we offer 2.4.0-dev.12"
+   "text": "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.14, we offer 2.4.0-dev.12"
   },
   "patches-behind:youtube-experimental": {
    "first_seen": "2026-11-25T21:42:52Z",
-   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.13, we offer 2.4.0-dev.12"
+   "text": "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0-dev.14, we offer 2.4.0-dev.12"
   }
  },
  "offers": {
