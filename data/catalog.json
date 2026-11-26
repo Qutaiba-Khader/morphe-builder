@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-25T13:51:52Z",
-  "cli": "morphe-desktop-2.3.0-all.jar",
+  "generated": "2026-11-26T13:30:23Z",
+  "cli": "morphe-desktop-2.4.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 265,
+      "patch_count": 266,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -1054,6 +1054,10 @@
               "default": true
             },
             {
+              "name": "Settings in sidebar",
+              "default": true
+            },
+            {
               "name": "Share post content",
               "default": true
             },
@@ -1085,7 +1089,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.4.0-dev.12",
+      "version": "v2.4.0",
       "spec": "dev",
       "used_by": [
         {
@@ -1103,7 +1107,7 @@
       ]
     },
     "github:MorpheApp/morphe-patches": {
-      "patch_count": 212,
+      "patch_count": 266,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -1128,7 +1132,15 @@
               "default": true
             },
             {
+              "name": "Android Auto third-party apps",
+              "default": true
+            },
+            {
               "name": "App refresh rate",
+              "default": true
+            },
+            {
+              "name": "Apple Music animated artwork",
               "default": true
             },
             {
@@ -1180,6 +1192,10 @@
               "default": true
             },
             {
+              "name": "Disable swipe to change track",
+              "default": true
+            },
+            {
               "name": "Downloads",
               "default": true
             },
@@ -1212,15 +1228,15 @@
               "default": true
             },
             {
+              "name": "Glass menus",
+              "default": true
+            },
+            {
               "name": "GmsCore support",
               "default": true
             },
             {
               "name": "Hide ads",
-              "default": true
-            },
-            {
-              "name": "Hide buttons",
               "default": true
             },
             {
@@ -1264,7 +1280,7 @@
               "default": true
             },
             {
-              "name": "Play albums songs",
+              "name": "Play album songs",
               "default": true
             },
             {
@@ -1281,6 +1297,10 @@
             },
             {
               "name": "PoToken provider",
+              "default": true
+            },
+            {
+              "name": "Queue likes filter",
               "default": true
             },
             {
@@ -1324,6 +1344,10 @@
               "default": true
             },
             {
+              "name": "Sonos Cast",
+              "default": true
+            },
+            {
               "name": "SoundProof",
               "default": true
             },
@@ -1345,6 +1369,10 @@
             },
             {
               "name": "Third-party lyrics",
+              "default": true
+            },
+            {
+              "name": "Video effects",
               "default": true
             }
           ]
@@ -1368,6 +1396,10 @@
             },
             {
               "name": "Ambient mode",
+              "default": true
+            },
+            {
+              "name": "Android Auto parked app mode",
               "default": true
             },
             {
@@ -1420,6 +1452,10 @@
             },
             {
               "name": "Check watch history domain name resolution",
+              "default": true
+            },
+            {
+              "name": "Comment search",
               "default": true
             },
             {
@@ -1559,6 +1595,14 @@
               "default": true
             },
             {
+              "name": "Ghost mode",
+              "default": true
+            },
+            {
+              "name": "Glass menus",
+              "default": true
+            },
+            {
               "name": "GmsCore support",
               "default": true
             },
@@ -1619,6 +1663,10 @@
               "default": true
             },
             {
+              "name": "Hold gesture",
+              "default": true
+            },
+            {
               "name": "Loop count",
               "default": true
             },
@@ -1660,6 +1708,10 @@
             },
             {
               "name": "Open links externally",
+              "default": true
+            },
+            {
+              "name": "Open post images in fullscreen",
               "default": true
             },
             {
@@ -1711,6 +1763,10 @@
               "default": true
             },
             {
+              "name": "Playlist search",
+              "default": true
+            },
+            {
               "name": "PoToken provider",
               "default": true
             },
@@ -1731,6 +1787,10 @@
               "default": true
             },
             {
+              "name": "Replay slower button",
+              "default": true
+            },
+            {
               "name": "Restore original titles",
               "default": true
             },
@@ -1739,15 +1799,19 @@
               "default": true
             },
             {
+              "name": "Return YouTube Username",
+              "default": true
+            },
+            {
+              "name": "Reverse playlist autoplay",
+              "default": true
+            },
+            {
               "name": "Sanitize sharing links",
               "default": true
             },
             {
               "name": "Save to Watch later",
-              "default": true
-            },
-            {
-              "name": "Search comments",
               "default": true
             },
             {
@@ -1815,7 +1879,15 @@
               "default": true
             },
             {
+              "name": "Ungroup notifications",
+              "default": true
+            },
+            {
               "name": "Video delay",
+              "default": true
+            },
+            {
+              "name": "Video effects",
               "default": true
             },
             {
@@ -1835,13 +1907,30 @@
         "com.reddit.frontpage": {
           "versions": [
             "2026.40.0",
+            "2026.37.0",
             "2026.24.0",
             "2026.10.0",
             "2024.02.0"
           ],
           "patches": [
             {
+              "name": "Always show Hide",
+              "default": true
+            },
+            {
               "name": "App icon",
+              "default": true
+            },
+            {
+              "name": "AutoModerator comments",
+              "default": true
+            },
+            {
+              "name": "Collapse all comments",
+              "default": true
+            },
+            {
+              "name": "Colorize comment indent lines",
               "default": true
             },
             {
@@ -1861,7 +1950,23 @@
               "default": true
             },
             {
+              "name": "Disable bottom bar auto-hide",
+              "default": true
+            },
+            {
+              "name": "Disable home feed auto-refresh",
+              "default": true
+            },
+            {
               "name": "Disable modern home",
+              "default": true
+            },
+            {
+              "name": "Disable post detail swipe",
+              "default": true
+            },
+            {
+              "name": "Disable refresh on back to exit",
               "default": true
             },
             {
@@ -1869,11 +1974,27 @@
               "default": true
             },
             {
+              "name": "Download all from gallery",
+              "default": true
+            },
+            {
               "name": "Download location",
               "default": true
             },
             {
+              "name": "Enable debugging",
+              "default": true
+            },
+            {
+              "name": "Feed auto-scroll",
+              "default": true
+            },
+            {
               "name": "Feed media max height",
+              "default": true
+            },
+            {
+              "name": "Flair filters",
               "default": true
             },
             {
@@ -1885,7 +2006,19 @@
               "default": true
             },
             {
+              "name": "Full-screen reply",
+              "default": true
+            },
+            {
+              "name": "Glass navigation bar",
+              "default": true
+            },
+            {
               "name": "Hide ads",
+              "default": true
+            },
+            {
+              "name": "Hide Answers preview",
               "default": true
             },
             {
@@ -1893,7 +2026,27 @@
               "default": true
             },
             {
+              "name": "Hide comment flairs and badges",
+              "default": true
+            },
+            {
               "name": "Hide communities shelf",
+              "default": true
+            },
+            {
+              "name": "Hide community highlights",
+              "default": true
+            },
+            {
+              "name": "Hide community menu badge",
+              "default": true
+            },
+            {
+              "name": "Hide home tabs",
+              "default": true
+            },
+            {
+              "name": "Hide interactive posts",
               "default": true
             },
             {
@@ -1905,8 +2058,20 @@
               "default": true
             },
             {
+              "name": "Hide People also search for section",
+              "default": true
+            },
+            {
+              "name": "Hide post buttons",
+              "default": true
+            },
+            {
               "name": "Hide Reddit search",
               "default": false
+            },
+            {
+              "name": "Hide Related Posts section",
+              "default": true
             },
             {
               "name": "Hide sidebar components",
@@ -1917,11 +2082,27 @@
               "default": true
             },
             {
+              "name": "Hide Videos for you shelf",
+              "default": true
+            },
+            {
               "name": "High quality avatars",
               "default": true
             },
             {
+              "name": "Home feed tabs",
+              "default": true
+            },
+            {
               "name": "Keep feed position",
+              "default": true
+            },
+            {
+              "name": "Keep media viewer in subreddit",
+              "default": true
+            },
+            {
+              "name": "Keyword filters",
               "default": true
             },
             {
@@ -1941,6 +2122,18 @@
               "default": true
             },
             {
+              "name": "Open system share sheet",
+              "default": true
+            },
+            {
+              "name": "Post side panel",
+              "default": true
+            },
+            {
+              "name": "Private browsing mode",
+              "default": true
+            },
+            {
               "name": "Redgifs audio",
               "default": true
             },
@@ -1957,6 +2150,22 @@
               "default": true
             },
             {
+              "name": "Search hidden profiles",
+              "default": true
+            },
+            {
+              "name": "See-through status bar",
+              "default": true
+            },
+            {
+              "name": "Settings in sidebar",
+              "default": true
+            },
+            {
+              "name": "Share post content",
+              "default": true
+            },
+            {
               "name": "Show flairs in home feed",
               "default": true
             },
@@ -1967,12 +2176,24 @@
             {
               "name": "Start as guest",
               "default": true
+            },
+            {
+              "name": "Swipe up for comments",
+              "default": true
+            },
+            {
+              "name": "Tablet grid feed",
+              "default": true
+            },
+            {
+              "name": "Video playback speed",
+              "default": true
             }
           ]
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.3.0",
+      "version": "v2.4.0",
       "spec": "latest",
       "used_by": [
         {
@@ -2020,7 +2241,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-ambient-patches",
-      "version": "v0.3.0",
+      "version": "v0.3.1",
       "spec": "latest",
       "used_by": [
         {
@@ -2052,7 +2273,7 @@
         }
       },
       "url": "https://github.com/Qutaiba-Khader/stremio-subs-patches",
-      "version": "v0.7.2",
+      "version": "v0.7.3",
       "spec": "latest",
       "used_by": [
         {
