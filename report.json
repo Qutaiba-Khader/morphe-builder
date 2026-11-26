@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-26T00:02:37Z",
+ "checked_at": "2026-11-26T08:20:40Z",
  "offered": {
   "stremio-phone": {
    "version": "2.6.1",
@@ -41,5 +41,10 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": []
+ "waiting": [
+  "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0, we offer 2.4.0-dev.14",
+  "reddit: MorpheApp/morphe-patches is at 2.4.0, we offer 2.3.0",
+  "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0, we offer 2.4.0-dev.14",
+  "youtube: MorpheApp/morphe-patches is at 2.4.0, we offer 2.3.0"
+ ]
 }
