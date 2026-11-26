@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-26T13:34:09Z",
+ "checked_at": "2026-11-26T21:33:54Z",
  "offered": {
   "reddit": {
    "version": "2026.40.0",
@@ -41,5 +41,10 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": []
+ "waiting": [
+  "stremio-phone: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3",
+  "stremio-tv-ambient: Qutaiba-Khader/stremio-ambient-patches is at 0.3.2, we offer 0.3.1",
+  "stremio-tv-replace: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3",
+  "stremio-tv: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3"
+ ]
 }
