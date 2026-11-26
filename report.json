@@ -1,6 +1,26 @@
 {
- "checked_at": "2026-11-26T13:14:59Z",
+ "checked_at": "2026-11-26T13:34:09Z",
  "offered": {
+  "reddit": {
+   "version": "2026.40.0",
+   "tag": "26.11.26-morphe"
+  },
+  "youtube": {
+   "version": "21.30.216",
+   "tag": "26.11.26-morphe"
+  },
+  "stremio-tv-ambient": {
+   "version": "1.13.1",
+   "tag": "26.11.26-ambient"
+  },
+  "reddit-experimental": {
+   "version": "2026.48.0",
+   "tag": "26.11.26-morphe-dev"
+  },
+  "youtube-experimental": {
+   "version": "21.47.483",
+   "tag": "26.11.26-morphe-dev"
+  },
   "stremio-phone": {
    "version": "2.6.1",
    "tag": "26.11.25-subs"
@@ -13,26 +33,6 @@
    "version": "1.13.1",
    "tag": "26.11.25-subs"
   },
-  "reddit-experimental": {
-   "version": "2026.47.0",
-   "tag": "26.11.25-morphe-dev"
-  },
-  "youtube-experimental": {
-   "version": "21.47.483",
-   "tag": "26.11.25-morphe-dev"
-  },
-  "stremio-tv-ambient": {
-   "version": "1.13.1",
-   "tag": "26.11.25-ambient"
-  },
-  "reddit": {
-   "version": "2026.40.0",
-   "tag": "26.11.16-morphe"
-  },
-  "youtube": {
-   "version": "21.30.216",
-   "tag": "26.11.16-morphe"
-  },
   "tiktok": {
    "version": "47.4.3",
    "tag": "26.11.11-metra"
@@ -41,10 +41,5 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": [
-  "reddit-experimental: MorpheApp/morphe-patches is at 2.4.0, we offer 2.4.0-dev.14",
-  "reddit: MorpheApp/morphe-patches is at 2.4.0, we offer 2.3.0",
-  "youtube-experimental: MorpheApp/morphe-patches is at 2.4.0, we offer 2.4.0-dev.14",
-  "youtube: MorpheApp/morphe-patches is at 2.4.0, we offer 2.3.0"
- ]
+ "waiting": []
 }
