@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-26T08:48:32Z",
+  "generated": "2026-11-26T13:33:00Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "site": "https://qutaiba-khader.github.io/morphe-builder/",
   "releases": "https://github.com/Qutaiba-Khader/morphe-builder/releases",
@@ -24,7 +24,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "2026.40.0",
-      "updated": "2026-11-16T23:59:54Z",
+      "updated": "2026-11-26T13:31:47Z",
       "versions": 3,
       "api": "api/apps/reddit.json"
     },
@@ -34,9 +34,9 @@
       "package": "com.reddit.frontpage.morphe",
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
-      "latest_version": "2026.47.0",
-      "updated": "2026-11-25T13:51:30Z",
-      "versions": 8,
+      "latest_version": "2026.48.0",
+      "updated": "2026-11-26T13:31:39Z",
+      "versions": 9,
       "api": "api/apps/reddit-experimental.json"
     },
     {
@@ -57,7 +57,7 @@
       "brand": "ambient",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "1.13.1",
-      "updated": "2026-11-25T00:19:44Z",
+      "updated": "2026-11-26T13:31:10Z",
       "versions": 3,
       "api": "api/apps/stremio-tv-ambient.json"
     },
@@ -101,7 +101,7 @@
       "brand": "Morphe",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "21.30.216",
-      "updated": "2026-11-16T23:59:54Z",
+      "updated": "2026-11-26T13:31:47Z",
       "versions": 4,
       "api": "api/apps/youtube.json"
     },
@@ -112,7 +112,7 @@
       "brand": "morphe-dev",
       "signer": "7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603",
       "latest_version": "21.47.483",
-      "updated": "2026-11-25T13:51:30Z",
+      "updated": "2026-11-26T13:31:39Z",
       "versions": 11,
       "api": "api/apps/youtube-experimental.json"
     }
