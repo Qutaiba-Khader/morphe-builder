@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-26T21:50:14Z",
+  "generated": "2026-11-27T00:19:00Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "id": "stremio-tv",
   "name": "Stremio TV Clone",
@@ -8,36 +8,36 @@
   "builds": [
     {
       "version": "1.13.1",
-      "tag": "26.11.25-subs",
-      "published": "2026-11-25T13:50:48Z",
+      "tag": "26.11.27-subs",
+      "published": "2026-11-27T00:17:43Z",
       "prerelease": false,
-      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.25-subs",
+      "release_url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-subs",
       "patches": [
         {
-          "file": "Qutaiba-Khader/patches-0.7.3.mpp",
-          "version": "0.7.3"
+          "file": "Qutaiba-Khader/patches-0.7.4.mpp",
+          "version": "0.7.4"
         },
         {
-          "file": "MorpheApp/patches-2.3.0.mpp",
-          "version": "2.3.0"
+          "file": "MorpheApp/patches-2.4.0.mpp",
+          "version": "2.4.0"
         }
       ],
       "cli": {
-        "file": "MorpheApp/morphe-desktop-2.3.0-all.jar",
-        "version": "2.3.0"
+        "file": "MorpheApp/morphe-desktop-2.4.0-all.jar",
+        "version": "2.4.0"
       },
       "files": [
         {
           "arch": "armeabi-v7a",
-          "size": 74175975,
-          "sha256": "fdf2a6c27d94a0ab7512fb89ab6702aac5f692650a0be7bcbaf84eb877d83ac6",
-          "downloads": 47,
-          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.25-subs/stremio-tv-clone-subs-v1.13.1-armeabi-v7a.apk",
+          "size": 74184248,
+          "sha256": "b07530450601b98bf004ff9db2358861e2bd7803b4a68968e8a8867af5dc66bd",
+          "downloads": 0,
+          "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-subs/stremio-tv-clone-subs-v1.13.1-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.13.1-armeabi-v7a.apk"
         }
       ],
-      "rebuilds": 1,
-      "update_version": "1.13.1.0.7.3"
+      "rebuilds": 2,
+      "update_version": "1.13.1.0.7.4"
     },
     {
       "version": "1.13.0",
@@ -64,7 +64,7 @@
           "arch": "armeabi-v7a",
           "size": 74139109,
           "sha256": "de75546ce83ffe28bcf86375cb96c72ad7adc7a6300620a0bee7e80a7514e702",
-          "downloads": 67,
+          "downloads": 68,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.24-subs/stremio-tv-clone-subs-v1.13.0-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.13.0-armeabi-v7a.apk"
         }
@@ -96,7 +96,7 @@
           "arch": "armeabi-v7a",
           "size": 73106127,
           "sha256": "7ff36689a37f97b43eb485f7902c2c28292090d54feda7167b0097faff38b13e",
-          "downloads": 705,
+          "downloads": 706,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.06-subs/stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.12.1-armeabi-v7a.apk"
         }
@@ -128,7 +128,7 @@
           "arch": "armeabi-v7a",
           "size": 73498809,
           "sha256": "2848f3e81cc7df5466733455dd12f759b21461069ef123ed17c263402ba87945",
-          "downloads": 365,
+          "downloads": 366,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.28-subs/stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.12.0-armeabi-v7a.apk"
         }
@@ -160,7 +160,7 @@
           "arch": "armeabi-v7a",
           "size": 94184347,
           "sha256": "9c07e2705fe0147e152f97691dc5ed55a88beaff3ff9198b2137aaaa818de0f2",
-          "downloads": 323,
+          "downloads": 324,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.10.26-subs/stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.11.3-armeabi-v7a.apk"
         }
