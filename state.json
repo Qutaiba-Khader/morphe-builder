@@ -3,22 +3,6 @@
   "flow-test:sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk": {
    "first_seen": "2026-11-23T13:45:18Z",
    "text": "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
-  },
-  "patches-behind:stremio-phone": {
-   "first_seen": "2026-11-26T21:33:54Z",
-   "text": "stremio-phone: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3"
-  },
-  "patches-behind:stremio-tv": {
-   "first_seen": "2026-11-26T21:33:54Z",
-   "text": "stremio-tv: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3"
-  },
-  "patches-behind:stremio-tv-ambient": {
-   "first_seen": "2026-11-26T21:33:54Z",
-   "text": "stremio-tv-ambient: Qutaiba-Khader/stremio-ambient-patches is at 0.3.2, we offer 0.3.1"
-  },
-  "patches-behind:stremio-tv-replace": {
-   "first_seen": "2026-11-26T21:33:54Z",
-   "text": "stremio-tv-replace: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3"
   }
  },
  "offers": {
@@ -33,17 +17,17 @@
    "package": "com.reddit.frontpage.morphe"
   },
   "stremio-phone": {
-   "text": "2.6.1.0.7.3",
+   "text": "2.6.1.0.7.4",
    "version": "2.6.1",
    "package": "com.stremio.one.subs.phone"
   },
   "stremio-tv": {
-   "text": "1.13.1.0.7.3",
+   "text": "1.13.1.0.7.4",
    "version": "1.13.1",
    "package": "com.stremio.one.subs"
   },
   "stremio-tv-replace": {
-   "text": "1.13.1.0.7.3",
+   "text": "1.13.1.0.7.4",
    "version": "1.13.1",
    "package": "com.stremio.one"
   },
@@ -63,7 +47,7 @@
    "package": "app.morphe.android.youtube.dev"
   },
   "stremio-tv-ambient": {
-   "text": "1.13.1.0.3.1",
+   "text": "1.13.1.0.3.2",
    "version": "1.13.1",
    "package": "com.stremio.one.ambient"
   }

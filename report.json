@@ -1,6 +1,22 @@
 {
- "checked_at": "2026-11-26T21:51:08Z",
+ "checked_at": "2026-11-27T00:20:11Z",
  "offered": {
+  "stremio-phone": {
+   "version": "2.6.1",
+   "tag": "26.11.27-subs"
+  },
+  "stremio-tv": {
+   "version": "1.13.1",
+   "tag": "26.11.27-subs"
+  },
+  "stremio-tv-replace": {
+   "version": "1.13.1",
+   "tag": "26.11.27-subs"
+  },
+  "stremio-tv-ambient": {
+   "version": "1.13.1",
+   "tag": "26.11.27-ambient"
+  },
   "reddit": {
    "version": "2026.40.0",
    "tag": "26.11.26-morphe"
@@ -8,10 +24,6 @@
   "youtube": {
    "version": "21.30.216",
    "tag": "26.11.26-morphe"
-  },
-  "stremio-tv-ambient": {
-   "version": "1.13.1",
-   "tag": "26.11.26-ambient"
   },
   "reddit-experimental": {
    "version": "2026.48.0",
@@ -21,18 +33,6 @@
    "version": "21.47.483",
    "tag": "26.11.26-morphe-dev"
   },
-  "stremio-phone": {
-   "version": "2.6.1",
-   "tag": "26.11.25-subs"
-  },
-  "stremio-tv": {
-   "version": "1.13.1",
-   "tag": "26.11.25-subs"
-  },
-  "stremio-tv-replace": {
-   "version": "1.13.1",
-   "tag": "26.11.25-subs"
-  },
   "tiktok": {
    "version": "47.4.3",
    "tag": "26.11.11-metra"
@@ -41,10 +41,5 @@
  "problems": [
   "site flow test: sources: README link is a published APK \u2014 youtube-morphe-v21.16.256-all.apk"
  ],
- "waiting": [
-  "stremio-phone: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3",
-  "stremio-tv-ambient: Qutaiba-Khader/stremio-ambient-patches is at 0.3.2, we offer 0.3.1",
-  "stremio-tv-replace: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3",
-  "stremio-tv: Qutaiba-Khader/stremio-subs-patches is at 0.7.4, we offer 0.7.3"
- ]
+ "waiting": []
 }
