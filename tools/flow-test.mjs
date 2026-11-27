@@ -429,9 +429,16 @@ if (readme !== null) {
 
   // every asset on the Releases page, mapped to its app by file-name prefix
   const headers = process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {};
-  const releases = await (await fetch(`https://api.github.com/repos/${index.repo}/releases?per_page=100`, { headers })).json();
+  // every page: past 100 releases the older ones (still linked from the README) are on page 2+
+  const releases = [];
+  for (let page = 1; page <= 20; page++) {
+    const batch = await (await fetch(`https://api.github.com/repos/${index.repo}/releases?per_page=100&page=${page}`, { headers })).json();
+    if (!Array.isArray(batch)) break;
+    releases.push(...batch);
+    if (batch.length < 100) break;
+  }
   let assets = 0;
-  for (const r of Array.isArray(releases) ? releases : []) {
+  for (const r of releases) {
     for (const asset of r.assets.filter((x) => x.name.endsWith(".apk"))) {
       const m = asset.name.match(fileRe);
       const app = m && byPrefix[m[1]];
