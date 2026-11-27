@@ -37,8 +37,8 @@ Newer app versions with development patches. Each one installs **next to** its s
 
 | App | Download or auto-update |
 |---|---|
-| **Reddit Experimental**<br>`2026.48.0`<br><sub>2026-11-26</sub> | [![Download Reddit Experimental, 93 MB](https://img.shields.io/badge/Download-93%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.26-morphe-dev/reddit-experimental-morphe-dev-v2026.48.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
-| **YouTube Experimental**<br>`21.47.483`<br><sub>2026-11-26</sub> | [![Download YouTube Experimental, 152 MB](https://img.shields.io/badge/Download-152%20MB-7c3aed?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.26-morphe-dev/youtube-experimental-morphe-dev-v21.47.483-all.apk) [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube-experimental] |
+| **Reddit Experimental**<br>`2026.48.0`<br><sub>2026-11-27</sub> | [![Download Reddit Experimental, 93 MB](https://img.shields.io/badge/Download-93%20MB-7c3aed?style=for-the-badge&logo=reddit&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-morphe-dev/reddit-experimental-morphe-dev-v2026.48.0-all.apk) [![Add Reddit Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-reddit-experimental] |
+| **YouTube Experimental**<br>`21.47.483`<br><sub>2026-11-27</sub> | [![Download YouTube Experimental, 152 MB](https://img.shields.io/badge/Download-152%20MB-7c3aed?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-morphe-dev/youtube-experimental-morphe-dev-v21.47.483-all.apk) [![Add YouTube Experimental to Obtainium](https://img.shields.io/badge/Add%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt-youtube-experimental] |
 
 [![Add every app to Obtainium](https://img.shields.io/badge/Add%20every%20app%20to%20Obtainium-2563eb?style=for-the-badge&logo=obtainium&logoColor=white)][obt:all] [![Older versions](https://img.shields.io/badge/Older%20versions-475569?style=for-the-badge&logo=github&logoColor=white)](https://qutaiba-khader.github.io/morphe-builder/)
 
@@ -48,20 +48,20 @@ Newer app versions with development patches. Each one installs **next to** its s
 | App | Channel | Package | Release | Patches | Obtainium endpoint |
 |---|---|---|---|---|---|
 | Reddit | stable | `com.reddit.frontpage` | [`26.11.26-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.26-morphe) | `2.4.0` | [reddit.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit.html) |
-| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.11.26-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.26-morphe-dev) | `2.4.0` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
+| Reddit Experimental | pre-release | `com.reddit.frontpage.morphe` | [`26.11.27-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-morphe-dev) | `2.5.0-dev.2` | [reddit-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/reddit-experimental.html) |
 | Stremio Phone Clone | stable | `com.stremio.one.subs.phone` | [`26.11.27-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-subs) | `0.7.4` + `2.4.0` | [stremio-phone.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-phone.html) |
 | Stremio TV Ambient | stable | `com.stremio.one.ambient` | [`26.11.27-ambient`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-ambient) | `0.3.2` + `0.7.4` + `2.4.0` | [stremio-tv-ambient.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-ambient.html) |
 | Stremio TV Clone | stable | `com.stremio.one.subs` | [`26.11.27-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-subs) | `0.7.4` + `2.4.0` | [stremio-tv.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv.html) |
 | Stremio TV Replacement | stable | `com.stremio.one` | [`26.11.27-subs`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-subs) | `0.7.4` | [stremio-tv-replace.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/stremio-tv-replace.html) |
 | TikTok | stable | `com.zhiliaoapp.musically` | [`26.11.11-metra`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.11-metra) | `0.10.0` | [tiktok.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/tiktok.html) |
 | YouTube | stable | `app.morphe.android.youtube` | [`26.11.26-morphe`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.26-morphe) | `2.4.0` | [youtube.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube.html) |
-| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.11.26-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.26-morphe-dev) | `2.4.0` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
+| YouTube Experimental | pre-release | `app.morphe.android.youtube.dev` | [`26.11.27-morphe-dev`](https://github.com/Qutaiba-Khader/morphe-builder/releases/tag/26.11.27-morphe-dev) | `2.5.0-dev.2` | [youtube-experimental.html](https://qutaiba-khader.github.io/morphe-builder/obtainium/youtube-experimental.html) |
 
 Every earlier build: the **All versions** button on the [website](https://qutaiba-khader.github.io/morphe-builder/), or `api/apps/<app>.json`.
 
 Our patch sources: 11 sources able to patch 309 apps, in the website's **Our sources** tab or [`data/catalog.json`](data/catalog.json).
 
-Patchable apps: 2042 apps from 754 Morphe community patch sources, in the website's **[Patchable apps](https://qutaiba-khader.github.io/morphe-builder/#community)** tab, each with the lines to add it here.
+Patchable apps: 2048 apps from 768 Morphe community patch sources, in the website's **[Patchable apps](https://qutaiba-khader.github.io/morphe-builder/#community)** tab, each with the lines to add it here.
 
 Every APK is signed with the certificate SHA-256 `7687718c8b2e96088ba64cfa833db63c9bb76ecf5c7dda62e65e05e37fb77603`. [AppVerifier](https://github.com/soupslurpr/AppVerifier) or `apksigner verify --print-certs` shows the same value for a genuine build.
 
