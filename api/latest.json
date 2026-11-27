@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-27T17:22:11Z",
+  "generated": "2026-11-27T21:34:15Z",
   "repo": "Qutaiba-Khader/morphe-builder",
   "apps": {
     "reddit-experimental": {
@@ -33,7 +33,7 @@
           "arch": "all",
           "size": 92757516,
           "sha256": "2aec6635975a6a67a77ad565e332d7c466102c928003a8875afba551d3dcba1d",
-          "downloads": 13,
+          "downloads": 25,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-morphe-dev/reddit-experimental-morphe-dev-v2026.48.0-all.apk",
           "name": "reddit-experimental-morphe-dev-v2026.48.0-all.apk"
         }
@@ -72,7 +72,7 @@
           "arch": "all",
           "size": 151766852,
           "sha256": "fde9af01fee92981ecfa6bc523ee1c7c206616d8d24dd4705b3a1b370226af29",
-          "downloads": 13,
+          "downloads": 25,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-morphe-dev/youtube-experimental-morphe-dev-v21.47.483-all.apk",
           "name": "youtube-experimental-morphe-dev-v21.47.483-all.apk"
         }
@@ -116,7 +116,7 @@
           "arch": "arm64-v8a",
           "size": 78529178,
           "sha256": "e49efa63aeb78c12002c843dd7634930a407dbdb10b09d0ebaed85da16cc600b",
-          "downloads": 36,
+          "downloads": 48,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-subs/stremio-phone-clone-subs-v2.6.1-arm64-v8a.apk",
           "name": "stremio-phone-clone-subs-v2.6.1-arm64-v8a.apk"
         }
@@ -160,7 +160,7 @@
           "arch": "armeabi-v7a",
           "size": 74184248,
           "sha256": "b07530450601b98bf004ff9db2358861e2bd7803b4a68968e8a8867af5dc66bd",
-          "downloads": 36,
+          "downloads": 48,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-subs/stremio-tv-clone-subs-v1.13.1-armeabi-v7a.apk",
           "name": "stremio-tv-clone-subs-v1.13.1-armeabi-v7a.apk"
         }
@@ -199,7 +199,7 @@
           "arch": "armeabi-v7a",
           "size": 74114556,
           "sha256": "cc3d26f9d7692893b012416f2dd8ccbf1b0d293ef36807049bc004110ee285f8",
-          "downloads": 35,
+          "downloads": 47,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-subs/stremio-tv-replacement-subs-v1.13.1-armeabi-v7a.apk",
           "name": "stremio-tv-replacement-subs-v1.13.1-armeabi-v7a.apk"
         }
@@ -248,7 +248,7 @@
           "arch": "armeabi-v7a",
           "size": 74864240,
           "sha256": "8f39dbdb6ea4f9a7c47b45bb07cf9d36515aa831f5eb59fa5594c43c36f5cb46",
-          "downloads": 36,
+          "downloads": 48,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.27-ambient/stremio-tv-ambient-ambient-v1.13.1-armeabi-v7a.apk",
           "name": "stremio-tv-ambient-ambient-v1.13.1-armeabi-v7a.apk"
         }
@@ -287,7 +287,7 @@
           "arch": "all",
           "size": 96784428,
           "sha256": "42a955d32e727e70753422866a72c0b32aa552e4ddab2a962834b1f2f4cc8a91",
-          "downloads": 53,
+          "downloads": 65,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.26-morphe/reddit-morphe-v2026.40.0-all.apk",
           "name": "reddit-morphe-v2026.40.0-all.apk"
         }
@@ -326,7 +326,7 @@
           "arch": "all",
           "size": 140221928,
           "sha256": "ea8a8b57bb22e1cff3840a273c5c1e93a6b620f25acd3790c03925e5f30784a7",
-          "downloads": 51,
+          "downloads": 63,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.26-morphe/youtube-morphe-v21.30.216-all.apk",
           "name": "youtube-morphe-v21.30.216-all.apk"
         }
@@ -365,7 +365,7 @@
           "arch": "all",
           "size": 499793747,
           "sha256": "a7748220e4ee9198ff597fdc850d0ef5270ce8d13fb5353eb6fef19c6e78d448",
-          "downloads": 694,
+          "downloads": 707,
           "url": "https://github.com/Qutaiba-Khader/morphe-builder/releases/download/26.11.11-metra/tiktok-metra-v47.4.3-all.apk",
           "name": "tiktok-metra-v47.4.3-all.apk"
         }
