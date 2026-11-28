@@ -1,6 +1,6 @@
 {
-  "generated": "2026-11-28T08:19:24Z",
-  "data_generated": "2026-11-27T13:27:59Z",
+  "generated": "2026-11-28T12:42:45Z",
+  "data_generated": "2026-11-28T12:40:38Z",
   "source": {
     "repo": "nvbangg/awesome-morphe",
     "url": "https://github.com/nvbangg/awesome-morphe",
@@ -8,7 +8,7 @@
     "license": "MIT",
     "site": "https://awesome-morphe.vercel.app"
   },
-  "patch_sources": 768,
+  "patch_sources": 771,
   "apps": [
     {
       "package": "__universal__",
@@ -418,18 +418,6 @@
         "Doom",
         "GinArena",
         "Hoodles"
-      ],
-      "built_here": []
-    },
-    {
-      "package": "com.runtastic.android",
-      "file": "api/community/apps/com.runtastic.android.json",
-      "name": "adidas Running",
-      "icon": "https://play-lh.googleusercontent.com/1udXK8cLZbTqF8fY5H1hMfx9uQH7knUHU0-lMGqcZeIqptldP6IUdpg9XdJEqkNz64zF3R-nE68I9NoQh31fnQ=s128-rw",
-      "category": "Health & Fitness",
-      "sources": 1,
-      "top": [
-        "Madusha"
       ],
       "built_here": []
     },
@@ -2478,9 +2466,8 @@
       "name": "Beeper",
       "icon": "https://play-lh.googleusercontent.com/9cVWg4cWxaTRoh3B-lZr30T6QrZNuSxhYEZ15k-WmPW_5Thd0wjrV3z5FW11ce7wU3yjNV6hZGdEyvHVSMrqYA=s128-rw",
       "category": "Communication",
-      "sources": 2,
+      "sources": 1,
       "top": [
-        "Heval",
         "CharlesAttend Beeper"
       ],
       "built_here": []
@@ -2513,7 +2500,7 @@
     {
       "package": "com.gameduell.mobile.belote",
       "file": "api/community/apps/com.gameduell.mobile.belote.json",
-      "name": "Belote.com - Belote & Coinche",
+      "name": "Belote.com",
       "icon": "https://play-lh.googleusercontent.com/mdPXQCuQsuriDuwig844MeRPUmpvV6V3aCzexnIwv23Osp28-rSmJrOQA8q0fS2hO3HRQKRS7ymQjlTZp0It=s128-rw",
       "category": "Card",
       "sources": 1,
@@ -4043,6 +4030,18 @@
       "built_here": []
     },
     {
+      "package": "com.imib.cctv",
+      "file": "api/community/apps/com.imib.cctv.json",
+      "name": "CGTN",
+      "icon": "https://play-lh.googleusercontent.com/K0iwwWHegaoP6A6OgzXyJwyATr-3rpfrzdOfeskuiKDKeo3Vk0El-FxpmZIcdpqmhAg4axho_Vp5DBeMl-Gmw3k=s128-rw",
+      "category": "News & Magazines",
+      "sources": 1,
+      "top": [
+        "Mobile"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.channel4.ondemand",
       "file": "api/community/apps/com.channel4.ondemand.json",
       "name": "Channel 4",
@@ -4501,6 +4500,18 @@
       "built_here": []
     },
     {
+      "package": "com.channelnewsasia",
+      "file": "api/community/apps/com.channelnewsasia.json",
+      "name": "CNA",
+      "icon": "https://play-lh.googleusercontent.com/cn-KCFmE5-42HEcK4ucOfshudANtEd9irhmQ4r3kYNB97aUI2nK_Nl3RPw3km26VhJ8_FddOzt__N8X9_6FjSw=s128-rw",
+      "category": "News & Magazines",
+      "sources": 1,
+      "top": [
+        "Mobile"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.cnbc.client",
       "file": "api/community/apps/com.cnbc.client.json",
       "name": "CNBC",
@@ -4824,6 +4835,18 @@
       "sources": 1,
       "top": [
         "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "org.consumerreports.ratings",
+      "file": "api/community/apps/org.consumerreports.ratings.json",
+      "name": "Consumer Reports",
+      "icon": "https://play-lh.googleusercontent.com/OqrhS_fL4CCKgxHhRhFLx-CCeWOeTbCcK1CUQDVv2DY7xJIQd0lb_HQMH1Cv_hKSmsUiROykRZHNjq2151HW=s128-rw",
+      "category": "Shopping",
+      "sources": 1,
+      "top": [
+        "Mobile"
       ],
       "built_here": []
     },
@@ -6361,6 +6384,18 @@
       "built_here": []
     },
     {
+      "package": "com.ebay.mobile",
+      "file": "api/community/apps/com.ebay.mobile.json",
+      "name": "eBay",
+      "icon": "https://play-lh.googleusercontent.com/q0_ZVJFuUH3WFZuZrP8JUMC54dwz1q_SZZufBDMqYaE8O2sLPulV1_dF3xGMQ6b102MTBZlluAF8z4AgZ-Isow=s128-rw",
+      "category": "Shopping",
+      "sources": 1,
+      "top": [
+        "Mobile"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.hapibits.soundlift",
       "file": "api/community/apps/com.hapibits.soundlift.json",
       "name": "Echo Equalizer",
@@ -6526,8 +6561,8 @@
       "sources": 3,
       "top": [
         "Doom",
-        "ES File Explorer Optimized Suite",
-        "Akkay"
+        "Akkay",
+        "ES File Explorer Optimized Suite"
       ],
       "built_here": []
     },
@@ -6947,6 +6982,18 @@
       "built_here": []
     },
     {
+      "package": "com.jeremysteckling.facerrel",
+      "file": "api/community/apps/com.jeremysteckling.facerrel.json",
+      "name": "Facer",
+      "icon": "https://play-lh.googleusercontent.com/nPsBRz60B-ovX6qFxCL9mi0WqrWdJw3qDBCabJueLol_iZur9A2Sw_9ppUL8IqCm5gnlHLEaYMq8soQLtUCR_A=s128-rw",
+      "category": "Personalization",
+      "sources": 1,
+      "top": [
+        "Fakh"
+      ],
+      "built_here": []
+    },
+    {
       "package": "eu.faircode.email",
       "file": "api/community/apps/eu.faircode.email.json",
       "name": "FairEmail",
@@ -7287,19 +7334,6 @@
       "sources": 1,
       "top": [
         "Heval"
-      ],
-      "built_here": []
-    },
-    {
-      "package": "com.fitbit.FitbitMobile",
-      "file": "api/community/apps/com.fitbit.FitbitMobile.json",
-      "name": "Fitbit",
-      "icon": "https://play-lh.googleusercontent.com/W1N5QAjSPsNwmwLo135MWqTnlCpkULVTVvf4eN_FekTOJ3gV53vi_lhxd3pk8oVXdUuqKPU8SkhA1iRnPzJeng=s128-rw",
-      "category": "Health & Fitness",
-      "sources": 2,
-      "top": [
-        "JoFSlash",
-        "Madusha"
       ],
       "built_here": []
     },
@@ -8103,7 +8137,7 @@
       "name": "Gboard",
       "icon": "https://play-lh.googleusercontent.com/J4vZ82VsZjnsRsI6ckQFXlO36_52QJerqG5-HfLgHffS34I4EfoAFfNdbf6s4wBAsUEf8DOJVEDEHh5tzWbrnA=s128-rw",
       "category": "Tools",
-      "sources": 33,
+      "sources": 32,
       "top": [
         "PixelBoard",
         "Gboard",
@@ -8443,6 +8477,18 @@
       "sources": 1,
       "top": [
         "Mben"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.fitbit.FitbitMobile",
+      "file": "api/community/apps/com.fitbit.FitbitMobile.json",
+      "name": "Google Health",
+      "icon": "https://play-lh.googleusercontent.com/W1N5QAjSPsNwmwLo135MWqTnlCpkULVTVvf4eN_FekTOJ3gV53vi_lhxd3pk8oVXdUuqKPU8SkhA1iRnPzJeng=s128-rw",
+      "category": "Health & Fitness",
+      "sources": 1,
+      "top": [
+        "JoFSlash"
       ],
       "built_here": []
     },
@@ -9393,6 +9439,18 @@
       "built_here": []
     },
     {
+      "package": "com.shvagerfm.bestronger",
+      "file": "api/community/apps/com.shvagerfm.bestronger.json",
+      "name": "Home workouts BeStronger",
+      "icon": "https://play-lh.googleusercontent.com/y0mzPFmSpmF13R4OHw6vo5bYc-RUi9HrN3kpyEytUVE_LerEq12fiws_DtK4rjMJdr7K0Um7Qd0sYi6irRL8JA=s128-rw",
+      "category": "Health & Fitness",
+      "sources": 1,
+      "top": [
+        "Beyonder"
+      ],
+      "built_here": []
+    },
+    {
       "package": "cc.honista.app",
       "file": "api/community/apps/cc.honista.app.json",
       "name": "Honista",
@@ -9586,6 +9644,18 @@
       "built_here": []
     },
     {
+      "package": "com.hulu.livingroomplus",
+      "file": "api/community/apps/com.hulu.livingroomplus.json",
+      "name": "Hulu",
+      "icon": "https://play-lh.googleusercontent.com/x-b0Dt61tgA4qii40Nmj0QMabrv2LtmZcn51Yu866Cb4dAL98BuyOG7fYtPSoT302LKaBh7fnHdhCqFLc_pjvQ=s128-rw",
+      "category": "Entertainment",
+      "sources": 1,
+      "top": [
+        "TV"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.hulu.plus",
       "file": "api/community/apps/com.hulu.plus.json",
       "name": "Hulu",
@@ -9594,18 +9664,6 @@
       "sources": 1,
       "top": [
         "Mobile"
-      ],
-      "built_here": []
-    },
-    {
-      "package": "com.hulu.livingroomplus",
-      "file": "api/community/apps/com.hulu.livingroomplus.json",
-      "name": "Hulu (Android TV)",
-      "icon": "https://play-lh.googleusercontent.com/x-b0Dt61tgA4qii40Nmj0QMabrv2LtmZcn51Yu866Cb4dAL98BuyOG7fYtPSoT302LKaBh7fnHdhCqFLc_pjvQ=s128-rw",
-      "category": "Entertainment",
-      "sources": 1,
-      "top": [
-        "TV"
       ],
       "built_here": []
     },
@@ -9952,6 +10010,18 @@
       "built_here": []
     },
     {
+      "package": "com.imo.android.imoimhd",
+      "file": "api/community/apps/com.imo.android.imoimhd.json",
+      "name": "IMO",
+      "icon": "https://play-lh.googleusercontent.com/h3meMiv4LWSpzYC3Dpi0MFIXMJI1sQSG_QUDXNCxjVhlUxEAyquWqUVlPk3NL6N33kKEjoMcUfOjjiZeXg8TfCE=s128-rw",
+      "category": "Communication",
+      "sources": 1,
+      "top": [
+        "Loki"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.imperihome.lite",
       "file": "api/community/apps/com.imperihome.lite.json",
       "name": "ImperiHome",
@@ -10130,7 +10200,7 @@
       "name": "Instagram",
       "icon": "https://play-lh.googleusercontent.com/yHi59jmO_lVamcyJ1i3rM1_E8bAiAspShnGjjURq05ipQQSUksO3QVEsXTegRSqul038-4YNA7O644XAcx251Q=s128-rw",
       "category": "Social",
-      "sources": 23,
+      "sources": 25,
       "top": [
         "Piko",
         "HushGram",
@@ -11042,9 +11112,10 @@
       "name": "kicker",
       "icon": "https://play-lh.googleusercontent.com/b0AyJeaMudACsKBQYcP6AiyjVpATXY3zZ-nhocfYTgwxkwM6Rfaz_bx_08kpFgy0UphcMJwYRoI63VikMhcv=s128-rw",
       "category": "Sports",
-      "sources": 2,
+      "sources": 3,
       "top": [
         "PyFlat",
+        "Arkert",
         "kicker"
       ],
       "built_here": []
@@ -11480,11 +11551,12 @@
     {
       "package": "com.overdrive.mobile.android.libby",
       "file": "api/community/apps/com.overdrive.mobile.android.libby.json",
-      "name": "Libby: Read Library Books",
+      "name": "Libby",
       "icon": "https://play-lh.googleusercontent.com/lpBK-GpPRCNO9LUUVUFC4P2aB8J2B0c44au6XmLEu-wPlZKSPwvUK2U0rqQthkUlsBHgoBCnnS_p8mvH9fwCFw=s128-rw",
       "category": "Books & Reference",
-      "sources": 1,
+      "sources": 2,
       "top": [
+        "Mobile",
         "Libby"
       ],
       "built_here": []
@@ -12764,12 +12836,13 @@
     {
       "package": "com.getmimo",
       "file": "api/community/apps/com.getmimo.json",
-      "name": "Mimo: Learn Python Coding & AI",
+      "name": "Mimo",
       "icon": "https://play-lh.googleusercontent.com/L6b68qSB3yeqDkTd9cmBvImYgPmn4bHujX75G-3mdXgeXi6ZAzaUPkKD-bvj3_HNOVpaRRymixZQ0-22xLra=s128-rw",
       "category": "Education",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "Hoodles"
+        "Hoodles",
+        "AWT"
       ],
       "built_here": []
     },
@@ -15011,6 +15084,18 @@
       "built_here": []
     },
     {
+      "package": "pl.tablica",
+      "file": "api/community/apps/pl.tablica.json",
+      "name": "OLX.PL: Classifieds of Poland",
+      "icon": "https://play-lh.googleusercontent.com/TGPMLjf_sNhfxu4lJAEszP_T4bSOcQ8rqzUl0AvCGe-lXSjlqNRFbAk3RU5IqNJR4Yy7ylGFybroKIoPYwD6sA=s128-rw",
+      "category": "Shopping",
+      "sources": 1,
+      "top": [
+        "Morphed PL"
+      ],
+      "built_here": []
+    },
+    {
       "package": "nl.omroepbrabant.android",
       "file": "api/community/apps/nl.omroepbrabant.android.json",
       "name": "Omroep Brabant",
@@ -16330,6 +16415,18 @@
       "built_here": []
     },
     {
+      "package": "com.google.android.apps.nexuslauncher",
+      "file": "api/community/apps/com.google.android.apps.nexuslauncher.json",
+      "name": "Pixel Launcher",
+      "icon": "",
+      "category": "",
+      "sources": 1,
+      "top": [
+        "bearinmind"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.google.android.apps.pixel.agent",
       "file": "api/community/apps/com.google.android.apps.pixel.agent.json",
       "name": "Pixel Screenshots",
@@ -16547,6 +16644,18 @@
       "sources": 1,
       "top": [
         "Dutch App"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.pluralsight",
+      "file": "api/community/apps/com.pluralsight.json",
+      "name": "Pluralsight",
+      "icon": "https://play-lh.googleusercontent.com/ELX6L6AzR8FeqkE2RUCRCJsN3afZO6oaK9loQwW9KGxKrF5cCohuh7IiWClEZEsNciZhXQuxR0muERt4DpXr=s128-rw",
+      "category": "Education",
+      "sources": 1,
+      "top": [
+        "Madusha"
       ],
       "built_here": []
     },
@@ -17178,10 +17287,11 @@
       "name": "Proxyman",
       "icon": "https://play-lh.googleusercontent.com/DfGml5bkf56G_Q3sOmQwGXOoixLShTs_-s1oDyTWawjAbFt3ej5WPFrAT2NnWMy9XkblegmgCcKwmZcNnskRnQ=s128-rw",
       "category": "Tools",
-      "sources": 2,
+      "sources": 3,
       "top": [
         "Doom",
-        "Proteus"
+        "Proteus",
+        "toidicakhia"
       ],
       "built_here": []
     },
@@ -17550,6 +17660,18 @@
       "sources": 1,
       "top": [
         "ajstrick81"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "tv.wuaki.apptv",
+      "file": "api/community/apps/tv.wuaki.apptv.json",
+      "name": "Rakuten TV",
+      "icon": "https://play-lh.googleusercontent.com/IykuwRTUmE1sMb4eFOyfol4_NUkuctNnRwzswsze5gVRsi7nncC2MhOg7xndd3tP-SV2NSY9ge5Yh9hinyc-=s128-rw",
+      "category": "Entertainment",
+      "sources": 1,
+      "top": [
+        "TV"
       ],
       "built_here": []
     },
@@ -19492,6 +19614,18 @@
       "built_here": []
     },
     {
+      "package": "com.skillshare.Skillshare",
+      "file": "api/community/apps/com.skillshare.Skillshare.json",
+      "name": "Skillshare",
+      "icon": "https://play-lh.googleusercontent.com/CUOZ-LUnYoJz-w93HrTcPXvyO80GJHPfrPSH8dfWtzYo6aTh3NAC-WxddxDGt8-6lTeQMH1Wlcuvk7cLV7CV=s128-rw",
+      "category": "Education",
+      "sources": 1,
+      "top": [
+        "Madusha"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.vitotechnology.sky.tonight.map.star.walk",
       "file": "api/community/apps/com.vitotechnology.sky.tonight.map.star.walk.json",
       "name": "Sky Tonight",
@@ -20221,7 +20355,7 @@
       "name": "Spotify",
       "icon": "https://play-lh.googleusercontent.com/IzQgYCcnCFCD08GR-3bdtcT8xzOvrNkC84avGT5CwTX2VIqmTmKKJcP_Cd4JoBOdmCMlTndlOzV6hrthg2fOWA=s128-rw",
       "category": "Music & Audio",
-      "sources": 16,
+      "sources": 17,
       "top": [
         "Spicetify Android",
         "chirag127",
@@ -21140,10 +21274,9 @@
       "name": "Teams",
       "icon": "https://play-lh.googleusercontent.com/afnciqsoxrp8BYGFAS_BZtUBn2NvmxTVoKFproR5SljREfTBnueRjPxzxCXvIJNYTUdbtOWz-_GjVuOCMfi7fiU=s128-rw",
       "category": "Business",
-      "sources": 3,
+      "sources": 2,
       "top": [
         "Doom",
-        "Madusha",
         "Teams Integrity PoC"
       ],
       "built_here": []
@@ -21298,18 +21431,6 @@
       "built_here": []
     },
     {
-      "package": "com.enflick.android.TextNow",
-      "file": "api/community/apps/com.enflick.android.TextNow.json",
-      "name": "TextNow",
-      "icon": "https://play-lh.googleusercontent.com/dhPBaff_7shT1IF0fV0P1R0psaYknV9ppvu1IyNrj3f1uXET9F56C_7w5OvfT16nKdKIGJG8Q86QI0YsjU6tIA=s128-rw",
-      "category": "Communication",
-      "sources": 1,
-      "top": [
-        "Madusha"
-      ],
-      "built_here": []
-    },
-    {
       "package": "com.nexon.tfdc",
       "file": "api/community/apps/com.nexon.tfdc.json",
       "name": "TFD Companion",
@@ -21438,6 +21559,18 @@
       "sources": 1,
       "top": [
         "TV"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.buuuk.st",
+      "file": "api/community/apps/com.buuuk.st.json",
+      "name": "The Straits Times",
+      "icon": "https://play-lh.googleusercontent.com/H4oorotgtuyBKWfzuTWqxHF9F2COo41sMutjRyg3QJoRlgcZ5q7ZWcdK1mfRgvXsWnD4cf93tTgJ1xKug0Rq=s128-rw",
+      "category": "News & Magazines",
+      "sources": 1,
+      "top": [
+        "Mobile"
       ],
       "built_here": []
     },
@@ -21587,8 +21720,8 @@
       "sources": 4,
       "top": [
         "Dutch App",
-        "chukfinley TIDAL",
-        "MaterialTidal"
+        "MaterialTidal",
+        "chukfinley TIDAL"
       ],
       "built_here": []
     },
@@ -22420,7 +22553,7 @@
       "name": "Twitch",
       "icon": "https://play-lh.googleusercontent.com/JHCM4AIyomRp6Lo2-5ugoznlGdsZmNnejVN8DLvtWFHShcz8YRgUE170f1CyOfrleYbtFL2g8tQ3VqlQNAgqoA=s128-rw",
       "category": "Entertainment",
-      "sources": 11,
+      "sources": 12,
       "top": [
         "ajstrick81",
         "Hooman",
@@ -22747,18 +22880,6 @@
       "built_here": []
     },
     {
-      "package": "com.vbook.android",
-      "file": "api/community/apps/com.vbook.android.json",
-      "name": "vBook",
-      "icon": "https://play-lh.googleusercontent.com/QACpTXr6qt8sdLH-hMRpnOITxUa37cYq-dA7pfkYjSKMeGcd-bogueLJe37CjDOWPqxfPVIoZqldRsUIEYeE6A=s128-rw",
-      "category": "Books & Reference",
-      "sources": 1,
-      "top": [
-        "HaoDH vBook"
-      ],
-      "built_here": []
-    },
-    {
       "package": "com.vivo.vivotws",
       "file": "api/community/apps/com.vivo.vivotws.json",
       "name": "vEarphones",
@@ -22930,6 +23051,18 @@
       "built_here": []
     },
     {
+      "package": "com.fundevs.app.mediaconverter",
+      "file": "api/community/apps/com.fundevs.app.mediaconverter.json",
+      "name": "Video MP3 Converter",
+      "icon": "https://play-lh.googleusercontent.com/2dQLowFervR2n97kK8Kp2u7QeJA2qCMHuP79rsltM18cB0q7Jg482vVDiElaOmdhSoB7DmKMQ3zXpQyco3SL3Jc=s128-rw",
+      "category": "Music & Audio",
+      "sources": 1,
+      "top": [
+        "hxreborn"
+      ],
+      "built_here": []
+    },
+    {
       "package": "video.player.videoplayer",
       "file": "api/community/apps/video.player.videoplayer.json",
       "name": "Video Player All Format",
@@ -22983,8 +23116,9 @@
       "name": "Viki",
       "icon": "https://play-lh.googleusercontent.com/UEsYcM2VWWJOW1GfrzMPVVReav7gf2TKQVYPr_H-rAKc8FPv0DrxVYGAk-4M3aQ_BXrwg0gRaoFK6dT_BOU_tQ=s128-rw",
       "category": "Entertainment",
-      "sources": 1,
+      "sources": 2,
       "top": [
+        "Mobile",
         "Aimal"
       ],
       "built_here": []
@@ -23603,7 +23737,7 @@
       "name": "Waze",
       "icon": "https://play-lh.googleusercontent.com/d4dltd4baeDGnfJD1H-ut68ERsIynfywij9zHRL7ioB-PJW3ENw-bFgg08KGPo8zQfSyRW36e58xhlqQ0pE1gg=s128-rw",
       "category": "Maps & Navigation",
-      "sources": 17,
+      "sources": 18,
       "top": [
         "bearinmind",
         "Forsigh Waze",
@@ -23620,6 +23754,18 @@
       "sources": 1,
       "top": [
         "QM"
+      ],
+      "built_here": []
+    },
+    {
+      "package": "com.thina.welovedeals",
+      "file": "api/community/apps/com.thina.welovedeals.json",
+      "name": "We Love Deals",
+      "icon": "https://play-lh.googleusercontent.com/N5hECE7jTeyOVErssF2u30pplIcYKA5Dr6ug0jj772DVrR1DwlHqGbAcYKCgbW0MSBTnpoKUjkH8M6DiwkaVdA=s128-rw",
+      "category": "Lifestyle",
+      "sources": 1,
+      "top": [
+        "Madusha"
       ],
       "built_here": []
     },
@@ -24307,13 +24453,26 @@
       "built_here": []
     },
     {
+      "package": "com.xinhuamm.xinhuanews",
+      "file": "api/community/apps/com.xinhuamm.xinhuanews.json",
+      "name": "Xinhua News",
+      "icon": "https://play-lh.googleusercontent.com/UCzhbgHvABq4qy3bB-7VL8S_t7kzwS7VSwRCcg8EVR-ICLdlhB2EeCKRjAdUEZqVi_yB37f73el9Mh5CN5O3IQ=s128-rw",
+      "category": "News & Magazines",
+      "sources": 1,
+      "top": [
+        "Mobile"
+      ],
+      "built_here": []
+    },
+    {
       "package": "io.supercent.weaponrpg",
       "file": "api/community/apps/io.supercent.weaponrpg.json",
       "name": "XP Hero",
       "icon": "https://play-lh.googleusercontent.com/ar-oRoBtoJXIBCzL_QV4w5r7RJhCrRSHl1Hggi_hsy16yL55kCJyG96TqJF-kAQNwk7FfZG0BoBMK57Pe9t-Bg=s128-rw",
       "category": "Role Playing",
-      "sources": 1,
+      "sources": 2,
       "top": [
+        "Lopikss",
         "Lopikss"
       ],
       "built_here": []
@@ -24690,6 +24849,18 @@
       "built_here": []
     },
     {
+      "package": "kr.co.yna.YonhapNewsEnglish",
+      "file": "api/community/apps/kr.co.yna.YonhapNewsEnglish.json",
+      "name": "Yonhap News English",
+      "icon": "https://play-lh.googleusercontent.com/0DhioKz2QtcMKkjXPBQoKN3Se0cuGnzVWGG-gh6EEZER3jXfEzlgYERbHMb4DFN2dTP4OH3kQy1CdiF8-50D3A=s128-rw",
+      "category": "News & Magazines",
+      "sources": 1,
+      "top": [
+        "Mobile"
+      ],
+      "built_here": []
+    },
+    {
       "package": "com.camerasideas.trimmer",
       "file": "api/community/apps/com.camerasideas.trimmer.json",
       "name": "YouCut",
@@ -24735,7 +24906,7 @@
       "top": [
         "MorpheApp",
         "RVX",
-        "chirag127"
+        "RVX"
       ],
       "built_here": [
         "youtube",
@@ -24762,9 +24933,10 @@
       "name": "YouTube Kids",
       "icon": "https://play-lh.googleusercontent.com/XmNSJLiwxfeoGwofbTZ37le-jDNAdZmHbVo7un7y2g-d-A3iD0LKUm1FMAgdURw8PFEiFh4Vv14u7q_nvET-=s128-rw",
       "category": "Entertainment",
-      "sources": 1,
+      "sources": 2,
       "top": [
-        "JoFSlash"
+        "JoFSlash",
+        "titaniumgui"
       ],
       "built_here": []
     },
@@ -24774,7 +24946,7 @@
       "name": "YouTube Music",
       "icon": "https://play-lh.googleusercontent.com/MyptZXmcCyF59phIWPsNCfHq6zSO_ojEdw_4rMYYWPOGdikSjqeOXcoszBZ053VYpINe5K7ZR9KV1nkFWgxdOw=s128-rw",
       "category": "Music & Audio",
-      "sources": 38,
+      "sources": 39,
       "top": [
         "MorpheApp",
         "RVX",
@@ -24797,7 +24969,7 @@
     {
       "package": "com.google.android.youtube.tvunplugged",
       "file": "api/community/apps/com.google.android.youtube.tvunplugged.json",
-      "name": "YouTube TV (Android TV)",
+      "name": "YouTube TV",
       "icon": "https://play-lh.googleusercontent.com/BdXa_K7GYXJwsbMbGBVCkGqE6K-2eM_jKEfUN37U0RKeOZV5NmYNYYiaHBHeABTlEHQgnhBzQP_nSoe9ofTy=s128-rw",
       "category": "Entertainment",
       "sources": 1,
