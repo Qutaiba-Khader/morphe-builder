@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-27T13:27:40Z",
+  "generated": "2026-11-28T12:40:22Z",
   "cli": "morphe-desktop-2.4.0-all.jar",
   "sources": {
     "github:MorpheApp/morphe-patches@dev": {
-      "patch_count": 266,
+      "patch_count": 269,
       "universal_patches": [
         "Change installer source",
         "Clone app",
@@ -611,6 +611,10 @@
               "default": true
             },
             {
+              "name": "Open shared links",
+              "default": false
+            },
+            {
               "name": "Open Shorts in regular player",
               "default": true
             },
@@ -684,6 +688,10 @@
             },
             {
               "name": "Replay slower button",
+              "default": true
+            },
+            {
+              "name": "Restore old Cast behavior",
               "default": true
             },
             {
@@ -986,6 +994,10 @@
               "default": true
             },
             {
+              "name": "High-contrast navigation buttons",
+              "default": true
+            },
+            {
               "name": "Home feed tabs",
               "default": true
             },
@@ -1089,7 +1101,7 @@
         }
       },
       "url": "https://github.com/MorpheApp/morphe-patches",
-      "version": "v2.5.0-dev.2",
+      "version": "v2.5.0-dev.3",
       "spec": "dev",
       "used_by": [
         {
